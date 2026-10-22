@@ -119,3 +119,16 @@ table.data{min-width:0}
 .hl-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .hl-eq{font:500 14px var(--f-mono)}.hl-eq small{color:var(--muted);margin-left:6px}
 .hl-row label{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+/* touch targets: at least ~44px on phones */
+@media (max-width:900px){
+  .btn{min-height:44px;padding:10px 16px}
+  .btn.link{min-height:40px}
+  .seg button{min-height:40px;padding:8px 14px}
+  select,input[type=text]{min-height:44px}
+  input[type=checkbox]{width:22px;height:22px}
+  .check,.pt{min-height:44px;align-items:center}
+  .pt input{margin-top:0}
+  .quiz .opts button,.sopts button{min-height:44px}
+  input[type=range]{min-height:44px}
+  .steps a{min-height:40px}
+}
