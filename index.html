@@ -704,6 +704,40 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
 .fs .ptinfo dt{font:500 12.5px var(--f-body);color:var(--muted);white-space:nowrap}
 .fs .ptinfo dd{text-align:left;font:500 13px var(--f-mono);color:var(--ink)}
 
+/* ---- unit-cancelling lab ---- */
+.un-chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;min-height:84px;padding:12px;border:1px dashed var(--line);border-radius:12px;background:var(--sunk)}
+.un-chain .times{font:600 18px var(--f-math);color:var(--muted)}
+.frac{display:inline-flex;flex-direction:column;align-items:center;font:500 14.5px/1.35 var(--f-mono);padding:2px 4px;border-radius:8px;background:var(--surface);border:1px solid var(--line);animation:pop-in var(--d-3) var(--ease-spring) both;cursor:default}
+.frac.rm{cursor:pointer}.frac.rm:hover{border-color:var(--bad)}
+.frac .n,.frac .d{padding:1px 6px;white-space:nowrap}.frac .n{border-bottom:1.5px solid var(--ink)}
+.frac .n.one,.frac .d.one{color:var(--muted)}
+.u{display:inline-block;transition:color var(--d-2),opacity var(--d-3),transform var(--d-3) var(--ease-out)}
+.u.x{color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px;opacity:.55;transform:translateY(-1px) scale(.92)}
+.un-tiles{display:flex;flex-wrap:wrap;gap:10px}
+.un-tile{display:flex;align-items:center;gap:4px}
+.un-tile .frac{cursor:pointer;transition:transform var(--d-1),box-shadow var(--d-1)}.un-tile .frac:hover{transform:translateY(-2px);box-shadow:var(--shadow-1)}
+.un-tile .flip{border:1px solid var(--line);background:var(--surface);border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:15px;line-height:1}
+.un-res{font:600 17px var(--f-mono);min-height:30px}
+.un-res.ok{color:var(--good)}.un-res.warn{color:var(--hot)}
+.un-q{margin:0;font-weight:500}
+
+/* ---- sig figs ---- */
+.chips{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px;min-height:64px;padding:10px 12px;border-radius:12px;background:var(--sunk)}
+.chip-d{display:inline-flex;flex-direction:column;align-items:center;gap:3px;font:600 26px/1 var(--f-mono);min-width:26px}
+.chip-d b{font:inherit;padding:6px 7px;border-radius:8px;border:2px solid var(--line);background:var(--surface);transition:background var(--d-2),border-color var(--d-2),transform var(--d-2) var(--ease-spring)}
+.chip-d small{font:500 9.5px var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);height:11px}
+.chip-d.sig b{border-color:var(--good);background:color-mix(in srgb,var(--good) 16%,var(--surface));transform:translateY(-3px)}
+.chip-d.lead b{color:var(--muted);border-style:dashed}
+.chip-d.amb b{border-color:var(--hot);border-style:dashed;background:color-mix(in srgb,var(--hot) 12%,var(--surface))}
+.chip-d.pt b{border:0;background:none;padding:6px 1px;color:var(--ink)}
+.chip-x{font:600 22px var(--f-mono);padding:0 6px;align-self:center}
+.colmath{font:500 20px/1.5 var(--f-mono);overflow-x:auto;padding:10px 12px;border-radius:12px;background:var(--sunk);white-space:pre}
+.colmath .row{display:block}
+.colmath .cd{display:inline-block;width:1ch;text-align:center}
+.colmath .unc{color:var(--hot);background:color-mix(in srgb,var(--hot) 14%,transparent);border-radius:3px}
+.colmath .lim{outline:2px solid var(--cv);outline-offset:1px;border-radius:3px}
+.colmath .sep{display:block;border-top:2px solid var(--ink);margin:3px 0}
+
 </style>
 
 <div class="fs-scrim" id="fs-scrim" aria-hidden="true"></div>
@@ -817,6 +851,237 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
       </div>
       <div class="tablewrap"><table><thead><tr><th>Unit</th><th>Topic</th><th>Modules</th></tr></thead><tbody id="ov-map"></tbody></table></div>
       <p class="small">Free-response practice here is original: written for this site in the style of the current exam, not copied from past exams. Official past questions and scoring guidelines are on <a href="https://apcentral.collegeboard.org/courses/ap-chemistry/exam/past-exam-questions" target="_blank" rel="noopener">AP Central</a>.</p>
+    </div>
+  </section>
+
+  <section class="view" id="v-units" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>Units &amp; dimensional analysis</h1>
+        <p class="lede">Every chemistry calculation is a chain of conversions. Write the units next to the numbers, and let them cancel until only the unit you want is left.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A <b>conversion factor</b> is a fraction that equals 1, like 1000 mL / 1 L. Multiplying by 1 never changes the amount, only how it is written. Pick the version of the fraction that puts the unit you want to get rid of on the opposite side from where it sits now, and it cancels, the way a number cancels in a fraction.</p>
+        <p>Nobody has to remember "multiply or divide?". If the units cancel to what you want, the setup is right. If they don't, the setup is wrong, before you touch a calculator.</p>
+      </div>
+      <div class="lab" id="un-lab" data-reset="own">
+        <div class="labbar"><span class="title">Unit-cancelling lab</span><div class="row"><button type="button" class="btn" id="un-clear">Clear the chain</button></div></div>
+        <div class="ctl"><label for="un-prob"><span>Problem</span></label><select id="un-prob" aria-label="Problem"></select></div>
+        <p class="un-q" id="un-q"></p>
+        <div class="un-chain" id="un-chain" aria-live="polite"></div>
+        <div class="un-res" id="un-res" aria-live="polite"></div>
+        <div><span class="small">Tap a factor to add it to the chain. Tap ⇅ first to turn it upside down. Tap a factor in the chain to remove it.</span><div class="un-tiles" id="un-tiles" style="margin-top:8px"></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Convert 2.50 L to mL. Add the factor that cancels L. <button type="button" class="btn link" data-show='[["#un-prob","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Put mL on top and L on the bottom: 1000 mL / 1 L. The L cancels and leaves 2500 mL. If you add it upside down, L ends up squared on the bottom and mL is on the bottom too, and nothing cancels.</p></details></li>
+        <li><p>Turn a rate into another rate: 72 km/h to m/s needs two factors. <button type="button" class="btn link" data-show='[["#un-prob","1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>One factor changes km to m (1000 m / 1 km). The other changes h to s (1 h / 3600 s), flipped so that h cancels. The answer is 20 m/s.</p></details></li>
+        <li><p>Go from grams to a count of particles. Which two conversions does it take? <button type="button" class="btn link" data-show='[["#un-prob","2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Grams to moles uses the molar mass (1 mol / 58.44 g). Moles to particles uses Avogadro's number. The gram units cancel first, then the moles.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How many hydrogen atoms are in 5.0 g of water?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Start with what you have and what you want.</b> You have 5.0 g H₂O. You want atoms of H.</li>
+          <li hidden><b>Grams to moles of water.</b> The molar mass of H₂O is 18.02 g/mol, so multiply by (1 mol H₂O / 18.02 g H₂O). The grams cancel.</li>
+          <li hidden><b>Moles of water to moles of H.</b> Each H₂O has 2 H, so multiply by (2 mol H / 1 mol H₂O). The moles of water cancel.</li>
+          <li hidden><b>Moles of H to atoms.</b> Multiply by (6.022 × 10²³ atoms H / 1 mol H). The moles of H cancel, leaving atoms of H.</li>
+          <li hidden><b>Calculate.</b> 5.0 × (1/18.02) × 2 × 6.022 × 10²³ = <b>3.3 × 10²³ atoms of H</b>. Two significant figures, because 5.0 has two.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Multiplying by the factor the wrong way up. If the units don't cancel, flip it.</li>
+        <li>Dropping units partway through, so there is nothing to check the setup against.</li>
+        <li>Using a factor with mismatched labels, such as mol NaCl in one place and mol Na in another. They are different things and don't cancel.</li>
+        <li>Rounding in the middle of a chain. Keep a few extra digits and round once at the end.</li>
+        <li>Forgetting that squared or cubed units need squared or cubed factors: 1 m³ is (100 cm)³ = 10⁶ cm³, not 100 cm³.</li>
+      </ul></div>
+      <div class="prose"><h2>How to set up any conversion</h2>
+        <p>Write the starting quantity with its unit. Choose a factor with the unit you want to remove in the denominator. Cancel. Repeat until only the target unit remains. The numerical value of each factor comes from a definition (1 kg = 1000 g), a measured property (molar mass, density) or a chemical formula (2 H per H₂O).</p>
+        <p>Exact definitions such as 1000 mL = 1 L never limit significant figures. Measured values such as a molar mass can. Molar masses are usually given to enough digits not to be the weakest link.</p></div>
+      <div class="quiz" data-correct="1" data-explain="You want to remove km, so km must sit in the denominator of the factor: 1000 m / 1 km. The km then cancels with the km in the starting quantity.">
+        <p class="q">Check yourself: to convert 3.2 km to m, which factor do you multiply by?</p>
+        <div class="opts"><button type="button">1 km / 1000 m</button><button type="button">1000 m / 1 km</button><button type="button">1000 km / 1 m</button><button type="button">1 m / 1000 km</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-sigfigs" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>Scientific notation &amp; sig figs</h1>
+        <p class="lede">A measurement is only as good as its last trusted digit. Significant figures say how many digits you can trust. Scientific notation writes very big and very small numbers without a pile of zeros.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>If a ruler is marked in millimeters and you read 12.3 cm, the 3 is your best guess between marks. Every digit you are sure of, plus that one guessed digit, is <b>significant</b>. Writing 12.30 claims you could read to the next digit; writing 12 claims you could not.</p>
+        <p>Zeros are only placeholders when they sit before the first nonzero digit (0.0045), or at the end of a number with no decimal point (1200). A trailing zero after a decimal point (1.200) is a claim of precision, so it counts.</p>
+      </div>
+      <div class="lab" id="sf-lab1">
+        <div class="labbar"><span class="title">Which digits count?</span></div>
+        <div class="row"><div class="ctl" style="flex:1 1 220px"><label for="sf-in"><span>Type any number (like 0.004050 or 3.00e5)</span></label><input type="text" id="sf-in" value="0.004050" autocomplete="off" spellcheck="false" inputmode="text"></div>
+          <div class="seg" id="sf-pick" role="group" aria-label="Examples"><button type="button" data-v="0.004050" aria-pressed="true">0.004050</button><button type="button" data-v="1200" aria-pressed="false">1200</button><button type="button" data-v="1200." aria-pressed="false">1200.</button><button type="button" data-v="100.0" aria-pressed="false">100.0</button><button type="button" data-v="3.00e5" aria-pressed="false">3.00e5</button></div></div>
+        <div class="chips" id="sf-chips" aria-live="polite"></div>
+        <div class="readout"><div><span>Significant figures</span><strong class="v" id="sf-n">—</strong></div><div><span>In scientific notation</span><strong id="sf-sci" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" id="sf-why" style="margin:0"></p>
+      </div>
+      <div class="lab" id="sf-lab2">
+        <div class="labbar"><span class="title">Calculator rounding</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="sf-a"><span>First number</span></label><input type="text" id="sf-a" value="12.11" autocomplete="off" spellcheck="false"></div>
+          <div class="ctl"><label for="sf-op"><span>Operation</span></label><select id="sf-op"><option value="+">add (+)</option><option value="-">subtract (−)</option><option value="*">multiply (×)</option><option value="/">divide (÷)</option></select></div>
+          <div class="ctl"><label for="sf-b"><span>Second number</span></label><input type="text" id="sf-b" value="0.023" autocomplete="off" spellcheck="false"></div>
+        </div>
+        <div class="colmath" id="sf-col" aria-live="polite"></div>
+        <div class="readout"><div><span>Calculator shows</span><strong id="sf-raw">—</strong></div><div><span>Rule</span><strong id="sf-rule" style="white-space:normal;font-size:15px">—</strong></div><div><span>Report</span><strong class="v" id="sf-ans">—</strong></div></div>
+      </div>
+      <div class="lab" id="sf-lab3">
+        <div class="labbar"><span class="title">Slide the decimal point</span></div>
+        <div class="controls"><div class="ctl"><label for="sf-q"><span>Quantity</span></label><select id="sf-q"></select></div>
+          <div class="ctl"><label for="sf-e"><span>Power of ten</span> <output id="sf-e-out"></output></label><input type="range" id="sf-e" min="-4" max="4" step="1" value="0"></div></div>
+        <div class="chips" id="sf-slide"></div>
+        <div class="readout"><div><span>Same number, written as</span><strong id="sf-w" style="white-space:normal;font-size:15px">—</strong></div><div><span>Proper scientific notation?</span><strong id="sf-ok">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>How many significant figures are in 1200? What about 1200. and 1.200e3? <button type="button" class="btn link" data-show='[["#sf-in","1200"]]'>Show 1200</button> <button type="button" class="btn link" data-show='[["#sf-in","1200."]]'>Show 1200.</button> <button type="button" class="btn link" data-show='[["#sf-in","1.200e3"]]'>Show 1.200e3</button></p><details><summary>What you should see</summary><p>1200 has two (the zeros are ambiguous placeholders), 1200. has four (the decimal point says the zeros were measured), and 1.200 × 10³ has four. Scientific notation removes the ambiguity.</p></details></li>
+        <li><p>Multiply 4.56 by 1.4. How many digits can you keep? <button type="button" class="btn link" data-show='[["#sf-a","4.56"],["#sf-op","*"],["#sf-b","1.4"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The calculator shows 6.384, but 1.4 has only two significant figures, so the answer is 6.4. For multiplying and dividing, count significant figures and keep the fewest.</p></details></li>
+        <li><p>Add 12.11 and 0.023. Which number sets the limit? <button type="button" class="btn link" data-show='[["#sf-a","12.11"],["#sf-op","+"],["#sf-b","0.023"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The sum is 12.133, but 12.11 is only known to the hundredths column, so the answer is 12.13. For adding and subtracting, line up the decimal points and keep the fewest decimal places.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A student weighs 2.50 g of a salt, then measures its volume as 1.2 mL. Report the density with the right number of significant figures.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Count significant figures.</b> 2.50 has three (the trailing zero is after a decimal point). 1.2 has two.</li>
+          <li hidden><b>Pick the rule.</b> Density is mass ÷ volume: a division, so keep the fewest significant figures. That is two.</li>
+          <li hidden><b>Calculate.</b> 2.50 / 1.2 = 2.0833… on the calculator.</li>
+          <li hidden><b>Round once, at the end.</b> Two significant figures: <b>2.1 g/mL</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Counting leading zeros: 0.0045 has two significant figures, not four.</li>
+        <li>Dropping a trailing zero that matters: 2.50 is not the same claim as 2.5.</li>
+        <li>Using the multiply rule for addition, or the other way round. Sig figs for × ÷; decimal places for + −.</li>
+        <li>Rounding in the middle of a multi-step problem. Round once, at the end.</li>
+        <li>Counting exact numbers (like 12 eggs, or 1000 mL = 1 L) as if they limited the answer. Exact numbers have unlimited significant figures.</li>
+      </ul></div>
+      <div class="prose"><h2>The two rounding rules</h2>
+        <p><b>Multiplying and dividing:</b> the answer has as many significant figures as the input with the fewest. <b>Adding and subtracting:</b> the answer has as many decimal places as the input with the fewest. These are different because adding combines uncertainties in absolute terms (so what matters is the last column), while multiplying combines them in relative terms (so what matters is the count of digits).</p>
+        <p>Scientific notation writes a number as <i>m</i> × 10<sup><i>n</i></sup> with 1 ≤ <i>m</i> &lt; 10. Every digit in <i>m</i> is significant, so 6.022 × 10²³ has four. Moving the decimal point left raises the exponent; moving it right lowers it.</p></div>
+      <div class="quiz" data-correct="2" data-explain="The zeros are leading zeros, which only mark where the decimal point is. Only 4, 5 and the final 0 count: 4.50 × 10⁻³ has three significant figures.">
+        <p class="q">Check yourself: how many significant figures are in 0.00450?</p>
+        <div class="opts"><button type="button">2</button><button type="button">5</button><button type="button">3</button><button type="button">6</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-logs" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>Logs &amp; pH math</h1>
+        <p class="lede">The concentration of H⁺ in water solutions spans fourteen powers of ten. A log scale squeezes that range into numbers from 0 to 14: that is all pH is.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine a staircase where every step is ten times higher than the last. The step number tells you how many tens you have multiplied by, and that is what a logarithm is: <span class="m">log 1000 = 3</span> because 1000 = 10³. Going up one step on a log scale means multiplying by 10, not adding 1.</p>
+        <p>pH is the step number for hydrogen ions, with a minus sign so that more acid gives a smaller number: <span class="m">pH = −log[H⁺]</span>. A solution with pH 3 has ten times as many H⁺ as one with pH 4, and a hundred times as many as pH 5.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we wrote concentrations as plain numbers on one scale</dd><dt>So we didn't need</dt><dd>logarithms</dd><dt>Now</dt><dd>concentrations run from 1 M to 0.000 000 000 000 01 M</dd><dt>So we need</dt><dd>a log scale, where equal steps mean equal multiples</dd></dl></div>
+      <div class="eqgrid"><div class="eqn"><span>pH = −log[H⁺]</span><small>definition</small></div><div class="eqn"><span>[H⁺] = 10<sup>−pH</sup></span><small>going back</small></div><div class="eqn"><span>pH + pOH = 14.00</span><small>at 25 °C</small></div></div>
+      <div class="lab" id="lg-lab">
+        <div class="labbar"><span class="title">The pH staircase</span></div>
+        <canvas id="lg-canvas" aria-label="Fifteen test tubes colored by pH with a linear bar chart and a log bar chart of the hydrogen ion concentration. Tap a tube to choose its pH."></canvas>
+        <div class="controls"><div class="ctl"><label for="lg-ph"><span>pH</span> <output id="lg-ph-out"></output></label><input type="range" id="lg-ph" min="0" max="14" step="0.1" value="3"></div></div>
+        <div class="readout"><div><span>[H⁺] (M)</span><strong class="x" id="lg-h">—</strong></div><div><span>[OH⁻] (M)</span><strong class="a" id="lg-oh">—</strong></div><div><span>pOH</span><strong id="lg-poh">—</strong></div><div><span>vs pure water</span><strong id="lg-vs" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="lg-lab2" data-reset="own">
+        <div class="labbar"><span class="title">Go back and forth</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="lg-in-h"><span>[H⁺] in M (try 3.2e-4)</span></label><input type="text" id="lg-in-h" value="3.2e-4" autocomplete="off" spellcheck="false"></div>
+          <div class="ctl"><label for="lg-in-ph"><span>pH (try 4.37)</span></label><input type="text" id="lg-in-ph" value="4.37" autocomplete="off" spellcheck="false" inputmode="decimal"></div>
+        </div>
+        <div class="xpsteps"><div><b>From [H⁺] to pH</b><span id="lg-s1">—</span></div><div><b>From pH to [H⁺]</b><span id="lg-s2">—</span></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Compare pH 3 with pH 5. How many times more H⁺ does the pH 3 solution have? <button type="button" class="btn link" data-show='[["#lg-ph",3]]'>pH 3</button> <button type="button" class="btn link" data-show='[["#lg-ph",5]]'>pH 5</button></p><details><summary>What you should see</summary><p>[H⁺] = 10⁻³ at pH 3 and 10⁻⁵ at pH 5. The ratio is 10² = 100. Two steps on the staircase, two factors of ten.</p></details></li>
+        <li><p>Look at the linear chart at pH 7. Can you see the bar? Now look at the log chart. <button type="button" class="btn link" data-show='[["#lg-ph",7]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>On a linear scale [H⁺] = 10⁻⁷ M is far too small to see next to 1 M. The log chart makes every pH visible, which is the reason chemists use it.</p></details></li>
+        <li><p>Does a pH of 3.0 have the same precision as a pH of 3? Enter 1.0e-3 for [H⁺]. <button type="button" class="btn link" data-show='[["#lg-in-h","1.0e-3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>pH = 3.00: two significant figures in [H⁺] give two digits after the decimal point in the pH. The digits before the decimal point only locate the power of ten.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">What is the pH of 3.2 × 10⁻⁴ M HCl? Then, a solution has pH 4.37. What is [H⁺]?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>HCl is a strong acid.</b> It ionizes completely, so [H⁺] = 3.2 × 10⁻⁴ M.</li>
+          <li hidden><b>Take the log.</b> log(3.2 × 10⁻⁴) = log 3.2 + log 10⁻⁴ = 0.505 − 4 = −3.495.</li>
+          <li hidden><b>Flip the sign.</b> pH = 3.495, which rounds to <b>3.49</b>. Two significant figures in 3.2 give two decimal places.</li>
+          <li hidden><b>Now go backward.</b> pH 4.37 means [H⁺] = 10<sup>−4.37</sup>. On the calculator, press 10<sup>x</sup> (or 2nd log) and enter −4.37.</li>
+          <li hidden><b>Answer.</b> 10<sup>−4.37</sup> = <b>4.3 × 10⁻⁵ M</b>. Check: pH 4.37 is between 4 (10⁻⁴) and 5 (10⁻⁵), so [H⁺] should lie between them. It does.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting the minus sign: pH = −log[H⁺], and [H⁺] is a number less than 1, so its log is negative.</li>
+        <li>Thinking pH 3 is "a little more acidic" than pH 4. It is ten times more.</li>
+        <li>Reporting too many decimal places. The decimals in a pH equal the significant figures in the concentration.</li>
+        <li>Using ln instead of log. Chemistry's pH uses log base 10.</li>
+        <li>Going back with the wrong key: [H⁺] = 10<sup>−pH</sup>, not −10<sup>pH</sup> or log(pH).</li>
+      </ul></div>
+      <div class="prose"><h2>Why decimal places match significant figures</h2>
+        <p>The number before the decimal point in a log only says which power of ten you are at (the "characteristic"). Only the digits after the decimal point carry information about the precision of the measurement (the "mantissa"). So 3.2 × 10⁻⁴ M (2 significant figures) gives pH = 3.49 (2 decimal places).</p>
+        <p>Water autoionizes: [H⁺][OH⁻] = K<sub>w</sub> = 1.0 × 10⁻¹⁴ at 25 °C. Taking −log of both sides gives pH + pOH = 14.00. In pure water [H⁺] = [OH⁻] = 1.0 × 10⁻⁷ M, so pH = 7.00: neutral.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Each pH unit is a factor of ten. From pH 5 to pH 3 is two units, so 10² = 100 times as much H⁺.">
+        <p class="q">Check yourself: how does [H⁺] at pH 3 compare with [H⁺] at pH 5?</p>
+        <div class="opts"><button type="button">2 times larger</button><button type="button">10 times larger</button><button type="button">100 times larger</button><button type="button">1000 times larger</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-icealg" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>ICE-table algebra</h1>
+        <p class="lede">Equilibrium problems end in an equation with x in it. Sometimes x is tiny and can be ignored. Sometimes it can't. This module shows you how to tell.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>An ICE table tracks <b>I</b>nitial, <b>C</b>hange and <b>E</b>quilibrium amounts. For a weak acid HA with starting concentration <i>c</i>, the change is "−x for HA, +x for H⁺ and A⁻", so the equilibrium expression becomes <span class="m"><i>K</i> = <i>x</i>²/(<i>c</i> − <i>x</i>)</span>.</p>
+        <p>If <i>K</i> is tiny compared with <i>c</i>, then <i>x</i> is tiny compared with <i>c</i>, and <i>c</i> − <i>x</i> is almost just <i>c</i>. Then <span class="m"><i>x</i> ≈ √(<i>Kc</i>)</span>. The trick is to check that the shortcut was fair: if <i>x</i> turns out to be more than 5% of <i>c</i>, go back and solve the quadratic.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we assumed x is small without checking, and moved on</dd><dt>So we didn't need</dt><dd>a way to know when that is allowed</dd><dt>Now</dt><dd>the answer feeds later steps (pH, Q vs K), so errors count</dd><dt>So we need</dt><dd>to check that x is under 5% of the starting amount, or solve the quadratic</dd></dl></div>
+      <div class="lab" id="ia-lab">
+        <div class="labbar"><span class="title">Is x small?</span></div>
+        <canvas id="ia-canvas" aria-label="Graph of x squared over c minus x against x, with a horizontal line at K showing where each solution crosses"></canvas>
+        <div class="controls">
+          <div class="ctl"><label for="ia-c"><span>Starting concentration c</span> <output id="ia-c-out"></output></label><input type="range" id="ia-c" min="-4" max="0" step="0.05" value="-1"></div>
+          <div class="ctl"><label for="ia-k"><span>Equilibrium constant K</span> <output id="ia-k-out"></output></label><input type="range" id="ia-k" min="-9" max="-1" step="0.05" value="-5"></div>
+        </div>
+        <div class="readout"><div><span>x, exact (quadratic)</span><strong class="x" id="ia-xe">—</strong></div><div><span>x, shortcut √(Kc)</span><strong class="hot" id="ia-xa">—</strong></div><div><span>x as % of c</span><strong id="ia-pct">—</strong></div><div><span>Shortcut error</span><strong id="ia-err">—</strong></div><div><span>Verdict</span><strong id="ia-v" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">The solid blue curve is <i>x</i>²/(<i>c</i> − <i>x</i>); the dashed orange curve is the shortcut <i>x</i>²/<i>c</i>. Where each crosses the horizontal green line at <i>K</i> is its answer for <i>x</i>. When the curves nearly coincide there, the shortcut is safe.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>A weak acid with K = 1.8 × 10⁻⁵ at 0.10 M. Is the shortcut fair? <button type="button" class="btn link" data-show='[["#ia-c",-1],["#ia-k",-4.745]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is about 0.13% of c, far below 5%. The two curves cross K almost at the same place and the shortcut error is tiny.</p></details></li>
+        <li><p>Keep K the same, but dilute the acid to 0.0001 M. What happens to the shortcut? <button type="button" class="btn link" data-show='[["#ia-c",-4],["#ia-k",-4.745]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Now x is more than 5% of c (about 35%). The dashed curve separates from the solid one at K and the shortcut is wrong by a large amount. Weaker solutions are more ionized, so the shortcut fails first for dilute solutions.</p></details></li>
+        <li><p>Go the other way: a large K at moderate concentration. <button type="button" class="btn link" data-show='[["#ia-c",-1],["#ia-k",-2]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>With K = 0.01 and c = 0.10, x is about 27% of c. The shortcut fails whenever K is not much smaller than c; a handy test is c/K &lt; 100 (roughly).</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A 0.050 M solution of a weak acid HA has K<sub>a</sub> = 4.0 × 10⁻⁴. Find [H⁺].</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>ICE table.</b> HA ⇌ H⁺ + A⁻. Initial: 0.050, 0, 0. Change: −x, +x, +x. Equilibrium: 0.050 − x, x, x.</li>
+          <li hidden><b>Write K.</b> K<sub>a</sub> = x² / (0.050 − x) = 4.0 × 10⁻⁴.</li>
+          <li hidden><b>Try the shortcut.</b> x ≈ √(4.0 × 10⁻⁴ × 0.050) = √(2.0 × 10⁻⁵) = 4.5 × 10⁻³.</li>
+          <li hidden><b>Check.</b> 4.5 × 10⁻³ / 0.050 = 9%, which is more than 5%. The shortcut is not allowed.</li>
+          <li hidden><b>Solve the quadratic.</b> x² + (4.0 × 10⁻⁴)x − 2.0 × 10⁻⁵ = 0, so x = [−4.0 × 10⁻⁴ + √((4.0 × 10⁻⁴)² + 4(2.0 × 10⁻⁵))] / 2 = <b>4.3 × 10⁻³ M</b>. That is [H⁺].</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the shortcut without checking it. State the check on paper every time: x/c × 100 &lt; 5%.</li>
+        <li>Checking against the wrong number. Compare x with the <i>starting</i> concentration of the species that is being subtracted from.</li>
+        <li>Rearranging the quadratic wrongly: x² + Kx − Kc = 0 (the sign of the Kc term is negative).</li>
+        <li>Keeping the negative root of the quadratic. A concentration cannot be negative.</li>
+        <li>Forgetting that the 5% rule is a rule of thumb; if x is 6% your answer is off by about 3%, not ruined.</li>
+      </ul></div>
+      <div class="prose"><h2>Setting up and solving</h2>
+        <p>Rearrange <i>K</i> = <i>x</i>²/(<i>c</i> − <i>x</i>) into a standard quadratic: <i>x</i>² + <i>K</i><i>x</i> − <i>K</i><i>c</i> = 0. Then <span class="m"><i>x</i> = [−<i>K</i> + √(<i>K</i>² + 4<i>Kc</i>)] / 2</span>. Take only the positive root.</p>
+        <p>A faster way to decide: if <i>c</i>/<i>K</i> &gt; 400 the shortcut error is under about 5%, and the x-is-small assumption holds. The slider above lets you watch the boundary.</p></div>
+      <div class="quiz" data-correct="1" data-explain="x/c = 0.0030/0.025 = 12%, which is above 5%. The shortcut is not valid, so solve the quadratic.">
+        <p class="q">Check yourself: x ≈ 0.0030 M from the shortcut, starting at c = 0.025 M. Is the shortcut valid?</p>
+        <div class="opts"><button type="button">Yes, x is smaller than c</button><button type="button">No, x is about 12% of c</button><button type="button">Yes, 12% is under 50%</button><button type="button">Cannot tell without K</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
     </div>
   </section>
 
@@ -1049,7 +1314,7 @@ function curve(ctx,P,f,a,b,color,w=2.25,n=260,dash){ctx.save();clip(ctx,P);ctx.s
 function area(ctx,P,f,a,b,color,al=.2,n=200){if(b<=a)return;ctx.save();clip(ctx,P);ctx.fillStyle=alpha(color,al);ctx.beginPath();ctx.moveTo(P.X(a),P.Y(0));
   for(let i=0;i<=n;i++){const t=a+(b-a)*i/n;ctx.lineTo(P.X(t),P.Y(f(t)));}ctx.lineTo(P.X(b),P.Y(0));ctx.closePath();ctx.fill();ctx.restore();}
 function line(ctx,P,x1,y1,x2,y2,color,w=1.5,dash){ctx.save();clip(ctx,P);ctx.strokeStyle=color;ctx.lineWidth=w;if(dash)ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(P.X(x1),P.Y(y1));ctx.lineTo(P.X(x2),P.Y(y2));ctx.stroke();ctx.restore();}
-function bindRange(id,f,cb){const el=$('#'+id),out=$('#'+id+'-out');const up=()=>{if(out)out.textContent=f(+el.value);cb&&cb(+el.value);};el.addEventListener('input',up);if(out)out.textContent=f(+el.value);return el;}
+function bindRange(id,f,cb,init=true){const el=$('#'+id),out=$('#'+id+'-out');const up=()=>{if(out)out.textContent=f(+el.value);cb&&cb(+el.value);};el.addEventListener('input',up);if(out)out.textContent=f(+el.value);if(init)cb&&cb(+el.value);return el;}
 function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
 
 const drawers={};
@@ -1168,8 +1433,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": [], "soon": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": [], "soon": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"], "soon": ["bonding", "lewis", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": [], "soon": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"], "soon": ["bonding", "lewis", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -1269,6 +1534,288 @@ DomainSim.prototype.kick=function(amt){this.dir=this.dir.map(d=>{const r=[Math.r
 DomainSim.prototype.settle=function(maxSteps=4000){for(let i=0;i<maxSteps;i++)if(this.step(1/60)<1e-10&&i>20)break;};
 /* lone pairs are fatter balloons; the effect is fitted to NH₃ and H₂O (3 regions: weaker). 5–6 regions are drawn ideal. */
 const lpWeight=n=>n<=3?1.07:n===4?LP_WEIGHT:1;
+
+/* ---------------- sim2d: one animation loop per canvas ----------------
+   o.h(w) height, o.step(dt,t) physics, o.draw(ctx,w,h,t) drawing. Runs only while the canvas is on screen and its module is open;
+   with reduced motion it draws once and again whenever the module calls .render() after a control changes. */
+function sim2d(cv,o){let seen=true,last=0,t=0,raf=0;
+  const live=()=>seen&&!document.hidden&&cv.offsetParent!==null;
+  function render(){const w=cv.clientWidth;if(!w)return;const h=o.h?o.h(w):clamp(w*.5,240,380);const c=prep(cv,h);if(!c)return;o.draw(c.ctx,w,h,t);}
+  function frame(ts){raf=0;if(!live()){last=0;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;if(o.step&&!o.paused?.())o.step(dt,t+=dt);render();raf=requestAnimationFrame(frame);}
+  function kick(){if(REDUCE){render();return;}if(!raf&&live())raf=requestAnimationFrame(frame);}
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[es.length-1].isIntersecting;if(seen)kick();}).observe(cv);
+  document.addEventListener('visibilitychange',kick);window.addEventListener('hashchange',()=>setTimeout(kick,50));
+  if(o.drag){cv.classList.add('drag');cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);o.drag('down',e,cv);kick();});cv.addEventListener('pointermove',e=>{o.drag('move',e,cv);if(REDUCE)render();});
+    const up=e=>o.drag('up',e,cv);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);}
+  setTimeout(kick,30);
+  return {render:()=>{render();kick();},get t(){return t;}};}
+/* pointer position inside a canvas, in css pixels */
+const ptr=(e,cv)=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];};
+/* a swarm of simple particles in a box: positions in css pixels, optional pairwise collisions */
+function swarm(n,w,h,speed,r){const a=[];for(let i=0;i<n;i++){const ang=Math.random()*6.283,s=speed*(.4+Math.random()*1.2);a.push({x:r+Math.random()*(w-2*r),y:r+Math.random()*(h-2*r),vx:Math.cos(ang)*s,vy:Math.sin(ang)*s});}return a;}
+/* species colours follow the site's colour roles */
+const SPC=()=>({A:T.cx,B:T.hot,C:T.cv,D:T.ca,E:T.ce,I:T.ink});
+/* quadratic roots of a x² + b x + c = 0 (real roots, ascending) */
+function quad(a,b,c){const d=b*b-4*a*c;if(d<0)return [];const s=Math.sqrt(d),q=-.5*(b+Math.sign(b||1)*s);const r=[q/a,c/q].filter(isFinite).sort((x,y)=>x-y);return r;}
+/* bisection solve of f(x)=0 on [a,b] (f changes sign) */
+function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=f(m);if((fm<0)===(fa<0)){a=m;fa=fm;}else b=m;}return (a+b)/2;}
+
+/* ===== modules/units.js ===== */
+
+/* ---------------- Units & dimensional analysis ---------------- */
+(function units(){
+  const host=$('#un-chain');if(!host)return;
+  const NA=6.022e23;
+  const F=(nv,nu,dv,du)=>({n:{v:nv,u:nu},d:{v:dv,u:du}});
+  const PROB=[
+    {q:'Convert 2.50 L to mL.',start:{t:'2.50',v:2.5,sf:3,n:['L'],d:[]},target:{n:['mL'],d:[]},tiles:[F(1000,'mL',1,'L'),F(100,'cm',1,'m'),F(1,'mL',1000,'L')]},
+    {q:'Convert a speed of 72 km/h to m/s.',start:{t:'72',v:72,sf:2,n:['km'],d:['h']},target:{n:['m'],d:['s']},tiles:[F(1000,'m',1,'km'),F(3600,'s',1,'h'),F(60,'min',1,'h'),F(60,'s',1,'min')]},
+    {q:'How many formula units of NaCl are in 45.0 g of NaCl?',start:{t:'45.0',v:45,sf:3,n:['g NaCl'],d:[]},target:{n:['formula units NaCl'],d:[]},tiles:[F(1,'mol NaCl',58.44,'g NaCl'),F(NA,'formula units NaCl',1,'mol NaCl'),F(1000,'mg NaCl',1,'g NaCl'),F(1,'kg NaCl',1000,'g NaCl')]},
+    {q:'What is the mass in kg of 250 mL of ethanol (density 0.789 g/mL)?',start:{t:'250',v:250,sf:3,n:['mL ethanol'],d:[]},target:{n:['kg ethanol'],d:[]},tiles:[F(.789,'g ethanol',1,'mL ethanol'),F(1,'kg ethanol',1000,'g ethanol'),F(1000,'mL ethanol',1,'L ethanol')]},
+    {q:'What is the mass of 0.250 mol of CO₂?',start:{t:'0.250',v:.25,sf:3,n:['mol CO₂'],d:[]},target:{n:['g CO₂'],d:[]},tiles:[F(44.01,'g CO₂',1,'mol CO₂'),F(2,'mol O',1,'mol CO₂'),F(NA,'molecules CO₂',1,'mol CO₂')]},
+    {q:'How many H atoms are in 5.0 g of water?',start:{t:'5.0',v:5,sf:2,n:['g H₂O'],d:[]},target:{n:['atoms H'],d:[]},tiles:[F(1,'mol H₂O',18.02,'g H₂O'),F(2,'mol H',1,'mol H₂O'),F(NA,'atoms H',1,'mol H'),F(1,'mol H',2,'mol H₂O')]}
+  ];
+  const sel=$('#un-prob');sel.innerHTML=PROB.map((p,i)=>`<option value="${i}">${p.q.replace(/\.$|\?$/,'')}</option>`).join('');
+  let cur=0,chain=[],flips=[];
+  const numTxt=v=>v>=1e5||v<1e-3?sci(v,3).replace(/ × /,' × '):String(+v.toPrecision(6));
+  const tileHTML=(f,cls='')=>`<span class="frac ${cls}"><span class="n"><span class="u">${numTxt(f.n.v)} ${f.n.u}</span></span><span class="d"><span class="u">${numTxt(f.d.v)} ${f.d.u}</span></span></span>`;
+  const inv=f=>({n:f.d,d:f.n});
+  function compute(){/* cancel matching unit labels between numerators and denominators across the whole chain */
+    const P=PROB[cur];const items=[{n:[{u:P.start.n[0]||null,v:P.start.v,k:'s'}].filter(x=>x.u),d:P.start.d.map(u=>({u})),v:P.start.v,t:P.start.t,start:true}];
+    chain.forEach(f=>items.push({n:[{u:f.n.u}],d:[{u:f.d.u}],v:f.n.v/f.d.v,f}));
+    const nums=[],dens=[];items.forEach((it,i)=>{it.n.forEach(x=>nums.push({u:x.u,i,x:false}));it.d.forEach(x=>dens.push({u:x.u,i,x:false}));});
+    nums.forEach(a=>{const m=dens.find(b=>!b.x&&b.u===a.u);if(m){a.x=true;m.x=true;}});
+    let val=1;items.forEach(it=>val*=it.v);
+    return {items,nums,dens,val,left:{n:nums.filter(a=>!a.x).map(a=>a.u),d:dens.filter(a=>!a.x).map(a=>a.u)}};}
+  function render(){const P=PROB[cur],c=compute();
+    const cell=(it,i)=>{const n=c.nums.filter(a=>a.i===i),d=c.dens.filter(a=>a.i===i);
+      const side=(arr,val)=>(val!=null?`<span>${val} </span>`:'')+(arr.length?arr.map(a=>`<span class="u${a.x?' x':''}">${a.u}</span>`).join(' '):'');
+      if(it.start)return `<span class="frac"><span class="n"><span>${it.t||numTxt(it.v)}</span> ${n.map(a=>`<span class="u${a.x?' x':''}">${a.u}</span>`).join(' ')}</span><span class="d${d.length?'':' one'}">${d.length?d.map(a=>`<span class="u${a.x?' x':''}">${a.u}</span>`).join(' '):'1'}</span></span>`;
+      const f=it.f;return `<span class="frac rm" data-i="${i-1}" role="button" tabindex="0" aria-label="Remove this factor"><span class="n"><span>${numTxt(f.n.v)}</span> <span class="u${n[0].x?' x':''}">${f.n.u}</span></span><span class="d"><span>${numTxt(f.d.v)}</span> <span class="u${d[0].x?' x':''}">${f.d.u}</span></span></span>`;};
+    host.innerHTML=c.items.map((it,i)=>(i?'<span class="times">×</span>':'')+cell(it,i)).join('')+(chain.length?'':'<span class="small" style="margin-left:8px">Add a factor from below.</span>');
+    const res=$('#un-res'),L=c.left,ok=chain.length&&L.d.length===P.target.d.length&&L.n.length===P.target.n.length&&L.n.every((u,k)=>u===P.target.n[k])&&L.d.every((u,k)=>u===P.target.d[k]);
+    const unitTxt=(L.n.join(' · ')||'1')+(L.d.length?' / '+L.d.join(' · '):'');
+    if(!chain.length){res.className='un-res';res.textContent=`Start: ${P.start.t} ${P.start.n.join(' ')}${P.start.d.length?'/'+P.start.d.join(' '):''}. Target unit: ${P.target.n.join(' ')}${P.target.d.length?' / '+P.target.d.join(' '):''}.`;}
+    else if(ok){const v=+c.val.toPrecision(P.start.sf);res.className='un-res ok';res.textContent=`✓ Units cancel to ${unitTxt}. Answer: ${v>=1e5||v<1e-3?sci(v,P.start.sf-1):String(v)} ${unitTxt}`;if(!res.dataset.done||res.dataset.done!==String(chain.length)){burst(res,22);}res.dataset.done=String(chain.length);}
+    else{res.className='un-res warn';res.dataset.done='';res.textContent=`Units left: ${unitTxt}. Target: ${P.target.n.join(' ')}${P.target.d.length?' / '+P.target.d.join(' '):''}.`;}
+  }
+  function tiles(){const P=PROB[cur];$('#un-tiles').innerHTML=P.tiles.map((f,i)=>`<div class="un-tile" data-i="${i}">${tileHTML(flips[i]?inv(f):f)}<button type="button" class="flip" aria-label="Flip this factor upside down" title="Flip">⇅</button></div>`).join('');}
+  function load(i){cur=i;chain=[];flips=PROB[cur].tiles.map(()=>false);$('#un-q').textContent=PROB[cur].q;$('#un-res').dataset.done='';tiles();render();}
+  $('#un-tiles').addEventListener('click',e=>{const t=e.target.closest('.un-tile');if(!t)return;const i=+t.dataset.i,f=PROB[cur].tiles[i];
+    if(e.target.closest('.flip')){flips[i]=!flips[i];tiles();return;}if(e.target.closest('.frac')){chain.push(flips[i]?inv(f):f);render();}});
+  host.addEventListener('click',e=>{const r=e.target.closest('.frac.rm');if(!r)return;chain.splice(+r.dataset.i,1);render();});
+  host.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const r=e.target.closest('.frac.rm');if(!r)return;e.preventDefault();chain.splice(+r.dataset.i,1);render();});
+  $('#un-clear').addEventListener('click',()=>{chain=[];$('#un-res').dataset.done='';render();});
+  sel.addEventListener('change',()=>load(+sel.value));
+  load(0);
+  TIPS['un-prob']='Look at the starting unit and the target unit. Each factor you add should cancel one unit and bring in the next one on the way to the target.';
+  GLOSS['conversion factor']='A fraction equal to 1 that relates two units, such as 1000 mL / 1 L.';
+  GLOSS['dimensional analysis']='Solving a problem by carrying units through the math and cancelling them.';
+  TT.units='Insist on units next to every number from the first day. Students who write units catch their own errors: ask "what do the units say?" before "what did you get?". Let them add a wrong factor on purpose and see that nothing cancels.';
+})();
+(function(){
+  const MM=[['NaCl',58.44],['glucose, C₆H₁₂O₆',180.16],['CaCO₃',100.09],['sucrose, C₁₂H₂₂O₁₁',342.30],['KCl',74.55],['MgCl₂',95.21],['NaOH',40.00]];
+  PROBS.push({id:'units-mg-mol',topic:'units',title:'Milligrams to moles',gen(){const [n,M]=pick(MM),mg=ri(120,980)*5;const ans=mg/1000/M;
+    return {q:`A tablet contains ${mg} mg of ${n} (molar mass ${M} g/mol). How many moles is that?`,ans,unit:'mol',hint:'Convert mg to g first (1 g = 1000 mg), then divide by the molar mass. Check that g cancels.',
+      sol:`${mg} mg × (1 g / 1000 mg) × (1 mol / ${M} g) = <b>${sci(ans,3)} mol</b>. The mg cancel, then the g cancel.`};}});
+  PROBS.push({id:'units-mph',topic:'units',title:'Miles per hour to m/s',gen(){const v=ri(30,80);const ans=v*1609.344/3600;
+    return {q:`A car travels at ${v} mi/h. What is its speed in m/s? (1 mi = 1609.344 m exactly.)`,ans,unit:'m/s',hint:'Two conversions: miles to meters, hours to seconds (3600 s in 1 h). Put each unit you want to remove on the other side of the fraction.',
+      sol:`${v} mi/h × (1609.344 m / 1 mi) × (1 h / 3600 s) = <b>${fmt(ans,2)} m/s</b>.`};}});
+  PROBS.push({id:'units-molecules',topic:'units',title:'Grams to molecules',gen(){const g=ri(2,40),M=18.02;const ans=g/M*6.022e23;
+    return {q:`How many molecules of water are in ${g} g of H₂O? (Molar mass 18.02 g/mol; give your answer in scientific notation, like 1.2e24.)`,ans,unit:'molecules',hint:'Grams to moles using the molar mass, then moles to molecules using Avogadro\'s number, 6.022 × 10²³ per mole.',
+      sol:`${g} g × (1 mol / 18.02 g) × (6.022 × 10²³ molecules / 1 mol) = <b>${sci(ans,3)} molecules</b>.`};}});
+})();
+
+/* ===== modules/sigfigs.js ===== */
+
+/* ---------------- Scientific notation & significant figures ---------------- */
+(function sigfigs(){
+  if(!$('#sf-in'))return;
+  /* classify the digits of a number typed as 0.00450, 1200, 1200., 3.00e5, 3.00 x 10^5 */
+  function parse(raw){let s=String(raw).trim().replace(/[−–]/g,'-').replace(/,/g,'').replace(/\s+/g,'');let exp=null;
+    const m=s.match(/^([-+]?[\d.]+)(?:e|[x×*]10\^?)([-+]?\d+)$/i);if(m){s=m[1];exp=+m[2];}
+    if(!/^[-+]?(\d+\.?\d*|\.\d+)$/.test(s))return null;const neg=s[0]==='-';s=s.replace(/^[-+]/,'');
+    const dot=s.indexOf('.')>=0;const chars=s.split('');const digits=chars.map((c,i)=>({c,i})).filter(o=>o.c!=='.');
+    const firstNZ=digits.findIndex(o=>o.c!=='0');if(firstNZ<0)return {zero:true};
+    let lastSig=digits.length-1;if(!dot&&exp===null){while(lastSig>firstNZ&&digits[lastSig].c==='0')lastSig--;}
+    const kind=chars.map((c,i)=>{if(c==='.')return 'pt';const k=digits.findIndex(o=>o.i===i);return k<firstNZ?'lead':k>lastSig?'amb':'sig';});
+    const sigDigits=digits.slice(firstNZ,lastSig+1).map(o=>o.c).join('');
+    const ambiguous=lastSig<digits.length-1;
+    /* exponent of the first significant digit */
+    const intLen=dot?s.indexOf('.'):s.length;let E=intLen-1-digits[firstNZ].i+(digits[firstNZ].i>intLen?1:0);
+    E=(dot&&digits[firstNZ].i>intLen)?-(digits[firstNZ].i-intLen):(intLen-1-digits[firstNZ].i);
+    return {chars,kind,n:sigDigits.length,sigDigits,E:E+(exp||0),neg,exp,ambiguous};}
+  const sup=n=>String(n).split('').map(c=>SUP[c]).join('');
+  const sciStr=p=>`${p.neg?'−':''}${p.sigDigits[0]}${p.sigDigits.length>1?'.'+p.sigDigits.slice(1):''} × 10${sup(p.E)}`;
+  function chipHTML(p){const lab={sig:'counts',lead:'place-holder',amb:'unclear',pt:''};let h='';
+    p.chars.forEach((c,i)=>{h+=`<span class="chip-d ${p.kind[i]}"><b>${c}</b><small>${lab[p.kind[i]]}</small></span>`;});
+    if(p.exp!==null)h+=`<span class="chip-x">× 10${sup(p.exp)}</span>`;return h;}
+  /* Lab 1 */
+  const inp=$('#sf-in');
+  function lab1(){const p=parse(inp.value);const chips=$('#sf-chips');
+    if(!p||p.zero){chips.innerHTML='<span class="small">Enter a nonzero number like 0.004050, 1200 or 3.00e5.</span>';setText('sf-n','—');setText('sf-sci','—');setText('sf-why','');return;}
+    chips.innerHTML=chipHTML(p);setText('sf-n',p.n);setText('sf-sci',sciStr(p));
+    setText('sf-why',p.ambiguous?'The trailing zeros in a number with no decimal point are ambiguous, so they are not counted. Write the number in scientific notation (for example 1.2 × 10³, 1.20 × 10³ or 1.200 × 10³) to say how many you mean.':p.kind.includes('lead')?'The gray digits are leading zeros. They only show where the decimal point is, so they never count.':'Every digit from the first nonzero digit to the end counts. Trailing zeros after a decimal point show that the digit was measured.');}
+  inp.addEventListener('input',()=>{$$('#sf-pick button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===inp.value));lab1();});
+  $$('#sf-pick button').forEach(b=>b.addEventListener('click',()=>{$$('#sf-pick button').forEach(x=>x.setAttribute('aria-pressed',x===b));inp.value=b.dataset.v;lab1();}));
+  lab1();
+  /* Lab 2 */
+  const decs=p=>{/* decimal places of a plain number string; integers count as 0 */const s=p.chars.join('');const i=s.indexOf('.');return i<0?0:s.length-i-1;};
+  function sigRound(x,n){if(x===0)return '0';const s=Math.abs(x)>=1e6||Math.abs(x)<1e-3?null:x.toPrecision(n);if(s&&!/e/.test(s))return s.replace('-','−');return sci(x,n-1);}
+  function lab2(){const pa=parse($('#sf-a').value),pb=parse($('#sf-b').value),op=$('#sf-op').value,col=$('#sf-col');
+    if(!pa||!pb||pa.zero||pb.zero||pa.exp!==null||pb.exp!==null){col.textContent='Enter two plain nonzero numbers (like 12.11 and 0.023).';['sf-raw','sf-rule','sf-ans'].forEach(i=>setText(i,'—'));return;}
+    const a=parseFloat(pa.chars.join(''))*(pa.neg?-1:1),b=parseFloat(pb.chars.join(''))*(pb.neg?-1:1);
+    const raw=op==='+'?a+b:op==='-'?a-b:op==='*'?a*b:a/b;if(!isFinite(raw)){col.textContent='That is undefined.';return;}
+    setText('sf-raw',String(+raw.toPrecision(10)).replace('-','−'));
+    if(op==='+'||op==='-'){const da=decs(pa),db=decs(pb),lim=Math.min(da,db);
+      const sa=pa.chars.join(''),sb=pb.chars.join('');const iA=sa.indexOf('.')<0?sa.length:sa.indexOf('.'),iB=sb.indexOf('.')<0?sb.length:sb.indexOf('.');
+      const left=Math.max(iA,iB),right=Math.max(da,db),W=left+(right?1+right:0);
+      const rowOf=(s,iInt,d,label)=>{const pad=' '.repeat(left-iInt);let h='';const full=pad+s+(d===0&&right?' ':'' );let chars=(pad+s).split('');while(chars.length<W)chars.push(' ');
+        let k=0;chars.forEach((c,idx)=>{let cls='';const decIdx=idx-left-1;if(decIdx>=lim&&c!==' '&&c!=='.')cls=' unc';h+=`<span class="cd${cls}">${c}</span>`;});return `<span class="row">${h} <span style="color:var(--muted);font-size:12px">${label}</span></span>`;};
+      const resStr=(op==='+'?a+b:a-b).toFixed(right);const iR=resStr.indexOf('.')<0?resStr.length:resStr.indexOf('.');
+      let rc=(' '.repeat(Math.max(0,left-iR))+resStr).split('');while(rc.length<W)rc.push(' ');
+      const rh=rc.map((c,idx)=>{const decIdx=idx-left-1;return `<span class="cd${decIdx>=lim&&c!==' '&&c!=='.'?' unc':''}${decIdx===lim-1||(lim===0&&idx===left-1)?' lim':''}">${c}</span>`;}).join('');
+      col.innerHTML=rowOf(sa,iA,da,`${da} decimal place${da===1?'':'s'}`)+rowOf((op==='-'?'−':'')+sb,iB,db,`${db} decimal place${db===1?'':'s'}`)+'<span class="sep"></span>'+`<span class="row">${rh} <span style="color:var(--muted);font-size:12px">orange digits are not trusted</span></span>`;
+      const ans=(op==='+'?a+b:a-b).toFixed(lim);setText('sf-rule',`Keep ${lim} decimal place${lim===1?'':'s'} (the fewest)`);setText('sf-ans',ans.replace('-','−'));}
+    else{const lim=Math.min(pa.n,pb.n);
+      const bar=(p,l)=>`<span class="row">${l.padEnd(14)} ${'●'.repeat(p.n)}${'○'.repeat(Math.max(0,8-p.n))}  ${p.n} sig fig${p.n===1?'':'s'}</span>`;
+      col.innerHTML=bar(pa,'first number')+bar(pb,'second number')+'<span class="sep"></span>'+`<span class="row">${'result'.padEnd(14)} ${'●'.repeat(lim)}${'○'.repeat(Math.max(0,8-lim))}  ${lim} sig fig${lim===1?'':'s'} (the fewest)</span>`;
+      setText('sf-rule',`Keep ${lim} significant figure${lim===1?'':'s'} (the fewest)`);setText('sf-ans',sigRound(raw,lim));}}
+  ['sf-a','sf-b'].forEach(id=>$('#'+id).addEventListener('input',lab2));$('#sf-op').addEventListener('change',lab2);lab2();
+  /* Lab 3 */
+  const Q=[['Avogadro\'s number (mol⁻¹)',6.022e23],['mass of an electron (kg)',9.109e-31],['speed of light (m/s)',2.998e8],['Kw at 25 °C',1.0e-14],['radius of a hydrogen atom (m)',5.29e-11],['Planck\'s constant (J·s)',6.626e-34]];
+  $('#sf-q').innerHTML=Q.map((q,i)=>`<option value="${i}">${q[0]}</option>`).join('');
+  function lab3(){const [nm,v]=Q[+$('#sf-q').value],E=Math.floor(Math.log10(v)+1e-12),n=E+(+$('#sf-e').value);
+    const digs=String(v.toExponential(3)).split('e')[0].replace('.','').replace(/0+$/,'')||'1';
+    let p=1+(E-n),txt;if(p<=0)txt='0.'+'0'.repeat(-p)+digs;else if(p>=digs.length)txt=digs+'0'.repeat(p-digs.length);else txt=digs.slice(0,p)+'.'+digs.slice(p);
+    const m=v/10**n,ok=m>=1&&m<10;
+    $('#sf-slide').innerHTML=txt.split('').map(c=>`<span class="chip-d ${c==='.'?'pt':'sig'}"><b>${c}</b><small></small></span>`).join('')+`<span class="chip-x">× 10${sup(n)}</span>`;
+    setText('sf-w',`${txt} × 10${sup(n)}`);const o=$('#sf-ok');o.textContent=ok?'✓ yes: 1 ≤ mantissa < 10':'✗ no: mantissa is '+(m>=10?'10 or more':'less than 1');o.style.color=ok?'var(--good)':'var(--hot)';
+    $('#sf-e-out').textContent='10'+sup(n);}
+  $('#sf-q').addEventListener('change',()=>{$('#sf-e').value=0;lab3();});$('#sf-e').addEventListener('input',lab3);lab3();
+  TIPS['sf-in']='Green digits count. Gray digits are leading zeros (place-holders). Orange digits are trailing zeros with no decimal point: unclear.';
+  TIPS['sf-op']='Switch between the two rules: significant figures for multiply and divide, decimal places for add and subtract.';
+  TIPS['sf-e']='Slide the decimal point. The number never changes, only how it is written. The goal is a mantissa between 1 and 10.';
+  GLOSS['significant']='Digits you can trust: every certain digit plus the first uncertain one.';
+  GLOSS['scientific notation']='A number written as m × 10ⁿ with 1 ≤ m < 10.';
+  TT.sigfigs='The two rules are easy to mix up. Give both a picture: significant figures count digits (relative uncertainty), decimal places line up columns (absolute uncertainty). Ask students to find the least precise measurement before calculating.';
+})();
+(function(){
+  const COUNTS=[['0.00520',3],['1.0800',5],['4500.',4],['0.0030',2],['120.0',4],['3.0 × 10⁵',2],['908',3],['0.700',3],['2.50 × 10⁻³',3],['6.0220',5],['10.0',3],['0.0004',1],['5000.',4],['7.00 × 10²',3]];
+  PROBS.push({id:'sf-count',topic:'sigfigs',title:'Count the significant figures',gen(){const [s,n]=pick(COUNTS);
+    return {q:`How many significant figures are in ${s}?`,ans:n,unit:'sig figs',abs:.01,hint:'Leading zeros never count. Zeros after a decimal point and after a nonzero digit do count. Trailing zeros with no decimal point are not counted.',
+      sol:`${s} has <b>${n}</b> significant figure${n===1?'':'s'}.`};}});
+  const rnd=(sf)=>{let d=ri(10**(sf-1),10**sf-1);if(d%10===0)d+=1;return d/10**(sf-1)*10**ri(0,1);};
+  const txt=(v,sf)=>sf===1?String(v):(()=>{const e=Math.floor(Math.log10(v));return v.toFixed(Math.max(0,sf-1-e));})();
+  PROBS.push({id:'sf-mult',topic:'sigfigs',title:'Multiplying with sig figs',gen(){const s1=ri(2,4),s2=ri(2,4);let a=+rnd(s1).toPrecision(s1),b=+rnd(s2).toPrecision(s2);const lim=Math.min(s1,s2),raw=a*b,ans=+raw.toPrecision(lim);
+    const ta=a.toPrecision(s1),tb=b.toPrecision(s2);
+    return {q:`Multiply ${ta} × ${tb} and report the answer with the correct number of significant figures.`,ans,show:sigRoundTxt(raw,lim),unit:'',abs:.5*10**(Math.floor(Math.log10(Math.abs(ans)))-lim+1)*1.01,hint:`Count the significant figures in each number. The answer keeps the smaller count.`,
+      sol:`${ta} has ${s1} significant figures and ${tb} has ${s2}. The calculator gives ${+raw.toPrecision(8)}; keep ${lim}: <b>${sigRoundTxt(raw,lim)}</b>.`};}});
+  function sigRoundTxt(x,n){const s=x.toPrecision(n);return /e/.test(s)?sci(x,n-1):s;}
+  PROBS.push({id:'sf-add',topic:'sigfigs',title:'Adding with decimal places',gen(){const d1=ri(0,2),d2=ri(1,3),d3=ri(0,3);const a=(ri(100,990)/10**d1).toFixed(d1),b=(ri(1,99)/10**d2+ri(1,30)).toFixed(d2),c=(ri(1,90)/10**d3).toFixed(d3);
+    const lim=Math.min(d1,d2,d3),raw=+a+ +b+ +c,ans=+raw.toFixed(lim);
+    return {q:`Add ${a} + ${b} + ${c} and report the answer with the correct number of decimal places.`,ans,show:raw.toFixed(lim),unit:'',abs:.5*10**(-lim)*1.01,hint:'Count the decimal places in each number. The sum can have no more than the smallest count.',
+      sol:`The numbers have ${d1}, ${d2} and ${d3} decimal places. The sum is ${+raw.toFixed(6)}; keep ${lim}: <b>${raw.toFixed(lim)}</b>.`};}});
+})();
+
+/* ===== modules/logs.js ===== */
+
+/* ---------------- Logs & pH math ---------------- */
+(function logs(){
+  const cv=$('#lg-canvas');if(!cv)return;
+  let pH=3;
+  /* universal-indicator colours */
+  const HUE=[[0,0],[3,18],[5,42],[6,58],[7,125],[8,160],[9,190],[10,222],[11,250],[12,272],[14,290]];
+  function hue(p){for(let i=1;i<HUE.length;i++)if(p<=HUE[i][0]){const [a,ha]=HUE[i-1],[b,hb]=HUE[i];return ha+(hb-ha)*(p-a)/(b-a);}return 290;}
+  const phCol=(p,l=52)=>`hsl(${hue(p)},78%,${l}%)`;
+  const sup=n=>String(n).split('').map(c=>SUP[c]).join('');
+  const tubes=[];let hover=-1;
+  function bar(ctx,x,y,w,h,col,txt,top){ctx.fillStyle=col;ctx.fillRect(x,y-h,w,h);if(txt)label(ctx,txt,x+w/2,y-h-8,T.ink,'center','bottom',MONO);}
+  const sim=sim2d(cv,{h:w=>clamp(w*.66,330,430),drag:(k,e)=>{if(k==='up')return;const [x]=ptr(e,cv);let best=0,bd=1e9;tubes.forEach((t,i)=>{const d=Math.abs(t-x);if(d<bd){bd=d;best=i;}});if(k==='down'||e.buttons){const el=$('#lg-ph');el.value=best;el.dispatchEvent(new Event('input',{bubbles:true}));}},
+    draw(ctx,w,h,t){const n=15,gap=w/n;tubes.length=0;const sel=Math.round(pH);const wob=Math.sin(t*3)*2;
+      for(let i=0;i<n;i++){const cx=gap*(i+.5);tubes.push(cx);const on=i===sel,tw=Math.min(24,gap*.6),th=84,y0=18+(on?-8:0);
+        ctx.save();ctx.translate(cx,y0);ctx.beginPath();ctx.roundRect(-tw/2,0,tw,th,[2,2,tw/2,tw/2]);ctx.fillStyle=T.surface;ctx.fill();
+        ctx.save();ctx.clip();ctx.fillStyle=phCol(i);const lv=th*.78;ctx.fillRect(-tw/2,th-lv+(on?wob*.4:0),tw,lv);
+        ctx.fillStyle='rgba(255,255,255,.28)';ctx.fillRect(-tw/2+3,th-lv,3,lv);ctx.restore();
+        ctx.lineWidth=on?2.5:1.3;ctx.strokeStyle=on?T.ink:T.muted;ctx.stroke();ctx.restore();
+        label(ctx,String(i),cx,y0+th+14,on?T.ink:T.muted,'center','middle',on?'700 13px "IBM Plex Mono",monospace':MONO);}
+      /* marker at the exact pH on the strip below the tubes */
+      const mx=gap*(pH+.5);ctx.fillStyle=T.ink;ctx.beginPath();ctx.moveTo(mx,134);ctx.lineTo(mx-6,144);ctx.lineTo(mx+6,144);ctx.fill();
+      label(ctx,'acidic',gap*.5,152,T.cx,'left','top',MONO);label(ctx,'neutral',gap*7.5,152,T.cv,'center','top',MONO);label(ctx,'basic',w-gap*.5,152,T.ca,'right','top',MONO);
+      /* two charts of [H+] */
+      const top=210,bot=h-22,H=bot-top,half=w/2;const hc=10**-pH,hn=1e-7;
+      label(ctx,'Linear scale: [H⁺] in M',16,top-18,T.ink,'left','middle',LABEL);label(ctx,'Log scale: pH',half+16,top-18,T.ink,'left','middle',LABEL);
+      ctx.strokeStyle=T.line;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(40,bot+.5);ctx.lineTo(half-16,bot+.5);ctx.moveTo(half+40,bot+.5);ctx.lineTo(w-16,bot+.5);ctx.stroke();
+      const bw=Math.min(54,(half-90)/3);
+      [[pH,hc,'this solution',T.cx],[7,hn,'pure water',T.cv]].forEach(([p,v,nm,col],k)=>{
+        const lx=60+k*(bw+34),hl=Math.max(0,v*H);ctx.fillStyle=col;ctx.fillRect(lx,bot-Math.max(hl,1.2),bw,Math.max(hl,1.2));
+        label(ctx,sci(v,2).replace(' × ','×'),lx+bw/2,bot-Math.max(hl,1.2)-6,T.ink,'center','bottom',MONO);label(ctx,nm,lx+bw/2,bot+11,T.muted,'center','top',MONO);
+        const gx=half+60+k*(bw+34),gh=Math.max(1.2,(14-p)/14*H);ctx.fillStyle=col;ctx.fillRect(gx,bot-gh,bw,gh);label(ctx,'pH '+(k?'7':pH.toFixed(1)),gx+bw/2,bot-gh-6,T.ink,'center','bottom',MONO);label(ctx,nm,gx+bw/2,bot+11,T.muted,'center','top',MONO);});
+      if(hc*H<3)label(ctx,'too small to see!',60+bw+8+bw/2,bot-26,T.hot,'center','bottom',MONO);
+      ctx.fillStyle=T.muted;ctx.font=MONO;ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillText('1 M',half-30,top+2);ctx.fillText('14',w-6,top+2);ctx.fillText('0',w-6,bot-2);
+    }});
+  drawers.logs=()=>sim.render();
+  bindRange('lg-ph',x=>x.toFixed(1),x=>{pH=x;const h=10**-x,oh=10**(x-14);setText('lg-h',sci(h,2));setText('lg-oh',sci(oh,2));setText('lg-poh',(14-x).toFixed(1));
+    const r=10**(7-x);setText('lg-vs',Math.abs(x-7)<.05?'neutral':x<7?`${r>=1e5?sci(r,1):fmt(r,r<10?1:0)}× more H⁺`:`${(1/r)>=1e5?sci(1/r,1):fmt(1/r,1/r<10?1:0)}× less H⁺`);sim.render();});
+  /* converter */
+  function conv(){const hRaw=$('#lg-in-h').value,p=parseNum(hRaw),s1=$('#lg-s1'),s2=$('#lg-s2');
+    if(isFinite(p)&&p>0){const ph=-Math.log10(p);const m=String(hRaw).replace(/[^0-9.e+\-×x^]/gi,'');const sf=((String(hRaw).match(/^[-+]?[\d.]+/)||[''])[0].replace(/^0*\.?0*/,'').replace('.','')||'1').length;
+      s1.innerHTML=`−log(${sci(p,Math.max(1,sf-1))}) = ${ph.toFixed(3)}<br>→ <b>pH = ${ph.toFixed(Math.max(1,sf))}</b> (${sf} sig fig${sf===1?'':'s'} → ${sf} decimal place${sf===1?'':'s'})`;}else s1.textContent='Enter a positive concentration like 3.2e-4.';
+    const q=parseFloat($('#lg-in-ph').value);if(isFinite(q)){const dec=(($('#lg-in-ph').value.split('.')[1])||'').length||1;s2.innerHTML=`10<sup>−${q}</sup> = ${sci(10**-q,6)}<br>→ <b>[H⁺] = ${sci(10**-q,Math.max(1,dec))} M</b> (${dec} decimal place${dec===1?'':'s'} → ${dec} sig fig${dec===1?'':'s'})`;}else s2.textContent='Enter a pH like 4.37.';}
+  ['lg-in-h','lg-in-ph'].forEach(id=>$('#'+id).addEventListener('input',conv));conv();
+  TIPS['lg-ph']=el=>{const p=+el.value;return p<7?`pH ${p.toFixed(1)}: more H⁺ than pure water. Each unit lower means ten times more H⁺.`:p>7?`pH ${p.toFixed(1)}: less H⁺ than pure water, more OH⁻. Each unit higher means ten times less H⁺.`:'pH 7: [H⁺] = [OH⁻] = 1.0 × 10⁻⁷ M. Neutral.';};
+  TIPS['lg-in-h']='The number of digits you type sets the number of decimal places in the pH.';
+  KEYS['lg-canvas']=['Tap a tube or slide the pH. Compare the two bar charts.',[['cx','this solution'],['cv','pure water (pH 7)']]];
+  GLOSS['logarithm']='The power you raise 10 to get the number: log 1000 = 3.';
+  GLOSS['poh']='−log[OH⁻]. pH + pOH = 14.00 at 25 °C.';
+  TT.logs='Let students push 10^x and log on the calculator back and forth until the inverse relationship feels natural. Ask for an estimate (between which two whole pH numbers?) before pressing keys.';
+})();
+(function(){
+  PROBS.push({id:'logs-ph',topic:'logs',title:'pH from [H⁺]',gen(){const a=ri(11,98)/10,n=ri(2,11),h=a*10**-n,ans=-Math.log10(h);
+    return {q:`A solution has [H⁺] = ${sci(h,1)} M. What is its pH?`,ans,unit:'',abs:.02,hint:'pH = −log[H⁺]. Split the log: log(a × 10⁻ⁿ) = log a − n.',
+      sol:`pH = −log(${sci(h,1)}) = −(log ${a} − ${n}) = −(${Math.log10(a).toFixed(3)} − ${n}) = <b>${ans.toFixed(2)}</b>.`};}});
+  PROBS.push({id:'logs-h',topic:'logs',title:'[H⁺] from pH',gen(){const pH=ri(150,1250)/100,ans=10**-pH;
+    return {q:`A solution has pH = ${pH.toFixed(2)}. What is [H⁺] in mol/L? (Scientific notation is fine: 4.3e-5.)`,ans,unit:'M',tol:.03,hint:'[H⁺] = 10^(−pH). Use the 10ˣ key on your calculator.',
+      sol:`[H⁺] = 10<sup>−${pH.toFixed(2)}</sup> = <b>${sci(ans,2)} M</b>.`};}});
+  PROBS.push({id:'logs-ratio',topic:'logs',title:'How many times more acidic?',gen(){const a=ri(1,9),d=ri(1,5),b=a+d,ans=10**d;
+    return {q:`How many times greater is [H⁺] in a solution of pH ${a} than in a solution of pH ${b}?`,ans,unit:'times',hint:'Each pH unit is a factor of 10. Count the steps.',
+      sol:`The difference is ${b} − ${a} = ${d} pH units, so [H⁺] differs by 10<sup>${d}</sup> = <b>${ans.toLocaleString('en-US')}</b>.`};}});
+})();
+
+/* ===== modules/icealg.js ===== */
+
+/* ---------------- ICE-table algebra: when is x small? ---------------- */
+(function icealg(){
+  const cv=$('#ia-canvas');if(!cv)return;let c=.1,K=1e-5;
+  const exact=()=>(-K+Math.sqrt(K*K+4*K*c))/2,approx=()=>Math.sqrt(K*c);
+  const sim=sim2d(cv,{h:w=>clamp(w*.5,260,360),draw(ctx,w,h){const box={x:58,y:12,w:w-74,h:h-48};const xmax=c;const ymax=Math.max(3*K,1e-12);
+      const P=panel(ctx,box,[0,xmax],[0,ymax],{xn:5,yn:4,xlabel:'x (M)',ylabel:'x²/(c−x)',color:T.ink});
+      const f=x=>x*x/(c-x),g=x=>x*x/c;
+      curve(ctx,P,x=>Math.min(f(Math.min(x,c*.9999)),ymax*5),0,c*.9999,T.cx,2.6,300);
+      curve(ctx,P,g,0,c,T.hot,2.4,300,[7,5]);
+      line(ctx,P,0,K,xmax,K,T.cv,2);label(ctx,'K',P.box.x+P.box.w-4,P.Y(K)-8,T.cv,'right','bottom',LABEL);
+      const xe=exact(),xa=approx();
+      [[xe,T.cx],[xa,T.hot]].forEach(([x,col],i)=>{if(x<=xmax){ctx.save();ctx.strokeStyle=col;ctx.setLineDash([3,3]);ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(P.X(x),P.Y(K));ctx.lineTo(P.X(x),box.y+box.h);ctx.stroke();ctx.restore();dot(ctx,P.X(x),P.Y(K),5,col);}});
+      label(ctx,'exact',P.X(xe),box.y+box.h+16,T.cx,xe<xa?'right':'left','top',MONO);label(ctx,'shortcut',P.X(xa),box.y+box.h+30,T.hot,xe<xa?'left':'right','top',MONO);}});
+  drawers.icealg=()=>sim.render();
+  function upd(){const xe=exact(),xa=approx(),pct=xe/c*100,err=Math.abs(xa-xe)/xe*100,ok=pct<5;
+    setText('ia-xe',sci(xe,2));setText('ia-xa',sci(xa,2));setText('ia-pct',fmt(pct,pct<10?2:1)+' %');setText('ia-err',fmt(err,err<10?2:1)+' %');
+    const v=$('#ia-v');v.textContent=ok?'✓ x is small (under 5% of c): the shortcut is fine':'✗ x is more than 5% of c: use the quadratic';v.style.color=ok?'var(--good)':'var(--hot)';sim.render();}
+  bindRange('ia-c',x=>sci(10**x,2)+' M',x=>{c=10**x;upd();});bindRange('ia-k',x=>sci(10**x,2),x=>{K=10**x;upd();});
+  TIPS['ia-c']='More dilute means more of the acid ionizes, so x grows compared with c and the shortcut gets worse.';
+  TIPS['ia-k']='A smaller K means less ionization, so x stays small compared with c and the shortcut is safe.';
+  KEYS['ia-canvas']=['Move the sliders and watch where the curves cross the K line.',[['cx','exact: x²/(c−x)'],['hot','shortcut: x²/c','dash'],['cv','K']]];
+  GLOSS['ice table']='A table with rows Initial, Change and Equilibrium that tracks amounts as a reaction reaches equilibrium.';
+  TT.icealg='Make the 5% check a habit by requiring it in every written solution. Show that the shortcut error grows as c/K shrinks, using the slider, before giving the c/K > 400 rule.';
+})();
+(function(){
+  PROBS.push({id:'ia-quad',topic:'icealg',title:'Solve the ICE quadratic',gen(){const c=pick([.010,.020,.050,.10,.20,.50]),K=pick([2e-3,5e-3,1.0e-2,2.0e-2,5e-2]);const x=(-K+Math.sqrt(K*K+4*K*c))/2;
+    return {q:`For HA ⇌ H⁺ + A⁻ the equilibrium constant is K = ${sci(K,1)}. Starting with ${c.toFixed(3)} M HA and no products, find [H⁺] at equilibrium. (The shortcut is not valid here; use the quadratic.)`,ans:x,unit:'M',tol:.03,hint:'Set up K = x²/(c − x), rearrange to x² + Kx − Kc = 0 and use the quadratic formula. Keep the positive root.',
+      sol:`x² + (${sci(K,1)})x − ${sci(K*c,2)} = 0 → x = [−${sci(K,1)} + √((${sci(K,1)})² + 4(${sci(K*c,2)}))]/2 = <b>${sci(x,2)} M</b>. (Check: x/c = ${fmt(x/c*100,0)}%, so the shortcut would not have worked.)`};}});
+  PROBS.push({id:'ia-small',topic:'icealg',title:'The shortcut and its check',gen(){const c=pick([.10,.20,.50,1.0]),K=pick([1.0e-6,4.0e-6,1.8e-5,6.0e-5,2.0e-4]);const x=Math.sqrt(K*c);const pct=x/c*100;
+    return {q:`A weak acid with K = ${sci(K,1)} starts at ${c.toFixed(2)} M. Use the x-is-small shortcut to find [H⁺].`,ans:x,unit:'M',tol:.03,hint:'x² / c = K, so x = √(Kc). Then check x / c × 100 against 5%.',
+      sol:`x = √(${sci(K,1)} × ${c}) = <b>${sci(x,2)} M</b>. Check: ${sci(x,2)} / ${c} × 100 = ${pct<.1?pct.toFixed(3):pct.toFixed(2)}%, under 5%, so the shortcut is valid.`};}});
+})();
 
 /* ===== modules/vsepr.js ===== */
 
@@ -1635,7 +2182,7 @@ function probCard(p,o={}){
     <div class="row">${exam?'':'<button type="button" class="btn link" data-act="hint">Hint</button>'}<button type="button" class="btn link" data-act="sol"${exam?' hidden':''}>Show solution</button>${mode==='practice'?'<button type="button" class="btn link" data-act="new">New numbers</button>':''}<button type="button" class="btn link rp-link" data-report="${p.topic}" style="margin-left:auto">Report this problem</button></div>
     <div class="box" data-box="hint" hidden><p>${d.hint}</p></div><div class="box" data-box="sol" hidden><p>${d.sol}</p></div>`;
   const fb=$('.fb',el),inp=$('input',el);
-  const ansText=ch?ch[d.ans]:`${fmt(d.ans,3)}${d.unit?' '+d.unit:''}`;
+  const ansText=ch?ch[d.ans]:`${d.show||fmt(d.ans,3)}${d.unit?' '+d.unit:''}`;
   function evaluate(){if(ch)return {blank:sel<0,ok:sel===d.ans};const x=parseNum(inp.value);if(!isFinite(x))return {blank:true,ok:false};
     return {blank:false,ok:ansOK(x,d),flip:!ansOK(x,d)&&ansOK(-x,d)};}
   function lock(){if(inp)inp.disabled=true;$$('.sopts button',el).forEach(b=>b.disabled=true);const s=$('button[type=submit]',el);if(s)s.disabled=true;}

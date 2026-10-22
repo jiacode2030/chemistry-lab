@@ -1,0 +1,50 @@
+  <section class="view" id="v-units" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>Units &amp; dimensional analysis</h1>
+        <p class="lede">Every chemistry calculation is a chain of conversions. Write the units next to the numbers, and let them cancel until only the unit you want is left.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A <b>conversion factor</b> is a fraction that equals 1, like 1000 mL / 1 L. Multiplying by 1 never changes the amount, only how it is written. Pick the version of the fraction that puts the unit you want to get rid of on the opposite side from where it sits now, and it cancels, the way a number cancels in a fraction.</p>
+        <p>Nobody has to remember "multiply or divide?". If the units cancel to what you want, the setup is right. If they don't, the setup is wrong, before you touch a calculator.</p>
+      </div>
+      <div class="lab" id="un-lab" data-reset="own">
+        <div class="labbar"><span class="title">Unit-cancelling lab</span><div class="row"><button type="button" class="btn" id="un-clear">Clear the chain</button></div></div>
+        <div class="ctl"><label for="un-prob"><span>Problem</span></label><select id="un-prob" aria-label="Problem"></select></div>
+        <p class="un-q" id="un-q"></p>
+        <div class="un-chain" id="un-chain" aria-live="polite"></div>
+        <div class="un-res" id="un-res" aria-live="polite"></div>
+        <div><span class="small">Tap a factor to add it to the chain. Tap ⇅ first to turn it upside down. Tap a factor in the chain to remove it.</span><div class="un-tiles" id="un-tiles" style="margin-top:8px"></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Convert 2.50 L to mL. Add the factor that cancels L. <button type="button" class="btn link" data-show='[["#un-prob","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Put mL on top and L on the bottom: 1000 mL / 1 L. The L cancels and leaves 2500 mL. If you add it upside down, L ends up squared on the bottom and mL is on the bottom too, and nothing cancels.</p></details></li>
+        <li><p>Turn a rate into another rate: 72 km/h to m/s needs two factors. <button type="button" class="btn link" data-show='[["#un-prob","1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>One factor changes km to m (1000 m / 1 km). The other changes h to s (1 h / 3600 s), flipped so that h cancels. The answer is 20 m/s.</p></details></li>
+        <li><p>Go from grams to a count of particles. Which two conversions does it take? <button type="button" class="btn link" data-show='[["#un-prob","2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Grams to moles uses the molar mass (1 mol / 58.44 g). Moles to particles uses Avogadro's number. The gram units cancel first, then the moles.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How many hydrogen atoms are in 5.0 g of water?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Start with what you have and what you want.</b> You have 5.0 g H₂O. You want atoms of H.</li>
+          <li hidden><b>Grams to moles of water.</b> The molar mass of H₂O is 18.02 g/mol, so multiply by (1 mol H₂O / 18.02 g H₂O). The grams cancel.</li>
+          <li hidden><b>Moles of water to moles of H.</b> Each H₂O has 2 H, so multiply by (2 mol H / 1 mol H₂O). The moles of water cancel.</li>
+          <li hidden><b>Moles of H to atoms.</b> Multiply by (6.022 × 10²³ atoms H / 1 mol H). The moles of H cancel, leaving atoms of H.</li>
+          <li hidden><b>Calculate.</b> 5.0 × (1/18.02) × 2 × 6.022 × 10²³ = <b>3.3 × 10²³ atoms of H</b>. Two significant figures, because 5.0 has two.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Multiplying by the factor the wrong way up. If the units don't cancel, flip it.</li>
+        <li>Dropping units partway through, so there is nothing to check the setup against.</li>
+        <li>Using a factor with mismatched labels, such as mol NaCl in one place and mol Na in another. They are different things and don't cancel.</li>
+        <li>Rounding in the middle of a chain. Keep a few extra digits and round once at the end.</li>
+        <li>Forgetting that squared or cubed units need squared or cubed factors: 1 m³ is (100 cm)³ = 10⁶ cm³, not 100 cm³.</li>
+      </ul></div>
+      <div class="prose"><h2>How to set up any conversion</h2>
+        <p>Write the starting quantity with its unit. Choose a factor with the unit you want to remove in the denominator. Cancel. Repeat until only the target unit remains. The numerical value of each factor comes from a definition (1 kg = 1000 g), a measured property (molar mass, density) or a chemical formula (2 H per H₂O).</p>
+        <p>Exact definitions such as 1000 mL = 1 L never limit significant figures. Measured values such as a molar mass can. Molar masses are usually given to enough digits not to be the weakest link.</p></div>
+      <div class="quiz" data-correct="1" data-explain="You want to remove km, so km must sit in the denominator of the factor: 1000 m / 1 km. The km then cancels with the km in the starting quantity.">
+        <p class="q">Check yourself: to convert 3.2 km to m, which factor do you multiply by?</p>
+        <div class="opts"><button type="button">1 km / 1000 m</button><button type="button">1000 m / 1 km</button><button type="button">1000 km / 1 m</button><button type="button">1 m / 1000 km</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,58 @@
+  <section class="view" id="v-logs" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>Logs &amp; pH math</h1>
+        <p class="lede">The concentration of H⁺ in water solutions spans fourteen powers of ten. A log scale squeezes that range into numbers from 0 to 14: that is all pH is.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine a staircase where every step is ten times higher than the last. The step number tells you how many tens you have multiplied by, and that is what a logarithm is: <span class="m">log 1000 = 3</span> because 1000 = 10³. Going up one step on a log scale means multiplying by 10, not adding 1.</p>
+        <p>pH is the step number for hydrogen ions, with a minus sign so that more acid gives a smaller number: <span class="m">pH = −log[H⁺]</span>. A solution with pH 3 has ten times as many H⁺ as one with pH 4, and a hundred times as many as pH 5.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we wrote concentrations as plain numbers on one scale</dd><dt>So we didn't need</dt><dd>logarithms</dd><dt>Now</dt><dd>concentrations run from 1 M to 0.000 000 000 000 01 M</dd><dt>So we need</dt><dd>a log scale, where equal steps mean equal multiples</dd></dl></div>
+      <div class="eqgrid"><div class="eqn"><span>pH = −log[H⁺]</span><small>definition</small></div><div class="eqn"><span>[H⁺] = 10<sup>−pH</sup></span><small>going back</small></div><div class="eqn"><span>pH + pOH = 14.00</span><small>at 25 °C</small></div></div>
+      <div class="lab" id="lg-lab">
+        <div class="labbar"><span class="title">The pH staircase</span></div>
+        <canvas id="lg-canvas" aria-label="Fifteen test tubes colored by pH with a linear bar chart and a log bar chart of the hydrogen ion concentration. Tap a tube to choose its pH."></canvas>
+        <div class="controls"><div class="ctl"><label for="lg-ph"><span>pH</span> <output id="lg-ph-out"></output></label><input type="range" id="lg-ph" min="0" max="14" step="0.1" value="3"></div></div>
+        <div class="readout"><div><span>[H⁺] (M)</span><strong class="x" id="lg-h">—</strong></div><div><span>[OH⁻] (M)</span><strong class="a" id="lg-oh">—</strong></div><div><span>pOH</span><strong id="lg-poh">—</strong></div><div><span>vs pure water</span><strong id="lg-vs" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="lg-lab2" data-reset="own">
+        <div class="labbar"><span class="title">Go back and forth</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="lg-in-h"><span>[H⁺] in M (try 3.2e-4)</span></label><input type="text" id="lg-in-h" value="3.2e-4" autocomplete="off" spellcheck="false"></div>
+          <div class="ctl"><label for="lg-in-ph"><span>pH (try 4.37)</span></label><input type="text" id="lg-in-ph" value="4.37" autocomplete="off" spellcheck="false" inputmode="decimal"></div>
+        </div>
+        <div class="xpsteps"><div><b>From [H⁺] to pH</b><span id="lg-s1">—</span></div><div><b>From pH to [H⁺]</b><span id="lg-s2">—</span></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Compare pH 3 with pH 5. How many times more H⁺ does the pH 3 solution have? <button type="button" class="btn link" data-show='[["#lg-ph",3]]'>pH 3</button> <button type="button" class="btn link" data-show='[["#lg-ph",5]]'>pH 5</button></p><details><summary>What you should see</summary><p>[H⁺] = 10⁻³ at pH 3 and 10⁻⁵ at pH 5. The ratio is 10² = 100. Two steps on the staircase, two factors of ten.</p></details></li>
+        <li><p>Look at the linear chart at pH 7. Can you see the bar? Now look at the log chart. <button type="button" class="btn link" data-show='[["#lg-ph",7]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>On a linear scale [H⁺] = 10⁻⁷ M is far too small to see next to 1 M. The log chart makes every pH visible, which is the reason chemists use it.</p></details></li>
+        <li><p>Does a pH of 3.0 have the same precision as a pH of 3? Enter 1.0e-3 for [H⁺]. <button type="button" class="btn link" data-show='[["#lg-in-h","1.0e-3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>pH = 3.00: two significant figures in [H⁺] give two digits after the decimal point in the pH. The digits before the decimal point only locate the power of ten.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">What is the pH of 3.2 × 10⁻⁴ M HCl? Then, a solution has pH 4.37. What is [H⁺]?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>HCl is a strong acid.</b> It ionizes completely, so [H⁺] = 3.2 × 10⁻⁴ M.</li>
+          <li hidden><b>Take the log.</b> log(3.2 × 10⁻⁴) = log 3.2 + log 10⁻⁴ = 0.505 − 4 = −3.495.</li>
+          <li hidden><b>Flip the sign.</b> pH = 3.495, which rounds to <b>3.49</b>. Two significant figures in 3.2 give two decimal places.</li>
+          <li hidden><b>Now go backward.</b> pH 4.37 means [H⁺] = 10<sup>−4.37</sup>. On the calculator, press 10<sup>x</sup> (or 2nd log) and enter −4.37.</li>
+          <li hidden><b>Answer.</b> 10<sup>−4.37</sup> = <b>4.3 × 10⁻⁵ M</b>. Check: pH 4.37 is between 4 (10⁻⁴) and 5 (10⁻⁵), so [H⁺] should lie between them. It does.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting the minus sign: pH = −log[H⁺], and [H⁺] is a number less than 1, so its log is negative.</li>
+        <li>Thinking pH 3 is "a little more acidic" than pH 4. It is ten times more.</li>
+        <li>Reporting too many decimal places. The decimals in a pH equal the significant figures in the concentration.</li>
+        <li>Using ln instead of log. Chemistry's pH uses log base 10.</li>
+        <li>Going back with the wrong key: [H⁺] = 10<sup>−pH</sup>, not −10<sup>pH</sup> or log(pH).</li>
+      </ul></div>
+      <div class="prose"><h2>Why decimal places match significant figures</h2>
+        <p>The number before the decimal point in a log only says which power of ten you are at (the "characteristic"). Only the digits after the decimal point carry information about the precision of the measurement (the "mantissa"). So 3.2 × 10⁻⁴ M (2 significant figures) gives pH = 3.49 (2 decimal places).</p>
+        <p>Water autoionizes: [H⁺][OH⁻] = K<sub>w</sub> = 1.0 × 10⁻¹⁴ at 25 °C. Taking −log of both sides gives pH + pOH = 14.00. In pure water [H⁺] = [OH⁻] = 1.0 × 10⁻⁷ M, so pH = 7.00: neutral.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Each pH unit is a factor of ten. From pH 5 to pH 3 is two units, so 10² = 100 times as much H⁺.">
+        <p class="q">Check yourself: how does [H⁺] at pH 3 compare with [H⁺] at pH 5?</p>
+        <div class="opts"><button type="button">2 times larger</button><button type="button">10 times larger</button><button type="button">100 times larger</button><button type="button">1000 times larger</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

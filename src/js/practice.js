@@ -14,7 +14,7 @@ function probCard(p,o={}){
     <div class="row">${exam?'':'<button type="button" class="btn link" data-act="hint">Hint</button>'}<button type="button" class="btn link" data-act="sol"${exam?' hidden':''}>Show solution</button>${mode==='practice'?'<button type="button" class="btn link" data-act="new">New numbers</button>':''}<button type="button" class="btn link rp-link" data-report="${p.topic}" style="margin-left:auto">Report this problem</button></div>
     <div class="box" data-box="hint" hidden><p>${d.hint}</p></div><div class="box" data-box="sol" hidden><p>${d.sol}</p></div>`;
   const fb=$('.fb',el),inp=$('input',el);
-  const ansText=ch?ch[d.ans]:`${fmt(d.ans,3)}${d.unit?' '+d.unit:''}`;
+  const ansText=ch?ch[d.ans]:`${d.show||fmt(d.ans,3)}${d.unit?' '+d.unit:''}`;
   function evaluate(){if(ch)return {blank:sel<0,ok:sel===d.ans};const x=parseNum(inp.value);if(!isFinite(x))return {blank:true,ok:false};
     return {blank:false,ok:ansOK(x,d),flip:!ansOK(x,d)&&ansOK(-x,d)};}
   function lock(){if(inp)inp.disabled=true;$$('.sopts button',el).forEach(b=>b.disabled=true);const s=$('button[type=submit]',el);if(s)s.disabled=true;}

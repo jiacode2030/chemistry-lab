@@ -48,7 +48,7 @@ function curve(ctx,P,f,a,b,color,w=2.25,n=260,dash){ctx.save();clip(ctx,P);ctx.s
 function area(ctx,P,f,a,b,color,al=.2,n=200){if(b<=a)return;ctx.save();clip(ctx,P);ctx.fillStyle=alpha(color,al);ctx.beginPath();ctx.moveTo(P.X(a),P.Y(0));
   for(let i=0;i<=n;i++){const t=a+(b-a)*i/n;ctx.lineTo(P.X(t),P.Y(f(t)));}ctx.lineTo(P.X(b),P.Y(0));ctx.closePath();ctx.fill();ctx.restore();}
 function line(ctx,P,x1,y1,x2,y2,color,w=1.5,dash){ctx.save();clip(ctx,P);ctx.strokeStyle=color;ctx.lineWidth=w;if(dash)ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(P.X(x1),P.Y(y1));ctx.lineTo(P.X(x2),P.Y(y2));ctx.stroke();ctx.restore();}
-function bindRange(id,f,cb){const el=$('#'+id),out=$('#'+id+'-out');const up=()=>{if(out)out.textContent=f(+el.value);cb&&cb(+el.value);};el.addEventListener('input',up);if(out)out.textContent=f(+el.value);return el;}
+function bindRange(id,f,cb,init=true){const el=$('#'+id),out=$('#'+id+'-out');const up=()=>{if(out)out.textContent=f(+el.value);cb&&cb(+el.value);};el.addEventListener('input',up);if(out)out.textContent=f(+el.value);if(init)cb&&cb(+el.value);return el;}
 function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
 
 const drawers={};

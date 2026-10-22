@@ -70,3 +70,28 @@ DomainSim.prototype.kick=function(amt){this.dir=this.dir.map(d=>{const r=[Math.r
 DomainSim.prototype.settle=function(maxSteps=4000){for(let i=0;i<maxSteps;i++)if(this.step(1/60)<1e-10&&i>20)break;};
 /* lone pairs are fatter balloons; the effect is fitted to NH₃ and H₂O (3 regions: weaker). 5–6 regions are drawn ideal. */
 const lpWeight=n=>n<=3?1.07:n===4?LP_WEIGHT:1;
+
+/* ---------------- sim2d: one animation loop per canvas ----------------
+   o.h(w) height, o.step(dt,t) physics, o.draw(ctx,w,h,t) drawing. Runs only while the canvas is on screen and its module is open;
+   with reduced motion it draws once and again whenever the module calls .render() after a control changes. */
+function sim2d(cv,o){let seen=true,last=0,t=0,raf=0;
+  const live=()=>seen&&!document.hidden&&cv.offsetParent!==null;
+  function render(){const w=cv.clientWidth;if(!w)return;const h=o.h?o.h(w):clamp(w*.5,240,380);const c=prep(cv,h);if(!c)return;o.draw(c.ctx,w,h,t);}
+  function frame(ts){raf=0;if(!live()){last=0;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;if(o.step&&!o.paused?.())o.step(dt,t+=dt);render();raf=requestAnimationFrame(frame);}
+  function kick(){if(REDUCE){render();return;}if(!raf&&live())raf=requestAnimationFrame(frame);}
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[es.length-1].isIntersecting;if(seen)kick();}).observe(cv);
+  document.addEventListener('visibilitychange',kick);window.addEventListener('hashchange',()=>setTimeout(kick,50));
+  if(o.drag){cv.classList.add('drag');cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);o.drag('down',e,cv);kick();});cv.addEventListener('pointermove',e=>{o.drag('move',e,cv);if(REDUCE)render();});
+    const up=e=>o.drag('up',e,cv);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);}
+  setTimeout(kick,30);
+  return {render:()=>{render();kick();},get t(){return t;}};}
+/* pointer position inside a canvas, in css pixels */
+const ptr=(e,cv)=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];};
+/* a swarm of simple particles in a box: positions in css pixels, optional pairwise collisions */
+function swarm(n,w,h,speed,r){const a=[];for(let i=0;i<n;i++){const ang=Math.random()*6.283,s=speed*(.4+Math.random()*1.2);a.push({x:r+Math.random()*(w-2*r),y:r+Math.random()*(h-2*r),vx:Math.cos(ang)*s,vy:Math.sin(ang)*s});}return a;}
+/* species colours follow the site's colour roles */
+const SPC=()=>({A:T.cx,B:T.hot,C:T.cv,D:T.ca,E:T.ce,I:T.ink});
+/* quadratic roots of a x² + b x + c = 0 (real roots, ascending) */
+function quad(a,b,c){const d=b*b-4*a*c;if(d<0)return [];const s=Math.sqrt(d),q=-.5*(b+Math.sign(b||1)*s);const r=[q/a,c/q].filter(isFinite).sort((x,y)=>x-y);return r;}
+/* bisection solve of f(x)=0 on [a,b] (f changes sign) */
+function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=f(m);if((fm<0)===(fa<0)){a=m;fa=fm;}else b=m;}return (a+b)/2;}

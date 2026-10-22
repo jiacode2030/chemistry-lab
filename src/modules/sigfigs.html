@@ -1,0 +1,66 @@
+  <section class="view" id="v-sigfigs" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag na">Math toolkit</span></div>
+        <h1>Scientific notation &amp; sig figs</h1>
+        <p class="lede">A measurement is only as good as its last trusted digit. Significant figures say how many digits you can trust. Scientific notation writes very big and very small numbers without a pile of zeros.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>If a ruler is marked in millimeters and you read 12.3 cm, the 3 is your best guess between marks. Every digit you are sure of, plus that one guessed digit, is <b>significant</b>. Writing 12.30 claims you could read to the next digit; writing 12 claims you could not.</p>
+        <p>Zeros are only placeholders when they sit before the first nonzero digit (0.0045), or at the end of a number with no decimal point (1200). A trailing zero after a decimal point (1.200) is a claim of precision, so it counts.</p>
+      </div>
+      <div class="lab" id="sf-lab1">
+        <div class="labbar"><span class="title">Which digits count?</span></div>
+        <div class="row"><div class="ctl" style="flex:1 1 220px"><label for="sf-in"><span>Type any number (like 0.004050 or 3.00e5)</span></label><input type="text" id="sf-in" value="0.004050" autocomplete="off" spellcheck="false" inputmode="text"></div>
+          <div class="seg" id="sf-pick" role="group" aria-label="Examples"><button type="button" data-v="0.004050" aria-pressed="true">0.004050</button><button type="button" data-v="1200" aria-pressed="false">1200</button><button type="button" data-v="1200." aria-pressed="false">1200.</button><button type="button" data-v="100.0" aria-pressed="false">100.0</button><button type="button" data-v="3.00e5" aria-pressed="false">3.00e5</button></div></div>
+        <div class="chips" id="sf-chips" aria-live="polite"></div>
+        <div class="readout"><div><span>Significant figures</span><strong class="v" id="sf-n">—</strong></div><div><span>In scientific notation</span><strong id="sf-sci" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" id="sf-why" style="margin:0"></p>
+      </div>
+      <div class="lab" id="sf-lab2">
+        <div class="labbar"><span class="title">Calculator rounding</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="sf-a"><span>First number</span></label><input type="text" id="sf-a" value="12.11" autocomplete="off" spellcheck="false"></div>
+          <div class="ctl"><label for="sf-op"><span>Operation</span></label><select id="sf-op"><option value="+">add (+)</option><option value="-">subtract (−)</option><option value="*">multiply (×)</option><option value="/">divide (÷)</option></select></div>
+          <div class="ctl"><label for="sf-b"><span>Second number</span></label><input type="text" id="sf-b" value="0.023" autocomplete="off" spellcheck="false"></div>
+        </div>
+        <div class="colmath" id="sf-col" aria-live="polite"></div>
+        <div class="readout"><div><span>Calculator shows</span><strong id="sf-raw">—</strong></div><div><span>Rule</span><strong id="sf-rule" style="white-space:normal;font-size:15px">—</strong></div><div><span>Report</span><strong class="v" id="sf-ans">—</strong></div></div>
+      </div>
+      <div class="lab" id="sf-lab3">
+        <div class="labbar"><span class="title">Slide the decimal point</span></div>
+        <div class="controls"><div class="ctl"><label for="sf-q"><span>Quantity</span></label><select id="sf-q"></select></div>
+          <div class="ctl"><label for="sf-e"><span>Power of ten</span> <output id="sf-e-out"></output></label><input type="range" id="sf-e" min="-4" max="4" step="1" value="0"></div></div>
+        <div class="chips" id="sf-slide"></div>
+        <div class="readout"><div><span>Same number, written as</span><strong id="sf-w" style="white-space:normal;font-size:15px">—</strong></div><div><span>Proper scientific notation?</span><strong id="sf-ok">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>How many significant figures are in 1200? What about 1200. and 1.200e3? <button type="button" class="btn link" data-show='[["#sf-in","1200"]]'>Show 1200</button> <button type="button" class="btn link" data-show='[["#sf-in","1200."]]'>Show 1200.</button> <button type="button" class="btn link" data-show='[["#sf-in","1.200e3"]]'>Show 1.200e3</button></p><details><summary>What you should see</summary><p>1200 has two (the zeros are ambiguous placeholders), 1200. has four (the decimal point says the zeros were measured), and 1.200 × 10³ has four. Scientific notation removes the ambiguity.</p></details></li>
+        <li><p>Multiply 4.56 by 1.4. How many digits can you keep? <button type="button" class="btn link" data-show='[["#sf-a","4.56"],["#sf-op","*"],["#sf-b","1.4"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The calculator shows 6.384, but 1.4 has only two significant figures, so the answer is 6.4. For multiplying and dividing, count significant figures and keep the fewest.</p></details></li>
+        <li><p>Add 12.11 and 0.023. Which number sets the limit? <button type="button" class="btn link" data-show='[["#sf-a","12.11"],["#sf-op","+"],["#sf-b","0.023"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The sum is 12.133, but 12.11 is only known to the hundredths column, so the answer is 12.13. For adding and subtracting, line up the decimal points and keep the fewest decimal places.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A student weighs 2.50 g of a salt, then measures its volume as 1.2 mL. Report the density with the right number of significant figures.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Count significant figures.</b> 2.50 has three (the trailing zero is after a decimal point). 1.2 has two.</li>
+          <li hidden><b>Pick the rule.</b> Density is mass ÷ volume: a division, so keep the fewest significant figures. That is two.</li>
+          <li hidden><b>Calculate.</b> 2.50 / 1.2 = 2.0833… on the calculator.</li>
+          <li hidden><b>Round once, at the end.</b> Two significant figures: <b>2.1 g/mL</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Counting leading zeros: 0.0045 has two significant figures, not four.</li>
+        <li>Dropping a trailing zero that matters: 2.50 is not the same claim as 2.5.</li>
+        <li>Using the multiply rule for addition, or the other way round. Sig figs for × ÷; decimal places for + −.</li>
+        <li>Rounding in the middle of a multi-step problem. Round once, at the end.</li>
+        <li>Counting exact numbers (like 12 eggs, or 1000 mL = 1 L) as if they limited the answer. Exact numbers have unlimited significant figures.</li>
+      </ul></div>
+      <div class="prose"><h2>The two rounding rules</h2>
+        <p><b>Multiplying and dividing:</b> the answer has as many significant figures as the input with the fewest. <b>Adding and subtracting:</b> the answer has as many decimal places as the input with the fewest. These are different because adding combines uncertainties in absolute terms (so what matters is the last column), while multiplying combines them in relative terms (so what matters is the count of digits).</p>
+        <p>Scientific notation writes a number as <i>m</i> × 10<sup><i>n</i></sup> with 1 ≤ <i>m</i> &lt; 10. Every digit in <i>m</i> is significant, so 6.022 × 10²³ has four. Moving the decimal point left raises the exponent; moving it right lowers it.</p></div>
+      <div class="quiz" data-correct="2" data-explain="The zeros are leading zeros, which only mark where the decimal point is. Only 4, 5 and the final 0 count: 4.50 × 10⁻³ has three significant figures.">
+        <p class="q">Check yourself: how many significant figures are in 0.00450?</p>
+        <div class="opts"><button type="button">2</button><button type="button">5</button><button type="button">3</button><button type="button">6</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
