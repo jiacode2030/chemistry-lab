@@ -95,3 +95,8 @@ const SPC=()=>({A:T.cx,B:T.hot,C:T.cv,D:T.ca,E:T.ce,I:T.ink});
 function quad(a,b,c){const d=b*b-4*a*c;if(d<0)return [];const s=Math.sqrt(d),q=-.5*(b+Math.sign(b||1)*s);const r=[q/a,c/q].filter(isFinite).sort((x,y)=>x-y);return r;}
 /* bisection solve of f(x)=0 on [a,b] (f changes sign) */
 function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=f(m);if((fm<0)===(fa<0)){a=m;fa=fm;}else b=m;}return (a+b)/2;}
+
+/* formula text helpers */
+const SUBD='₀₁₂₃₄₅₆₇₈₉';
+const fsub=f=>String(f).replace(/(\d+)/g,d=>[...d].map(c=>SUBD[c]).join(''));
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);

@@ -1,0 +1,52 @@
+  <section class="view" id="v-massspec" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Mass spectra &amp; average atomic mass</h1>
+        <p class="lede">Atoms of the same element can have different masses. A mass spectrometer sorts them, and the number on the periodic table is the weighted average of what it finds.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Atoms of one element all have the same number of protons, but can have different numbers of neutrons. These versions are <b>isotopes</b>. Chlorine atoms come as ³⁵Cl (18 neutrons) and ³⁷Cl (20 neutrons). In a sample of chlorine, about three in four atoms are ³⁵Cl.</p>
+        <p>A mass spectrometer ionizes atoms and sends them through a magnetic field. Lighter ions bend more, so the instrument sorts the beam by mass, and a detector counts each kind. The result is a <b>mass spectrum</b>: one peak per isotope, with the height showing how common it is. Average the masses with each weighted by its abundance and you get the atomic mass on the periodic table. That is why it isn't a whole number.</p>
+      </div>
+      <div class="lab" id="ms-lab">
+        <div class="labbar"><span class="title">The mass spectrometer</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="ms-el"><span>Element</span></label><select id="ms-el"></select></div>
+          <div class="toggles"><label class="check"><input type="checkbox" id="ms-what"> What if? Set the abundance yourself</label></div>
+          <div class="ctl"><label for="ms-ab"><span>Abundance of the lighter isotope</span> <output id="ms-ab-out"></output></label><input type="range" id="ms-ab" min="0" max="100" step="1" value="76" disabled></div>
+        </div>
+        <canvas id="ms-canvas" aria-label="Ions of different mass curve through a magnetic field and land at different places, building a mass spectrum; a seesaw under the axis balances at the average mass"></canvas>
+        <div class="readout"><div><span>Average atomic mass</span><strong class="v" id="ms-avg">—</strong></div><div><span>Periodic table value</span><strong id="ms-pt">—</strong></div><div><span>Ions counted</span><strong id="ms-n">0</strong></div></div>
+        <p class="small" id="ms-calc" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Chlorine is about 76% ³⁵Cl and 24% ³⁷Cl. Where will the average fall? <button type="button" class="btn link" data-show='[["#ms-el","Cl"],["#ms-what",false]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The seesaw balances at 35.45, much closer to 35 than to 37, because there is more weight at 35. The average sits between the two peaks, closer to the taller one.</p></details></li>
+        <li><p>Bromine has two isotopes that are almost equally abundant. Where does the average land? <button type="button" class="btn link" data-show='[["#ms-el","Br"],["#ms-what",false]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Two peaks of nearly equal height, and the average (79.90) falls almost exactly halfway between 78.92 and 80.92.</p></details></li>
+        <li><p>What if chlorine were 100% ³⁵Cl? <button type="button" class="btn link" data-show='[["#ms-el","Cl"],["#ms-what",true],["#ms-ab",100]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>A single peak, and the average mass equals that isotope's mass, 34.97. An element with one isotope has an atomic mass very close to a whole number.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Copper has two isotopes: ⁶³Cu with mass 62.930 u (69.15%) and ⁶⁵Cu with mass 64.928 u (30.85%). Find the average atomic mass.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Turn percentages into fractions.</b> 69.15% = 0.6915 and 30.85% = 0.3085. They add to 1.</li>
+          <li hidden><b>Weight each mass.</b> 0.6915 × 62.930 = 43.52 and 0.3085 × 64.928 = 20.03.</li>
+          <li hidden><b>Add.</b> 43.52 + 20.03 = <b>63.55 u</b>.</li>
+          <li hidden><b>Check.</b> The answer lies between 62.93 and 64.93 and is closer to 62.93, the more abundant isotope. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Averaging the isotope masses without weighting them (just adding and dividing by two).</li>
+        <li>Using percentages as if they were fractions: 69.15% must become 0.6915 before multiplying.</li>
+        <li>Thinking the atomic mass is the mass of the most common isotope. It is close, but not equal.</li>
+        <li>Believing a mass spectrum shows how many atoms there are. Peak heights show relative abundance, not total amount.</li>
+        <li>Mixing up mass number (protons + neutrons, a whole number) with isotopic mass (measured, close to a whole number).</li>
+      </ul></div>
+      <div class="prose"><h2>Weighted averages</h2>
+        <p>Average atomic mass = Σ (fractional abundance × isotopic mass). The same idea gives your grade: tests that count more pull the average toward them. On the seesaw above, each isotope is a weight whose size is its abundance, and the balance point is the average.</p>
+        <p>In a spectrum with several peaks, read the mass of each peak from the horizontal axis and its abundance from the height, converting heights to fractions that sum to 1. If the heights are given as relative to the tallest peak, divide each by the sum of all heights first.</p></div>
+      <div class="quiz" data-correct="0" data-explain="The average is weighted toward the more abundant isotope, so it lies between the two masses and is closer to the 79% one: 10.8, not 10.5 and not 11.0.">
+        <p class="q">Check yourself: boron has ¹⁰B (about 20%) and ¹¹B (about 80%). Its average atomic mass is closest to:</p>
+        <div class="opts"><button type="button">10.8</button><button type="button">10.5</button><button type="button">11.0</button><button type="button">10.2</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

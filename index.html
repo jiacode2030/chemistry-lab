@@ -1054,7 +1054,7 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
         <p class="small" style="margin:0">The solid blue curve is <i>x</i>²/(<i>c</i> − <i>x</i>); the dashed orange curve is the shortcut <i>x</i>²/<i>c</i>. Where each crosses the horizontal green line at <i>K</i> is its answer for <i>x</i>. When the curves nearly coincide there, the shortcut is safe.</p>
       </div>
       <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
-        <li><p>A weak acid with K = 1.8 × 10⁻⁵ at 0.10 M. Is the shortcut fair? <button type="button" class="btn link" data-show='[["#ia-c",-1],["#ia-k",-4.745]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is about 0.13% of c, far below 5%. The two curves cross K almost at the same place and the shortcut error is tiny.</p></details></li>
+        <li><p>A weak acid with K = 1.8 × 10⁻⁵ at 0.10 M. Is the shortcut fair? <button type="button" class="btn link" data-show='[["#ia-c",-1],["#ia-k",-4.745]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is about 1.3% of c, well below 5%. The two curves cross K almost at the same place and the shortcut error is tiny.</p></details></li>
         <li><p>Keep K the same, but dilute the acid to 0.0001 M. What happens to the shortcut? <button type="button" class="btn link" data-show='[["#ia-c",-4],["#ia-k",-4.745]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Now x is more than 5% of c (about 35%). The dashed curve separates from the solid one at K and the shortcut is wrong by a large amount. Weaker solutions are more ionized, so the shortcut fails first for dilute solutions.</p></details></li>
         <li><p>Go the other way: a large K at moderate concentration. <button type="button" class="btn link" data-show='[["#ia-c",-1],["#ia-k",-2]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>With K = 0.01 and c = 0.10, x is about 27% of c. The shortcut fails whenever K is not much smaller than c; a handy test is c/K &lt; 100 (roughly).</p></details></li>
       </ol></div>
@@ -1080,6 +1080,162 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
       <div class="quiz" data-correct="1" data-explain="x/c = 0.0030/0.025 = 12%, which is above 5%. The shortcut is not valid, so solve the quadratic.">
         <p class="q">Check yourself: x ≈ 0.0030 M from the shortcut, starting at c = 0.025 M. Is the shortcut valid?</p>
         <div class="opts"><button type="button">Yes, x is smaller than c</button><button type="button">No, x is about 12% of c</button><button type="button">Yes, 12% is under 50%</button><button type="button">Cannot tell without K</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-mole" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Moles &amp; molar mass</h1>
+        <p class="lede">Atoms are far too small to count one by one, so chemists count them by weighing. The mole is the bridge between a mass you can measure and a number of particles you can't see.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A grocer sells eggs by the dozen and rice by the kilogram, and has a rule that turns one into the other: "a dozen eggs weighs about 600 g". The chemist's dozen is the <b>mole</b>: 6.022 × 10²³ particles. The chemist's rule for turning a count into a mass is the <b>molar mass</b>: the mass of one mole, in grams. It is the number on the periodic table, with units of g/mol.</p>
+        <p>The surprise is that one mole of different substances weighs very different amounts, because their particles have different masses. The same mass of different substances holds very different numbers of particles. Try both below.</p>
+      </div>
+      <div class="lab" id="ml-lab">
+        <div class="labbar"><span class="title">The balance</span><div class="seg" id="ml-mode" role="group" aria-label="What to keep equal"><button type="button" data-k="n" aria-pressed="true">Same number of particles</button><button type="button" data-k="m" aria-pressed="false">Same mass</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ml-a"><span>Left pan</span></label><select id="ml-a"></select></div>
+          <div class="ctl"><label for="ml-b"><span>Right pan</span></label><select id="ml-b"></select></div>
+          <div class="ctl"><label for="ml-v"><span id="ml-vl">Amount</span> <output id="ml-v-out"></output></label><input type="range" id="ml-v" min="0.25" max="3" step="0.25" value="1"></div>
+        </div>
+        <canvas id="ml-canvas" aria-label="A balance with a pile of particles on each pan; each dot stands for a fixed number of particles"></canvas>
+        <div class="readout"><div><span>Left: moles</span><strong class="x" id="ml-na">—</strong></div><div><span>Left: mass</span><strong class="x" id="ml-ma">—</strong></div><div><span>Right: moles</span><strong class="hot" id="ml-nb">—</strong></div><div><span>Right: mass</span><strong class="hot" id="ml-mb">—</strong></div><div><span>Particles per pan</span><strong id="ml-np" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">Each dot stands for the same large number of particles, written under the balance. The beam tilts toward the heavier pan.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Put 1 mol of carbon against 1 mol of NaCl. Which pan is heavier, and which has more particles? <button type="button" class="btn link" data-show='[["click","#ml-mode button[data-k=n]"],["#ml-a","C"],["#ml-b","NaCl"],["#ml-v",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The NaCl pan is much heavier (58.44 g against 12.01 g), but both pans hold exactly the same number of particles. A mole is a count, not a mass.</p></details></li>
+        <li><p>Now balance equal masses: 24 g of carbon against 24 g of water. <button type="button" class="btn link" data-show='[["click","#ml-mode button[data-k=m]"],["#ml-a","C"],["#ml-b","H₂O"],["#ml-v",24]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The beam is level because the masses are equal, but carbon has about 2 mol (24 ÷ 12.01) and water about 1.3 mol (24 ÷ 18.02). Lighter particles means more particles in the same mass.</p></details></li>
+        <li><p>Glucose is a big molecule. How does 1 mol of glucose compare with 1 mol of water? <button type="button" class="btn link" data-show='[["click","#ml-mode button[data-k=n]"],["#ml-a","C₆H₁₂O₆"],["#ml-b","H₂O"],["#ml-v",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>180.16 g against 18.02 g: ten times the mass for the same number of molecules, because each glucose molecule is ten times as heavy.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How many moles and how many molecules are in 9.00 g of water?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Find the molar mass.</b> H₂O: 2(1.008) + 16.00 = 18.02 g/mol.</li>
+          <li hidden><b>Mass to moles.</b> n = m / M = 9.00 g ÷ 18.02 g/mol = 0.499 mol.</li>
+          <li hidden><b>Moles to molecules.</b> N = n × N<sub>A</sub> = 0.499 mol × 6.022 × 10²³ mol⁻¹ = <b>3.01 × 10²³ molecules</b>.</li>
+          <li hidden><b>Sense check.</b> 9.00 g is half of 18.02 g, so half a mole and half of Avogadro's number. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking a mole is a mass. It is a number of particles; the molar mass is what connects it to grams.</li>
+        <li>Using the molar mass of an atom for a molecule. For H₂O add up both H and the O.</li>
+        <li>Dividing when you should multiply (or the reverse). Check that the grams cancel.</li>
+        <li>Mixing "mol of molecules" with "mol of atoms". One mole of H₂O molecules contains 2 mol of H atoms.</li>
+        <li>Reading 6.022 × 10²³ as a mass. It has units of particles per mole.</li>
+      </ul></div>
+      <div class="prose"><h2>The two conversions</h2>
+        <p><b>Mass ↔ moles:</b> <span class="m"><i>n</i> = <i>m</i> / <i>M</i></span>, where <i>M</i> is the molar mass in g/mol. <b>Moles ↔ particles:</b> <span class="m"><i>N</i> = <i>n</i> <i>N</i><sub>A</sub></span>, with <i>N</i><sub>A</sub> = 6.022 × 10²³ per mole. Almost every calculation later in the course runs through moles, so moles are the hub and grams and particles sit at the two ends.</p>
+        <p>The molar mass of a compound is the sum of the molar masses of its atoms, counting each as many times as it appears in the formula: for glucose, C₆H₁₂O₆, it is 6(12.01) + 12(1.008) + 6(16.00) = 180.16 g/mol.</p></div>
+      <div class="quiz" data-correct="3" data-explain="n = m/M. Carbon (12.01 g/mol) gives 12.01/12.01 = 1.00 mol; water (18.02 g/mol) gives 12.01/18.02 = 0.67 mol. Lighter particles means more particles in the same mass.">
+        <p class="q">Check yourself: 12.01 g of carbon and 12.01 g of water. Which has more particles?</p>
+        <div class="opts"><button type="button">The water, because molecules are bigger</button><button type="button">They have the same number</button><button type="button">Cannot tell without the density</button><button type="button">The carbon, because its particles are lighter</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-massspec" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Mass spectra &amp; average atomic mass</h1>
+        <p class="lede">Atoms of the same element can have different masses. A mass spectrometer sorts them, and the number on the periodic table is the weighted average of what it finds.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Atoms of one element all have the same number of protons, but can have different numbers of neutrons. These versions are <b>isotopes</b>. Chlorine atoms come as ³⁵Cl (18 neutrons) and ³⁷Cl (20 neutrons). In a sample of chlorine, about three in four atoms are ³⁵Cl.</p>
+        <p>A mass spectrometer ionizes atoms and sends them through a magnetic field. Lighter ions bend more, so the instrument sorts the beam by mass, and a detector counts each kind. The result is a <b>mass spectrum</b>: one peak per isotope, with the height showing how common it is. Average the masses with each weighted by its abundance and you get the atomic mass on the periodic table. That is why it isn't a whole number.</p>
+      </div>
+      <div class="lab" id="ms-lab">
+        <div class="labbar"><span class="title">The mass spectrometer</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="ms-el"><span>Element</span></label><select id="ms-el"></select></div>
+          <div class="toggles"><label class="check"><input type="checkbox" id="ms-what"> What if? Set the abundance yourself</label></div>
+          <div class="ctl"><label for="ms-ab"><span>Abundance of the lighter isotope</span> <output id="ms-ab-out"></output></label><input type="range" id="ms-ab" min="0" max="100" step="1" value="76" disabled></div>
+        </div>
+        <canvas id="ms-canvas" aria-label="Ions of different mass curve through a magnetic field and land at different places, building a mass spectrum; a seesaw under the axis balances at the average mass"></canvas>
+        <div class="readout"><div><span>Average atomic mass</span><strong class="v" id="ms-avg">—</strong></div><div><span>Periodic table value</span><strong id="ms-pt">—</strong></div><div><span>Ions counted</span><strong id="ms-n">0</strong></div></div>
+        <p class="small" id="ms-calc" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Chlorine is about 76% ³⁵Cl and 24% ³⁷Cl. Where will the average fall? <button type="button" class="btn link" data-show='[["#ms-el","Cl"],["#ms-what",false]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The seesaw balances at 35.45, much closer to 35 than to 37, because there is more weight at 35. The average sits between the two peaks, closer to the taller one.</p></details></li>
+        <li><p>Bromine has two isotopes that are almost equally abundant. Where does the average land? <button type="button" class="btn link" data-show='[["#ms-el","Br"],["#ms-what",false]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Two peaks of nearly equal height, and the average (79.90) falls almost exactly halfway between 78.92 and 80.92.</p></details></li>
+        <li><p>What if chlorine were 100% ³⁵Cl? <button type="button" class="btn link" data-show='[["#ms-el","Cl"],["#ms-what",true],["#ms-ab",100]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>A single peak, and the average mass equals that isotope's mass, 34.97. An element with one isotope has an atomic mass very close to a whole number.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Copper has two isotopes: ⁶³Cu with mass 62.930 u (69.15%) and ⁶⁵Cu with mass 64.928 u (30.85%). Find the average atomic mass.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Turn percentages into fractions.</b> 69.15% = 0.6915 and 30.85% = 0.3085. They add to 1.</li>
+          <li hidden><b>Weight each mass.</b> 0.6915 × 62.930 = 43.52 and 0.3085 × 64.928 = 20.03.</li>
+          <li hidden><b>Add.</b> 43.52 + 20.03 = <b>63.55 u</b>.</li>
+          <li hidden><b>Check.</b> The answer lies between 62.93 and 64.93 and is closer to 62.93, the more abundant isotope. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Averaging the isotope masses without weighting them (just adding and dividing by two).</li>
+        <li>Using percentages as if they were fractions: 69.15% must become 0.6915 before multiplying.</li>
+        <li>Thinking the atomic mass is the mass of the most common isotope. It is close, but not equal.</li>
+        <li>Believing a mass spectrum shows how many atoms there are. Peak heights show relative abundance, not total amount.</li>
+        <li>Mixing up mass number (protons + neutrons, a whole number) with isotopic mass (measured, close to a whole number).</li>
+      </ul></div>
+      <div class="prose"><h2>Weighted averages</h2>
+        <p>Average atomic mass = Σ (fractional abundance × isotopic mass). The same idea gives your grade: tests that count more pull the average toward them. On the seesaw above, each isotope is a weight whose size is its abundance, and the balance point is the average.</p>
+        <p>In a spectrum with several peaks, read the mass of each peak from the horizontal axis and its abundance from the height, converting heights to fractions that sum to 1. If the heights are given as relative to the tallest peak, divide each by the sum of all heights first.</p></div>
+      <div class="quiz" data-correct="0" data-explain="The average is weighted toward the more abundant isotope, so it lies between the two masses and is closer to the 79% one: 10.8, not 10.5 and not 11.0.">
+        <p class="q">Check yourself: boron has ¹⁰B (about 20%) and ¹¹B (about 80%). Its average atomic mass is closest to:</p>
+        <div class="opts"><button type="button">10.8</button><button type="button">10.5</button><button type="button">11.0</button><button type="button">10.2</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-composition" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Composition &amp; empirical formulas</h1>
+        <p class="lede">Weigh the pieces of a compound and you can work out its formula. The trick is that formulas count atoms, and scales measure mass, so you have to convert through moles.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A fruit salad is 60 g apples and 30 g grapes. Is that 2 apples to 1 grape? Not at all, because an apple weighs far more than a grape. To find the <i>count</i> ratio you divide each mass by the mass of one piece. For atoms, that is the molar mass, so grams become moles.</p>
+        <p>The <b>empirical formula</b> is the simplest whole-number ratio of atoms. The <b>molecular formula</b> is the real count in one molecule, which is a whole-number multiple of the empirical formula. Glucose is C₆H₁₂O₆, but its empirical formula is just CH₂O.</p>
+      </div>
+      <div class="lab" id="cp-lab">
+        <div class="labbar"><span class="title">From percent to formula</span><div class="row"><button type="button" class="btn" id="cp-back">Back</button><button type="button" class="btn primary" id="cp-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="cp-sel"><span>Compound (its formula is hidden until the end)</span></label><select id="cp-sel"></select></div></div>
+        <p class="coach-line small" id="cp-step" style="margin:0;font-weight:600"></p>
+        <canvas id="cp-canvas" aria-label="Bars for each element that change from grams to moles to a ratio, ending with atoms of the empirical formula"></canvas>
+        <div class="tablewrap"><table id="cp-table" style="min-width:420px"></table></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Hydrogen peroxide is 5.93% H and 94.07% O by mass. Is the formula HO₁₆? Walk through the steps. <button type="button" class="btn link" data-show='[["#cp-sel","H2O2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>In 100 g there is 5.88 mol H and 5.88 mol O: a 1 : 1 ratio, so HO is the empirical formula. Mass percent and atom count are not the same thing: oxygen is the bigger share of the mass but only equal in count.</p></details></li>
+        <li><p>Iron(III) oxide gives a ratio of 1 : 1.5. What do you do next? <button type="button" class="btn link" data-show='[["#cp-sel","Fe2O3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>You can't have 1.5 atoms, so multiply both by 2 to get the whole numbers 2 : 3, giving Fe₂O₃. Ratios ending in .5, .33 or .25 call for multiplying by 2, 3 or 4.</p></details></li>
+        <li><p>Octane is 84.1% C and 15.9% H. How far do you have to multiply? <button type="button" class="btn link" data-show='[["#cp-sel","C8H18"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The ratio is 1 : 2.25, so multiply by 4 to get 4 : 9: the empirical formula is C₄H₉. The actual molecular formula, C₈H₁₈, needs the molar mass to decide.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A compound is 40.0% C, 6.71% H and 53.3% O by mass, and its molar mass is 180 g/mol. Find the empirical and molecular formulas.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Assume 100 g.</b> The percentages become grams: 40.0 g C, 6.71 g H, 53.3 g O.</li>
+          <li hidden><b>Grams to moles.</b> C: 40.0 / 12.01 = 3.33 mol. H: 6.71 / 1.008 = 6.66 mol. O: 53.3 / 16.00 = 3.33 mol.</li>
+          <li hidden><b>Divide by the smallest (3.33).</b> C : H : O = 1.00 : 2.00 : 1.00. They are already whole numbers.</li>
+          <li hidden><b>Empirical formula.</b> CH₂O, with a mass of 12.01 + 2(1.008) + 16.00 = 30.03 g/mol.</li>
+          <li hidden><b>Molecular formula.</b> 180 / 30.03 = 6.0, so multiply everything by 6: <b>C₆H₁₂O₆</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the mass ratio as if it were the atom ratio. Always convert grams to moles first.</li>
+        <li>Rounding 1.5 or 1.33 to 1 or 2. Multiply by 2 or 3 instead; only round values within about 0.1 of a whole number.</li>
+        <li>Giving the empirical formula when the question asks for the molecular formula (you need the molar mass).</li>
+        <li>Forgetting to divide by the <i>smallest</i> number of moles, not the largest.</li>
+        <li>Dividing the molar mass by the wrong thing. Use the molar mass of the empirical formula, not of one element.</li>
+      </ul></div>
+      <div class="prose"><h2>The recipe</h2>
+        <p>(1) Assume 100 g so percent becomes grams. (2) Convert each to moles. (3) Divide by the smallest. (4) If any value isn't close to a whole number, multiply all of them by the same small integer. (5) The whole numbers are subscripts in the empirical formula. (6) For the molecular formula, divide the molar mass by the empirical formula mass to get a whole number <i>n</i>, and multiply the subscripts by <i>n</i>.</p>
+        <p>For an ionic compound such as Fe₂O₃, the empirical formula <i>is</i> the formula, because there are no separate molecules.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Divide both by the smaller amount, 0.50 mol: C = 1.00 and Br = 2.00. The ratio is 1 : 2, so the formula is CBr₂.">
+        <p class="q">Check yourself: a sample contains 0.50 mol of C and 1.00 mol of Br. What is its empirical formula?</p>
+        <div class="opts"><button type="button">C₂Br</button><button type="button">CBr₂</button><button type="button">CBr</button><button type="button">C₂Br₂</button></div>
         <p class="fb" aria-live="polite"></p>
       </div>
     </div>
@@ -1433,8 +1589,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": [], "soon": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"], "soon": ["bonding", "lewis", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition"], "soon": ["pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"], "soon": ["bonding", "lewis", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -1559,6 +1715,11 @@ const SPC=()=>({A:T.cx,B:T.hot,C:T.cv,D:T.ca,E:T.ce,I:T.ink});
 function quad(a,b,c){const d=b*b-4*a*c;if(d<0)return [];const s=Math.sqrt(d),q=-.5*(b+Math.sign(b||1)*s);const r=[q/a,c/q].filter(isFinite).sort((x,y)=>x-y);return r;}
 /* bisection solve of f(x)=0 on [a,b] (f changes sign) */
 function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=f(m);if((fm<0)===(fa<0)){a=m;fa=fm;}else b=m;}return (a+b)/2;}
+
+/* formula text helpers */
+const SUBD='₀₁₂₃₄₅₆₇₈₉';
+const fsub=f=>String(f).replace(/(\d+)/g,d=>[...d].map(c=>SUBD[c]).join(''));
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
 
 /* ===== modules/units.js ===== */
 
@@ -1815,6 +1976,207 @@ function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=
   PROBS.push({id:'ia-small',topic:'icealg',title:'The shortcut and its check',gen(){const c=pick([.10,.20,.50,1.0]),K=pick([1.0e-6,4.0e-6,1.8e-5,6.0e-5,2.0e-4]);const x=Math.sqrt(K*c);const pct=x/c*100;
     return {q:`A weak acid with K = ${sci(K,1)} starts at ${c.toFixed(2)} M. Use the x-is-small shortcut to find [H⁺].`,ans:x,unit:'M',tol:.03,hint:'x² / c = K, so x = √(Kc). Then check x / c × 100 against 5%.',
       sol:`x = √(${sci(K,1)} × ${c}) = <b>${sci(x,2)} M</b>. Check: ${sci(x,2)} / ${c} × 100 = ${pct<.1?pct.toFixed(3):pct.toFixed(2)}%, under 5%, so the shortcut is valid.`};}});
+})();
+
+/* ===== modules/mole.js ===== */
+
+/* ---------------- Moles & molar mass ---------------- */
+const ATM={H:1.008,He:4.003,Li:6.94,Be:9.012,B:10.81,C:12.01,N:14.01,O:16.00,F:19.00,Ne:20.18,Na:22.99,Mg:24.31,Al:26.98,Si:28.09,P:30.97,S:32.07,Cl:35.45,Ar:39.95,K:39.10,Ca:40.08,Fe:55.85,Cu:63.55,Zn:65.38,Br:79.90,Ag:107.87,I:126.90,Ba:137.33,Pb:207.2};
+/* molar mass of a formula string like Ca(OH)2 or C6H12O6, using the atomic masses above (the two-decimal values used on the AP sheet) */
+function molarMass(f){const st=[{}];let i=0;
+  while(i<f.length){const ch=f[i];if(ch==='('){st.push({});i++;}
+    else if(ch===')'){i++;let n='';while(/\d/.test(f[i]||''))n+=f[i++];const top=st.pop(),k=n?+n:1;Object.keys(top).forEach(e=>st[st.length-1][e]=(st[st.length-1][e]||0)+top[e]*k);}
+    else{const m=f.slice(i).match(/^[A-Z][a-z]?/);const e=m[0];i+=e.length;let n='';while(/\d/.test(f[i]||''))n+=f[i++];const top=st[st.length-1];top[e]=(top[e]||0)+(n?+n:1);}}
+  const c=st[0];return {M:Object.keys(c).reduce((a,e)=>a+ATM[e]*c[e],0),count:c};}
+(function mole(){
+  const cv=$('#ml-canvas');if(!cv)return;
+  const SUB=[['C','C',12.01],['Al','Al',26.98],['Fe','Fe',55.85],['Cu','Cu',63.55],['H₂O','H2O',null],['NaCl','NaCl',null],['C₆H₁₂O₆','C6H12O6',null],['CO₂','CO2',null]].map(([n,f,m])=>({n,f,M:m||molarMass(f).M}));
+  const opts=SUB.map(s=>`<option value="${s.n}">${s.n} · ${s.M.toFixed(2)} g/mol</option>`).join('');$('#ml-a').innerHTML=opts;$('#ml-b').innerHTML=opts;$('#ml-a').value='C';$('#ml-b').value='NaCl';
+  let mode='n',val=1,tilt=0,tgt=0;const dots={a:[],b:[]};const NA=6.022e23;
+  const get=k=>SUB.find(s=>s.n===$(k).value);
+  const amt=()=>{const A=get('#ml-a'),B=get('#ml-b');return mode==='n'?{nA:val,nB:val,mA:val*A.M,mB:val*B.M}:{nA:val/A.M,nB:val/B.M,mA:val,mB:val};};
+  /* dots: one dot = 1/6 mol, so 6 dots per mole; the number per pan comes from the amount */
+  function layout(){const q=amt();[['a',q.nA],['b',q.nB]].forEach(([k,n])=>{const N=Math.max(1,Math.round(n*6));const a=dots[k];while(a.length<N)a.push({x:Math.random(),y:Math.random(),p:Math.random()*6.28});a.length=N;});}
+  const sim=sim2d(cv,{h:w=>clamp(w*.55,280,360),step(dt){const q=amt(),d=clamp((q.mB-q.mA)/Math.max(q.mA,q.mB,1)*.38,-.38,.38);tgt=d;tilt+=(tgt-tilt)*Math.min(1,dt*4);},
+    draw(ctx,w,h,t){const q=amt(),A=get('#ml-a'),B=get('#ml-b'),cx=w/2,py=70,L=Math.min(w*.36,230);
+      /* stand */
+      ctx.fillStyle=T.line;ctx.beginPath();ctx.moveTo(cx-40,h-18);ctx.lineTo(cx+40,h-18);ctx.lineTo(cx+5,py+10);ctx.lineTo(cx-5,py+10);ctx.fill();
+      ctx.strokeStyle=T.ink;ctx.lineWidth=5;ctx.lineCap='round';
+      const ax=cx-Math.cos(tilt)*L,ay=py+Math.sin(tilt)*L*-1,bx=cx+Math.cos(tilt)*L,by=py+Math.sin(tilt)*L;/* positive tilt: right pan heavier (goes down) */
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();dot(ctx,cx,py,7,T.ink);
+      [[ax,ay,'a',T.cx,A,q.nA,q.mA],[bx,by,'b',T.hot,B,q.nB,q.mB]].forEach(([x,y,k,col,S,n,m])=>{
+        ctx.strokeStyle=T.muted;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-34,y+58);ctx.moveTo(x,y);ctx.lineTo(x+34,y+58);ctx.stroke();
+        ctx.fillStyle=alpha(T.sunk,.9);ctx.strokeStyle=T.ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x-52,y+58);ctx.lineTo(x+52,y+58);ctx.stroke();
+        const a=dots[k];const cols=Math.max(4,Math.ceil(Math.sqrt(a.length*1.6)));a.forEach((d,i)=>{const gx=(i%cols)-(cols-1)/2,gy=Math.floor(i/cols);const px=x+gx*9+Math.sin(t*3+d.p)*1.2,py2=y+54-6-gy*9+Math.cos(t*2.6+d.p)*1.2;ball2(ctx,px,py2,4.2,col);});
+        label(ctx,S.n,x,y+82,col,'center','top','700 14px "IBM Plex Sans",sans-serif');label(ctx,`${fmt(m,2)} g`,x,y+100,T.ink,'center','top',MONO);});
+      label(ctx,'one dot = 1/6 mole = '+sci(NA/6,2)+' particles',w/2,h-4,T.muted,'center','bottom',MONO);
+      if(Math.abs(q.mA-q.mB)<1e-6)label(ctx,'balanced: equal masses',cx,py-40,T.cv,'center','middle','600 13px "IBM Plex Sans",sans-serif');}});
+  drawers.mole=()=>sim.render();
+  function upd(){const q=amt();layout();setText('ml-na',fmt(q.nA,3)+' mol');setText('ml-ma',fmt(q.mA,2)+' g');setText('ml-nb',fmt(q.nB,3)+' mol');setText('ml-mb',fmt(q.mB,2)+' g');
+    setText('ml-np',mode==='n'?sci(q.nA*NA,3):`${sci(q.nA*NA,2)} (left), ${sci(q.nB*NA,2)} (right)`);sim.render();}
+  function setMode(m){mode=m;const el=$('#ml-v');if(m==='n'){el.min=.25;el.max=3;el.step=.25;el.value=1;val=1;$('#ml-vl').textContent='Moles on each pan';}else{el.min=2;el.max=60;el.step=1;el.value=24;val=24;$('#ml-vl').textContent='Mass on each pan';}$('#ml-v-out').textContent=m==='n'?'1 mol':'24 g';upd();}
+  segBind('ml-mode','k',m=>setMode(m));
+  bindRange('ml-v',x=>mode==='n'?fmt(x,2)+' mol':x+' g',x=>{val=x;upd();},false);
+  ['ml-a','ml-b'].forEach(id=>$('#'+id).addEventListener('change',upd));
+  setMode('n');
+  TIPS['ml-a']=TIPS['ml-b']='Compare the molar masses in the list: the heavier the particle, the more a mole of it weighs.';
+  TIPS['ml-v']=()=>mode==='n'?'Same number of particles on both pans: the beam tilts because the particles have different masses.':'Same mass on both pans: the beam stays level, but the lighter particles are more numerous.';
+  GLOSS['mole']='6.022 × 10²³ particles. One mole of a substance has a mass in grams equal to its molar mass.';
+  GLOSS['molar mass']='The mass of one mole of a substance, in g/mol. For an element it is the atomic mass on the periodic table.';
+  TT.mole='Use the dozen analogy, then break it: a dozen eggs and a dozen bowling balls have the same number but not the same mass. Have students predict which pan is heavier before they press anything.';
+})();
+(function(){
+  const COMP=['H2O','CO2','NH3','CH4','C2H5OH','NaOH','CaCO3','H2SO4','Na2CO3','Al2O3','C6H12O6','Ca(OH)2','MgCl2','C3H8'];
+  const nice=f=>f.replace(/(\d+)/g,d=>[...d].map(c=>'₀₁₂₃₄₅₆₇₈₉'[c]).join(''));
+  const MSTR='(atomic masses: H 1.008, C 12.01, N 14.01, O 16.00, Na 22.99, Mg 24.31, Al 26.98, S 32.07, Cl 35.45, Ca 40.08)';
+  PROBS.push({id:'mole-M',topic:'mole',title:'Molar mass of a compound',gen(){const f=pick(COMP),{M,count}=molarMass(f);
+    return {q:`What is the molar mass of ${nice(f)}? ${MSTR}`,ans:M,unit:'g/mol',tol:.005,hint:'Add the atomic masses, counting each atom as many times as the formula says (and multiplying anything in parentheses).',
+      sol:`${Object.entries(count).map(([e,n])=>`${n}(${ATM[e]})`).join(' + ')} = <b>${M.toFixed(2)} g/mol</b>.`};}});
+  PROBS.push({id:'mole-n',topic:'mole',title:'Grams to moles',gen(){const f=pick(COMP),{M}=molarMass(f),g=ri(5,200)/ (pick([1,2,5])),n=g/M;
+    return {q:`How many moles are in ${g.toFixed(1)} g of ${nice(f)}? ${MSTR}`,ans:n,unit:'mol',tol:.02,hint:'n = m / M. Find M first by adding atomic masses.',
+      sol:`M = ${M.toFixed(2)} g/mol, so n = ${g.toFixed(1)} g ÷ ${M.toFixed(2)} g/mol = <b>${fmt(n,3)} mol</b>.`};}});
+  PROBS.push({id:'mole-atoms',topic:'mole',title:'Counting atoms in a sample',gen(){const T=[['C6H12O6','O',6,'oxygen'],['H2O','H',2,'hydrogen'],['C2H5OH','H',6,'hydrogen'],['Al2O3','O',3,'oxygen'],['Ca(OH)2','H',2,'hydrogen'],['CaCO3','O',3,'oxygen']],[f,el,k,name]=pick(T),{M}=molarMass(f),g=ri(2,50),N=g/M*k*6.022e23;
+    return {q:`How many ${name} atoms are in ${g.toFixed(1)} g of ${nice(f)}? Give your answer in scientific notation (like 3.2e23). ${MSTR}`,ans:N,unit:'atoms',tol:.02,hint:'Grams to moles of compound, then multiply by the number of that atom in one formula unit, then by Avogadro\'s number.',
+      sol:`n = ${g.toFixed(1)} g ÷ ${M.toFixed(2)} g/mol = ${fmt(g/M,4)} mol; each formula unit has ${k} ${el}, so ${fmt(g/M*k,4)} mol of ${el}; × 6.022 × 10²³ = <b>${sci(N,3)} atoms</b>.`};}});
+})();
+
+/* ===== modules/massspec.js ===== */
+
+/* ---------------- Mass spectra & average atomic mass ---------------- */
+(function massspec(){
+  const cv=$('#ms-canvas');if(!cv)return;
+  /* isotopic masses (u) and natural abundances (%) */
+  const EL={Li:{ptv:6.94,iso:[[6,6.015,7.59],[7,7.016,92.41]]},B:{ptv:10.81,iso:[[10,10.013,19.9],[11,11.009,80.1]]},Ne:{ptv:20.18,iso:[[20,19.992,90.48],[21,20.994,.27],[22,21.991,9.25]]},
+    Mg:{ptv:24.31,iso:[[24,23.985,78.99],[25,24.986,10.00],[26,25.983,11.01]]},Cl:{ptv:35.45,iso:[[35,34.969,75.78],[37,36.966,24.22]]},Cu:{ptv:63.55,iso:[[63,62.930,69.15],[65,64.928,30.85]]},Br:{ptv:79.90,iso:[[79,78.918,50.69],[81,80.916,49.31]]}};
+  const sel=$('#ms-el');sel.innerHTML=Object.keys(EL).map(k=>`<option value="${k}">${k} · ${EL[k].iso.length} isotopes</option>`).join('');sel.value='Cl';
+  const sup=n=>String(n).split('').map(c=>SUP[c]).join('');
+  let el='Cl',iso=[],grow=0,hits=[],ions=[],emit=0,rock=0,rockV=0,total=0;
+  function load(){el=sel.value;const E=EL[el];iso=E.iso.map(([A,m,ab])=>({A,m,ab}));hits=iso.map(()=>0);ions=[];total=0;grow=REDUCE?1:0;
+    const w=$('#ms-what'),ab=$('#ms-ab'),two=iso.length===2;w.disabled=!two;if(!two)w.checked=false;ab.disabled=!(w.checked&&two);
+    if(!w.checked)ab.value=Math.round(iso[0].ab);else apply();setText('ms-pt',E.ptv.toFixed(2)+' u');upd();}
+  function apply(){if(iso.length===2&&$('#ms-what').checked){const a=+$('#ms-ab').value;iso[0].ab=a;iso[1].ab=100-a;hits=iso.map(()=>0);ions=[];total=0;rockV+=4;}}
+  const avg=()=>iso.reduce((a,i)=>a+i.ab/100*i.m,0)/(iso.reduce((a,i)=>a+i.ab/100,0)||1);
+  function upd(){const v=avg();setText('ms-avg',v.toFixed(2)+' u');setText('ms-n',total);
+    setText('ms-calc',iso.map(i=>`${(i.ab/100).toFixed(4)} × ${i.m.toFixed(3)}`).join(' + ')+' = '+v.toFixed(2));sim.render();}
+  let X=null;
+  const sim=sim2d(cv,{h:w=>clamp(w*.92,440,580),
+    step(dt){grow=Math.min(1,grow+dt*1.4);rockV+=(-rock*60-rockV*5)*dt;rock+=rockV*dt;emit+=dt*(iso.length?7:0);
+      while(emit>1){emit-=1;const r=Math.random()*iso.reduce((a,i)=>a+i.ab,0);let a=0,k=0;for(;k<iso.length;k++){a+=iso[k].ab;if(r<=a)break;}k=Math.min(k,iso.length-1);if(iso[k].ab>0)ions.push({k,u:0});}
+      ions.forEach(io=>{io.u+=dt/1.5;if(io.u>=1&&!io.done){io.done=true;hits[io.k]++;total++;if(total%3===0)setText('ms-n',total);}});ions=ions.filter(io=>io.u<1.12);},
+    draw(ctx,w,h,t){const m0=Math.min(...iso.map(i=>i.m))-1.6,m1=Math.max(...iso.map(i=>i.m))+1.6;const half=h*.46;
+      const bx=56,bw=w-bx-18;X=m=>bx+(m-m0)/(m1-m0)*bw;const plateY=half,src=bx+bw*.04;
+      /* magnetic field region */
+      ctx.fillStyle=alpha(T.ca,.07);ctx.fillRect(bx,12,bw,plateY-12);ctx.strokeStyle=alpha(T.ca,.4);ctx.setLineDash([4,5]);ctx.strokeRect(bx+.5,12.5,bw-1,plateY-12);ctx.setLineDash([]);
+      ctx.fillStyle=alpha(T.ca,.5);ctx.font=MONO;ctx.textAlign='left';for(let x=bx+14;x<bx+bw-8;x+=34)for(let y=26;y<plateY-14;y+=30)ctx.fillText('•',x,y);
+      label(ctx,'magnetic field (out of the page): lighter ions bend more',bx+bw-8,22,T.ca,'right','top',MONO);
+      ctx.fillStyle=T.ink;ctx.fillRect(bx,plateY,bw,3);label(ctx,'detector',bx-6,plateY+1,T.muted,'right','middle',MONO);
+      ctx.fillStyle=T.muted;ctx.fillRect(src-9,plateY-4,18,10);label(ctx,'source',src,plateY+18,T.muted,'center','top',MONO);
+      /* ions */
+      const cols=[T.cx,T.hot,T.cv];
+      ions.forEach(io=>{const I=iso[io.k];const xe=X(I.m),r=(xe-src)/2,u=Math.min(1,io.u),th=Math.PI*u;const x=src+r*(1-Math.cos(th)),y=plateY-4-r*Math.sin(th)*Math.min(1,(plateY-30)/Math.max(r,1));
+        if(io.u<1.0){ctx.strokeStyle=alpha(cols[io.k%3],.18);ctx.lineWidth=1.5;ctx.beginPath();for(let a=0;a<=th;a+=.1){ctx.lineTo(src+r*(1-Math.cos(a)),plateY-4-r*Math.sin(a)*Math.min(1,(plateY-30)/Math.max(r,1)));}ctx.stroke();ball2(ctx,x,y,5,cols[io.k%3]);}
+        else{const f=(io.u-1)/.12;ctx.fillStyle=alpha(cols[io.k%3],1-f);ctx.beginPath();ctx.arc(xe,plateY+2,5+f*10,0,7);ctx.fill();}});
+      /* spectrum */
+      const top=plateY+44,bot=h-112,H=bot-top,P={X,Y:v=>bot-v/100*H};
+      ctx.strokeStyle=T.line;ctx.lineWidth=1;ctx.fillStyle=T.muted;ctx.font=MONO;ctx.textAlign='right';ctx.textBaseline='middle';
+      [0,25,50,75,100].forEach(v=>{const y=Math.round(P.Y(v))+.5;ctx.beginPath();ctx.moveTo(bx,y);ctx.lineTo(bx+bw,y);ctx.stroke();ctx.fillText(v,bx-6,y);});
+      label(ctx,'relative abundance (%)',bx+bw,top-14,T.muted,'right','middle',MONO);
+      const tot=iso.reduce((a,i)=>a+i.ab,0),mx=Math.max(...hits,1);
+      iso.forEach((I,k)=>{const x=X(I.m),bwid=Math.max(10,Math.min(40,bw/(m1-m0)*.5));const hh=I.ab*grow;
+        ctx.fillStyle=alpha(cols[k%3],.25);ctx.fillRect(x-bwid/2,P.Y(hh),bwid,bot-P.Y(hh));ctx.strokeStyle=cols[k%3];ctx.lineWidth=2;ctx.strokeRect(x-bwid/2,P.Y(hh),bwid,bot-P.Y(hh));
+        const meas=total?hits[k]/total*100:0;ctx.fillStyle=cols[k%3];ctx.fillRect(x-bwid/2+3,P.Y(meas*grow),bwid-6,bot-P.Y(meas*grow));
+        label(ctx,I.ab.toFixed(I.ab<1?2:1)+' %',x,P.Y(hh)-6,T.ink,'center','bottom',MONO);label(ctx,sup(I.A)+(el),x,bot+10,cols[k%3],'center','top','600 13px "IBM Plex Sans",sans-serif');label(ctx,I.m.toFixed(3),x,bot+27,T.muted,'center','top',MONO);});
+      ctx.strokeStyle=T.ink;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(bx,bot+.5);ctx.lineTo(bx+bw,bot+.5);ctx.stroke();
+      /* seesaw: weights on a beam, balanced at the average mass */
+      const a=avg(),fx=X(a),by=bot+86;
+      ctx.fillStyle=T.hot;ctx.beginPath();ctx.moveTo(fx,by+2);ctx.lineTo(fx-10,by+22);ctx.lineTo(fx+10,by+22);ctx.fill();
+      ctx.save();ctx.translate(fx,by);ctx.rotate(rock*.05);ctx.strokeStyle=T.ink;ctx.lineWidth=4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(X(m0+.3)-fx,0);ctx.lineTo(X(m1-.3)-fx,0);ctx.stroke();
+      iso.forEach((I,k)=>{const r=4+Math.sqrt(I.ab/tot)*15;ctx.fillStyle=cols[k%3];ctx.beginPath();ctx.arc(X(I.m)-fx,-r-2,r,0,7);ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=1;ctx.stroke();});ctx.restore();
+      ctx.strokeStyle=T.hot;ctx.setLineDash([4,4]);ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(fx,top-4);ctx.lineTo(fx,bot+50);ctx.stroke();ctx.setLineDash([]);
+      label(ctx,'balance point = average '+a.toFixed(2)+' u',fx,by+26,T.hot,'center','top','600 13px "IBM Plex Mono",monospace');label(ctx,'weight = abundance',bx,by+26,T.muted,'left','top',MONO);}});
+  drawers.massspec=()=>sim.render();
+  sel.addEventListener('change',load);
+  $('#ms-what').addEventListener('change',()=>{$('#ms-ab').disabled=!$('#ms-what').checked;if($('#ms-what').checked)apply();else{iso=EL[el].iso.map(([A,m,ab])=>({A,m,ab}));hits=iso.map(()=>0);ions=[];total=0;$('#ms-ab').value=Math.round(iso[0].ab);}upd();});
+  bindRange('ms-ab',x=>x+' %',x=>{if($('#ms-what').checked){apply();upd();}},false);
+  load();
+  TIPS['ms-el']='Each peak is one isotope; its height is how common it is. The seesaw balances at the average atomic mass.';
+  TIPS['ms-what']='Take control of the abundances and watch the average move toward the more abundant isotope.';
+  TIPS['ms-ab']='More of the lighter isotope pulls the balance point toward it.';
+  KEYS['ms-canvas']=['Watch ions fly through the field and land. Solid bars count what has been detected so far.',[['cx','lighter isotope'],['hot','heavier isotope · average mass'],['ca','magnetic field']]];
+  GLOSS['isotope']='Atoms of the same element with different numbers of neutrons, so different masses.';
+  GLOSS['mass spectrum']='A plot of relative abundance against mass: one peak for each isotope.';
+  TT.massspec='A weighted average is the whole idea, so connect it to a course grade where tests count more than quizzes. Ask students to guess whether the average will be closer to the left or the right peak before they use the sliders.';
+})();
+(function(){
+  PROBS.push({id:'ms-avg',topic:'massspec',title:'Average atomic mass from isotopes',gen(){const A=ri(20,200),d=ri(1,3),p=ri(10,90),ma=+(A-ri(1,70)/1000).toFixed(3),mb=+(A+d-ri(1,70)/1000).toFixed(3),ans=(p*ma+(100-p)*mb)/100;
+    return {q:`An element has two isotopes: one of mass ${ma} u (${p}% abundant) and one of mass ${mb} u (${100-p}% abundant). What is its average atomic mass?`,ans,unit:'u',tol:.0008,hint:'Weighted average: multiply each mass by its fractional abundance, then add.',
+      sol:`(${p/100}) × ${ma} + (${(100-p)/100}) × ${mb} = ${fmt(p/100*ma,3)} + ${fmt((100-p)/100*mb,3)} = <b>${fmt(ans,2)} u</b>.`};}});
+  PROBS.push({id:'ms-abund',topic:'massspec',title:'Abundance from the average mass',gen(){const A=ri(20,150),d=pick([1,2]),ma=+(A-.02).toFixed(3),mb=+(A+d-.03).toFixed(3),p=ri(15,85),avg=(p*ma+(100-p)*mb)/100;
+    return {q:`An element has two isotopes with masses ${ma} u and ${mb} u. Its average atomic mass is ${avg.toFixed(3)} u. What percent of its atoms are the lighter isotope?`,ans:p,unit:'%',abs:.6,hint:'Let x be the fraction of the lighter isotope: x(ma) + (1 − x)(mb) = average. Solve for x.',
+      sol:`x(${ma}) + (1 − x)(${mb}) = ${avg.toFixed(3)} → x = (${mb} − ${avg.toFixed(3)}) / (${mb} − ${ma}) = ${fmt((mb-avg)/(mb-ma),3)}, so <b>${p}%</b> (to the precision given).`};}});
+  PROBS.push({id:'ms-spectrum',topic:'massspec',title:'Read an average from peak heights',gen(){const a=ri(20,120),d=pick([1,2,3]),b=a+d,ha=pick([10,20,25,30,40,60,70,75,80,90]),hb=100-ha;const ans=(ha*a+hb*b)/100;
+    return {q:`A mass spectrum shows two peaks: at mass ${a} with relative height ${ha}, and at mass ${b} with relative height ${hb}. Estimate the average atomic mass using the mass numbers.`,ans,unit:'u',tol:.002,hint:'Convert the heights to fractions (they sum to 100), then weight each mass.',
+      sol:`(${ha}/100)(${a}) + (${hb}/100)(${b}) = <b>${fmt(ans,2)} u</b>.`};}});
+})();
+
+/* ===== modules/composition.js ===== */
+
+/* ---------------- Composition & empirical formulas ---------------- */
+function compositionData(f){/* percent -> grams -> moles -> ratio -> whole numbers, the way a student does it (percents rounded to 0.01) */
+  const {M,count}=molarMass(f),els=Object.keys(count),pct=els.map(e=>+(count[e]*ATM[e]/M*100).toFixed(2)),mol=els.map((e,i)=>pct[i]/ATM[e]),mn=Math.min(...mol),ratio=mol.map(x=>x/mn);
+  let k=1;for(;k<=8;k++)if(ratio.every(r=>Math.abs(r*k-Math.round(r*k))<=.1))break;
+  const whole=ratio.map(r=>Math.round(r*k)),Me=whole.reduce((a,w,i)=>a+w*ATM[els[i]],0),n=Math.round(M/Me);
+  return {f,M,els,pct,mol,ratio,k,whole,Me,n,count};}
+const formulaStr=(els,nums)=>els.map((e,i)=>e+(nums[i]>1?nums[i]:'')).join('');
+(function composition(){
+  const cv=$('#cp-canvas');if(!cv)return;
+  const LIST=['C6H12O6','H2O2','C6H6','C4H8O2','P4O10','N2O4','Fe2O3','C8H18'];
+  const sel=$('#cp-sel');sel.innerHTML=LIST.map((f,i)=>{const d=compositionData(f);return `<option value="${f}">Compound ${i+1}: ${d.els.map((e,j)=>`${d.pct[j]}% ${e}`).join(', ')}</option>`;}).join('');
+  ATM.P=ATM.P||30.97;
+  const col=e=>e==='H'?'#9AA7B5':e==='Fe'?'#B7541E':atomCol(e);
+  let D=compositionData(LIST[0]),step=0,cur=[],tgt=[];
+  const STEPS=['Step 1 of 6. Pretend you have exactly 100 g, so each percent is a number of grams.','Step 2 of 6. Convert each mass to moles: divide by the molar mass of that element.','Step 3 of 6. Divide every amount by the smallest one, so the smallest becomes 1.','Step 4 of 6. If any ratio is not close to a whole number, multiply them all by the same small whole number.','Step 5 of 6. The whole numbers are the subscripts: this is the empirical formula.','Step 6 of 6. Divide the compound\'s molar mass by the empirical formula mass to get the molecular formula.'];
+  const vals=s=>s===0?D.pct:s===1?D.mol:s===2?D.ratio:s===3?D.whole:D.whole;
+  const unit=s=>['grams in 100 g','moles','ratio (÷ smallest)','whole-number ratio','atoms in the empirical formula','atoms in the molecular formula'][s];
+  function table(){const h=['Element','Mass in 100 g (g)','Moles','÷ smallest',D.k>1?`× ${D.k}`:'× 1 (already whole)','Subscript'],rows=D.els.map((e,i)=>[e,D.pct[i].toFixed(2),step>=1?D.mol[i].toFixed(3):'—',step>=2?D.ratio[i].toFixed(2):'—',step>=3?String(Math.round(D.ratio[i]*D.k*100)/100):'—',step>=4?String(D.whole[i]):'—']);
+    $('#cp-table').innerHTML='<thead><tr>'+h.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map((c,j)=>`<td${j===0?' style="font-weight:600"':''}>${c}</td>`).join('')+'</tr>').join('')+'</tbody>'+(step>=4?`<tfoot><tr><td colspan="6" style="font-weight:600">Empirical formula: ${fsub(formulaStr(D.els,D.whole))} (mass ${D.Me.toFixed(2)} g/mol)${step>=5?` · molar mass ${D.M.toFixed(2)} g/mol ÷ ${D.Me.toFixed(2)} = ${(D.M/D.Me).toFixed(2)} ≈ ${D.n} → molecular formula <span style="color:var(--good)">${fsub(formulaStr(D.els,D.whole.map(w=>w*D.n)))}</span>`:''}</td></tr></tfoot>`:'');}
+  function go(s){step=clamp(s,0,5);tgt=vals(step).map((v,i)=>step===5?v*D.n:v);if(REDUCE)cur=tgt.slice();$('#cp-step').textContent=STEPS[step];$('#cp-back').disabled=step===0;$('#cp-next').textContent=step===5?'Start over':'Next step';table();sim.render();}
+  function load(){D=compositionData(sel.value);cur=D.pct.map(()=>0);step=0;go(0);}
+  const sim=sim2d(cv,{h:w=>clamp(w*.5,260,340),step(dt){cur=cur.map((c,i)=>c+((tgt[i]??0)-c)*Math.min(1,dt*4));},
+    draw(ctx,w,h,t){const n=D.els.length,bx=56,bw=w-bx-16,H=h-70,base=h-34;const mx=Math.max(...tgt,1e-6)*1.18;const nice=niceStep(mx,4);
+      ctx.strokeStyle=T.line;ctx.fillStyle=T.muted;ctx.font=MONO;ctx.textAlign='right';ctx.textBaseline='middle';ctx.lineWidth=1;
+      for(let v=0;v<=mx;v+=nice){const y=Math.round(base-v/mx*H)+.5;ctx.beginPath();ctx.moveTo(bx,y);ctx.lineTo(bx+bw,y);ctx.stroke();ctx.fillText(tick(v,nice),bx-6,y);}
+      label(ctx,unit(step),bx,10,T.ink,'left','middle',LABEL);
+      const slot=bw/n,bwid=Math.min(70,slot*.55);
+      D.els.forEach((e,i)=>{const x=bx+slot*(i+.5),v=cur[i]||0,hh=v/mx*H;
+        if(step>=4){/* atoms */const N=Math.round(tgt[i]);const per=Math.max(1,Math.ceil(Math.sqrt(N)));for(let a=0;a<N;a++){const gx=a%per,gy=Math.floor(a/per);const r=Math.min(13,slot/(per*2.3));ball2(ctx,x+(gx-(per-1)/2)*r*2.2,base-18-gy*r*2.2,r,col(e),e==='H'?'rgba(0,0,0,.45)':null);}}
+        else{ctx.fillStyle=col(e);ctx.fillRect(x-bwid/2,base-hh,bwid,hh);ctx.strokeStyle='rgba(0,0,0,.35)';ctx.strokeRect(x-bwid/2+.5,base-hh+.5,bwid-1,hh);label(ctx,v>=100?v.toFixed(0):v.toFixed(step===3?0:2),x,base-hh-6,T.ink,'center','bottom',MONO);}
+        label(ctx,e,x,base+14,T.ink,'center','top','700 15px "IBM Plex Sans",sans-serif');});
+      if(step>=4)label(ctx,fsub(formulaStr(D.els,step===5?D.whole.map(w=>w*D.n):D.whole)),w-16,10,T.good,'right','middle','700 18px "IBM Plex Sans",sans-serif');}});
+  drawers.composition=()=>sim.render();
+  $('#cp-next').addEventListener('click',()=>{if(step===5){load();}else go(step+1);});$('#cp-back').addEventListener('click',()=>go(step-1));
+  sel.addEventListener('change',load);load();
+  TIPS['cp-sel']='Each compound is described only by its percent composition. Step through to find its formula.';
+  GLOSS['empirical formula']='The simplest whole-number ratio of atoms in a compound.';
+  GLOSS['molecular formula']='The actual number of each atom in one molecule: a whole-number multiple of the empirical formula.';
+  TT.composition='Do one example with a fruit-salad ratio before using atoms. When students round 1.5 to 2, ask them to check by turning the formula back into mass percent.';
+})();
+(function(){
+  const COMP=['C6H12O6','H2O2','C6H6','C4H8O2','P4O10','N2O4','Fe2O3','C8H18','C2H4','C3H6O3','C6H8O6','N2H4'];
+  const el=e=>e;
+  PROBS.push({id:'comp-pct',topic:'composition',title:'Mass percent of an element',gen(){const f=pick(['C6H12O6','CaCO3','H2SO4','Al2O3','NH3','C2H5OH','Ca(OH)2','Na2CO3','Fe2O3','C3H8']),{M,count}=molarMass(f),e=pick(Object.keys(count)),ans=count[e]*ATM[e]/M*100;
+    return {q:`What is the mass percent of ${e} in ${fsub(f)}? (Use the atomic masses H 1.008, C 12.01, N 14.01, O 16.00, Na 22.99, Al 26.98, S 32.07, Ca 40.08, Fe 55.85.)`,ans,unit:'%',tol:.005,hint:'mass % = (mass of that element in one mole of compound ÷ molar mass of the compound) × 100.',
+      sol:`M = ${M.toFixed(2)} g/mol. The ${e} in one mole weighs ${count[e]} × ${ATM[e]} = ${(count[e]*ATM[e]).toFixed(2)} g. ${(count[e]*ATM[e]).toFixed(2)} ÷ ${M.toFixed(2)} × 100 = <b>${ans.toFixed(1)}%</b>.`};}});
+  PROBS.push({id:'comp-emp',topic:'composition',title:'Empirical formula from percent composition',gen(){const f=pick(['C6H12O6','H2O2','C6H6','C4H8O2','P4O10','N2O4','Fe2O3','C8H18','C2H4']),d=compositionData(f),ef=formulaStr(d.els,d.whole),opts=new Set([ef]);
+    const tries=[formulaStr(d.els,d.pct.map(p=>Math.round(p/10))),formulaStr(d.els,d.whole.map((w,i)=>w+(i?1:0))),formulaStr(d.els,d.whole.slice().reverse()),formulaStr(d.els,d.whole.map(w=>w*2)),formulaStr(d.els,d.els.map((e,i)=>Math.max(1,Math.round(d.ratio[i]))))];
+    tries.forEach(x=>{if(opts.size<4&&x!==ef&&!/^\D+$/.test('')&&x.length)opts.add(x);});let i=0;while(opts.size<4){opts.add(formulaStr(d.els,d.whole.map(w=>w+(++i))));}
+    const ch=[...opts].sort(()=>Math.random()-.5);
+    return {q:`A compound contains ${d.els.map((e,i)=>d.pct[i]+'% '+e).join(', ')} by mass. What is its empirical formula? (Atomic masses: H 1.008, C 12.01, N 14.01, O 16.00, P 30.97, Fe 55.85.)`,choices:ch.map(fsub),ans:ch.indexOf(ef),hint:'Assume 100 g, convert each mass to moles, divide by the smallest, and multiply to get whole numbers if needed.',
+      sol:`Moles in 100 g: ${d.els.map((e,i)=>`${e} ${d.mol[i].toFixed(3)}`).join(', ')}. Divide by ${Math.min(...d.mol).toFixed(3)}: ${d.ratio.map(r=>r.toFixed(2)).join(' : ')}${d.k>1?`; multiply by ${d.k}`:''} → <b>${fsub(ef)}</b>.`};}});
+  PROBS.push({id:'comp-mol',topic:'composition',title:'Molecular formula from the empirical formula',gen(){const f=pick(['C6H12O6','H2O2','C6H6','C4H8O2','P4O10','N2O4','C6H8O6']),d=compositionData(f),ef=formulaStr(d.els,d.whole),M=+(d.M*(1+(Math.random()-.5)*.006)).toFixed(1);
+    const mult=[1,2,3,4,6].filter(k=>k!==d.n).sort(()=>Math.random()-.5).slice(0,3),ks=[d.n,...mult].sort((a,b)=>a-b),ch=ks.map(k=>fsub(formulaStr(d.els,d.whole.map(w=>w*k))));
+    return {q:`The empirical formula of a compound is ${fsub(ef)} and its molar mass is ${M} g/mol. What is its molecular formula? (Atomic masses: H 1.008, C 12.01, N 14.01, O 16.00, P 30.97.)`,choices:ch,ans:ks.indexOf(d.n),hint:'Divide the molar mass by the empirical formula mass, round to a whole number n, and multiply every subscript by n.',
+      sol:`Empirical formula mass = ${d.Me.toFixed(2)} g/mol. ${M} ÷ ${d.Me.toFixed(2)} = ${(M/d.Me).toFixed(2)} ≈ ${d.n}, so the molecular formula is <b>${fsub(formulaStr(d.els,d.whole.map(w=>w*d.n)))}</b>.`};}});
 })();
 
 /* ===== modules/vsepr.js ===== */

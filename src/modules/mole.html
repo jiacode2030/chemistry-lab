@@ -1,0 +1,52 @@
+  <section class="view" id="v-mole" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Moles &amp; molar mass</h1>
+        <p class="lede">Atoms are far too small to count one by one, so chemists count them by weighing. The mole is the bridge between a mass you can measure and a number of particles you can't see.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A grocer sells eggs by the dozen and rice by the kilogram, and has a rule that turns one into the other: "a dozen eggs weighs about 600 g". The chemist's dozen is the <b>mole</b>: 6.022 × 10²³ particles. The chemist's rule for turning a count into a mass is the <b>molar mass</b>: the mass of one mole, in grams. It is the number on the periodic table, with units of g/mol.</p>
+        <p>The surprise is that one mole of different substances weighs very different amounts, because their particles have different masses. The same mass of different substances holds very different numbers of particles. Try both below.</p>
+      </div>
+      <div class="lab" id="ml-lab">
+        <div class="labbar"><span class="title">The balance</span><div class="seg" id="ml-mode" role="group" aria-label="What to keep equal"><button type="button" data-k="n" aria-pressed="true">Same number of particles</button><button type="button" data-k="m" aria-pressed="false">Same mass</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ml-a"><span>Left pan</span></label><select id="ml-a"></select></div>
+          <div class="ctl"><label for="ml-b"><span>Right pan</span></label><select id="ml-b"></select></div>
+          <div class="ctl"><label for="ml-v"><span id="ml-vl">Amount</span> <output id="ml-v-out"></output></label><input type="range" id="ml-v" min="0.25" max="3" step="0.25" value="1"></div>
+        </div>
+        <canvas id="ml-canvas" aria-label="A balance with a pile of particles on each pan; each dot stands for a fixed number of particles"></canvas>
+        <div class="readout"><div><span>Left: moles</span><strong class="x" id="ml-na">—</strong></div><div><span>Left: mass</span><strong class="x" id="ml-ma">—</strong></div><div><span>Right: moles</span><strong class="hot" id="ml-nb">—</strong></div><div><span>Right: mass</span><strong class="hot" id="ml-mb">—</strong></div><div><span>Particles per pan</span><strong id="ml-np" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">Each dot stands for the same large number of particles, written under the balance. The beam tilts toward the heavier pan.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Put 1 mol of carbon against 1 mol of NaCl. Which pan is heavier, and which has more particles? <button type="button" class="btn link" data-show='[["click","#ml-mode button[data-k=n]"],["#ml-a","C"],["#ml-b","NaCl"],["#ml-v",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The NaCl pan is much heavier (58.44 g against 12.01 g), but both pans hold exactly the same number of particles. A mole is a count, not a mass.</p></details></li>
+        <li><p>Now balance equal masses: 24 g of carbon against 24 g of water. <button type="button" class="btn link" data-show='[["click","#ml-mode button[data-k=m]"],["#ml-a","C"],["#ml-b","H₂O"],["#ml-v",24]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The beam is level because the masses are equal, but carbon has about 2 mol (24 ÷ 12.01) and water about 1.3 mol (24 ÷ 18.02). Lighter particles means more particles in the same mass.</p></details></li>
+        <li><p>Glucose is a big molecule. How does 1 mol of glucose compare with 1 mol of water? <button type="button" class="btn link" data-show='[["click","#ml-mode button[data-k=n]"],["#ml-a","C₆H₁₂O₆"],["#ml-b","H₂O"],["#ml-v",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>180.16 g against 18.02 g: ten times the mass for the same number of molecules, because each glucose molecule is ten times as heavy.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How many moles and how many molecules are in 9.00 g of water?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Find the molar mass.</b> H₂O: 2(1.008) + 16.00 = 18.02 g/mol.</li>
+          <li hidden><b>Mass to moles.</b> n = m / M = 9.00 g ÷ 18.02 g/mol = 0.499 mol.</li>
+          <li hidden><b>Moles to molecules.</b> N = n × N<sub>A</sub> = 0.499 mol × 6.022 × 10²³ mol⁻¹ = <b>3.01 × 10²³ molecules</b>.</li>
+          <li hidden><b>Sense check.</b> 9.00 g is half of 18.02 g, so half a mole and half of Avogadro's number. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking a mole is a mass. It is a number of particles; the molar mass is what connects it to grams.</li>
+        <li>Using the molar mass of an atom for a molecule. For H₂O add up both H and the O.</li>
+        <li>Dividing when you should multiply (or the reverse). Check that the grams cancel.</li>
+        <li>Mixing "mol of molecules" with "mol of atoms". One mole of H₂O molecules contains 2 mol of H atoms.</li>
+        <li>Reading 6.022 × 10²³ as a mass. It has units of particles per mole.</li>
+      </ul></div>
+      <div class="prose"><h2>The two conversions</h2>
+        <p><b>Mass ↔ moles:</b> <span class="m"><i>n</i> = <i>m</i> / <i>M</i></span>, where <i>M</i> is the molar mass in g/mol. <b>Moles ↔ particles:</b> <span class="m"><i>N</i> = <i>n</i> <i>N</i><sub>A</sub></span>, with <i>N</i><sub>A</sub> = 6.022 × 10²³ per mole. Almost every calculation later in the course runs through moles, so moles are the hub and grams and particles sit at the two ends.</p>
+        <p>The molar mass of a compound is the sum of the molar masses of its atoms, counting each as many times as it appears in the formula: for glucose, C₆H₁₂O₆, it is 6(12.01) + 12(1.008) + 6(16.00) = 180.16 g/mol.</p></div>
+      <div class="quiz" data-correct="3" data-explain="n = m/M. Carbon (12.01 g/mol) gives 12.01/12.01 = 1.00 mol; water (18.02 g/mol) gives 12.01/18.02 = 0.67 mol. Lighter particles means more particles in the same mass.">
+        <p class="q">Check yourself: 12.01 g of carbon and 12.01 g of water. Which has more particles?</p>
+        <div class="opts"><button type="button">The water, because molecules are bigger</button><button type="button">They have the same number</button><button type="button">Cannot tell without the density</button><button type="button">The carbon, because its particles are lighter</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,49 @@
+  <section class="view" id="v-composition" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Composition &amp; empirical formulas</h1>
+        <p class="lede">Weigh the pieces of a compound and you can work out its formula. The trick is that formulas count atoms, and scales measure mass, so you have to convert through moles.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A fruit salad is 60 g apples and 30 g grapes. Is that 2 apples to 1 grape? Not at all, because an apple weighs far more than a grape. To find the <i>count</i> ratio you divide each mass by the mass of one piece. For atoms, that is the molar mass, so grams become moles.</p>
+        <p>The <b>empirical formula</b> is the simplest whole-number ratio of atoms. The <b>molecular formula</b> is the real count in one molecule, which is a whole-number multiple of the empirical formula. Glucose is C₆H₁₂O₆, but its empirical formula is just CH₂O.</p>
+      </div>
+      <div class="lab" id="cp-lab">
+        <div class="labbar"><span class="title">From percent to formula</span><div class="row"><button type="button" class="btn" id="cp-back">Back</button><button type="button" class="btn primary" id="cp-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="cp-sel"><span>Compound (its formula is hidden until the end)</span></label><select id="cp-sel"></select></div></div>
+        <p class="coach-line small" id="cp-step" style="margin:0;font-weight:600"></p>
+        <canvas id="cp-canvas" aria-label="Bars for each element that change from grams to moles to a ratio, ending with atoms of the empirical formula"></canvas>
+        <div class="tablewrap"><table id="cp-table" style="min-width:420px"></table></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Hydrogen peroxide is 5.93% H and 94.07% O by mass. Is the formula HO₁₆? Walk through the steps. <button type="button" class="btn link" data-show='[["#cp-sel","H2O2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>In 100 g there is 5.88 mol H and 5.88 mol O: a 1 : 1 ratio, so HO is the empirical formula. Mass percent and atom count are not the same thing: oxygen is the bigger share of the mass but only equal in count.</p></details></li>
+        <li><p>Iron(III) oxide gives a ratio of 1 : 1.5. What do you do next? <button type="button" class="btn link" data-show='[["#cp-sel","Fe2O3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>You can't have 1.5 atoms, so multiply both by 2 to get the whole numbers 2 : 3, giving Fe₂O₃. Ratios ending in .5, .33 or .25 call for multiplying by 2, 3 or 4.</p></details></li>
+        <li><p>Octane is 84.1% C and 15.9% H. How far do you have to multiply? <button type="button" class="btn link" data-show='[["#cp-sel","C8H18"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The ratio is 1 : 2.25, so multiply by 4 to get 4 : 9: the empirical formula is C₄H₉. The actual molecular formula, C₈H₁₈, needs the molar mass to decide.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A compound is 40.0% C, 6.71% H and 53.3% O by mass, and its molar mass is 180 g/mol. Find the empirical and molecular formulas.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Assume 100 g.</b> The percentages become grams: 40.0 g C, 6.71 g H, 53.3 g O.</li>
+          <li hidden><b>Grams to moles.</b> C: 40.0 / 12.01 = 3.33 mol. H: 6.71 / 1.008 = 6.66 mol. O: 53.3 / 16.00 = 3.33 mol.</li>
+          <li hidden><b>Divide by the smallest (3.33).</b> C : H : O = 1.00 : 2.00 : 1.00. They are already whole numbers.</li>
+          <li hidden><b>Empirical formula.</b> CH₂O, with a mass of 12.01 + 2(1.008) + 16.00 = 30.03 g/mol.</li>
+          <li hidden><b>Molecular formula.</b> 180 / 30.03 = 6.0, so multiply everything by 6: <b>C₆H₁₂O₆</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the mass ratio as if it were the atom ratio. Always convert grams to moles first.</li>
+        <li>Rounding 1.5 or 1.33 to 1 or 2. Multiply by 2 or 3 instead; only round values within about 0.1 of a whole number.</li>
+        <li>Giving the empirical formula when the question asks for the molecular formula (you need the molar mass).</li>
+        <li>Forgetting to divide by the <i>smallest</i> number of moles, not the largest.</li>
+        <li>Dividing the molar mass by the wrong thing. Use the molar mass of the empirical formula, not of one element.</li>
+      </ul></div>
+      <div class="prose"><h2>The recipe</h2>
+        <p>(1) Assume 100 g so percent becomes grams. (2) Convert each to moles. (3) Divide by the smallest. (4) If any value isn't close to a whole number, multiply all of them by the same small integer. (5) The whole numbers are subscripts in the empirical formula. (6) For the molecular formula, divide the molar mass by the empirical formula mass to get a whole number <i>n</i>, and multiply the subscripts by <i>n</i>.</p>
+        <p>For an ionic compound such as Fe₂O₃, the empirical formula <i>is</i> the formula, because there are no separate molecules.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Divide both by the smaller amount, 0.50 mol: C = 1.00 and Br = 2.00. The ratio is 1 : 2, so the formula is CBr₂.">
+        <p class="q">Check yourself: a sample contains 0.50 mol of C and 1.00 mol of Br. What is its empirical formula?</p>
+        <div class="opts"><button type="button">C₂Br</button><button type="button">CBr₂</button><button type="button">CBr</button><button type="button">C₂Br₂</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
