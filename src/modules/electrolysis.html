@@ -1,0 +1,63 @@
+  <section class="view" id="v-electrolysis" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Electrolysis &amp; Faraday's law</h1>
+        <p class="lede">Run a battery backwards: push electrons through a cell with an outside power supply and force a reaction that wouldn't happen by itself.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A galvanic cell is a ball rolling downhill and giving you work. An <b>electrolytic cell</b> is the opposite: you use an outside power supply to push the ball uphill. The reaction has a negative E° (not spontaneous), so you must apply <i>more</i> voltage than |E°| to make it go. This is how aluminum, chlorine and sodium hydroxide are made, how metals are refined and plated, and how a rechargeable battery recharges.</p>
+        <p>The definitions don't change: <b>oxidation at the anode, reduction at the cathode</b> (An Ox, Red Cat). What flips is the sign: in an electrolytic cell the cathode is wired to the <i>negative</i> terminal of the supply (it is where electrons are pushed in) and the anode to the positive terminal. <b>Faraday's law</b> counts the product: every mole of electrons (96 485 C) deposits 1/z mole of a metal ion of charge z⁺. The amount = (current × time) ÷ (F × z).</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we only used cells that run on their own. Now we force reactions with electricity, so in aqueous solutions <b>water competes</b>: it can be reduced at the cathode (making H₂) or oxidized at the anode (making O₂). Whichever reaction needs the least voltage happens first.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Charge</span><b>q = I × t</b><small>coulombs = amperes × seconds</small></div><div class="eqc"><span class="nm">Moles of e⁻</span><b>n(e⁻) = q / F</b><small>F = 96 485 C/mol</small></div><div class="eqc"><span class="nm">Moles of product</span><b>n = n(e⁻) / z</b><small>z = electrons per atom or per molecule</small></div></div>
+      <div class="lab" id="ep-lab">
+        <div class="labbar"><span class="title">Electroplate a metal</span><div class="row"><button type="button" class="btn primary" id="ep-go">Switch on</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ep-m"><span>Metal to plate</span></label><select id="ep-m"></select></div>
+          <div class="ctl"><label for="ep-i"><span>Current</span> <output id="ep-i-out"></output></label><input type="range" id="ep-i" min="0.5" max="10" step="0.5" value="3"></div>
+          <div class="ctl"><label for="ep-t"><span>Time elapsed</span> <output id="ep-t-out"></output></label><input type="range" id="ep-t" min="0" max="3600" step="10" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="ep-canvas" aria-label="An electrolytic cell plating a metal onto the cathode"></canvas></div><div><canvas id="ep-graph" aria-label="Mass of metal deposited against time"></canvas></div></div>
+        <div class="readout"><div><span>Charge passed</span><strong id="ep-q">—</strong></div><div><span>Moles of e⁻</span><strong class="a" id="ep-ne">—</strong></div><div><span>Moles of metal</span><strong id="ep-nm">—</strong></div><div><span>Mass plated</span><strong class="x" id="ep-mass">—</strong></div></div>
+      </div>
+      <div class="lab" id="ew-lab" data-reset="own">
+        <div class="labbar"><span class="title">What forms at each electrode?</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="ew-sel"><span>Electrolyte</span></label><select id="ew-sel"></select></div>
+          <div class="ctl"><label for="ew-v"><span>Voltage applied</span> <output id="ew-v-out"></output></label><input type="range" id="ew-v" min="0" max="6" step="0.05" value="0"></div>
+        </div>
+        <canvas id="ew-canvas" aria-label="An electrolytic cell showing the products at the cathode and anode"></canvas>
+        <div class="eq-block" id="ew-eq" aria-live="polite"></div>
+        <p class="small" id="ew-note" style="margin:0"></p>
+        <div class="readout"><div><span>Cathode (reduction)</span><strong class="x" id="ew-c" style="font-size:15px;white-space:normal">—</strong></div><div><span>Anode (oxidation)</span><strong class="a" id="ew-a" style="font-size:15px;white-space:normal">—</strong></div><div><span>Minimum voltage</span><strong id="ew-min">—</strong></div><div><span>Status</span><strong id="ew-st" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the products first.</p><ol>
+        <li><p>Double the current. Does it plate twice as much in the same time? <button type="button" class="btn link" data-show='[["#ep-m","Cu"],["#ep-i","6"],["#ep-t","1800"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes: charge = I × t, so twice the current moves twice the electrons and deposits twice the mass. About 3.6 g of copper after 30 min at 6.00 A.</p></details></li>
+        <li><p>Plate silver and copper with the same current and time. Which gives more mass? <button type="button" class="btn link" data-show='[["#ep-m","Ag"],["#ep-i","3"],["#ep-t","1800"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Silver: each Ag⁺ needs only one electron (z = 1) and an Ag atom is heavier (107.9 g/mol), so the same charge (5400 C at 3.00 A for 30 min) deposits 6.0 g of silver but only 1.8 g of copper (z = 2, 63.55 g/mol): about 3.4 times as much.</p></details></li>
+        <li><p>Electrolyze aqueous sodium sulfate. Which ions react? <button type="button" class="btn link" data-show='[["#ew-sel","3"],["#ew-v","3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Neither Na⁺ nor SO₄²⁻: water is reduced at the cathode (H₂) and oxidized at the anode (O₂). Na⁺ is too hard to reduce in water and sulfate is already fully oxidized. The net result is water splitting.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A current of 2.50 A flows for 45.0 minutes through a solution of Cu²⁺. What mass of copper plates onto the cathode? (M = 63.55 g/mol, F = 96 485 C/mol)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Charge.</b> t = 45.0 min × 60 = 2700 s. q = I t = (2.50 A)(2700 s) = 6750 C.</li>
+          <li hidden><b>Moles of electrons.</b> n(e⁻) = 6750 / 96485 = 0.06996 mol.</li>
+          <li hidden><b>Moles of copper.</b> Cu²⁺ + 2e⁻ → Cu, so n(Cu) = 0.06996 / 2 = 0.03498 mol.</li>
+          <li hidden><b>Mass.</b> 0.03498 mol × 63.55 g/mol = <b>2.22 g</b> of copper.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to convert minutes or hours to seconds before multiplying by amperes.</li>
+        <li>Forgetting z: Cu²⁺ needs 2 electrons per atom, Al³⁺ needs 3.</li>
+        <li>Giving the cathode a "+" sign in an electrolytic cell. It is negative here (but still the site of reduction).</li>
+        <li>Predicting that Na or K metal forms from an aqueous solution. Water is reduced first, giving H₂.</li>
+        <li>Forgetting that applied voltage must <i>exceed</i> |E°cell| (and real cells need extra for overpotential).</li>
+      </ul></div>
+      <div class="prose"><h2>Galvanic vs electrolytic</h2>
+        <p><b>Galvanic:</b> spontaneous (E° &gt; 0), produces electricity, anode is −, cathode is +. <b>Electrolytic:</b> non-spontaneous (E° &lt; 0), consumes electricity, anode is +, cathode is −. In both, oxidation is at the anode, reduction at the cathode, and electrons flow anode → cathode through the wire (the power supply pushes them in the electrolytic case).</p></div>
+      <div class="quiz" data-correct="1" data-explain="Charge q = It = 2.00 A × 3600 s = 7200 C. Moles of e⁻ = 7200 / 96485 = 0.0746 mol.">
+        <p class="q">Check yourself: how many moles of electrons pass when 2.00 A flows for 1.00 hour?</p>
+        <div class="opts"><button type="button">0.0207 mol</button><button type="button">0.0746 mol</button><button type="button">0.149 mol</button><button type="button">7200 mol</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

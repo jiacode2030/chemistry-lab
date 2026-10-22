@@ -1,0 +1,60 @@
+  <section class="view" id="v-gibbs" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Gibbs free energy &amp; spontaneity</h1>
+        <p class="lede">Two forces decide whether a process happens on its own: the drive to release energy and the drive to spread out. Gibbs free energy adds them up, and temperature decides who wins.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Ice melts above 0 °C and freezes below it. The energy side says "stay frozen" (melting costs heat) while the disorder side says "melt" (liquid has more entropy). At low temperature energy wins; at high temperature disorder wins; at 0 °C they tie. Temperature multiplies the entropy term, so heat helps entropy-driven processes.</p>
+        <p>That tug-of-war is <b>ΔG = ΔH − TΔS</b>. A process is <b>thermodynamically favorable (spontaneous)</b> when ΔG &lt; 0, at equilibrium when ΔG = 0, and unfavorable when ΔG &gt; 0. The signs of ΔH and ΔS give four cases: (−, +) always favorable; (+, −) never; (−, −) favorable only at <i>low</i> T; (+, +) favorable only at <i>high</i> T. Where the sign flips is at T = ΔH/ΔS. Note "spontaneous" says nothing about speed: diamond turning into graphite is favorable but takes forever (the activation energy is huge).</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, exothermic meant "will happen". Now we need both ΔH and ΔS, and the temperature. ΔG° also connects to K: <b>ΔG° = −RT ln K</b>, so the thermodynamics of a reaction fixes where its equilibrium sits.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Gibbs</span><b>ΔG° = ΔH° − TΔS°</b><small>ΔS° in J/K → convert to kJ/K</small></div><div class="eqc"><span class="nm">Equilibrium</span><b>ΔG° = −RT ln K</b><small>R = 8.314 J/mol·K</small></div><div class="eqc"><span class="nm">Non-standard</span><b>ΔG = ΔG° + RT ln Q</b><small>sign of ΔG sets the direction</small></div></div>
+      <div class="lab" id="gb-lab">
+        <div class="labbar"><span class="title">Energy vs disorder</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="gb-rx"><span>Process</span></label><select id="gb-rx"></select></div>
+          <div class="ctl"><label for="gb-H"><span>ΔH</span> <output id="gb-H-out"></output></label><input type="range" id="gb-H" min="-200" max="200" step="0.1" value="6"></div>
+          <div class="ctl"><label for="gb-S"><span>ΔS</span> <output id="gb-S-out"></output></label><input type="range" id="gb-S" min="-250" max="250" step="0.1" value="22"></div>
+          <div class="ctl"><label for="gb-T"><span>Temperature</span> <output id="gb-T-out"></output></label><input type="range" id="gb-T" min="100" max="1500" step="5" value="298"></div>
+        </div>
+        <div class="split"><div><canvas id="gb-canvas" aria-label="Bars for the enthalpy term, the entropy term and the resulting Gibbs free energy"></canvas></div><div><canvas id="gb-graph" aria-label="Gibbs free energy against temperature, a straight line that may cross zero"></canvas></div></div>
+        <div class="readout"><div><span>ΔG</span><strong class="x" id="gb-G">—</strong></div><div><span>Verdict</span><strong id="gb-v" style="font-size:15px;white-space:normal">—</strong></div><div><span>Crossover T = ΔH/ΔS</span><strong class="a" id="gb-Tc">—</strong></div><div><span>K (from ΔG)</span><strong id="gb-K">—</strong></div><div><span>ΔS of universe</span><strong id="gb-U">—</strong></div></div>
+        <div class="tablewrap" style="min-width:0"><table class="data" id="gb-tab"></table></div>
+      </div>
+      <div class="lab" id="gq-lab" data-reset="own">
+        <div class="labbar"><span class="title">Which way will it go? ΔG = ΔG° + RT ln Q</span></div>
+        <div class="controls"><div class="ctl"><label for="gq-q"><span>Reaction quotient Q (log scale)</span> <output id="gq-q-out"></output></label><input type="range" id="gq-q" min="-8" max="8" step="0.1" value="0"></div></div>
+        <canvas id="gq-canvas" aria-label="Gibbs free energy against log Q, crossing zero at the equilibrium constant"></canvas>
+        <div class="readout"><div><span>ΔG° (at the T above)</span><strong id="gq-g0">—</strong></div><div><span>K</span><strong id="gq-K">—</strong></div><div><span>ΔG at this Q</span><strong class="x" id="gq-G">—</strong></div><div><span>Direction</span><strong class="a" id="gq-d" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict where it flips, then slide the temperature.</p><ol>
+        <li><p>Melt ice: at what temperature does ΔG change sign? <button type="button" class="btn link" data-show='[["#gb-rx","0"],["#gb-T","273"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>At about 273 K (0 °C), where T = ΔH/ΔS = 6010/22.0. Below that ΔG is positive (ice is stable); above it, negative (melting is favorable).</p></details></li>
+        <li><p>Make ammonia. Is it better to run the reaction hot or cold, thermodynamically? <button type="button" class="btn link" data-show='[["#gb-rx","2"],["#gb-T","298"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Cold: ΔH is negative and ΔS is negative, so the reaction is favorable only below about 464 K. (Industry runs it hot anyway to make it fast, and uses pressure to compensate.)</p></details></li>
+        <li><p>Choose ozone formation, 3O₂ → 2O₃. Does any temperature work? <button type="button" class="btn link" data-show='[["#gb-rx","6"],["#gb-T","1000"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>No: ΔH is positive and ΔS is negative, so ΔG is positive at every temperature. It never happens spontaneously (UV light provides the energy instead).</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">For CaCO₃(s) → CaO(s) + CO₂(g), ΔH° = +178.3 kJ and ΔS° = +160.6 J/K. (a) Is it favorable at 298 K? (b) At what temperature does it become favorable?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Units first.</b> ΔS° = 160.6 J/K = 0.1606 kJ/K, so it matches ΔH in kJ.</li>
+          <li hidden><b>(a) At 298 K.</b> ΔG° = 178.3 − (298)(0.1606) = 178.3 − 47.9 = <b>+130.4 kJ</b>. Positive: not favorable at room temperature (limestone doesn't decompose on its own).</li>
+          <li hidden><b>(b) Find the flip.</b> ΔG° = 0 when T = ΔH/ΔS = 178.3 / 0.1606 = <b>1110 K</b> (about 837 °C).</li>
+          <li hidden><b>Interpret.</b> Both ΔH and ΔS are positive, so the reaction is favorable above 1110 K, where the entropy term (the CO₂ gas) outweighs the energy cost. This is why lime kilns run hot.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Mixing units: ΔH in kJ and ΔS in J/K. Convert ΔS to kJ/K (divide by 1000) before multiplying by T.</li>
+        <li>Using °C instead of kelvin for T.</li>
+        <li>Equating "spontaneous" with "fast" or "happens quickly". It only means thermodynamically favorable.</li>
+        <li>Saying ΔG° &gt; 0 means no reaction at all. It means the equilibrium lies toward reactants (K &lt; 1); a little product still forms.</li>
+        <li>Confusing ΔG° with ΔG. ΔG° is for standard conditions (Q = 1); ΔG depends on Q and is zero at equilibrium.</li>
+      </ul></div>
+      <div class="prose"><h2>Thermodynamic vs kinetic</h2>
+        <p>ΔG tells you the <i>direction</i> a system will go and how far (through K). The activation energy tells you how <i>fast</i>. A reaction with large negative ΔG but a high barrier (diamond to graphite, H₂ + O₂ → H₂O at room temperature) can sit for ages until a spark or catalyst helps.</p></div>
+      <div class="quiz" data-correct="1" data-explain="When ΔH is positive and ΔS is positive, the −TΔS term becomes more negative as T rises, so ΔG turns negative only at high temperature.">
+        <p class="q">Check yourself: ΔH &gt; 0 and ΔS &gt; 0. When is the process favorable?</p>
+        <div class="opts"><button type="button">At low temperatures</button><button type="button">At high temperatures</button><button type="button">At all temperatures</button><button type="button">At no temperature</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

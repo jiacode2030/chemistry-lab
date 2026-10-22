@@ -1,0 +1,56 @@
+  <section class="view" id="v-galvanic" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Galvanic cells &amp; cell potential</h1>
+        <p class="lede">A battery is a chemical reaction pulled apart so its electrons have to travel through a wire. The voltage is how hard they are being pushed.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Put a zinc strip in copper(II) sulfate solution and the zinc dissolves while copper plates out: electrons hop directly from Zn to Cu²⁺. Now separate the two halves: zinc in one beaker, copper in another, joined by a wire. The electrons can't hop, so they <i>flow through the wire</i>. That flow is electricity, and you can run a light bulb on it. This is a <b>galvanic (voltaic) cell</b>.</p>
+        <p>The electrode where <b>oxidation</b> happens is the <b>anode</b> (it loses electrons); where <b>reduction</b> happens is the <b>cathode</b>. Mnemonic: <b>An Ox</b> and <b>Red Cat</b>. Electrons flow <i>from anode to cathode</i> through the wire. A <b>salt bridge</b> lets ions drift between the beakers to keep each solution neutral: anions toward the anode, cations toward the cathode. The cell's voltage is <b>E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></b>, using standard <i>reduction</i> potentials. A positive E° means the reaction is spontaneous.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, the standard potential assumed 1 M solutions at 25 °C. Real cells aren't: concentrations change as the cell runs. The <b>Nernst equation</b> corrects for that: <b>E = E° − (0.0592/n) log Q</b>. As reactants are used up Q rises toward K, and the voltage falls to zero: a "dead" battery is a cell at equilibrium.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Cell potential</span><b>E°cell = E°cathode − E°anode</b></div><div class="eqc"><span class="nm">Free energy</span><b>ΔG° = −nFE°</b><small>F = 96 485 C/mol e⁻</small></div><div class="eqc"><span class="nm">Nernst (25 °C)</span><b>E = E° − (0.0592/n) log Q</b><small>E° = (0.0592/n) log K</small></div></div>
+      <div class="lab" id="gv-lab">
+        <div class="labbar"><span class="title">Build a battery</span><div class="row"><button type="button" class="btn primary" id="gv-go">Run the cell</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="gv-L"><span>Left half-cell metal</span></label><select id="gv-L"></select></div>
+          <div class="ctl"><label for="gv-cl"><span>Left ion concentration</span> <output id="gv-cl-out"></output></label><input type="range" id="gv-cl" min="-3" max="0.3" step="0.05" value="0"></div>
+          <div class="ctl"><label for="gv-R"><span>Right half-cell metal</span></label><select id="gv-R"></select></div>
+          <div class="ctl"><label for="gv-cr"><span>Right ion concentration</span> <output id="gv-cr-out"></output></label><input type="range" id="gv-cr" min="-3" max="0.3" step="0.05" value="0"></div>
+          <div class="ctl"><label for="gv-x"><span>How far the cell has run</span> <output id="gv-x-out"></output></label><input type="range" id="gv-x" min="0" max="1000" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="gv-canvas" aria-label="Two beakers with metal electrodes joined by a wire, a voltmeter and a salt bridge"></canvas></div><div><canvas id="gv-ladder" aria-label="Standard reduction potentials on a vertical ladder with the two chosen metals marked"></canvas></div></div>
+        <div class="readout"><div><span>E°cell</span><strong class="x" id="gv-E0">—</strong></div><div><span>E (now)</span><strong class="a" id="gv-E">—</strong></div><div><span>Anode (oxidation)</span><strong id="gv-an" style="font-size:15px">—</strong></div><div><span>Cathode (reduction)</span><strong id="gv-ca" style="font-size:15px">—</strong></div><div><span>Q</span><strong id="gv-Q">—</strong></div></div>
+        <div class="eq-block" id="gv-eq" aria-live="polite"></div>
+        <div class="readout"><div><span>n (electrons)</span><strong id="gv-n">—</strong></div><div><span>ΔG°</span><strong id="gv-G">—</strong></div><div><span>K</span><strong id="gv-K">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the anode and the voltage, then check.</p><ol>
+        <li><p>Zinc on the left, copper on the right. Which is the anode? What is E°<sub>cell</sub>? <button type="button" class="btn link" data-show='[["#gv-L","Zn"],["#gv-R","Cu"],["#gv-cl","0"],["#gv-cr","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Zinc is the anode (oxidized: it has the lower reduction potential, −0.76 V) and copper the cathode (+0.34 V). E°<sub>cell</sub> = 0.34 − (−0.76) = 1.10 V.</p></details></li>
+        <li><p>Press Run the cell. What happens to the voltage as the cell runs down? <button type="button" class="btn link" data-show='[["#gv-L","Zn"],["#gv-R","Cu"],["click","#gv-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>It slowly falls: [Zn²⁺] rises and [Cu²⁺] falls, so Q rises. When Q = K the voltage reaches 0 V and the battery is dead. (K is about 10³⁷ for this cell, so it runs a long time.)</p></details></li>
+        <li><p>Use the same metal on both sides but make one solution 100 times more dilute. <button type="button" class="btn link" data-show='[["#gv-L","Cu"],["#gv-R","Cu"],["#gv-cl","-2"],["#gv-cr","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>A <b>concentration cell</b>: E° is 0 V, yet the cell still produces about 0.059 V. The dilute side is the anode (copper dissolves there, raising its concentration) and the concentrated side is the cathode.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A cell is made from Zn(s) | Zn²⁺(0.010 M) and Cu²⁺(1.0 M) | Cu(s). Standard potentials: Cu²⁺/Cu = +0.34 V, Zn²⁺/Zn = −0.76 V. Find E°<sub>cell</sub>, then E, then ΔG°.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Anode and cathode.</b> The metal with the lower reduction potential is oxidized: Zn is the anode, Cu the cathode. Reaction: Zn + Cu²⁺ → Zn²⁺ + Cu, n = 2.</li>
+          <li hidden><b>Standard potential.</b> E°<sub>cell</sub> = E°(cathode) − E°(anode) = 0.34 − (−0.76) = <b>+1.10 V</b>.</li>
+          <li hidden><b>Nernst.</b> Q = [Zn²⁺]/[Cu²⁺] = 0.010/1.0 = 0.010. E = 1.10 − (0.0592/2) log(0.010) = 1.10 + 0.0592 = <b>1.16 V</b>. (Less product than standard, so a bit more voltage.)</li>
+          <li hidden><b>Free energy.</b> ΔG° = −nFE° = −(2)(96485)(1.10) = −212 000 J = <b>−212 kJ</b> per mole of reaction. Negative, matching the positive E°.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Flipping the sign of E° when you multiply the half-reaction by a coefficient. Potentials are intensive: they do not change when you double the equation (but n does).</li>
+        <li>Subtracting in the wrong order: E°cell = E°cathode − E°anode, with both as reduction potentials.</li>
+        <li>Mixing up the direction of electron flow (anode → cathode) with conventional current, and anions/cations in the salt bridge.</li>
+        <li>Forgetting the sign convention for Q in Nernst: Q has products over reactants, and pure solids are left out.</li>
+        <li>Calling a negative E° "no reaction". It means the reverse reaction is the spontaneous one.</li>
+      </ul></div>
+      <div class="prose"><h2>Connections</h2>
+        <p>E°, ΔG° and K are three views of the same fact. Positive E° ⇔ negative ΔG° ⇔ K &gt; 1. At equilibrium (a dead cell), E = 0 and Q = K. Batteries (alkaline, lithium-ion, lead-acid) are galvanic cells designed so that the cell potential stays close to constant while they discharge, and rechargeable ones are run backwards as electrolytic cells.</p></div>
+      <div class="quiz" data-correct="0" data-explain="Electrons leave the anode (where oxidation occurs) and travel through the external wire to the cathode (where reduction occurs).">
+        <p class="q">Check yourself: in the external wire of a galvanic cell, electrons flow…</p>
+        <div class="opts"><button type="button">from the anode to the cathode</button><button type="button">from the cathode to the anode</button><button type="button">through the salt bridge</button><button type="button">in both directions equally</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

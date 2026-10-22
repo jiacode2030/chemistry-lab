@@ -1,0 +1,53 @@
+  <section class="view" id="v-entropy" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Entropy &amp; microstates</h1>
+        <p class="lede">Why does a gas fill its container, and why does a hot cup of coffee cool down? Not because anything pulls: there are just overwhelmingly more ways for it to happen.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Shuffle a deck of cards and you will never get them back in perfect order. It isn't forbidden; it is just wildly unlikely, because there is only one ordered arrangement and an astronomical number of messy ones. <b>Entropy (S)</b> measures how many ways (microstates, W) the energy and particles of a system can be arranged: <b>S = k<sub>B</sub> ln W</b>. More ways means higher entropy, and systems drift toward the arrangements that are most numerous.</p>
+        <p>Entropy is larger for <b>gases than liquids than solids</b> (particles roam), for <b>more moles of gas</b>, for <b>higher temperature</b> (more ways to share energy), for <b>larger or more complex molecules</b>, and when substances <b>mix or dissolve</b>. The <b>second law</b> says the total entropy of the universe never decreases in a spontaneous process. A system can lose entropy (like water freezing) only if it dumps enough heat to the surroundings to raise their entropy by more.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we thought reactions run downhill in energy only (exothermic = spontaneous). Now we see energy isn't the whole story: some endothermic processes (ice melting, salts dissolving) are spontaneous because they increase entropy. Next, Gibbs free energy combines both.</div>
+      <div class="lab" id="et-lab">
+        <div class="labbar"><span class="title">Count the ways</span><div class="row"><button type="button" class="btn primary" id="et-go">Remove the partition</button></div></div>
+        <div class="controls"><div class="ctl"><label for="et-n"><span>Number of gas particles</span> <output id="et-n-out"></output></label><input type="range" id="et-n" min="2" max="40" step="1" value="12"></div></div>
+        <div class="split"><div><canvas id="et-canvas" aria-label="Gas particles in a box that has a partition; removing it lets them spread out"></canvas></div><div><canvas id="et-graph" aria-label="Number of arrangements for each possible count in the left half, with the observed time spent in each"></canvas></div></div>
+        <div class="readout"><div><span>In left half now</span><strong class="x" id="et-k">—</strong></div><div><span>Ways to arrange that (W)</span><strong id="et-w">—</strong></div><div><span>Total possible arrangements</span><strong id="et-tot">—</strong></div><div><span>S = k<sub>B</sub> ln W</span><strong class="a" id="et-s">—</strong></div><div><span>Chance all return left</span><strong id="et-back">—</strong></div></div>
+      </div>
+      <div class="lab" id="sx-lab" data-reset="own">
+        <div class="labbar"><span class="title">Entropy change of a reaction</span><div class="row"><button type="button" class="btn" id="sx-back">Back</button><button type="button" class="btn primary" id="sx-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="sx-sel"><span>Reaction</span></label><select id="sx-sel"></select></div></div>
+        <div class="row" id="sx-pred" style="gap:8px"><span class="small" style="margin:0">Predict first:</span><button type="button" class="btn" data-p="up">ΔS &gt; 0 (more disorder)</button><button type="button" class="btn" data-p="down">ΔS &lt; 0 (less disorder)</button></div>
+        <div class="eq-block" id="sx-out" aria-live="polite"></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then check.</p><ol>
+        <li><p>Open the partition with 4 particles, then with 40. Which one ever returns to "all on the left"? <button type="button" class="btn link" data-show='[["#et-n","4"],["click","#et-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>With 4 particles it happens now and then (1 in 16). With 40 it never will: the chance is (½)⁴⁰, about 1 in a trillion. With a mole of gas, it is impossible for all practical purposes. That is the second law.</p></details></li>
+        <li><p>Look at the graph of arrangements. Which split has the most arrangements? <button type="button" class="btn link" data-show='[["#et-n","20"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The even split. There are far more ways to have about half on each side than all on one side, so the particles spend nearly all their time near the middle.</p></details></li>
+        <li><p>Step through the reaction CaCO₃ → CaO + CO₂. Predict the sign of ΔS first. <button type="button" class="btn link" data-show='[["#sx-sel","2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Positive: a solid makes a solid plus a free gas. One mole of gas appears from nothing, so ΔS° = +160.6 J/mol·K.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Calculate ΔS° for N₂(g) + 3H₂(g) → 2NH₃(g) using S° (J/mol·K): N₂ 191.6, H₂ 130.6, NH₃ 192.5.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Predict the sign.</b> 4 mol of gas become 2 mol of gas, so there is less disorder: ΔS should be <b>negative</b>.</li>
+          <li hidden><b>Products.</b> ΣnS°(products) = 2 × 192.5 = 385.0 J/K.</li>
+          <li hidden><b>Reactants.</b> ΣnS°(reactants) = 191.6 + 3 × 130.6 = 191.6 + 391.8 = 583.4 J/K.</li>
+          <li hidden><b>Subtract.</b> ΔS° = 385.0 − 583.4 = <b>−198.4 J/K</b> (per mole of reaction as written). Negative, as predicted. Note the units: J/K, not kJ.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying "entropy means messiness" and stopping there. Count the available arrangements of particles and energy.</li>
+        <li>Giving ΔS in kJ with ΔH in kJ: S is usually in <b>J</b>/K, ΔH in <b>kJ</b>. Convert before combining.</li>
+        <li>Forgetting the coefficient: ΔS° = ΣnS°(products) − ΣnS°(reactants).</li>
+        <li>Assuming the entropy of an element in its standard state is zero. (That is ΔH°<sub>f</sub>; elements have positive absolute S°. Only a perfect crystal at 0 K has S = 0.)</li>
+        <li>Thinking the entropy of a system can never decrease. It can, if the surroundings gain more than the system loses.</li>
+      </ul></div>
+      <div class="prose"><h2>Quick rules for the sign of ΔS</h2>
+        <p>Gas formed or more moles of gas: ΔS &gt; 0. Fewer moles of gas: ΔS &lt; 0. Melting, vaporizing, dissolving a solid: ΔS &gt; 0 (usually). Freezing, condensing, precipitating: ΔS &lt; 0. Heating a substance: ΔS &gt; 0. The third law sets the zero: a perfect crystal at 0 K has S = 0, so every substance has a definite absolute entropy S° at 298 K.</p></div>
+      <div class="quiz" data-correct="3" data-explain="Gases have the most freedom, so the most ways to arrange their particles and energy, then liquids, then solids. Water vapor has the highest entropy of the three.">
+        <p class="q">Check yourself: which has the greatest entropy at 1 mol each?</p>
+        <div class="opts"><button type="button">H₂O(s)</button><button type="button">H₂O(l)</button><button type="button">They are equal</button><button type="button">H₂O(g)</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

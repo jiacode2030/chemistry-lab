@@ -3167,6 +3167,242 @@ table.data{min-width:0}
     </div>
   </section>
 
+  <section class="view" id="v-entropy" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Entropy &amp; microstates</h1>
+        <p class="lede">Why does a gas fill its container, and why does a hot cup of coffee cool down? Not because anything pulls: there are just overwhelmingly more ways for it to happen.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Shuffle a deck of cards and you will never get them back in perfect order. It isn't forbidden; it is just wildly unlikely, because there is only one ordered arrangement and an astronomical number of messy ones. <b>Entropy (S)</b> measures how many ways (microstates, W) the energy and particles of a system can be arranged: <b>S = k<sub>B</sub> ln W</b>. More ways means higher entropy, and systems drift toward the arrangements that are most numerous.</p>
+        <p>Entropy is larger for <b>gases than liquids than solids</b> (particles roam), for <b>more moles of gas</b>, for <b>higher temperature</b> (more ways to share energy), for <b>larger or more complex molecules</b>, and when substances <b>mix or dissolve</b>. The <b>second law</b> says the total entropy of the universe never decreases in a spontaneous process. A system can lose entropy (like water freezing) only if it dumps enough heat to the surroundings to raise their entropy by more.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we thought reactions run downhill in energy only (exothermic = spontaneous). Now we see energy isn't the whole story: some endothermic processes (ice melting, salts dissolving) are spontaneous because they increase entropy. Next, Gibbs free energy combines both.</div>
+      <div class="lab" id="et-lab">
+        <div class="labbar"><span class="title">Count the ways</span><div class="row"><button type="button" class="btn primary" id="et-go">Remove the partition</button></div></div>
+        <div class="controls"><div class="ctl"><label for="et-n"><span>Number of gas particles</span> <output id="et-n-out"></output></label><input type="range" id="et-n" min="2" max="40" step="1" value="12"></div></div>
+        <div class="split"><div><canvas id="et-canvas" aria-label="Gas particles in a box that has a partition; removing it lets them spread out"></canvas></div><div><canvas id="et-graph" aria-label="Number of arrangements for each possible count in the left half, with the observed time spent in each"></canvas></div></div>
+        <div class="readout"><div><span>In left half now</span><strong class="x" id="et-k">—</strong></div><div><span>Ways to arrange that (W)</span><strong id="et-w">—</strong></div><div><span>Total possible arrangements</span><strong id="et-tot">—</strong></div><div><span>S = k<sub>B</sub> ln W</span><strong class="a" id="et-s">—</strong></div><div><span>Chance all return left</span><strong id="et-back">—</strong></div></div>
+      </div>
+      <div class="lab" id="sx-lab" data-reset="own">
+        <div class="labbar"><span class="title">Entropy change of a reaction</span><div class="row"><button type="button" class="btn" id="sx-back">Back</button><button type="button" class="btn primary" id="sx-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="sx-sel"><span>Reaction</span></label><select id="sx-sel"></select></div></div>
+        <div class="row" id="sx-pred" style="gap:8px"><span class="small" style="margin:0">Predict first:</span><button type="button" class="btn" data-p="up">ΔS &gt; 0 (more disorder)</button><button type="button" class="btn" data-p="down">ΔS &lt; 0 (less disorder)</button></div>
+        <div class="eq-block" id="sx-out" aria-live="polite"></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then check.</p><ol>
+        <li><p>Open the partition with 4 particles, then with 40. Which one ever returns to "all on the left"? <button type="button" class="btn link" data-show='[["#et-n","4"],["click","#et-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>With 4 particles it happens now and then (1 in 16). With 40 it never will: the chance is (½)⁴⁰, about 1 in a trillion. With a mole of gas, it is impossible for all practical purposes. That is the second law.</p></details></li>
+        <li><p>Look at the graph of arrangements. Which split has the most arrangements? <button type="button" class="btn link" data-show='[["#et-n","20"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The even split. There are far more ways to have about half on each side than all on one side, so the particles spend nearly all their time near the middle.</p></details></li>
+        <li><p>Step through the reaction CaCO₃ → CaO + CO₂. Predict the sign of ΔS first. <button type="button" class="btn link" data-show='[["#sx-sel","2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Positive: a solid makes a solid plus a free gas. One mole of gas appears from nothing, so ΔS° = +160.6 J/mol·K.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Calculate ΔS° for N₂(g) + 3H₂(g) → 2NH₃(g) using S° (J/mol·K): N₂ 191.6, H₂ 130.6, NH₃ 192.5.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Predict the sign.</b> 4 mol of gas become 2 mol of gas, so there is less disorder: ΔS should be <b>negative</b>.</li>
+          <li hidden><b>Products.</b> ΣnS°(products) = 2 × 192.5 = 385.0 J/K.</li>
+          <li hidden><b>Reactants.</b> ΣnS°(reactants) = 191.6 + 3 × 130.6 = 191.6 + 391.8 = 583.4 J/K.</li>
+          <li hidden><b>Subtract.</b> ΔS° = 385.0 − 583.4 = <b>−198.4 J/K</b> (per mole of reaction as written). Negative, as predicted. Note the units: J/K, not kJ.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying "entropy means messiness" and stopping there. Count the available arrangements of particles and energy.</li>
+        <li>Giving ΔS in kJ with ΔH in kJ: S is usually in <b>J</b>/K, ΔH in <b>kJ</b>. Convert before combining.</li>
+        <li>Forgetting the coefficient: ΔS° = ΣnS°(products) − ΣnS°(reactants).</li>
+        <li>Assuming the entropy of an element in its standard state is zero. (That is ΔH°<sub>f</sub>; elements have positive absolute S°. Only a perfect crystal at 0 K has S = 0.)</li>
+        <li>Thinking the entropy of a system can never decrease. It can, if the surroundings gain more than the system loses.</li>
+      </ul></div>
+      <div class="prose"><h2>Quick rules for the sign of ΔS</h2>
+        <p>Gas formed or more moles of gas: ΔS &gt; 0. Fewer moles of gas: ΔS &lt; 0. Melting, vaporizing, dissolving a solid: ΔS &gt; 0 (usually). Freezing, condensing, precipitating: ΔS &lt; 0. Heating a substance: ΔS &gt; 0. The third law sets the zero: a perfect crystal at 0 K has S = 0, so every substance has a definite absolute entropy S° at 298 K.</p></div>
+      <div class="quiz" data-correct="3" data-explain="Gases have the most freedom, so the most ways to arrange their particles and energy, then liquids, then solids. Water vapor has the highest entropy of the three.">
+        <p class="q">Check yourself: which has the greatest entropy at 1 mol each?</p>
+        <div class="opts"><button type="button">H₂O(s)</button><button type="button">H₂O(l)</button><button type="button">They are equal</button><button type="button">H₂O(g)</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-gibbs" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Gibbs free energy &amp; spontaneity</h1>
+        <p class="lede">Two forces decide whether a process happens on its own: the drive to release energy and the drive to spread out. Gibbs free energy adds them up, and temperature decides who wins.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Ice melts above 0 °C and freezes below it. The energy side says "stay frozen" (melting costs heat) while the disorder side says "melt" (liquid has more entropy). At low temperature energy wins; at high temperature disorder wins; at 0 °C they tie. Temperature multiplies the entropy term, so heat helps entropy-driven processes.</p>
+        <p>That tug-of-war is <b>ΔG = ΔH − TΔS</b>. A process is <b>thermodynamically favorable (spontaneous)</b> when ΔG &lt; 0, at equilibrium when ΔG = 0, and unfavorable when ΔG &gt; 0. The signs of ΔH and ΔS give four cases: (−, +) always favorable; (+, −) never; (−, −) favorable only at <i>low</i> T; (+, +) favorable only at <i>high</i> T. Where the sign flips is at T = ΔH/ΔS. Note "spontaneous" says nothing about speed: diamond turning into graphite is favorable but takes forever (the activation energy is huge).</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, exothermic meant "will happen". Now we need both ΔH and ΔS, and the temperature. ΔG° also connects to K: <b>ΔG° = −RT ln K</b>, so the thermodynamics of a reaction fixes where its equilibrium sits.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Gibbs</span><b>ΔG° = ΔH° − TΔS°</b><small>ΔS° in J/K → convert to kJ/K</small></div><div class="eqc"><span class="nm">Equilibrium</span><b>ΔG° = −RT ln K</b><small>R = 8.314 J/mol·K</small></div><div class="eqc"><span class="nm">Non-standard</span><b>ΔG = ΔG° + RT ln Q</b><small>sign of ΔG sets the direction</small></div></div>
+      <div class="lab" id="gb-lab">
+        <div class="labbar"><span class="title">Energy vs disorder</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="gb-rx"><span>Process</span></label><select id="gb-rx"></select></div>
+          <div class="ctl"><label for="gb-H"><span>ΔH</span> <output id="gb-H-out"></output></label><input type="range" id="gb-H" min="-200" max="200" step="0.1" value="6"></div>
+          <div class="ctl"><label for="gb-S"><span>ΔS</span> <output id="gb-S-out"></output></label><input type="range" id="gb-S" min="-250" max="250" step="0.1" value="22"></div>
+          <div class="ctl"><label for="gb-T"><span>Temperature</span> <output id="gb-T-out"></output></label><input type="range" id="gb-T" min="100" max="1500" step="5" value="298"></div>
+        </div>
+        <div class="split"><div><canvas id="gb-canvas" aria-label="Bars for the enthalpy term, the entropy term and the resulting Gibbs free energy"></canvas></div><div><canvas id="gb-graph" aria-label="Gibbs free energy against temperature, a straight line that may cross zero"></canvas></div></div>
+        <div class="readout"><div><span>ΔG</span><strong class="x" id="gb-G">—</strong></div><div><span>Verdict</span><strong id="gb-v" style="font-size:15px;white-space:normal">—</strong></div><div><span>Crossover T = ΔH/ΔS</span><strong class="a" id="gb-Tc">—</strong></div><div><span>K (from ΔG)</span><strong id="gb-K">—</strong></div><div><span>ΔS of universe</span><strong id="gb-U">—</strong></div></div>
+        <div class="tablewrap" style="min-width:0"><table class="data" id="gb-tab"></table></div>
+      </div>
+      <div class="lab" id="gq-lab" data-reset="own">
+        <div class="labbar"><span class="title">Which way will it go? ΔG = ΔG° + RT ln Q</span></div>
+        <div class="controls"><div class="ctl"><label for="gq-q"><span>Reaction quotient Q (log scale)</span> <output id="gq-q-out"></output></label><input type="range" id="gq-q" min="-8" max="8" step="0.1" value="0"></div></div>
+        <canvas id="gq-canvas" aria-label="Gibbs free energy against log Q, crossing zero at the equilibrium constant"></canvas>
+        <div class="readout"><div><span>ΔG° (at the T above)</span><strong id="gq-g0">—</strong></div><div><span>K</span><strong id="gq-K">—</strong></div><div><span>ΔG at this Q</span><strong class="x" id="gq-G">—</strong></div><div><span>Direction</span><strong class="a" id="gq-d" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict where it flips, then slide the temperature.</p><ol>
+        <li><p>Melt ice: at what temperature does ΔG change sign? <button type="button" class="btn link" data-show='[["#gb-rx","0"],["#gb-T","273"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>At about 273 K (0 °C), where T = ΔH/ΔS = 6010/22.0. Below that ΔG is positive (ice is stable); above it, negative (melting is favorable).</p></details></li>
+        <li><p>Make ammonia. Is it better to run the reaction hot or cold, thermodynamically? <button type="button" class="btn link" data-show='[["#gb-rx","2"],["#gb-T","298"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Cold: ΔH is negative and ΔS is negative, so the reaction is favorable only below about 464 K. (Industry runs it hot anyway to make it fast, and uses pressure to compensate.)</p></details></li>
+        <li><p>Choose ozone formation, 3O₂ → 2O₃. Does any temperature work? <button type="button" class="btn link" data-show='[["#gb-rx","6"],["#gb-T","1000"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>No: ΔH is positive and ΔS is negative, so ΔG is positive at every temperature. It never happens spontaneously (UV light provides the energy instead).</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">For CaCO₃(s) → CaO(s) + CO₂(g), ΔH° = +178.3 kJ and ΔS° = +160.6 J/K. (a) Is it favorable at 298 K? (b) At what temperature does it become favorable?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Units first.</b> ΔS° = 160.6 J/K = 0.1606 kJ/K, so it matches ΔH in kJ.</li>
+          <li hidden><b>(a) At 298 K.</b> ΔG° = 178.3 − (298)(0.1606) = 178.3 − 47.9 = <b>+130.4 kJ</b>. Positive: not favorable at room temperature (limestone doesn't decompose on its own).</li>
+          <li hidden><b>(b) Find the flip.</b> ΔG° = 0 when T = ΔH/ΔS = 178.3 / 0.1606 = <b>1110 K</b> (about 837 °C).</li>
+          <li hidden><b>Interpret.</b> Both ΔH and ΔS are positive, so the reaction is favorable above 1110 K, where the entropy term (the CO₂ gas) outweighs the energy cost. This is why lime kilns run hot.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Mixing units: ΔH in kJ and ΔS in J/K. Convert ΔS to kJ/K (divide by 1000) before multiplying by T.</li>
+        <li>Using °C instead of kelvin for T.</li>
+        <li>Equating "spontaneous" with "fast" or "happens quickly". It only means thermodynamically favorable.</li>
+        <li>Saying ΔG° &gt; 0 means no reaction at all. It means the equilibrium lies toward reactants (K &lt; 1); a little product still forms.</li>
+        <li>Confusing ΔG° with ΔG. ΔG° is for standard conditions (Q = 1); ΔG depends on Q and is zero at equilibrium.</li>
+      </ul></div>
+      <div class="prose"><h2>Thermodynamic vs kinetic</h2>
+        <p>ΔG tells you the <i>direction</i> a system will go and how far (through K). The activation energy tells you how <i>fast</i>. A reaction with large negative ΔG but a high barrier (diamond to graphite, H₂ + O₂ → H₂O at room temperature) can sit for ages until a spark or catalyst helps.</p></div>
+      <div class="quiz" data-correct="1" data-explain="When ΔH is positive and ΔS is positive, the −TΔS term becomes more negative as T rises, so ΔG turns negative only at high temperature.">
+        <p class="q">Check yourself: ΔH &gt; 0 and ΔS &gt; 0. When is the process favorable?</p>
+        <div class="opts"><button type="button">At low temperatures</button><button type="button">At high temperatures</button><button type="button">At all temperatures</button><button type="button">At no temperature</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-galvanic" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Galvanic cells &amp; cell potential</h1>
+        <p class="lede">A battery is a chemical reaction pulled apart so its electrons have to travel through a wire. The voltage is how hard they are being pushed.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Put a zinc strip in copper(II) sulfate solution and the zinc dissolves while copper plates out: electrons hop directly from Zn to Cu²⁺. Now separate the two halves: zinc in one beaker, copper in another, joined by a wire. The electrons can't hop, so they <i>flow through the wire</i>. That flow is electricity, and you can run a light bulb on it. This is a <b>galvanic (voltaic) cell</b>.</p>
+        <p>The electrode where <b>oxidation</b> happens is the <b>anode</b> (it loses electrons); where <b>reduction</b> happens is the <b>cathode</b>. Mnemonic: <b>An Ox</b> and <b>Red Cat</b>. Electrons flow <i>from anode to cathode</i> through the wire. A <b>salt bridge</b> lets ions drift between the beakers to keep each solution neutral: anions toward the anode, cations toward the cathode. The cell's voltage is <b>E°<sub>cell</sub> = E°<sub>cathode</sub> − E°<sub>anode</sub></b>, using standard <i>reduction</i> potentials. A positive E° means the reaction is spontaneous.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, the standard potential assumed 1 M solutions at 25 °C. Real cells aren't: concentrations change as the cell runs. The <b>Nernst equation</b> corrects for that: <b>E = E° − (0.0592/n) log Q</b>. As reactants are used up Q rises toward K, and the voltage falls to zero: a "dead" battery is a cell at equilibrium.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Cell potential</span><b>E°cell = E°cathode − E°anode</b></div><div class="eqc"><span class="nm">Free energy</span><b>ΔG° = −nFE°</b><small>F = 96 485 C/mol e⁻</small></div><div class="eqc"><span class="nm">Nernst (25 °C)</span><b>E = E° − (0.0592/n) log Q</b><small>E° = (0.0592/n) log K</small></div></div>
+      <div class="lab" id="gv-lab">
+        <div class="labbar"><span class="title">Build a battery</span><div class="row"><button type="button" class="btn primary" id="gv-go">Run the cell</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="gv-L"><span>Left half-cell metal</span></label><select id="gv-L"></select></div>
+          <div class="ctl"><label for="gv-cl"><span>Left ion concentration</span> <output id="gv-cl-out"></output></label><input type="range" id="gv-cl" min="-3" max="0.3" step="0.05" value="0"></div>
+          <div class="ctl"><label for="gv-R"><span>Right half-cell metal</span></label><select id="gv-R"></select></div>
+          <div class="ctl"><label for="gv-cr"><span>Right ion concentration</span> <output id="gv-cr-out"></output></label><input type="range" id="gv-cr" min="-3" max="0.3" step="0.05" value="0"></div>
+          <div class="ctl"><label for="gv-x"><span>How far the cell has run</span> <output id="gv-x-out"></output></label><input type="range" id="gv-x" min="0" max="1000" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="gv-canvas" aria-label="Two beakers with metal electrodes joined by a wire, a voltmeter and a salt bridge"></canvas></div><div><canvas id="gv-ladder" aria-label="Standard reduction potentials on a vertical ladder with the two chosen metals marked"></canvas></div></div>
+        <div class="readout"><div><span>E°cell</span><strong class="x" id="gv-E0">—</strong></div><div><span>E (now)</span><strong class="a" id="gv-E">—</strong></div><div><span>Anode (oxidation)</span><strong id="gv-an" style="font-size:15px">—</strong></div><div><span>Cathode (reduction)</span><strong id="gv-ca" style="font-size:15px">—</strong></div><div><span>Q</span><strong id="gv-Q">—</strong></div></div>
+        <div class="eq-block" id="gv-eq" aria-live="polite"></div>
+        <div class="readout"><div><span>n (electrons)</span><strong id="gv-n">—</strong></div><div><span>ΔG°</span><strong id="gv-G">—</strong></div><div><span>K</span><strong id="gv-K">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the anode and the voltage, then check.</p><ol>
+        <li><p>Zinc on the left, copper on the right. Which is the anode? What is E°<sub>cell</sub>? <button type="button" class="btn link" data-show='[["#gv-L","Zn"],["#gv-R","Cu"],["#gv-cl","0"],["#gv-cr","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Zinc is the anode (oxidized: it has the lower reduction potential, −0.76 V) and copper the cathode (+0.34 V). E°<sub>cell</sub> = 0.34 − (−0.76) = 1.10 V.</p></details></li>
+        <li><p>Press Run the cell. What happens to the voltage as the cell runs down? <button type="button" class="btn link" data-show='[["#gv-L","Zn"],["#gv-R","Cu"],["click","#gv-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>It slowly falls: [Zn²⁺] rises and [Cu²⁺] falls, so Q rises. When Q = K the voltage reaches 0 V and the battery is dead. (K is about 10³⁷ for this cell, so it runs a long time.)</p></details></li>
+        <li><p>Use the same metal on both sides but make one solution 100 times more dilute. <button type="button" class="btn link" data-show='[["#gv-L","Cu"],["#gv-R","Cu"],["#gv-cl","-2"],["#gv-cr","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>A <b>concentration cell</b>: E° is 0 V, yet the cell still produces about 0.059 V. The dilute side is the anode (copper dissolves there, raising its concentration) and the concentrated side is the cathode.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A cell is made from Zn(s) | Zn²⁺(0.010 M) and Cu²⁺(1.0 M) | Cu(s). Standard potentials: Cu²⁺/Cu = +0.34 V, Zn²⁺/Zn = −0.76 V. Find E°<sub>cell</sub>, then E, then ΔG°.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Anode and cathode.</b> The metal with the lower reduction potential is oxidized: Zn is the anode, Cu the cathode. Reaction: Zn + Cu²⁺ → Zn²⁺ + Cu, n = 2.</li>
+          <li hidden><b>Standard potential.</b> E°<sub>cell</sub> = E°(cathode) − E°(anode) = 0.34 − (−0.76) = <b>+1.10 V</b>.</li>
+          <li hidden><b>Nernst.</b> Q = [Zn²⁺]/[Cu²⁺] = 0.010/1.0 = 0.010. E = 1.10 − (0.0592/2) log(0.010) = 1.10 + 0.0592 = <b>1.16 V</b>. (Less product than standard, so a bit more voltage.)</li>
+          <li hidden><b>Free energy.</b> ΔG° = −nFE° = −(2)(96485)(1.10) = −212 000 J = <b>−212 kJ</b> per mole of reaction. Negative, matching the positive E°.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Flipping the sign of E° when you multiply the half-reaction by a coefficient. Potentials are intensive: they do not change when you double the equation (but n does).</li>
+        <li>Subtracting in the wrong order: E°cell = E°cathode − E°anode, with both as reduction potentials.</li>
+        <li>Mixing up the direction of electron flow (anode → cathode) with conventional current, and anions/cations in the salt bridge.</li>
+        <li>Forgetting the sign convention for Q in Nernst: Q has products over reactants, and pure solids are left out.</li>
+        <li>Calling a negative E° "no reaction". It means the reverse reaction is the spontaneous one.</li>
+      </ul></div>
+      <div class="prose"><h2>Connections</h2>
+        <p>E°, ΔG° and K are three views of the same fact. Positive E° ⇔ negative ΔG° ⇔ K &gt; 1. At equilibrium (a dead cell), E = 0 and Q = K. Batteries (alkaline, lithium-ion, lead-acid) are galvanic cells designed so that the cell potential stays close to constant while they discharge, and rechargeable ones are run backwards as electrolytic cells.</p></div>
+      <div class="quiz" data-correct="0" data-explain="Electrons leave the anode (where oxidation occurs) and travel through the external wire to the cathode (where reduction occurs).">
+        <p class="q">Check yourself: in the external wire of a galvanic cell, electrons flow…</p>
+        <div class="opts"><button type="button">from the anode to the cathode</button><button type="button">from the cathode to the anode</button><button type="button">through the salt bridge</button><button type="button">in both directions equally</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-electrolysis" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 9</span></div>
+        <h1>Electrolysis &amp; Faraday's law</h1>
+        <p class="lede">Run a battery backwards: push electrons through a cell with an outside power supply and force a reaction that wouldn't happen by itself.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A galvanic cell is a ball rolling downhill and giving you work. An <b>electrolytic cell</b> is the opposite: you use an outside power supply to push the ball uphill. The reaction has a negative E° (not spontaneous), so you must apply <i>more</i> voltage than |E°| to make it go. This is how aluminum, chlorine and sodium hydroxide are made, how metals are refined and plated, and how a rechargeable battery recharges.</p>
+        <p>The definitions don't change: <b>oxidation at the anode, reduction at the cathode</b> (An Ox, Red Cat). What flips is the sign: in an electrolytic cell the cathode is wired to the <i>negative</i> terminal of the supply (it is where electrons are pushed in) and the anode to the positive terminal. <b>Faraday's law</b> counts the product: every mole of electrons (96 485 C) deposits 1/z mole of a metal ion of charge z⁺. The amount = (current × time) ÷ (F × z).</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we only used cells that run on their own. Now we force reactions with electricity, so in aqueous solutions <b>water competes</b>: it can be reduced at the cathode (making H₂) or oxidized at the anode (making O₂). Whichever reaction needs the least voltage happens first.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Charge</span><b>q = I × t</b><small>coulombs = amperes × seconds</small></div><div class="eqc"><span class="nm">Moles of e⁻</span><b>n(e⁻) = q / F</b><small>F = 96 485 C/mol</small></div><div class="eqc"><span class="nm">Moles of product</span><b>n = n(e⁻) / z</b><small>z = electrons per atom or per molecule</small></div></div>
+      <div class="lab" id="ep-lab">
+        <div class="labbar"><span class="title">Electroplate a metal</span><div class="row"><button type="button" class="btn primary" id="ep-go">Switch on</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ep-m"><span>Metal to plate</span></label><select id="ep-m"></select></div>
+          <div class="ctl"><label for="ep-i"><span>Current</span> <output id="ep-i-out"></output></label><input type="range" id="ep-i" min="0.5" max="10" step="0.5" value="3"></div>
+          <div class="ctl"><label for="ep-t"><span>Time elapsed</span> <output id="ep-t-out"></output></label><input type="range" id="ep-t" min="0" max="3600" step="10" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="ep-canvas" aria-label="An electrolytic cell plating a metal onto the cathode"></canvas></div><div><canvas id="ep-graph" aria-label="Mass of metal deposited against time"></canvas></div></div>
+        <div class="readout"><div><span>Charge passed</span><strong id="ep-q">—</strong></div><div><span>Moles of e⁻</span><strong class="a" id="ep-ne">—</strong></div><div><span>Moles of metal</span><strong id="ep-nm">—</strong></div><div><span>Mass plated</span><strong class="x" id="ep-mass">—</strong></div></div>
+      </div>
+      <div class="lab" id="ew-lab" data-reset="own">
+        <div class="labbar"><span class="title">What forms at each electrode?</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="ew-sel"><span>Electrolyte</span></label><select id="ew-sel"></select></div>
+          <div class="ctl"><label for="ew-v"><span>Voltage applied</span> <output id="ew-v-out"></output></label><input type="range" id="ew-v" min="0" max="6" step="0.05" value="0"></div>
+        </div>
+        <canvas id="ew-canvas" aria-label="An electrolytic cell showing the products at the cathode and anode"></canvas>
+        <div class="eq-block" id="ew-eq" aria-live="polite"></div>
+        <p class="small" id="ew-note" style="margin:0"></p>
+        <div class="readout"><div><span>Cathode (reduction)</span><strong class="x" id="ew-c" style="font-size:15px;white-space:normal">—</strong></div><div><span>Anode (oxidation)</span><strong class="a" id="ew-a" style="font-size:15px;white-space:normal">—</strong></div><div><span>Minimum voltage</span><strong id="ew-min">—</strong></div><div><span>Status</span><strong id="ew-st" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the products first.</p><ol>
+        <li><p>Double the current. Does it plate twice as much in the same time? <button type="button" class="btn link" data-show='[["#ep-m","Cu"],["#ep-i","6"],["#ep-t","1800"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes: charge = I × t, so twice the current moves twice the electrons and deposits twice the mass. About 3.6 g of copper after 30 min at 6.00 A.</p></details></li>
+        <li><p>Plate silver and copper with the same current and time. Which gives more mass? <button type="button" class="btn link" data-show='[["#ep-m","Ag"],["#ep-i","3"],["#ep-t","1800"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Silver: each Ag⁺ needs only one electron (z = 1) and an Ag atom is heavier (107.9 g/mol), so the same charge (5400 C at 3.00 A for 30 min) deposits 6.0 g of silver but only 1.8 g of copper (z = 2, 63.55 g/mol): about 3.4 times as much.</p></details></li>
+        <li><p>Electrolyze aqueous sodium sulfate. Which ions react? <button type="button" class="btn link" data-show='[["#ew-sel","3"],["#ew-v","3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Neither Na⁺ nor SO₄²⁻: water is reduced at the cathode (H₂) and oxidized at the anode (O₂). Na⁺ is too hard to reduce in water and sulfate is already fully oxidized. The net result is water splitting.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A current of 2.50 A flows for 45.0 minutes through a solution of Cu²⁺. What mass of copper plates onto the cathode? (M = 63.55 g/mol, F = 96 485 C/mol)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Charge.</b> t = 45.0 min × 60 = 2700 s. q = I t = (2.50 A)(2700 s) = 6750 C.</li>
+          <li hidden><b>Moles of electrons.</b> n(e⁻) = 6750 / 96485 = 0.06996 mol.</li>
+          <li hidden><b>Moles of copper.</b> Cu²⁺ + 2e⁻ → Cu, so n(Cu) = 0.06996 / 2 = 0.03498 mol.</li>
+          <li hidden><b>Mass.</b> 0.03498 mol × 63.55 g/mol = <b>2.22 g</b> of copper.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to convert minutes or hours to seconds before multiplying by amperes.</li>
+        <li>Forgetting z: Cu²⁺ needs 2 electrons per atom, Al³⁺ needs 3.</li>
+        <li>Giving the cathode a "+" sign in an electrolytic cell. It is negative here (but still the site of reduction).</li>
+        <li>Predicting that Na or K metal forms from an aqueous solution. Water is reduced first, giving H₂.</li>
+        <li>Forgetting that applied voltage must <i>exceed</i> |E°cell| (and real cells need extra for overpotential).</li>
+      </ul></div>
+      <div class="prose"><h2>Galvanic vs electrolytic</h2>
+        <p><b>Galvanic:</b> spontaneous (E° &gt; 0), produces electricity, anode is −, cathode is +. <b>Electrolytic:</b> non-spontaneous (E° &lt; 0), consumes electricity, anode is +, cathode is −. In both, oxidation is at the anode, reduction at the cathode, and electrons flow anode → cathode through the wire (the power supply pushes them in the electrolytic case).</p></div>
+      <div class="quiz" data-correct="1" data-explain="Charge q = It = 2.00 A × 3600 s = 7200 C. Moles of e⁻ = 7200 / 96485 = 0.0746 mol.">
+        <p class="q">Check yourself: how many moles of electrons pass when 2.00 A flows for 1.00 hour?</p>
+        <div class="opts"><button type="button">0.0207 mol</button><button type="button">0.0746 mol</button><button type="button">0.149 mol</button><button type="button">7200 mol</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -3405,8 +3641,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": ["ph", "weak", "titration", "buffers"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"], "soon": []}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": ["ph", "weak", "titration", "buffers"], "soon": []}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": ["entropy", "gibbs", "galvanic", "electrolysis"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"], "soon": []}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": ["ph", "weak", "titration", "buffers"], "soon": []}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": ["entropy", "gibbs", "galvanic", "electrolysis"], "soon": []}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -6643,6 +6879,287 @@ function bfWater(addMol,V){const c=Math.abs(addMol)/V;if(addMol===0)return 7;con
   const BQ=[['CH₃COOH and NaCH₃COO',true],['NH₃ and NH₄Cl',true],['HF and NaF',true],['HCl and NaCl',false],['NaOH and NaNO₃',false],['HNO₃ and KNO₃',false],['NaCl and NaOH',false],['H₂CO₃ and NaHCO₃',true]];
   PROBS.push({id:'buf-concept',topic:'buffers',title:'Which mixture is a buffer?',gen(){const good=pick(BQ.filter(x=>x[1])),bad=BQ.filter(x=>!x[1]).sort(()=>Math.random()-.5).slice(0,3),i=Math.floor(Math.random()*4),arr=bad.map(x=>x[0]);arr.splice(i,0,good[0]);
     return {q:'Which of these mixtures (equal volumes of equal concentrations) will act as a buffer?',choices:arr,ans:i,hint:'A buffer needs a weak acid and its conjugate base (or a weak base and its conjugate acid), both present.',sol:`<b>${good[0]}</b> contains a weak acid/base and its conjugate partner; the others contain a strong acid or base or lack a conjugate pair.`};}});
+})();
+
+/* ===== modules/entropy.js ===== */
+
+/* ---------------- Entropy & microstates ---------------- */
+const KB=1.380649e-23;
+const lnC=(n,k)=>{let s=0;for(let i=1;i<=k;i++)s+=Math.log((n-k+i)/i);return s;};
+const SO={H2:['H₂(g)',130.6],O2:['O₂(g)',205.0],N2:['N₂(g)',191.6],NH3:['NH₃(g)',192.5],H2Ol:['H₂O(l)',69.9],H2Og:['H₂O(g)',188.8],CO2:['CO₂(g)',213.7],CaCO3:['CaCO₃(s)',92.9],CaO:['CaO(s)',39.8],NO2:['NO₂(g)',240.0],N2O4:['N₂O₄(g)',304.3],NaCl:['NaCl(s)',72.1],Naaq:['Na⁺(aq)',59.0],Claq:['Cl⁻(aq)',56.5],CH4:['CH₄(g)',186.3],SO2:['SO₂(g)',248.2],SO3:['SO₃(g)',256.8]};
+const SR=[{R:[['H2',2],['O2',1]],P:[['H2Ol',2]]},{R:[['N2',1],['H2',3]],P:[['NH3',2]]},{R:[['CaCO3',1]],P:[['CaO',1],['CO2',1]]},{R:[['NO2',2]],P:[['N2O4',1]]},{R:[['NaCl',1]],P:[['Naaq',1],['Claq',1]]},{R:[['H2Ol',1]],P:[['H2Og',1]]},{R:[['CH4',1],['O2',2]],P:[['CO2',1],['H2Ol',2]]},{R:[['SO2',2],['O2',1]],P:[['SO3',2]]}];
+const sSum=l=>l.reduce((a,[k,n])=>a+SO[k][1]*n,0);
+(function entropy(){
+  const cv=$('#et-canvas');if(!cv)return;const nS=$('#et-n'),H=240;let P=[],open=false,hist=[],frames=0,part=true;
+  const N=()=>+nS.value;
+  function init(){const w=cv.clientWidth||300;P=[];for(let i=0;i<N();i++)P.push({x:10+Math.random()*(w/2-20),y:10+Math.random()*(H-20),vx:(Math.random()-.5)*160,vy:(Math.random()-.5)*160});hist=new Array(N()+1).fill(0);frames=0;open=false;part=true;$('#et-go').textContent='Remove the partition';}
+  const kNow=()=>P.filter(p=>p.x<(cv.clientWidth||300)/2).length;
+  const sim=sim2d(cv,{h:()=>H,step(dt){const w=cv.clientWidth;P.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<6){p.x=6;p.vx=Math.abs(p.vx);}if(p.x>w-6){p.x=w-6;p.vx=-Math.abs(p.vx);}if(p.y<6){p.y=6;p.vy=Math.abs(p.vy);}if(p.y>H-6){p.y=H-6;p.vy=-Math.abs(p.vy);}
+        if(part){const m=w/2;if(p.x<m&&p.x>m-6){p.x=m-6;p.vx=-Math.abs(p.vx);}}});
+      if(open){const k=kNow();hist[k]++;frames++;if(frames%4===0)upd(true);}},
+    draw(ctx,w,h){ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,1,w-2,H-2);if(part){ctx.fillStyle=T.muted;ctx.fillRect(w/2-2,0,4,H);}else{ctx.setLineDash([4,4]);ctx.strokeStyle=T.grid;ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,H);ctx.stroke();ctx.setLineDash([]);}
+      P.forEach(p=>ball2(ctx,p.x,p.y,6,'#3E7BDC'));}});
+  const g=$('#et-graph'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const n=N(),k=kNow(),bx=40,bw=w-52,by=14,bh=h-60;const mx=lnC(n,Math.floor(n/2));const Y=lw=>by+bh-bh*(Math.exp(lw-mx));
+      const bw1=bw/(n+1);for(let j=0;j<=n;j++){const lw=lnC(n,j),y=Y(lw);ctx.fillStyle=j===k?'#E08A2E':alpha('#3E7BDC',.5);ctx.fillRect(bx+j*bw1+1,y,bw1-2,by+bh-y);}
+      if(frames>150){const tot=hist.reduce((a,b)=>a+b,0)||1,mxh=Math.max(...hist)/tot;ctx.strokeStyle=T.cv;ctx.lineWidth=2.2;ctx.beginPath();hist.forEach((c,j)=>{const x=bx+(j+.5)*bw1,y=by+bh-bh*(c/tot)/(Math.exp(mx)/Math.pow(2,n));j?ctx.lineTo(x,Math.max(by,y)):ctx.moveTo(x,Math.max(by,y));});ctx.stroke();label(ctx,'green line: time spent',bx+bw-4,by+24,T.cv,'right','middle',MONO);}
+      ctx.strokeStyle=T.muted;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(bx,by+bh);ctx.lineTo(bx+bw,by+bh);ctx.stroke();label(ctx,'number of particles in the left half',bx+bw/2,h-30,T.muted,'center','middle',MONO);label(ctx,'0',bx,h-14,T.muted,'center','middle',MONO);label(ctx,String(n),bx+bw,h-14,T.muted,'center','middle',MONO);label(ctx,'bar height = number of ways',bx+4,by+8,T.muted,'left','middle',MONO);}});
+  function upd(fromStep){const n=N(),k=kNow(),lw=lnC(n,k);setText('et-n-out',n+'');setText('et-k',k+' of '+n);setText('et-w',n>30?sci(Math.exp(lw),2):fmt(Math.exp(lw),0));setText('et-tot',sci(Math.pow(2,n),2));setText('et-s',sci(KB*lw,2)+' J/K');
+    const pb=Math.pow(.5,n);setText('et-back',n<=20?'1 in '+fmt(1/pb,0):'1 in '+sci(1/pb,1));if(!fromStep)sim.render();gs.render();}
+  nS.addEventListener('input',()=>{init();upd();});$('#et-go').addEventListener('click',()=>{if(!open&&part){part=false;open=true;$('#et-go').textContent='Put them back (reset)';}else{init();}upd();});
+  $('#et-lab').addEventListener('labreset',()=>{init();upd();});bindRange('et-n',()=>'',()=>{},false);init();upd();drawers.entropy=()=>{init();upd();};
+  /* reaction entropy */
+  const sel=$('#sx-sel');const nm=l=>l.map(([k,n])=>(n>1?n:'')+SO[k][0]).join(' + ');sel.innerHTML=SR.map((r,i)=>`<option value="${i}">${nm(r.R)} → ${nm(r.P)}</option>`).join('');let stp=0,pred='';
+  const sum=sSum,gasN=l=>l.filter(([k])=>SO[k][0].includes('(g)')).reduce((a,[,n])=>a+n,0);
+  function supd(){const r=SR[+sel.value],sp=sum(r.P),sr=sum(r.R),ds=sp-sr,L=[];
+    L.push(`<span class="ln"><span class="lbl">Reaction</span>${nm(r.R)} → ${nm(r.P)}</span>`);
+    L.push(`<span class="ln"><span class="lbl">Moles of gas</span>${gasN(r.R)} → ${gasN(r.P)}${pred?`  <small>(you predicted ${pred==='up'?'ΔS &gt; 0':'ΔS &lt; 0'})</small>`:''}</span>`);
+    if(stp>=1)L.push(`<span class="ln"><span class="lbl">ΣnS° (products)</span>${r.P.map(([k,n])=>`${n>1?n+' × ':''}${fmt(SO[k][1],1)}`).join(' + ')} = ${fmt(sp,1)} J/K</span>`);
+    if(stp>=2)L.push(`<span class="ln"><span class="lbl">ΣnS° (reactants)</span>${r.R.map(([k,n])=>`${n>1?n+' × ':''}${fmt(SO[k][1],1)}`).join(' + ')} = ${fmt(sr,1)} J/K</span>`);
+    if(stp>=3){const ok=pred?((ds>0)===(pred==='up')):null;L.push(`<span class="ln"><span class="lbl">ΔS°</span><span class="net">${fmt(sp,1)} − ${fmt(sr,1)} = ${ds>0?'+':'−'}${fmt(Math.abs(ds),1)} J/K ${ok===null?'':ok?'✓ your prediction was right':'(your prediction was off: check the moles of gas and the phases)'}</span></span>`);}
+    $('#sx-out').innerHTML=L.join('');$('#sx-back').disabled=stp===0;$('#sx-next').textContent=stp>=3?'Start over':'Next step';}
+  $('#sx-pred').addEventListener('click',e=>{const b=e.target.closest('[data-p]');if(!b)return;pred=b.dataset.p;supd();});
+  sel.addEventListener('change',()=>{stp=0;pred='';supd();});$('#sx-next').addEventListener('click',()=>{stp=stp>=3?0:stp+1;supd();});$('#sx-back').addEventListener('click',()=>{stp=Math.max(0,stp-1);supd();});$('#sx-lab').addEventListener('labreset',()=>{stp=0;pred='';supd();});supd();
+  TIPS['et-n']='More particles: the even split dominates much more strongly and "all on one side" becomes vanishingly rare.';
+  TIPS['sx-sel']='Predict the sign from the moles of gas and the phases, then check with the numbers.';
+  KEYS['et-canvas']=['Press Remove the partition, then change the number of particles.',[['#3E7BDC','gas particles'],['#E08A2E','current split']]];
+  GLOSS['entropy']='A measure of the number of ways energy and matter can be arranged: S = kB ln W.';
+  GLOSS['microstate']='One specific arrangement of the particles and their energy.';
+  GLOSS['second law']='The total entropy of the universe increases in any spontaneous process.';
+  GLOSS['spontaneous']='A process that proceeds on its own without continuous outside help.';
+  TT.entropy='Use cards or coins: students see the even split dominate with just 10 coins. Then scale to a mole.';
+})();
+(function(){
+  PROBS.push({id:'ent-sign',topic:'entropy',title:'Sign of ΔS',gen(){const Q=[['CaCO₃(s) → CaO(s) + CO₂(g)',0,'a gas is produced from solids'],['2H₂(g) + O₂(g) → 2H₂O(l)',1,'3 mol of gas become a liquid'],['N₂(g) + 3H₂(g) → 2NH₃(g)',1,'4 mol of gas become 2 mol of gas'],['H₂O(l) → H₂O(g)',0,'a liquid becomes a gas'],['NaCl(s) → Na⁺(aq) + Cl⁻(aq)',0,'an ordered solid becomes dispersed ions'],['2NO₂(g) → N₂O₄(g)',1,'2 mol of gas become 1 mol'],['H₂O(l) → H₂O(s)',1,'a liquid becomes a more ordered solid'],['C₆H₁₂O₆(s) + 6O₂(g) → 6CO₂(g) + 6H₂O(g)',0,'a solid and 6 mol of gas become 12 mol of gas'],['Ag⁺(aq) + Cl⁻(aq) → AgCl(s)',1,'dissolved ions form an ordered solid']],[eq,a,why]=pick(Q),ch=['ΔS is positive','ΔS is negative'];
+    return {q:`Predict the sign of ΔS for: ${eq}`,choices:ch,ans:a,hint:'Compare the moles of gas, and the phases (gas > liquid > solid).',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+  PROBS.push({id:'ent-dS',topic:'entropy',title:'Calculate ΔS°',gen(){const r=pick(SR),sp=sSum(r.P),sr=sSum(r.R),ds=sp-sr,nm2=l=>l.map(([k,n])=>(n>1?n:'')+SO[k][0]).join(' + '),used=[...new Set([...r.R,...r.P].map(x=>x[0]))];
+    return {q:`Using S° (J/mol·K): ${used.map(k=>`${SO[k][0]} ${SO[k][1]}`).join(', ')}; calculate ΔS° for ${nm2(r.R)} → ${nm2(r.P)}.`,ans:ds,unit:'J/K',tol:.02,hint:'ΔS° = ΣnS°(products) − ΣnS°(reactants). Multiply by coefficients.',sol:`Products: ${fmt(sp,1)} J/K; reactants: ${fmt(sr,1)} J/K; ΔS° = <b>${fmt(ds,1)} J/K</b>.`};}});
+  const MR=[['1 mol of H₂O(g)','1 mol of H₂O(l)',0,'gases have more entropy than liquids'],['1 mol of NaCl(s)','1 mol of NaCl dissolved in water',1,'dissolved ions are more dispersed'],['1 mol of CO₂(g) at 400 K','1 mol of CO₂(g) at 300 K',0,'more thermal energy gives more ways to share it'],['1 mol of C(diamond)','1 mol of C(graphite)',1,'graphite is softer and less rigidly ordered'],['1 mol of He(g)','1 mol of CH₄(g)',1,'more complex molecules have more ways to store energy'],['2 mol of O₂(g)','1 mol of O₂(g)',0,'more particles means more arrangements'],['1 mol of Br₂(l)','1 mol of Br₂(g)',1,'gas beats liquid'],['1 mol of ice at 0 °C','1 mol of liquid water at 0 °C',1,'liquid beats solid']];
+  PROBS.push({id:'ent-more',topic:'entropy',title:'Which has higher entropy?',gen(){const [a,b,w,why]=pick(MR);return {q:`Which has the higher entropy: ${a} or ${b}?`,choices:[a,b],ans:w,hint:'Think: phase, temperature, number of particles, molecular complexity.',sol:`<b>${w?b:a}</b>: ${why}.`};}});
+  PROBS.push({id:'ent-W',topic:'entropy',title:'Boltzmann equation',gen(){const e=pick([20,22,23,24]),m=pick([1.5,2.0,3.2,4.5]),W=m*Math.pow(10,e),lnW=Math.log(W),S=KB*lnW;
+    return {q:`A system has ${sci(W,2)} microstates (W). What is its entropy, S = k<sub>B</sub> ln W? (k<sub>B</sub> = 1.38×10⁻²³ J/K)`,ans:1.38e-23*lnW,unit:'J/K',tol:.02,hint:'Take the natural log of W, then multiply by k_B.',sol:`ln W = ${fmt(lnW,2)}; S = 1.38×10⁻²³ × ${fmt(lnW,2)} = <b>${sci(1.38e-23*lnW,3)} J/K</b>.`};}});
+  PROBS.push({id:'ent-ways',topic:'entropy',title:'Count the arrangements',gen(){const n=pick([4,5,6,8]),k=pick([1,2,3]),W=Math.round(Math.exp(lnC(n,k)));
+    return {q:`${n} distinguishable gas particles are in a box with two equal halves. In how many ways can exactly ${k} of them be in the left half?`,ans:W,unit:'ways',abs:.5,hint:'Choose which k of the n particles are on the left: C(n, k) = n! / (k!(n−k)!).',sol:`C(${n}, ${k}) = <b>${W}</b>.`};}});
+})();
+
+/* ===== modules/gibbs.js ===== */
+
+/* ---------------- Gibbs free energy ---------------- */
+const GBR=[{t:'Ice melts: H₂O(s) → H₂O(l)',H:6.01,S:22.0},{t:'Water boils: H₂O(l) → H₂O(g)',H:40.7,S:109},{t:'N₂ + 3H₂ → 2NH₃',H:-92.2,S:-198.7},{t:'CaCO₃(s) → CaO(s) + CO₂(g)',H:178.3,S:160.6},{t:'H₂ + Cl₂ → 2HCl',H:-184.6,S:20},{t:'2NO₂ → N₂O₄',H:-57.2,S:-175.8},{t:'3O₂ → 2O₃  (ozone)',H:285.4,S:-137.2},{t:'NH₄NO₃(s) dissolves in water',H:25.7,S:108.7}];
+(function gibbs(){
+  const cv=$('#gb-canvas');if(!cv)return;const rs=$('#gb-rx'),hS=$('#gb-H'),sS=$('#gb-S'),tS=$('#gb-T');rs.innerHTML=GBR.map((r,i)=>`<option value="${i}">${r.t}</option>`).join('');
+  const R=8.314e-3,G=()=>(+hS.value)-(+tS.value)*(+sS.value)/1000;
+  const sim=sim2d(cv,{h:()=>260,draw(ctx,w,h){const H=+hS.value,Tk=+tS.value,TS=Tk*(+sS.value)/1000,g=G(),mx=Math.max(Math.abs(H),Math.abs(TS),Math.abs(g),50)*1.2,zy=h/2-6,Y=v=>zy-(h/2-34)*v/mx;
+      ctx.strokeStyle=T_ink();ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(30,zy);ctx.lineTo(w-10,zy);ctx.stroke();
+      const items=[['ΔH',H,'#E08A2E','energy term'],['−TΔS',-TS,'#3E7BDC','disorder term'],['ΔG',g,g<0?'#2FA36B':'#E5484D',g<0?'favorable':'not favorable']],bw=Math.min(70,(w-80)/3-14);
+      items.forEach(([n,v,c,sub],i)=>{const cx=30+(w-40)*(i+.5)/3;ctx.fillStyle=c;const y1=Y(v);ctx.fillRect(cx-bw/2,Math.min(zy,y1),bw,Math.abs(y1-zy)||1);label(ctx,(v>=0?'+':'−')+fmt(Math.abs(v),1),cx,(v>=0?y1-8:y1+8),T.ink,'center',v>=0?'bottom':'top',MONO);label(ctx,n,cx,h-30,T.ink,'center','middle','600 13px "IBM Plex Mono",monospace');label(ctx,sub,cx,h-14,T.muted,'center','middle',MONO);});
+      label(ctx,'kJ',22,14,T.muted,'right','middle',MONO);
+      ['=','+'].forEach(()=>{});label(ctx,'ΔG = ΔH + (−TΔS)',w/2,12,T.muted,'center','middle',MONO);}});
+  const g=$('#gb-graph'),gs=sim2d(g,{h:()=>260,draw(ctx,w,h){const H=+hS.value,S=+sS.value/1000,Tk=+tS.value,lo=Math.min(-100,H-1500*S,H-100*S)-20,hi=Math.max(100,H-1500*S,H-100*S)+20;const Pn=panel(ctx,{x:50,y:12,w:w-64,h:h-46},[100,1500],[lo,hi],{xn:5,yn:4,xlabel:'T (K)',ylabel:'ΔG (kJ)',color:T.ink});
+      ctx.save();clip(ctx,Pn);const y0=Pn.Y(0);ctx.fillStyle=alpha('#2FA36B',.1);ctx.fillRect(Pn.box.x,y0,Pn.box.w,Pn.box.y+Pn.box.h-y0);ctx.fillStyle=alpha('#E5484D',.08);ctx.fillRect(Pn.box.x,Pn.box.y,Pn.box.w,y0-Pn.box.y);ctx.restore();
+      label(ctx,'favorable (ΔG < 0)',Pn.box.x+Pn.box.w-4,Pn.box.y+Pn.box.h-20,T.cv,'right','bottom',MONO);label(ctx,'not favorable (ΔG > 0)',Pn.box.x+Pn.box.w-4,Pn.box.y+10,T.ca,'right','middle',MONO);
+      curve(ctx,Pn,t=>H-t*S,100,1500,T.cx,2.8,40);if(S!==0&&H/S>100&&H/S<1500){const tc=H/S;dot(ctx,Pn.X(tc),Pn.Y(0),6,T.hot);label(ctx,'T = '+fmt(tc,0)+' K',Pn.X(tc),Pn.Y(0)-12,T.hot,'center','bottom',MONO);}
+      dot(ctx,Pn.X(Tk),Pn.Y(G()),7,T.ink,'#fff');}});
+  function upd(){const H=+hS.value,S=+sS.value,T=+tS.value,g=G(),K=Math.exp(-g/(R*T)),Tc=S!==0?H/(S/1000):NaN;
+    setText('gb-H-out',(H>=0?'+':'−')+fmt(Math.abs(H),1)+' kJ');setText('gb-S-out',(S>=0?'+':'−')+fmt(Math.abs(S),1)+' J/K');setText('gb-T-out',T+' K');setText('gb-G',(g>=0?'+':'−')+fmt(Math.abs(g),1)+' kJ');
+    setText('gb-v',Math.abs(g)<.5?'at equilibrium (ΔG ≈ 0)':g<0?'favorable (spontaneous)':'not favorable');setText('gb-Tc',(S!==0&&Tc>0)?fmt(Tc,0)+' K':'none (never flips)');setText('gb-K',K>1e6||K<1e-6?sci(K,2):fmt(K,K<1?4:2));
+    const ds=-H*1000/T+S;setText('gb-U',(ds+0>=0?'+':'−')+fmt(Math.abs(S-H*1000/T),1)+' J/K');
+    const c=H<0&&S>0?0:H>0&&S<0?1:H<0&&S<0?2:3,rows=[['−','+','always favorable'],['+','−','never favorable'],['−','−','favorable at low T'],['+','+','favorable at high T']];
+    $('#gb-tab').innerHTML=`<thead><tr><th>ΔH</th><th>ΔS</th><th>Result</th></tr></thead><tbody>${rows.map((r,i)=>`<tr${i===c?' style="background:var(--sunk);font-weight:600"':''}><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody>`;sim.render();gs.render();qupd();}
+  function setRx(){const r=GBR[+rs.value];hS.value=r.H;sS.value=r.S;upd();}
+  rs.addEventListener('change',setRx);['gb-H','gb-S','gb-T'].forEach(id=>bindRange(id,()=>'',upd,false));$('#gb-lab').addEventListener('labreset',setRx);
+  /* Q lab */
+  const qc=$('#gq-canvas'),qS=$('#gq-q');const qsim=sim2d(qc,{h:()=>230,draw(ctx,w,h){const Tk=+tS.value,g0=G(),lnK=-g0/(R*Tk),P=panel(ctx,{x:50,y:12,w:w-64,h:h-46},[-8,8],[-60,60],{xn:4,yn:4,xlabel:'log₁₀ Q',ylabel:'ΔG (kJ)',color:T_ink()});
+      curve(ctx,P,x=>g0+R*Tk*Math.LN10*x,-8,8,T.cx,2.8,50);const lq=+qS.value,gg=g0+R*Tk*Math.LN10*lq,lk=lnK/Math.LN10;line(ctx,P,lk,-60,lk,60,T.ca,1.5,[5,4]);label(ctx,'Q = K',P.X(lk),P.box.y+10,T.ca,'center','middle',MONO);dot(ctx,P.X(lq),P.Y(clamp(gg,-60,60)),7,T.ink,'#fff');
+      label(ctx,gg<0?'forward':'reverse',P.X(lq),P.Y(clamp(gg,-60,60))-14,gg<0?T.cv:T.hot,'center','bottom',MONO);}});
+  function qupd(){const T=+tS.value,g0=G(),lq=+qS.value,gg=g0+R*T*Math.LN10*lq,K=Math.exp(-g0/(R*T));setText('gq-q-out','Q = '+sci(Math.pow(10,lq),1));setText('gq-g0',(g0>=0?'+':'−')+fmt(Math.abs(g0),1)+' kJ');setText('gq-K',sci(K,2));setText('gq-G',(gg>=0?'+':'−')+fmt(Math.abs(gg),1)+' kJ');
+    setText('gq-d',Math.abs(gg)<.3?'at equilibrium (Q = K)':gg<0?'ΔG < 0: runs forward':'ΔG > 0: runs in reverse');qsim.render();}
+  bindRange('gq-q',()=>'',qupd,false);$('#gq-lab').addEventListener('labreset',qupd);setRx();drawers.gibbs=upd;
+  TIPS['gb-rx']='Each preset sets realistic ΔH and ΔS values; you can adjust either one afterwards.';
+  TIPS['gb-H']='ΔH: negative releases heat (favors the reaction).';
+  TIPS['gb-S']='ΔS: positive means more disorder (favors the reaction, more so when it is hot).';
+  TIPS['gb-T']='Temperature multiplies the entropy term. Slide across the crossover and watch ΔG change sign.';
+  TIPS['gq-q']='When Q is smaller than K the reaction goes forward; when it is larger, in reverse.';
+  KEYS['gb-canvas']=['Pick a process and slide the temperature.',[['#E08A2E','ΔH term'],['#3E7BDC','−TΔS term']]];
+  GLOSS['Gibbs free energy']='G = H − TS; a process at constant T and P is favorable when ΔG is negative.';
+  GLOSS['thermodynamically favorable']='A process with a negative ΔG; it can occur without continuous outside energy input (it says nothing about speed).';
+  TT.gibbs='Draw the four-quadrant table with students first (signs of ΔH and ΔS), then use the slider to check each corner.';
+})();
+(function(){
+  PROBS.push({id:'gib-dG',topic:'gibbs',title:'Calculate ΔG°',gen(){const H=pick([-92.2,-57.2,-184.6,+178.3,+41.2,-890.3,+131.3]),S=pick([-198.7,-175.8,+20.0,+160.6,+42.0,-242.8,+133.6,+10.5]),T=pick([298,350,400,500,800,1000]),g=H-T*S/1000;
+    return {q:`For a reaction, ΔH° = ${H>0?'+':''}${H} kJ and ΔS° = ${S>0?'+':''}${S} J/K. Calculate ΔG° at ${T} K.`,ans:g,unit:'kJ',tol:.01,hint:'ΔG° = ΔH° − TΔS°. Convert ΔS° to kJ/K first.',sol:`ΔG° = ${H} − (${T})(${S/1000}) = <b>${fmt(g,1)} kJ</b> (${g<0?'favorable':'not favorable'}).`};}});
+  PROBS.push({id:'gib-T',topic:'gibbs',title:'Temperature of the sign change',gen(){const H=pick([+178.3,+40.7,+131.3,+91.0,-92.2,-57.2,+66.4]),S=H>0?pick([+160.6,+109,+133.6,+215,+190]):pick([-198.7,-175.8,-160,-120]),Tc=H/(S/1000);
+    return {q:`A reaction has ΔH° = ${H>0?'+':''}${H} kJ and ΔS° = ${S>0?'+':''}${S} J/K. At what temperature does ΔG° change sign?`,ans:Tc,unit:'K',tol:.02,hint:'Set ΔG° = 0: T = ΔH°/ΔS°. Use consistent units.',sol:`T = ${H} kJ / (${S/1000} kJ/K) = <b>${fmt(Tc,0)} K</b>. ${H>0?'The reaction is favorable above this temperature.':'The reaction is favorable below this temperature.'}`};}});
+  PROBS.push({id:'gib-K',topic:'gibbs',title:'K from ΔG°',gen(){const g=pick([-45,-20,-5,-120,10,25,60,-80]),T=pick([298,350,400,500]),K=Math.exp(-g*1000/(8.314*T));
+    return {q:`ΔG° = ${g>0?'+':''}${g} kJ/mol for a reaction at ${T} K. What is K? (R = 8.314 J/mol·K)`,ans:K,unit:'',tol:.03,hint:'K = exp(−ΔG°/RT) with ΔG° in joules.',sol:`K = exp(−(${g*1000})/(8.314 × ${T})) = exp(${fmt(-g*1000/(8.314*T),3)}) = <b>${sci(K,3)}</b>.`};}});
+  PROBS.push({id:'gib-G0',topic:'gibbs',title:'ΔG° from K',gen(){const K=pick([1.8e-5,4.5e3,6.5e8,2.0e-3,1.0e5,50,0.36]),T=pick([298,350,500]),g=-8.314*T*Math.log(K)/1000;
+    return {q:`A reaction has K = ${sci(K,2)} at ${T} K. What is ΔG°? (R = 8.314 J/mol·K)`,ans:g,unit:'kJ/mol',tol:.02,hint:'ΔG° = −RT ln K.',sol:`ΔG° = −(8.314)(${T}) ln(${sci(K,2)}) = <b>${fmt(g,1)} kJ/mol</b>.`};}});
+  PROBS.push({id:'gib-Q',topic:'gibbs',title:'ΔG at non-standard conditions',gen(){const g0=pick([-30,-10,5,20,-50]),Q=pick([1e-4,1e-2,1.0,50,2e3,1e5]),T=pick([298,350,400]),g=g0+8.314e-3*T*Math.log(Q);
+    return {q:`A reaction has ΔG° = ${g0>0?'+':''}${g0} kJ/mol at ${T} K. What is ΔG when Q = ${sci(Q,1)}? (R = 8.314 J/mol·K)`,ans:g,unit:'kJ/mol',tol:.03,hint:'ΔG = ΔG° + RT ln Q.',sol:`ΔG = ${g0} + (8.314×10⁻³)(${T}) ln(${sci(Q,1)}) = <b>${fmt(g,1)} kJ/mol</b>; the reaction goes ${g<0?'forward':'in reverse'}.`};}});
+  PROBS.push({id:'gib-sign',topic:'gibbs',title:'When is it favorable?',gen(){const Q=[['−','+','always favorable',0],['+','−','never favorable',1],['−','−','favorable only at low temperatures',2],['+','+','favorable only at high temperatures',3]],[hs,ss,res,a]=pick(Q),ch=Q.map(x=>x[2]);
+    return {q:`A process has a ${hs==='−'?'negative':'positive'} ΔH and a ${ss==='−'?'negative':'positive'} ΔS. When is it thermodynamically favorable?`,choices:ch,ans:a,hint:'ΔG = ΔH − TΔS. Which way does the −TΔS term move as T increases?',sol:`<b>${res}</b>.`};}});
+  PROBS.push({id:'gib-surr',topic:'gibbs',title:'Entropy of the surroundings',gen(){const H=pick([-92.2,-184.6,-57.2,+41.2,+178.3,-890.3]),T=pick([298,350,500]),ds=-H*1000/T;
+    return {q:`A reaction has ΔH = ${H>0?'+':''}${H} kJ at ${T} K. What is ΔS of the surroundings?`,ans:ds,unit:'J/K',tol:.02,hint:'ΔS(surr) = −ΔH/T. Convert kJ to J.',sol:`ΔS<sub>surr</sub> = −(${H*1000} J)/${T} K = <b>${fmt(ds,1)} J/K</b>. ${ds>0?'Heat released into the surroundings raises their entropy.':'Heat absorbed from the surroundings lowers their entropy.'}`};}});
+})();
+
+/* ===== modules/galvanic.js ===== */
+
+/* ---------------- Galvanic cells ---------------- */
+const GV={Mg:{z:2,E:-2.37,col:'#C9CED8',sol:'#E9EEF5',ion:'Mg²⁺'},Al:{z:3,E:-1.66,col:'#B8BCC6',sol:'#E9EEF5',ion:'Al³⁺'},Zn:{z:2,E:-0.76,col:'#7C8FA6',sol:'#E9EEF5',ion:'Zn²⁺'},Fe:{z:2,E:-0.44,col:'#8C8680',sol:'#CFE7C7',ion:'Fe²⁺'},Ni:{z:2,E:-0.26,col:'#A8B3AE',sol:'#9ED8B0',ion:'Ni²⁺'},Pb:{z:2,E:-0.13,col:'#6B7280',sol:'#E9EEF5',ion:'Pb²⁺'},Cu:{z:2,E:0.34,col:'#C77A3B',sol:'#7FB4F0',ion:'Cu²⁺'},Ag:{z:1,E:0.80,col:'#C8CDD6',sol:'#E9EEF5',ion:'Ag⁺'}};
+const gvN=(a,b)=>{const g=(x,y)=>y?g(y,x%y):x;return a*b/g(a,b);};
+const FARADAY=96485;
+(function galvanic(){
+  const cv=$('#gv-canvas');if(!cv)return;const L=$('#gv-L'),Rr=$('#gv-R'),cl=$('#gv-cl'),cr=$('#gv-cr'),xs=$('#gv-x');const keys=Object.keys(GV);L.innerHTML=Rr.innerHTML=keys.map(k=>`<option value="${k}">${k} (${GV[k].ion}/${k}, E° = ${GV[k].E>0?'+':''}${GV[k].E.toFixed(2)} V)</option>`).join('');L.value='Zn';Rr.value='Cu';
+  const H=372;let run=false,es=[],ions=[];
+  const half=(k,c)=>GV[k].E+(0.0592/GV[k].z)*Math.log10(c);
+  function state(xi){/* xi: extent in mol of the overall reaction (1 L each) */const a=L.value,b=Rr.value,c1=Math.pow(10,+cl.value),c2=Math.pow(10,+cr.value);
+    let E1=half(a,c1),E2=half(b,c2);let an,ca,can,cca;if(E1<E2){an=a;ca=b;can=c1;cca=c2;}else{an=b;ca=a;can=c2;cca=c1;}
+    const na=GV[an].z,nc=GV[ca].z,n=gvN(na,nc),dA=n/na,dC=n/nc;const cA=can+dA*xi,cC=Math.max(cca-dC*xi,1e-12);
+    return {an,ca,anLeft:an===a&&!(a===b&&E1>=E2),n,na,nc,dA,dC,cA,cC,can,cca,E:half(ca,cC)-half(an,cA),E0:GV[ca].E-GV[an].E,Q:Math.pow(cA,n/na)/Math.pow(cC,n/nc)};}
+  function xiEq(){const s0=state(0);let lo=0,hi=Math.max(s0.cca/s0.dC,1e-9)*(1-1e-9);if(state(lo).E<=0)return 0;for(let i=0;i<100;i++){const m=(lo+hi)/2;state(m).E>0?lo=m:hi=m;}return (lo+hi)/2;}
+  const xi=()=>+xs.value/1000*xiEq();
+  const sim=sim2d(cv,{h:()=>H,step(dt){if(run){xs.value=Math.min(1000,+xs.value+dt*55);if(+xs.value>=1000)run=false;upd(true);}const s=state(xi()),w=cv.clientWidth;const flow=s.E>1e-3;if(flow&&Math.random()<dt*(4+Math.min(s.E,2)*3))es.push({u:0});es.forEach(e=>e.u+=dt*.45);es=es.filter(e=>e.u<1);
+      ions.forEach(p=>{p.u+=dt*.25*(flow?1:0);if(p.u>1)p.u-=1;});if(!ions.length)for(let i=0;i<8;i++)ions.push({u:i/8,k:i%2});},
+    draw(ctx,w,h){const s=state(xi()),Ls=L.value,Rs=Rr.value,bw=Math.min(170,w*.32),by=152,bh=170,lx=w*.2-bw/2+10,rx=w*.8-bw/2-10,cxL=lx+bw/2,cxR=rx+bw/2;
+      const sideL=s.anLeft,anS=s.an,caS=s.ca;const concL=sideL?s.cA:s.cC,concR=sideL?s.cC:s.cA;
+      const beaker=(x,k,conc,isAn)=>{const t=clamp(Math.log10(conc)/3+1,.15,1);ctx.fillStyle=alpha(GV[k].sol,t*.7);ctx.fillRect(x,by+20,bw,bh-20);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x,by);ctx.lineTo(x,by+bh);ctx.lineTo(x+bw,by+bh);ctx.lineTo(x+bw,by);ctx.stroke();
+        const grow=isAn?-1:1,frac=xiEq()?xi()/xiEq():0,wd=14+grow*6*frac;ctx.fillStyle=GV[k].col;ctx.fillRect(x+bw/2-wd/2,by-40,wd,bh+10);ctx.strokeStyle=T.ink;ctx.lineWidth=1.2;ctx.strokeRect(x+bw/2-wd/2,by-40,wd,bh+10);
+        label(ctx,k+(isAn?'  (anode, −)':'  (cathode, +)'),x+bw/2,by+bh+14,isAn?T.ca:T.cx,'center','middle','600 12px "IBM Plex Mono",monospace');label(ctx,GV[k].ion+' '+sci(conc,1)+' M',x+bw/2,by+bh+30,T.muted,'center','middle',MONO);
+        const nn=clamp(Math.round(3+4*Math.log10(conc*1000)),1,14);for(let i=0;i<nn;i++){const px=x+10+((i*47+sim.t*10*(i%3+1))%(bw-20)),py=by+30+((i*31+Math.sin(sim.t*2+i)*8+200)%(bh-50));dot(ctx,px,py,3.4,k==='Cu'?'#2350C6':'#7D9DFF');}};
+      beaker(lx,Ls,concL,sideL);beaker(rx,Rs,concR,!sideL);
+      /* wire */
+      const wy=by-70,x0=cxL,x1=cxR;ctx.strokeStyle=T.ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x0,by-40);ctx.lineTo(x0,wy);ctx.lineTo(x1,wy);ctx.lineTo(x1,by-40);ctx.stroke();
+      /* voltmeter */
+      const vx=w/2,vy=wy;ctx.fillStyle=T.surface||'#fff';ctx.beginPath();ctx.arc(vx,vy,25,0,7);ctx.fill();ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.stroke();label(ctx,'V',vx,vy-9,T.muted,'center','middle',MONO);label(ctx,fmt(Math.max(s.E,0),2),vx,vy+7,T.ink,'center','middle','700 13px "IBM Plex Mono",monospace');
+      /* electrons: from anode side to cathode side along the wire */
+      const pa=u=>{const ax=sideL?x0:x1,bx=sideL?x1:x0;const t=u;if(t<.2)return [ax,by-40+(wy-(by-40))*(t/.2)];if(t<.8)return [ax+(bx-ax)*((t-.2)/.6),wy];return [bx,wy+((by-40)-wy)*((t-.8)/.2)];};
+      es.forEach(e=>{const [px,py]=pa(e.u);dot(ctx,px,py,4,T.ce);});label(ctx,'e⁻ flow: anode → cathode',w/2,wy-34,T.ce,'center','middle',MONO);
+      /* salt bridge */
+      const sb=by+10;ctx.strokeStyle=T.muted;ctx.lineWidth=14;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(lx+bw-8,sb-30);ctx.lineTo(lx+bw-8,sb-44);ctx.lineTo(rx+8,sb-44);ctx.lineTo(rx+8,sb-30);ctx.stroke();ctx.strokeStyle=alpha(T.hot,.35);ctx.lineWidth=9;ctx.stroke();ctx.lineCap='butt';
+      /* ions in bridge: anions toward anode, cations toward cathode */
+      ions.forEach(p=>{const ax=sideL?lx+bw-8:rx+8,cx=sideL?rx+8:lx+bw-8,y=sb-44;const t=p.u;const an=p.k===0;const x=an?cx+(ax-cx)*t:ax+(cx-ax)*t;dot(ctx,x,y,3,an?'#8B5CF6':'#E0A82E');});
+      label(ctx,'salt bridge: anions → anode, cations → cathode',w/2,H-8,T.muted,'center','middle',MONO);
+      label(ctx,'Oxidation: anode (An Ox)  ·  Reduction: cathode (Red Cat)',w/2,12,T.muted,'center','middle',MONO);}});
+  const g=$('#gv-ladder'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const s=state(xi()),lo=-2.6,hi=1.1,Y=v=>16+(h-40)*(1-(v-lo)/(hi-lo));ctx.strokeStyle=T.muted;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(46,12);ctx.lineTo(46,h-18);ctx.stroke();
+      for(let v=-2;v<=1;v++){ctx.strokeStyle=T.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(46,Y(v));ctx.lineTo(w-8,Y(v));ctx.stroke();label(ctx,(v>0?'+':'')+v+' V',42,Y(v),T.muted,'right','middle',MONO);}
+      keys.forEach(k=>{const on=k===s.an||k===s.ca,y=Y(GV[k].E);ctx.fillStyle=on?(k===s.ca?T.cx:T.ca):alpha(T.muted,.5);ctx.fillRect(56,y-3,on?90:60,6);label(ctx,k+' '+GV[k].E.toFixed(2),on?152:122,y,on?T.ink:T.muted,'left','middle',on?'600 12px "IBM Plex Mono",monospace':MONO);});
+      const ya=Y(GV[s.an].E),yc=Y(GV[s.ca].E);if(Math.abs(ya-yc)>6){arrow(ctx,w*.58,ya,w*.58,yc,T.ce,3);label(ctx,'E°cell '+fmt(s.E0,2)+' V',w-4,(ya+yc)/2,T.ink,'right','middle',MONO);}label(ctx,'reduction potential',50,6,T.muted,'left','middle',MONO);label(ctx,'higher = wants electrons more',w-4,h-6,T.muted,'right','middle',MONO);}});
+  function upd(fromStep){const s=state(xi());setText('gv-cl-out',sci(Math.pow(10,+cl.value),1)+' M');setText('gv-cr-out',sci(Math.pow(10,+cr.value),1)+' M');setText('gv-x-out',Math.round(+xs.value/10)+'%');
+    setText('gv-E0',(s.E0>=0?'+':'−')+fmt(Math.abs(s.E0),2)+' V');setText('gv-E',fmt(Math.max(s.E,0),3)+' V');setText('gv-an',s.an);setText('gv-ca',s.ca);setText('gv-Q',sci(s.Q,2));setText('gv-n',s.n+'');const G0=-s.n*FARADAY*s.E0/1000;setText('gv-G',(G0>=0?'+':'−')+fmt(Math.abs(G0),1)+' kJ');setText('gv-K',sci(Math.pow(10,s.n*s.E0/.0592),2));
+    const ma=GV[s.an],mc=GV[s.ca];$('#gv-eq').innerHTML=`<span class="ln"><span class="lbl">Anode (oxidation)</span>${s.n/s.na>1?s.n/s.na:''}${s.an} → ${s.n/s.na>1?s.n/s.na:''}${ma.ion} + ${s.n}e⁻</span><span class="ln"><span class="lbl">Cathode (reduction)</span>${s.n/s.nc>1?s.n/s.nc:''}${mc.ion} + ${s.n}e⁻ → ${s.n/s.nc>1?s.n/s.nc:''}${s.ca}</span><span class="ln"><span class="lbl">Overall</span><span class="net">${s.n/s.na>1?s.n/s.na:''}${s.an} + ${s.n/s.nc>1?s.n/s.nc:''}${mc.ion} → ${s.n/s.na>1?s.n/s.na:''}${ma.ion} + ${s.n/s.nc>1?s.n/s.nc:''}${s.ca}</span></span>`;
+    if(!fromStep)sim.render();gs.render();}
+  [L,Rr].forEach(e=>e.addEventListener('change',()=>{xs.value=0;run=false;$('#gv-go').textContent='Run the cell';upd();}));['gv-cl','gv-cr'].forEach(id=>bindRange(id,()=>'',()=>{xs.value=0;upd();},false));bindRange('gv-x',()=>'',()=>{run=false;upd();},false);
+  $('#gv-go').addEventListener('click',()=>{if(+xs.value>=1000)xs.value=0;run=!run;$('#gv-go').textContent=run?'Pause':'Run the cell';upd(true);sim.render();});$('#gv-lab').addEventListener('labreset',()=>{xs.value=0;run=false;$('#gv-go').textContent='Run the cell';upd();});
+  upd();drawers.galvanic=upd;
+  TIPS['gv-L']='Pick any two metals. The one with the lower reduction potential becomes the anode.';
+  TIPS['gv-R']='The metal with the higher reduction potential becomes the cathode.';
+  TIPS['gv-cl']='Lower concentration of ions makes that half-cell a stronger electron donor.';
+  TIPS['gv-cr']='Concentrations change Q and therefore the voltage (Nernst), not E°.';
+  TIPS['gv-x']='Drag or press Run to discharge the cell. E falls to 0 V when Q = K.';
+  KEYS['gv-canvas']=['Choose two metals and press Run the cell.',[['ce','electrons'],['#E0A82E','cations in the salt bridge'],['#8B5CF6','anions in the salt bridge']]];
+  GLOSS['anode']='The electrode where oxidation occurs.';
+  GLOSS['cathode']='The electrode where reduction occurs.';
+  GLOSS['salt bridge']='A tube of ions that connects the two half-cells and keeps each solution electrically neutral.';
+  GLOSS['Nernst equation']='E = E° − (RT/nF) ln Q: cell potential at non-standard concentrations.';
+  GLOSS['standard reduction potential']='The voltage of a half-reaction written as a reduction, measured against the standard hydrogen electrode.';
+  TT.galvanic='Run the same cell until it dies, then link E → 0 with Q → K. That ties the whole unit together.';
+})();
+(function(){
+  const POOL=Object.keys(GV);
+  const half=k=>`${GV[k].ion} + ${GV[k].z}e⁻ → ${k}`;
+  PROBS.push({id:'gal-E0',topic:'galvanic',title:'Standard cell potential',gen(){const [a,b]=POOL.slice().sort(()=>Math.random()-.5).slice(0,2),cath=GV[a].E>GV[b].E?a:b,an=cath===a?b:a,E=GV[cath].E-GV[an].E;
+    return {q:`Given the standard reduction potentials ${half(a)} (${GV[a].E>0?'+':''}${GV[a].E.toFixed(2)} V) and ${half(b)} (${GV[b].E>0?'+':''}${GV[b].E.toFixed(2)} V), find E°cell for the galvanic cell built from them.`,ans:E,unit:'V',abs:.011,hint:'The metal with the higher reduction potential is the cathode. E°cell = E°cathode − E°anode.',sol:`Cathode: ${cath}; anode: ${an}. E°<sub>cell</sub> = ${GV[cath].E.toFixed(2)} − (${GV[an].E.toFixed(2)}) = <b>${E.toFixed(2)} V</b>.`};}});
+  PROBS.push({id:'gal-anode',topic:'galvanic',title:'Which electrode is the anode?',gen(){const [a,b]=POOL.slice().sort(()=>Math.random()-.5).slice(0,2),an=GV[a].E<GV[b].E?a:b,i=Math.floor(Math.random()*2),ch=[a,b];
+    return {q:`A galvanic cell is built from ${a} in ${GV[a].ion} solution (E° = ${GV[a].E>0?'+':''}${GV[a].E.toFixed(2)} V) and ${b} in ${GV[b].ion} solution (E° = ${GV[b].E>0?'+':''}${GV[b].E.toFixed(2)} V). Which metal is the anode?`,choices:ch,ans:ch.indexOf(an),hint:'Oxidation occurs at the anode. The species with the lower reduction potential is the one oxidized.',sol:`<b>${an}</b> has the lower reduction potential, so it is oxidized (anode); electrons flow from ${an} to ${an===a?b:a}.`};}});
+  PROBS.push({id:'gal-Nernst',topic:'galvanic',title:'Nernst equation',gen(){const [a,b]=pick([['Zn','Cu'],['Fe','Cu'],['Zn','Ag'],['Ni','Cu'],['Mg','Cu']]),E0=GV[b].E-GV[a].E,n=gvN(GV[a].z,GV[b].z),ca=pick([.010,.10,1.0,2.0]),cb=pick([.0010,.010,.10,1.0]),Q=Math.pow(ca,n/GV[a].z)/Math.pow(cb,n/GV[b].z),E=E0-(.0592/n)*Math.log10(Q);
+    return {q:`Cell: ${a}(s) | ${GV[a].ion}(${fmt(ca,3)} M) || ${GV[b].ion}(${fmt(cb,4)} M) | ${b}(s). E° = ${E0.toFixed(2)} V and n = ${n}. What is E at 25 °C?`,ans:E,unit:'V',abs:.011,hint:'E = E° − (0.0592/n) log Q, with Q = [anode ion]^(coef)/[cathode ion]^(coef).',sol:`Q = ${sci(Q,3)}; E = ${E0.toFixed(2)} − (0.0592/${n}) log(${sci(Q,3)}) = <b>${E.toFixed(3)} V</b>.`};}});
+  PROBS.push({id:'gal-DG',topic:'galvanic',title:'ΔG° from E°',gen(){const n=pick([1,2,3,6]),E=pick([.46,1.10,.78,.34,1.56,2.05]),G=-n*FARADAY*E/1000;
+    return {q:`A cell reaction transfers ${n} mole${n>1?'s':''} of electrons and has E° = ${E.toFixed(2)} V. Calculate ΔG° in kJ per mole of reaction. (F = 96 485 C/mol)`,ans:G,unit:'kJ',tol:.01,hint:'ΔG° = −nFE°. 1 V·C = 1 J.',sol:`ΔG° = −(${n})(96485)(${E.toFixed(2)}) = ${fmt(G*1000,0)} J = <b>${fmt(G,1)} kJ</b>.`};}});
+  PROBS.push({id:'gal-K',topic:'galvanic',title:'K from E°',gen(){const n=pick([1,2,3]),E=pick([.10,.25,.46,.78,1.10,-.15]),K=Math.pow(10,n*E/.0592);
+    return {q:`A cell reaction has n = ${n} and E° = ${E>0?'+':''}${E.toFixed(2)} V at 25 °C. What is K?`,ans:K,unit:'',tol:.05,hint:'log K = nE°/0.0592.',sol:`log K = (${n})(${E.toFixed(2)})/0.0592 = ${fmt(n*E/.0592,2)}; K = <b>${sci(K,2)}</b>.`};}});
+  PROBS.push({id:'gal-conc',topic:'galvanic',title:'Concentration cell',gen(){const m=pick(['Cu','Ag','Zn','Ni']),c1=pick([1.0,.50,.10]),f=pick([.1,.01,.001]),c2=c1*f,n=GV[m].z,E=(.0592/n)*Math.log10(c1/c2);
+    return {q:`A concentration cell has two ${m} electrodes in ${GV[m].ion} solutions of ${fmt(c1,2)} M and ${sci(c2,2)} M. What is the cell potential at 25 °C?`,ans:E,unit:'V',abs:.006,hint:'E° = 0. Use E = −(0.0592/n) log Q with Q = [dilute]/[concentrated].',sol:`n = ${n}; Q = ${sci(c2,2)}/${fmt(c1,2)}; E = −(0.0592/${n}) log(${sci(c2/c1,2)}) = <b>${E.toFixed(3)} V</b>. The dilute side is the anode.`};}});
+  PROBS.push({id:'gal-flow',topic:'galvanic',title:'Flow in a galvanic cell',gen(){const Q=[['In the external wire of a galvanic cell, electrons flow from…',['anode to cathode','cathode to anode','salt bridge to anode','anode to salt bridge'],0,'electrons leave the anode (oxidation) and arrive at the cathode (reduction)'],['In the salt bridge of a galvanic cell, anions move toward…',['the anode','the cathode','the voltmeter','neither electrode'],0,'oxidation at the anode creates excess positive charge there; anions move in to neutralize it'],['As a galvanic cell runs, the mass of the anode…',['decreases (the metal dissolves)','increases','stays the same','doubles'],0,'the anode metal is oxidized to its ions, which enter the solution'],['As a galvanic cell runs down, the cell potential…',['decreases toward 0 V','increases','stays at E°','becomes negative'],0,'Q rises toward K, and at equilibrium E = 0 V'],['Which electrode is positive in a galvanic cell?',['the cathode','the anode','both','neither'],0,'the cathode is the positive terminal (the anode is negative)']],[q,ch,a,why]=pick(Q);
+    return {q,choices:ch,ans:a,hint:'An Ox and Red Cat: oxidation at the anode, reduction at the cathode.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+})();
+
+/* ===== modules/electrolysis.js ===== */
+
+/* ---------------- Electrolysis ---------------- */
+const EPM={Cu:{z:2,M:63.55,col:'#C77A3B',n:'Copper'},Ag:{z:1,M:107.87,col:'#C8CDD6',n:'Silver'},Ni:{z:2,M:58.69,col:'#A8B3AE',n:'Nickel'},Zn:{z:2,M:65.38,col:'#7C8FA6',n:'Zinc'},Al:{z:3,M:26.98,col:'#B8BCC6',n:'Aluminum'},Au:{z:3,M:196.97,col:'#E0B93C',n:'Gold'},Cr:{z:3,M:52.00,col:'#9AA3B0',n:'Chromium (Cr³⁺)'}};
+const EWL=[{n:'molten NaCl',c:'Na(l)',cr:'Na⁺ + e⁻ → Na',a:'Cl₂(g)',ar:'2Cl⁻ → Cl₂ + 2e⁻',min:4.07,net:'2NaCl(l) → 2Na(l) + Cl₂(g)',cc:'#D9DEE8',ac:'#B7D94C',ck:'liq',ak:'gas',note:'No water is present, so Na⁺ itself is reduced (E° = −2.71 V) and Cl⁻ oxidized (+1.36 V): E°cell = −4.07 V.'},
+ {n:'NaCl(aq)',c:'H₂(g) + OH⁻',cr:'2H₂O + 2e⁻ → H₂ + 2OH⁻',a:'Cl₂(g)',ar:'2Cl⁻ → Cl₂ + 2e⁻',min:2.19,net:'2NaCl + 2H₂O → H₂ + Cl₂ + 2NaOH',cc:'#EEF1F5',ac:'#B7D94C',ck:'gas',ak:'gas',note:'Water (−0.83 V) is reduced instead of Na⁺ (−2.71 V). At the anode water oxidation is thermodynamically a little easier than Cl⁻, but Cl₂ is what is observed (overpotential). This is the chlor-alkali process.'},
+ {n:'CuCl₂(aq)',c:'Cu(s)',cr:'Cu²⁺ + 2e⁻ → Cu',a:'Cl₂(g)',ar:'2Cl⁻ → Cl₂ + 2e⁻',min:1.02,net:'CuCl₂ → Cu + Cl₂',cc:'#C77A3B',ac:'#B7D94C',ck:'plate',ak:'gas',note:'Cu²⁺ (+0.34 V) is far easier to reduce than water (−0.83 V).'},
+ {n:'Na₂SO₄(aq)',c:'H₂(g) + OH⁻',cr:'2H₂O + 2e⁻ → H₂ + 2OH⁻',a:'O₂(g) + H⁺',ar:'2H₂O → O₂ + 4H⁺ + 4e⁻',min:1.23,net:'2H₂O → 2H₂ + O₂',cc:'#EEF1F5',ac:'#9FD4FF',ck:'gas',ak:'gas',note:'Na⁺ cannot be reduced in water, and sulfate cannot be oxidized further, so only water reacts: it is simply water splitting.'},
+ {n:'AgNO₃(aq)',c:'Ag(s)',cr:'Ag⁺ + e⁻ → Ag',a:'O₂(g) + H⁺',ar:'2H₂O → O₂ + 4H⁺ + 4e⁻',min:.43,net:'4AgNO₃ + 2H₂O → 4Ag + O₂ + 4HNO₃',cc:'#C8CDD6',ac:'#9FD4FF',ck:'plate',ak:'gas',note:'Ag⁺ (+0.80 V) is easily reduced; nitrate can\'t be oxidized, so water gives O₂ at the anode.'},
+ {n:'KI(aq)',c:'H₂(g) + OH⁻',cr:'2H₂O + 2e⁻ → H₂ + 2OH⁻',a:'I₂(aq)',ar:'2I⁻ → I₂ + 2e⁻',min:1.37,net:'2KI + 2H₂O → H₂ + I₂ + 2KOH',cc:'#EEF1F5',ac:'#8A4B1E',ck:'gas',ak:'tint',note:'I⁻ (E°red +0.54 V) is easier to oxidize than water (+1.23 V); K⁺ is not reduced in water. The solution near the anode turns brown with I₂.'}];
+(function electrolysis(){
+  const cv=$('#ep-canvas');if(!cv)return;const mS=$('#ep-m'),iS=$('#ep-i'),tS=$('#ep-t');mS.innerHTML=Object.keys(EPM).map(k=>`<option value="${k}">${EPM[k].n}  (z = ${EPM[k].z})</option>`).join('');mS.value='Cu';
+  const H=340;let run=false,es=[],ionsP=[];const mass=(i,t,m)=>i*t/FARADAY/EPM[m].z*EPM[m].M;const cur=()=>({m:mS.value,i:+iS.value,t:+tS.value});
+  const sim=sim2d(cv,{h:()=>H,step(dt){if(run){tS.value=Math.min(3600,+tS.value+dt*120);if(+tS.value>=3600)run=false;upd(true);}const c=cur(),on=c.t>0&&(run||true)&&c.i>0;if(run&&Math.random()<dt*(2+c.i*1.5))es.push({u:0});es.forEach(e=>e.u+=dt*.5);es=es.filter(e=>e.u<1);if(!ionsP.length)for(let i=0;i<14;i++)ionsP.push({u:Math.random(),k:i%2});ionsP.forEach(p=>{if(run)p.u=(p.u+dt*.12*(c.i/4+.4))%1;});},
+    draw(ctx,w,h){const c=cur(),M=EPM[c.m],g=mass(c.i,c.t,c.m),bw=Math.min(300,w*.8),bx=(w-bw)/2,by=120,bh=150,cx1=bx+bw*.25,cx2=bx+bw*.75;
+      ctx.fillStyle=alpha('#7FB4F0',.22);ctx.fillRect(bx,by+20,bw,bh-20);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx,by+bh);ctx.lineTo(bx+bw,by+bh);ctx.lineTo(bx+bw,by);ctx.stroke();
+      /* cathode (object being plated) */
+      const th=clamp(2+Math.sqrt(g)*3.2,0,22);ctx.fillStyle='#8C94A3';ctx.fillRect(cx1-8,by-30,16,bh+10);ctx.fillStyle=M.col;ctx.fillRect(cx1-8-th,by-30,th,bh+10);ctx.fillRect(cx1+8,by-30,th,bh+10);ctx.strokeStyle=T.ink;ctx.lineWidth=1.2;ctx.strokeRect(cx1-8-th,by-30,16+2*th,bh+10);
+      /* anode (the metal dissolves) */
+      const frac=clamp(g/Math.max(30,g*1.0),0,1),aw=Math.max(5,18-th*.35);ctx.fillStyle=M.col;ctx.fillRect(cx2-aw/2,by-30,aw,bh+10);ctx.strokeRect(cx2-aw/2,by-30,aw,bh+10);
+      /* battery */
+      const bt=26;ctx.strokeStyle=T.ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx1,by-30);ctx.lineTo(cx1,bt+22);ctx.lineTo(w/2-30,bt+22);ctx.moveTo(w/2+30,bt+22);ctx.lineTo(cx2,bt+22);ctx.lineTo(cx2,by-30);ctx.stroke();
+      ctx.fillStyle=T.ink;ctx.fillRect(w/2-30,bt+8,8,28);ctx.fillRect(w/2-14,bt+14,5,16);ctx.fillRect(w/2+8,bt+8,8,28);ctx.fillRect(w/2+24,bt+14,5,16);label(ctx,'power supply',w/2,bt-6,T.muted,'center','middle',MONO);label(ctx,'−',w/2-36,bt+22,T.ca,'right','middle','700 16px "IBM Plex Mono",monospace');label(ctx,'+',w/2+36,bt+22,T.cx,'left','middle','700 16px "IBM Plex Mono",monospace');
+      es.forEach(e=>{let px,py;const L=((by-30)-(bt+22))*2+(w/2-30-cx1)+(cx2-(w/2+30));if(e.u<.5){const u=e.u/.5;/* from − terminal to cathode */px=w/2-30+(cx1-(w/2-30))*Math.min(1,u*1.6);py=bt+22+((by-30)-(bt+22))*Math.max(0,(u-.4)/.6);if(u<.4)py=bt+22;}else{const u=(e.u-.5)/.5;px=cx2+(w/2+30-cx2)*Math.min(1,(1-u)*1.6+(u>.6?0:0));py=bt+22+((by-30)-(bt+22))*Math.max(0,((1-u)-.6)/.4*-1+1);px=cx2-(cx2-(w/2+30))*(u<.4?0:Math.min(1,(u-.4)/.6));py=u<.4?(by-30)-((by-30)-(bt+22))*(u/.4):bt+22;}dot(ctx,px,py,4,T.ce);});
+      label(ctx,'cathode (−): reduction',cx1,by+bh+14,T.ca,'center','middle',MONO);label(ctx,'anode (+): oxidation',cx2,by+bh+14,T.cx,'center','middle',MONO);label(ctx,M.n+' ions in solution',bx+bw/2,by+bh+30,T.muted,'center','middle',MONO);
+      ionsP.forEach(p=>{const cat=p.k===0,x=cat?cx2-20+(cx1+16-(cx2-20))*p.u:cx1+16+(cx2-20-(cx1+16))*p.u,y=by+40+Math.sin(p.u*9+p.k)*30+p.k*26;dot(ctx,x,y,3.6,cat?'#2350C6':'#8B5CF6');});
+      label(ctx,'cations → cathode (blue) · anions → anode (violet)',w/2,H-8,T.muted,'center','middle',MONO);}});
+  const gr=$('#ep-graph'),gs=sim2d(gr,{h:()=>H,draw(ctx,w,h){const c=cur(),ymax=Math.max(mass(c.i,3600,c.m)*1.1,.5),P=panel(ctx,{x:50,y:12,w:w-64,h:h-46},[0,60],[0,ymax],{xn:4,yn:4,xlabel:'time (min)',ylabel:'mass (g)',color:T.ink});
+      curve(ctx,P,x=>mass(c.i,x*60,c.m),0,60,EPM[c.m].col==='#C8CDD6'?T.muted:EPM[c.m].col,3,60);curve(ctx,P,x=>mass(c.i*2,x*60,c.m),0,60,T.grid,1.4,60,[5,4]);label(ctx,'dashed: twice the current',P.box.x+70,P.box.y+10,T.muted,'left','middle',MONO);dot(ctx,P.X(c.t/60),P.Y(mass(c.i,c.t,c.m)),7,T.ink,'#fff');}});
+  function upd(fromStep){const c=cur(),q=c.i*c.t,ne=q/FARADAY,nm=ne/EPM[c.m].z,m=nm*EPM[c.m].M;setText('ep-i-out',fmt(c.i,1)+' A');setText('ep-t-out',fmt(c.t/60,1)+' min');setText('ep-q',fmt(q,0)+' C');setText('ep-ne',sci(ne,3)+' mol');setText('ep-nm',sci(nm,3)+' mol');setText('ep-mass',fmt(m,3)+' g');if(!fromStep)sim.render();gs.render();}
+  mS.addEventListener('change',upd);bindRange('ep-i',()=>'',upd,false);bindRange('ep-t',()=>'',()=>{run=false;$('#ep-go').textContent='Switch on';upd();},false);
+  $('#ep-go').addEventListener('click',()=>{if(+tS.value>=3600)tS.value=0;run=!run;$('#ep-go').textContent=run?'Pause':'Switch on';upd(true);sim.render();});$('#ep-lab').addEventListener('labreset',()=>{run=false;$('#ep-go').textContent='Switch on';upd();});upd();
+  /* what forms */
+  const ws=$('#ew-sel'),wv=$('#ew-v'),wc=$('#ew-canvas');ws.innerHTML=EWL.map((e,i)=>`<option value="${i}">${e.n}</option>`).join('');let bub=[];
+  const wcur=()=>EWL[+ws.value];
+  const wsim=sim2d(wc,{h:()=>260,step(dt){const e=wcur(),on=+wv.value>=e.min;if(on&&Math.random()<dt*10)bub.push({side:Math.random()<.5?0:1,y:210,x:(Math.random()-.5)*14,v:50+Math.random()*40});bub.forEach(b=>{b.y-=b.v*dt;});bub=bub.filter(b=>b.y>40);if(!on)bub=[];},
+    draw(ctx,w,h){const e=wcur(),on=+wv.value>=e.min,bw=Math.min(340,w*.8),bx=(w-bw)/2,by=70,bh=150,c1=bx+bw*.25,c2=bx+bw*.75;
+      ctx.fillStyle=alpha(e.ak==='tint'&&on?'#8A4B1E':'#7FB4F0',e.ak==='tint'&&on?.3:.2);ctx.fillRect(bx,by+20,bw,bh-20);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx,by+bh);ctx.lineTo(bx+bw,by+bh);ctx.lineTo(bx+bw,by);ctx.stroke();
+      ctx.fillStyle='#6B7280';ctx.fillRect(c1-7,by-20,14,bh);ctx.fillRect(c2-7,by-20,14,bh);
+      if(on&&e.ck==='plate'){ctx.fillStyle=e.cc;ctx.fillRect(c1-12,by-20,5,bh);ctx.fillRect(c1+7,by-20,5,bh);}
+      if(on&&e.ck==='liq'){ctx.fillStyle=e.cc;ctx.beginPath();ctx.ellipse(c1,by+bh-6,16,6,0,0,7);ctx.fill();}
+      bub.forEach(b=>{const cx=b.side?c2:c1,kind=b.side?e.ak:e.ck;if(kind==='gas'){ctx.strokeStyle=b.side?'#7A8F1E':'#6B7280';ctx.fillStyle=alpha(b.side?e.ac:e.cc,.8);ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx+b.x,by+b.y-60,4,0,7);ctx.fill();ctx.stroke();}});
+      /* wires and supply */
+      const bt=20;ctx.strokeStyle=T.ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(c1,by-20);ctx.lineTo(c1,bt+14);ctx.lineTo(w/2-24,bt+14);ctx.moveTo(w/2+24,bt+14);ctx.lineTo(c2,bt+14);ctx.lineTo(c2,by-20);ctx.stroke();ctx.fillStyle=T.ink;ctx.fillRect(w/2-24,bt,7,28);ctx.fillRect(w/2-10,bt+6,4,16);ctx.fillRect(w/2+8,bt,7,28);ctx.fillRect(w/2+21,bt+6,4,16);
+      label(ctx,fmt(+wv.value,2)+' V',w/2,bt+40,T.ink,'center','middle','700 13px "IBM Plex Mono",monospace');label(ctx,'−',w/2-30,bt+14,T.ca,'right','middle','700 16px "IBM Plex Mono",monospace');label(ctx,'+',w/2+30,bt+14,T.cx,'left','middle','700 16px "IBM Plex Mono",monospace');
+      label(ctx,'cathode (−)',c1,by+bh+14,T.ca,'center','middle',MONO);label(ctx,'anode (+)',c2,by+bh+14,T.cx,'center','middle',MONO);
+      label(ctx,on?e.c:'',c1,by+bh+30,T.ink,'center','middle','600 12px "IBM Plex Mono",monospace');label(ctx,on?e.a:'',c2,by+bh+30,T.ink,'center','middle','600 12px "IBM Plex Mono",monospace');
+      if(!on)label(ctx,'not enough voltage: nothing happens',w/2,h-8,T.hot,'center','middle',MONO);}});
+  function wupd(){const e=wcur(),on=+wv.value>=e.min;setText('ew-v-out',fmt(+wv.value,2)+' V');setText('ew-c',e.c);setText('ew-a',e.a);setText('ew-min',fmt(e.min,2)+' V');setText('ew-st',on?'running':'below the minimum: no reaction');
+    $('#ew-eq').innerHTML=`<span class="ln"><span class="lbl">Cathode (reduction)</span>${e.cr}</span><span class="ln"><span class="lbl">Anode (oxidation)</span>${e.ar}</span><span class="ln"><span class="lbl">Net</span><span class="net">${e.net}</span></span>`;$('#ew-note').textContent=e.note;wsim.render();}
+  ws.addEventListener('change',wupd);bindRange('ew-v',()=>'',wupd,false);$('#ew-lab').addEventListener('labreset',wupd);wupd();drawers.electrolysis=()=>{upd();wupd();};
+  TIPS['ep-m']='Each metal has its own charge z and molar mass. Both change the mass you collect.';
+  TIPS['ep-i']='Current is charge per second: twice the current deposits twice as much in the same time.';
+  TIPS['ep-t']='Charge = current × time. Drag time and watch the mass grow.';
+  TIPS['ew-sel']='In water the answer depends on what is easier to reduce or oxidize: the ions or the water itself.';
+  TIPS['ew-v']='The applied voltage must exceed the minimum for the reaction to occur.';
+  KEYS['ep-canvas']=['Press Switch on; electrons are pushed to the cathode.',[['ce','electrons'],['#2350C6','cations'],['#8B5CF6','anions']]];
+  GLOSS['electrolysis']='Using an outside voltage to force a non-spontaneous reaction.';
+  GLOSS['electrolytic cell']='A cell in which electrical energy drives a non-spontaneous reaction.';
+  GLOSS['Faraday\'s constant']='The charge of one mole of electrons, 96 485 C/mol.';
+  GLOSS['ampere']='A unit of current: one coulomb per second.';
+  GLOSS['overpotential']='Extra voltage needed beyond the thermodynamic minimum because some electrode reactions are slow.';
+  TT.electrolysis='Practice the chain: current → charge → moles e⁻ → moles product → mass. Students lose points on units of time.';
+})();
+(function(){
+  const M=EPM;const metals=['Cu','Ag','Ni','Zn','Al','Au'];
+  PROBS.push({id:'el-mass',topic:'electrolysis',title:'Mass deposited',gen(){const k=pick(metals),I=pick([1.50,2.50,3.00,5.00,10.0,0.750]),tm=pick([10,20,30,45,60]),q=I*tm*60,m=q/FARADAY/M[k].z*M[k].M;
+    return {q:`A current of ${fmt(I,2)} A is passed through a solution of ${k}${M[k].z>1?'<sup>'+M[k].z+'+</sup>':'<sup>+</sup>'} for ${tm} minutes. What mass of ${k} is deposited on the cathode? (M = ${M[k].M} g/mol; F = 96 485 C/mol)`,ans:m,unit:'g',tol:.01,hint:'q = I t (seconds!), n(e⁻) = q/F, n(metal) = n(e⁻)/z, then mass = n × M.',sol:`q = ${fmt(I,2)} × ${tm*60} = ${fmt(q,0)} C; n(e⁻) = ${sci(q/FARADAY,3)} mol; n(${k}) = ${sci(q/FARADAY/M[k].z,3)} mol; mass = <b>${fmt(m,3)} g</b>.`};}});
+  PROBS.push({id:'el-time',topic:'electrolysis',title:'Time to plate',gen(){const k=pick(metals),I=pick([1.00,2.00,4.00,5.00,8.00]),m=pick([.500,1.00,2.50,5.00]),t=m/M[k].M*M[k].z*FARADAY/I;
+    return {q:`How long must a current of ${fmt(I,2)} A flow to deposit ${fmt(m,2)} g of ${k} from ${k}${M[k].z>1?'<sup>'+M[k].z+'+</sup>':'<sup>+</sup>'}? (M = ${M[k].M} g/mol)`,ans:t/60,unit:'min',tol:.01,hint:'Work backward: mass → moles of metal → moles of electrons → charge → time.',sol:`n(${k}) = ${sci(m/M[k].M,3)} mol; n(e⁻) = ${sci(m/M[k].M*M[k].z,3)} mol; q = ${fmt(m/M[k].M*M[k].z*FARADAY,0)} C; t = q/I = ${fmt(t,0)} s = <b>${fmt(t/60,1)} min</b>.`};}});
+  PROBS.push({id:'el-gas',topic:'electrolysis',title:'Volume of gas produced',gen(){const g=pick([['H₂',2,'cathode'],['Cl₂',2,'anode'],['O₂',4,'anode']]),I=pick([2.00,5.00,10.0]),tm=pick([10,30,60]),T=pick([273,298]),n=I*tm*60/FARADAY/g[1],V=n*.08206*T/1;
+    return {q:`Electrolysis of a solution runs at ${fmt(I,2)} A for ${tm} minutes. How many liters of ${g[0]} gas form at the ${g[2]}, measured at 1.00 atm and ${T} K? (${g[0]}: ${g[1]} e⁻ per ${g[0]}; R = 0.08206 L·atm/mol·K)`,ans:V,unit:'L',tol:.02,hint:'n(e⁻) = It/F; moles of gas = n(e⁻)/(electrons per molecule); then V = nRT/P.',sol:`n(e⁻) = ${sci(I*tm*60/FARADAY,3)} mol; n(${g[0]}) = ${sci(n,3)} mol; V = nRT/P = <b>${fmt(V,2)} L</b>.`};}});
+  PROBS.push({id:'el-prod',topic:'electrolysis',title:'Products of electrolysis',gen(){const Q=[['molten NaCl','sodium metal at the cathode and chlorine gas at the anode'],['aqueous CuCl₂','copper metal at the cathode and chlorine gas at the anode'],['aqueous Na₂SO₄','hydrogen gas at the cathode and oxygen gas at the anode'],['aqueous KI','hydrogen gas at the cathode and iodine at the anode'],['aqueous AgNO₃','silver metal at the cathode and oxygen gas at the anode']],[nm,ans]=pick(Q),all=Q.map(x=>x[1]),i=Math.floor(Math.random()*4),others=all.filter(x=>x!==ans).sort(()=>Math.random()-.5).slice(0,3),arr=others.slice();arr.splice(i,0,ans);
+    return {q:`What are the main products when ${nm} is electrolyzed with inert electrodes?`,choices:arr,ans:i,hint:'In water, compare the ion with water: Na⁺ and K⁺ are not reduced in water; sulfate and nitrate are not oxidized. Molten salts have no water.',sol:`<b>${ans}</b>.`};}});
+  PROBS.push({id:'el-I',topic:'electrolysis',title:'Current needed',gen(){const k=pick(metals),m=pick([2.00,5.00,10.0]),tm=pick([20,30,60,120]),I=m/M[k].M*M[k].z*FARADAY/(tm*60);
+    return {q:`What constant current is needed to plate ${fmt(m,2)} g of ${k} (${k}${M[k].z>1?'<sup>'+M[k].z+'+</sup>':'<sup>+</sup>'}, M = ${M[k].M} g/mol) in ${tm} minutes?`,ans:I,unit:'A',tol:.01,hint:'Find the charge needed (via moles of metal and z), then I = q/t.',sol:`q = ${fmt(m/M[k].M*M[k].z*FARADAY,0)} C; I = q/t = ${fmt(m/M[k].M*M[k].z*FARADAY,0)}/${tm*60} = <b>${fmt(I,2)} A</b>.`};}});
+  PROBS.push({id:'el-concept',topic:'electrolysis',title:'Electrolytic vs galvanic',gen(){const Q=[['In an electrolytic cell, the cathode is wired to the…',['negative terminal of the power supply','positive terminal of the power supply','anode','salt bridge'],0,'electrons are pushed onto the cathode, where reduction takes place'],['Compared with a galvanic cell, an electrolytic cell…',['uses electrical energy to drive a non-spontaneous reaction','produces electrical energy from a spontaneous reaction','has a positive E°cell','has no anode'],0,'its E°cell is negative, so an applied voltage is required'],['In both galvanic and electrolytic cells, oxidation occurs at the…',['anode','cathode','salt bridge','power supply'],0,'An Ox: oxidation always occurs at the anode'],['Doubling the current for the same time in an electrolysis…',['doubles the mass deposited','halves the mass deposited','does not change the mass','quadruples the mass'],0,'charge = current × time, and the mass is proportional to the charge'],['Why is sodium metal not obtained by electrolyzing aqueous NaCl?',['water is reduced at a less negative potential than Na⁺','Na⁺ is oxidized instead','the cathode is positive','chloride cannot be oxidized'],0,'2H₂O + 2e⁻ → H₂ + 2OH⁻ (−0.83 V) is easier than Na⁺ + e⁻ → Na (−2.71 V)']],[q,ch,a,why]=pick(Q);
+    return {q,choices:ch,ans:a,hint:'Remember An Ox, Red Cat, and that the electrolytic cell is driven by an outside source.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
 })();
 
 /* ===== overview.js ===== */
