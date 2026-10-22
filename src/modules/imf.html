@@ -1,0 +1,55 @@
+  <section class="view" id="v-imf" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Intermolecular forces</h1>
+        <p class="lede">Molecules attract each other without bonding. How strongly decides whether a substance is a gas, a liquid or a solid at room temperature, and how hot it must get to boil.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Inside a molecule, covalent bonds hold atoms together. Between molecules, much weaker <b>intermolecular forces</b> (IMFs) act like faint Velcro. To boil a liquid you do not break any bonds in the molecules: you only pull the molecules away from each other. So the stronger the Velcro, the more heat is needed, and the higher the boiling point.</p>
+        <p>There are three kinds, all from Coulomb's law. <b>London dispersion forces</b> exist in every substance: electrons slosh around and make momentary dipoles; bigger electron clouds slosh more, so larger molecules attract more. <b>Dipole–dipole</b> forces act between polar molecules. <b>Hydrogen bonding</b> is an especially strong dipole–dipole force when H is bonded to N, O or F and points at a lone pair on another N, O or F.</p>
+      </div>
+      <div class="lab" id="im-lab">
+        <div class="labbar"><span class="title">Heat the molecules</span><label class="check" style="margin-left:auto"><input type="checkbox" id="im-links" checked> Show attractions</label></div>
+        <div class="controls"><div class="ctl"><label for="im-sub"><span>Substance</span></label><select id="im-sub"></select></div>
+          <div class="ctl"><label for="im-t"><span>Temperature</span> <output id="im-t-out"></output></label><input type="range" id="im-t" min="0" max="600" step="5" value="100"></div></div>
+        <canvas id="im-canvas" aria-label="A box of molecules that clump together when cold and fly apart when hot, with lines joining molecules that attract"></canvas>
+        <div class="readout"><div><span>Strongest IMF</span><strong class="x" id="im-f" style="white-space:normal;font-size:15px">—</strong></div><div><span>Boiling point</span><strong class="hot" id="im-bp">—</strong></div><div><span>Temperature</span><strong id="im-k">—</strong></div><div><span>In the box</span><strong class="v" id="im-ph" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">A 2D model: the attraction strength is set from each substance's real boiling point, so the clump comes apart near that temperature (the model boils over a range, because there are only 64 molecules). Lines join molecules close enough to attract.</p>
+      </div>
+      <div class="lab" id="im-lab2" data-reset="own">
+        <div class="labbar"><span class="title">Boiling points of the hydrides</span></div>
+        <div class="toggles"><label class="check"><input type="checkbox" id="im-g14" checked> Group 14 (CH₄…)</label><label class="check"><input type="checkbox" id="im-g15" checked> Group 15 (NH₃…)</label><label class="check"><input type="checkbox" id="im-g16" checked> Group 16 (H₂O…)</label><label class="check"><input type="checkbox" id="im-g17" checked> Group 17 (HF…)</label></div>
+        <canvas id="im-bpc" aria-label="Boiling point against molar mass for the hydrides of groups 14 to 17"></canvas>
+        <p class="small" style="margin:0">Down each group the molar mass and electron cloud grow, so dispersion forces grow and the boiling point rises. NH₃, H₂O and HF break the trend: hydrogen bonding makes them boil far above the rest of their group.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Compare argon and water at 200 K. Which clumps? <button type="button" class="btn link" data-show='[["#im-sub","Ar"],["#im-t",200]]'>Argon</button> <button type="button" class="btn link" data-show='[["#im-sub","H₂O"],["#im-t",200]]'>Water</button></p><details><summary>What you should see</summary><p>At 200 K argon (boils at 87 K) is a gas of separate atoms, while water (boils at 373 K) is held together as a solid or liquid clump. Same temperature, very different attractions.</p></details></li>
+        <li><p>Warm water slowly from 100 K up to 500 K. <button type="button" class="btn link" data-show='[["#im-sub","H₂O"],["#im-t",100]]'>Start cold</button> <button type="button" class="btn link" data-show='[["#im-sub","H₂O"],["#im-t",450]]'>Go hot</button></p><details><summary>What you should see</summary><p>The cluster loosens and molecules start to escape around 373 K. The molecules themselves are unchanged: only the distances between them grow. Boiling overcomes IMFs, not covalent bonds.</p></details></li>
+        <li><p>Compare methane with butane. Both are nonpolar: why does butane boil higher? <button type="button" class="btn link" data-show='[["#im-sub","CH₄"],["#im-t",150]]'>CH₄</button> <button type="button" class="btn link" data-show='[["#im-sub","C₄H₁₀"],["#im-t",150]]'>C₄H₁₀</button></p><details><summary>What you should see</summary><p>Butane has many more electrons, so a bigger, more polarizable cloud and stronger dispersion forces. It is still a clump at 150 K when methane (boiling at 112 K) has flown apart.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Rank CH₄, CH₃OH and CH₃Cl from lowest to highest boiling point, and name the strongest IMF in each.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>CH₄.</b> Nonpolar, so only London dispersion forces, and a small molecule: the weakest attraction.</li>
+          <li hidden><b>CH₃Cl.</b> Polar (the C–Cl bond is polar and the shape is not symmetric), so dipole–dipole forces plus dispersion. Stronger than CH₄.</li>
+          <li hidden><b>CH₃OH.</b> Has an O–H bond, so it can hydrogen bond with other molecules: the strongest IMF of the three.</li>
+          <li hidden><b>Ranking.</b> CH₄ (112 K) &lt; CH₃Cl (249 K) &lt; CH₃OH (338 K), the order of increasing IMF strength.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying boiling breaks the bonds inside the molecule. Boiling water gives H₂O vapor, not hydrogen and oxygen.</li>
+        <li>Calling any molecule with H a hydrogen-bonder. The H must be bonded to N, O or F (CH₄ and HCl do not).</li>
+        <li>Forgetting that dispersion forces exist in every substance, and dominate in large nonpolar molecules.</li>
+        <li>Mixing up intermolecular forces with covalent bond strength: the covalent bonds in water are far stronger than the hydrogen bonds between water molecules.</li>
+        <li>Comparing boiling points without considering size: a large nonpolar molecule can beat a small polar one.</li>
+      </ul></div>
+      <div class="prose"><h2>Ranking by strength</h2>
+        <p>For molecules of similar size, the order is: hydrogen bonding &gt; dipole–dipole &gt; London dispersion. For molecules of very different sizes, dispersion forces can win, so compare molar masses too. Ionic substances (full charges) are held by even stronger forces, and in a solution an ion is attracted to the partial charges on water (ion–dipole).</p>
+        <p>These attractions also explain surface tension, viscosity, vapor pressure and solubility. Stronger IMFs mean higher boiling point, higher viscosity, higher surface tension and lower vapor pressure at a given temperature.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Methanol has an O–H bond, so its molecules hydrogen bond to each other. CH₄ has only dispersion forces and CH₃Cl has dipole–dipole forces, so CH₃OH has the highest boiling point.">
+        <p class="q">Check yourself: which has the highest boiling point?</p>
+        <div class="opts"><button type="button">CH₄</button><button type="button">CH₃Cl</button><button type="button">CH₃OH</button><button type="button">They are all about equal</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

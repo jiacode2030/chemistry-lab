@@ -1,0 +1,67 @@
+  <section class="view" id="v-gases" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Gas laws &amp; kinetic theory</h1>
+        <p class="lede">A gas is mostly empty space with tiny particles flying around and bouncing off the walls. Pressure, volume, temperature and amount are four ways of describing the same crowd.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Pressure is the combined push of billions of particles hitting a wall. Heat the gas and the particles move faster, so they hit harder and more often. Squeeze the same particles into a smaller space and they hit the walls more often. Add more particles and there are more hits. That story is the <b>kinetic molecular theory</b>, and the ideal gas law, <span class="m"><i>PV</i> = <i>nRT</i></span>, is its summary.</p>
+        <p>Temperature has a precise meaning here: it is a measure of the <i>average kinetic energy</i> of the particles. At the same temperature, light molecules move faster than heavy ones, but all have the same average kinetic energy. Individual speeds vary widely, following the Maxwell–Boltzmann distribution.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we assumed an ideal gas: particles have no volume and never attract each other</dd><dt>So we didn't need</dt><dd>to worry about gases that are squeezed or cold</dd><dt>Now</dt><dd>at high pressure or low temperature real particles take up room and attract</dd><dt>So we need</dt><dd>to know when PV = nRT fails, and in which direction (try the Real gas mode)</dd></dl></div>
+      <div class="eqgrid"><div class="eqn"><span><i>PV</i> = <i>nRT</i></span><small>R = 0.08206 L·atm/(mol·K)</small></div><div class="eqn"><span><i>P</i><sub>1</sub><i>V</i><sub>1</sub>/<i>T</i><sub>1</sub> = <i>P</i><sub>2</sub><i>V</i><sub>2</sub>/<i>T</i><sub>2</sub></span><small>fixed amount</small></div><div class="eqn"><span><i>P</i><sub>A</sub> = <i>X</i><sub>A</sub><i>P</i><sub>total</sub></span><small>Dalton</small></div></div>
+      <div class="lab" id="gs-lab">
+        <div class="labbar"><span class="title">The piston</span><div class="seg" id="gs-mode" role="group" aria-label="Which law"><button type="button" data-k="boyle" aria-pressed="true">Boyle</button><button type="button" data-k="charles" aria-pressed="false">Charles</button><button type="button" data-k="gay" aria-pressed="false">Gay-Lussac</button><button type="button" data-k="avo" aria-pressed="false">Avogadro</button><button type="button" data-k="real" aria-pressed="false">Real gas</button></div></div>
+        <p class="small" id="gs-law" style="margin:0;font-weight:600"></p>
+        <div class="controls">
+          <div class="ctl"><label for="gs-p"><span>Pressure P</span> <output id="gs-p-out"></output></label><input type="range" id="gs-p" min="0.25" max="5" step="0.05" value="1"></div>
+          <div class="ctl"><label for="gs-v"><span>Volume V</span> <output id="gs-v-out"></output></label><input type="range" id="gs-v" min="5" max="50" step="0.5" value="24.6"></div>
+          <div class="ctl"><label for="gs-t"><span>Temperature T</span> <output id="gs-t-out"></output></label><input type="range" id="gs-t" min="100" max="600" step="5" value="300"></div>
+          <div class="ctl"><label for="gs-n"><span>Amount n</span> <output id="gs-n-out"></output></label><input type="range" id="gs-n" min="0.5" max="3" step="0.1" value="1"></div>
+          <div class="ctl" id="gs-gasbox" hidden><label for="gs-gas"><span>Gas</span></label><select id="gs-gas"></select></div>
+        </div>
+        <div class="split"><div><canvas id="gs-canvas" aria-label="A cylinder of gas particles with a movable piston"></canvas></div><div><canvas id="gs-graph" aria-label="Graph of the law being explored, with a dot for the current state"></canvas></div></div>
+        <div class="readout"><div><span>Piston hits per second</span><strong class="hot" id="gs-hits">—</strong></div><div><span>Pressure from PV = nRT</span><strong class="x" id="gs-pid">—</strong></div><div id="gs-realbox" hidden><span>Pressure, real gas</span><strong class="a" id="gs-preal">—</strong></div><div id="gs-zbox" hidden><span>Z = PV/nRT</span><strong id="gs-z">—</strong></div></div>
+        <p class="small" style="margin:0" id="gs-note"></p>
+      </div>
+      <div class="lab" id="mb-lab" data-reset="own">
+        <div class="labbar"><span class="title">How fast are the particles?</span><div class="seg" id="mb-mode" role="group" aria-label="Compare"><button type="button" data-k="T" aria-pressed="true">Two temperatures</button><button type="button" data-k="M" aria-pressed="false">Three gases</button></div></div>
+        <div class="controls"><div class="ctl"><label for="mb-t1"><span>Temperature T₁</span> <output id="mb-t1-out"></output></label><input type="range" id="mb-t1" min="100" max="1000" step="10" value="300"></div>
+          <div class="ctl" id="mb-t2box"><label for="mb-t2"><span>Temperature T₂</span> <output id="mb-t2-out"></output></label><input type="range" id="mb-t2" min="100" max="1000" step="10" value="600"></div>
+          <div class="ctl" id="mb-gasbox"><label for="mb-gas"><span>Gas</span></label><select id="mb-gas"></select></div></div>
+        <canvas id="mb-canvas" aria-label="Maxwell-Boltzmann distribution of molecular speeds"></canvas>
+        <div class="readout"><div><span>Most probable speed</span><strong id="mb-up">—</strong></div><div><span>Average speed</span><strong id="mb-uav">—</strong></div><div><span>Root-mean-square speed</span><strong class="v" id="mb-urms">—</strong></div><div><span>Average KE per mole</span><strong class="hot" id="mb-ke">—</strong></div></div>
+        <p class="small" style="margin:0">The curve shows what fraction of molecules have each speed. The area under it is always 1 (every molecule has some speed). The dashed lines mark the three typical speeds of the selected gas at T₁.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Halve the volume of a gas at constant temperature. What happens to the pressure? <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=boyle]"],["#gs-v",24.6]]'>V = 24.6 L</button> <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=boyle]"],["#gs-v",12.3]]'>Halve it</button></p><details><summary>What you should see</summary><p>The pressure doubles (1 atm → 2 atm). The same particles in half the room hit the walls twice as often: <i>P</i> ∝ 1/<i>V</i>, Boyle's law.</p></details></li>
+        <li><p>Heat the gas while the piston is free to move at constant pressure. <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=charles]"],["#gs-t",300]]'>300 K</button> <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=charles]"],["#gs-t",600]]'>600 K</button></p><details><summary>What you should see</summary><p>Doubling the Kelvin temperature doubles the volume (24.6 L → 49.3 L). Faster particles push the piston out until the hit rate falls back to what the constant pressure needs. Temperature must be in kelvins.</p></details></li>
+        <li><p>Squeeze 1 mol of CO₂ into a tiny volume in real-gas mode. Does it behave like an ideal gas? <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=real]"],["#gs-gas","CO₂"],["#gs-v",0.5],["#gs-t",300],["#gs-n",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>At 0.5 L the real pressure is about 39 atm against 49 atm for an ideal gas (Z ≈ 0.8): the attractions between molecules make the pressure lower. Squeeze much further (try 0.06 L) and the molecules' own volume takes over, so the real pressure is far higher than ideal.</p></details></li>
+        <li><p>Compare helium, nitrogen and carbon dioxide at the same temperature. <button type="button" class="btn link" data-show='[["click","#mb-mode button[data-k=M]"],["#mb-t1",300]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Light helium molecules are fastest and its curve is broad; heavy CO₂ molecules are slower with a narrow curve. All three have the same average kinetic energy, because it depends only on temperature.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A 5.00 L tank holds 0.250 mol of nitrogen at 300. K. What is the pressure? If the gas is heated to 450. K in the same tank, what is the new pressure?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Write the ideal gas law.</b> <i>PV</i> = <i>nRT</i>, so <i>P</i> = <i>nRT</i>/<i>V</i>. With atm and L, use <i>R</i> = 0.08206 L·atm/(mol·K).</li>
+          <li hidden><b>Substitute.</b> <i>P</i> = (0.250)(0.08206)(300.) / 5.00 = <b>1.23 atm</b>.</li>
+          <li hidden><b>Constant volume and amount.</b> <i>P</i>/<i>T</i> stays constant, so <i>P</i><sub>2</sub> = <i>P</i><sub>1</sub>(<i>T</i><sub>2</sub>/<i>T</i><sub>1</sub>) = 1.23 × (450/300) = <b>1.85 atm</b>.</li>
+          <li hidden><b>Check.</b> The temperature went up by a factor of 1.5, and so did the pressure. ✓ Always use kelvins.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using °C in gas-law problems. Always convert to kelvins: K = °C + 273.15.</li>
+        <li>Using the wrong value of R for the units: 0.08206 for atm and L, 8.314 for joules, 62.36 for torr and L.</li>
+        <li>Thinking heavier gases have more kinetic energy at the same temperature. The average KE is the same; the heavier ones are just slower.</li>
+        <li>Thinking all particles move at the average speed. The speeds span a wide range.</li>
+        <li>Expecting ideal behavior at high pressure and low temperature, where real gases deviate.</li>
+      </ul></div>
+      <div class="prose"><h2>Deviations from ideal</h2>
+        <p>The ideal gas law assumes particles occupy no volume and attract nothing. At high pressure the particles are crowded, their own volume matters and the pressure is higher than ideal. At low temperature the attractions pull particles together, so they hit the walls less hard and the pressure is lower than ideal. The van der Waals equation corrects for both: <span class="m">(<i>P</i> + <i>an</i>²/<i>V</i>²)(<i>V</i> − <i>nb</i>) = <i>nRT</i></span>. Gases with stronger IMFs (large <i>a</i>) and larger molecules (large <i>b</i>) deviate more.</p>
+        <p>Dalton's law: in a mixture, each gas contributes its own partial pressure, <i>P</i><sub>A</sub> = <i>X</i><sub>A</sub><i>P</i><sub>total</sub>, where <i>X</i><sub>A</sub> is the mole fraction. The root-mean-square speed is <span class="m"><i>u</i><sub>rms</sub> = √(3<i>RT</i>/<i>M</i>)</span> with <i>M</i> in kg/mol.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Both gases are at the same temperature, so they have the same average kinetic energy. Since KE = ½mv², the lighter molecule must move faster on average. Helium is faster, but the energies are equal.">
+        <p class="q">Check yourself: helium and argon are at the same temperature. Which statement is true?</p>
+        <div class="opts"><button type="button">Argon atoms have more kinetic energy on average</button><button type="button">They have equal average kinetic energy; helium atoms move faster</button><button type="button">Helium atoms have more kinetic energy because they move faster</button><button type="button">They move at the same speed</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

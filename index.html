@@ -1683,6 +1683,130 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
     </div>
   </section>
 
+  <section class="view" id="v-imf" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Intermolecular forces</h1>
+        <p class="lede">Molecules attract each other without bonding. How strongly decides whether a substance is a gas, a liquid or a solid at room temperature, and how hot it must get to boil.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Inside a molecule, covalent bonds hold atoms together. Between molecules, much weaker <b>intermolecular forces</b> (IMFs) act like faint Velcro. To boil a liquid you do not break any bonds in the molecules: you only pull the molecules away from each other. So the stronger the Velcro, the more heat is needed, and the higher the boiling point.</p>
+        <p>There are three kinds, all from Coulomb's law. <b>London dispersion forces</b> exist in every substance: electrons slosh around and make momentary dipoles; bigger electron clouds slosh more, so larger molecules attract more. <b>Dipole–dipole</b> forces act between polar molecules. <b>Hydrogen bonding</b> is an especially strong dipole–dipole force when H is bonded to N, O or F and points at a lone pair on another N, O or F.</p>
+      </div>
+      <div class="lab" id="im-lab">
+        <div class="labbar"><span class="title">Heat the molecules</span><label class="check" style="margin-left:auto"><input type="checkbox" id="im-links" checked> Show attractions</label></div>
+        <div class="controls"><div class="ctl"><label for="im-sub"><span>Substance</span></label><select id="im-sub"></select></div>
+          <div class="ctl"><label for="im-t"><span>Temperature</span> <output id="im-t-out"></output></label><input type="range" id="im-t" min="0" max="600" step="5" value="100"></div></div>
+        <canvas id="im-canvas" aria-label="A box of molecules that clump together when cold and fly apart when hot, with lines joining molecules that attract"></canvas>
+        <div class="readout"><div><span>Strongest IMF</span><strong class="x" id="im-f" style="white-space:normal;font-size:15px">—</strong></div><div><span>Boiling point</span><strong class="hot" id="im-bp">—</strong></div><div><span>Temperature</span><strong id="im-k">—</strong></div><div><span>In the box</span><strong class="v" id="im-ph" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">A 2D model: the attraction strength is set from each substance's real boiling point, so the clump comes apart near that temperature (the model boils over a range, because there are only 64 molecules). Lines join molecules close enough to attract.</p>
+      </div>
+      <div class="lab" id="im-lab2" data-reset="own">
+        <div class="labbar"><span class="title">Boiling points of the hydrides</span></div>
+        <div class="toggles"><label class="check"><input type="checkbox" id="im-g14" checked> Group 14 (CH₄…)</label><label class="check"><input type="checkbox" id="im-g15" checked> Group 15 (NH₃…)</label><label class="check"><input type="checkbox" id="im-g16" checked> Group 16 (H₂O…)</label><label class="check"><input type="checkbox" id="im-g17" checked> Group 17 (HF…)</label></div>
+        <canvas id="im-bpc" aria-label="Boiling point against molar mass for the hydrides of groups 14 to 17"></canvas>
+        <p class="small" style="margin:0">Down each group the molar mass and electron cloud grow, so dispersion forces grow and the boiling point rises. NH₃, H₂O and HF break the trend: hydrogen bonding makes them boil far above the rest of their group.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Compare argon and water at 200 K. Which clumps? <button type="button" class="btn link" data-show='[["#im-sub","Ar"],["#im-t",200]]'>Argon</button> <button type="button" class="btn link" data-show='[["#im-sub","H₂O"],["#im-t",200]]'>Water</button></p><details><summary>What you should see</summary><p>At 200 K argon (boils at 87 K) is a gas of separate atoms, while water (boils at 373 K) is held together as a solid or liquid clump. Same temperature, very different attractions.</p></details></li>
+        <li><p>Warm water slowly from 100 K up to 500 K. <button type="button" class="btn link" data-show='[["#im-sub","H₂O"],["#im-t",100]]'>Start cold</button> <button type="button" class="btn link" data-show='[["#im-sub","H₂O"],["#im-t",450]]'>Go hot</button></p><details><summary>What you should see</summary><p>The cluster loosens and molecules start to escape around 373 K. The molecules themselves are unchanged: only the distances between them grow. Boiling overcomes IMFs, not covalent bonds.</p></details></li>
+        <li><p>Compare methane with butane. Both are nonpolar: why does butane boil higher? <button type="button" class="btn link" data-show='[["#im-sub","CH₄"],["#im-t",150]]'>CH₄</button> <button type="button" class="btn link" data-show='[["#im-sub","C₄H₁₀"],["#im-t",150]]'>C₄H₁₀</button></p><details><summary>What you should see</summary><p>Butane has many more electrons, so a bigger, more polarizable cloud and stronger dispersion forces. It is still a clump at 150 K when methane (boiling at 112 K) has flown apart.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Rank CH₄, CH₃OH and CH₃Cl from lowest to highest boiling point, and name the strongest IMF in each.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>CH₄.</b> Nonpolar, so only London dispersion forces, and a small molecule: the weakest attraction.</li>
+          <li hidden><b>CH₃Cl.</b> Polar (the C–Cl bond is polar and the shape is not symmetric), so dipole–dipole forces plus dispersion. Stronger than CH₄.</li>
+          <li hidden><b>CH₃OH.</b> Has an O–H bond, so it can hydrogen bond with other molecules: the strongest IMF of the three.</li>
+          <li hidden><b>Ranking.</b> CH₄ (112 K) &lt; CH₃Cl (249 K) &lt; CH₃OH (338 K), the order of increasing IMF strength.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying boiling breaks the bonds inside the molecule. Boiling water gives H₂O vapor, not hydrogen and oxygen.</li>
+        <li>Calling any molecule with H a hydrogen-bonder. The H must be bonded to N, O or F (CH₄ and HCl do not).</li>
+        <li>Forgetting that dispersion forces exist in every substance, and dominate in large nonpolar molecules.</li>
+        <li>Mixing up intermolecular forces with covalent bond strength: the covalent bonds in water are far stronger than the hydrogen bonds between water molecules.</li>
+        <li>Comparing boiling points without considering size: a large nonpolar molecule can beat a small polar one.</li>
+      </ul></div>
+      <div class="prose"><h2>Ranking by strength</h2>
+        <p>For molecules of similar size, the order is: hydrogen bonding &gt; dipole–dipole &gt; London dispersion. For molecules of very different sizes, dispersion forces can win, so compare molar masses too. Ionic substances (full charges) are held by even stronger forces, and in a solution an ion is attracted to the partial charges on water (ion–dipole).</p>
+        <p>These attractions also explain surface tension, viscosity, vapor pressure and solubility. Stronger IMFs mean higher boiling point, higher viscosity, higher surface tension and lower vapor pressure at a given temperature.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Methanol has an O–H bond, so its molecules hydrogen bond to each other. CH₄ has only dispersion forces and CH₃Cl has dipole–dipole forces, so CH₃OH has the highest boiling point.">
+        <p class="q">Check yourself: which has the highest boiling point?</p>
+        <div class="opts"><button type="button">CH₄</button><button type="button">CH₃Cl</button><button type="button">CH₃OH</button><button type="button">They are all about equal</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-gases" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Gas laws &amp; kinetic theory</h1>
+        <p class="lede">A gas is mostly empty space with tiny particles flying around and bouncing off the walls. Pressure, volume, temperature and amount are four ways of describing the same crowd.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Pressure is the combined push of billions of particles hitting a wall. Heat the gas and the particles move faster, so they hit harder and more often. Squeeze the same particles into a smaller space and they hit the walls more often. Add more particles and there are more hits. That story is the <b>kinetic molecular theory</b>, and the ideal gas law, <span class="m"><i>PV</i> = <i>nRT</i></span>, is its summary.</p>
+        <p>Temperature has a precise meaning here: it is a measure of the <i>average kinetic energy</i> of the particles. At the same temperature, light molecules move faster than heavy ones, but all have the same average kinetic energy. Individual speeds vary widely, following the Maxwell–Boltzmann distribution.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we assumed an ideal gas: particles have no volume and never attract each other</dd><dt>So we didn't need</dt><dd>to worry about gases that are squeezed or cold</dd><dt>Now</dt><dd>at high pressure or low temperature real particles take up room and attract</dd><dt>So we need</dt><dd>to know when PV = nRT fails, and in which direction (try the Real gas mode)</dd></dl></div>
+      <div class="eqgrid"><div class="eqn"><span><i>PV</i> = <i>nRT</i></span><small>R = 0.08206 L·atm/(mol·K)</small></div><div class="eqn"><span><i>P</i><sub>1</sub><i>V</i><sub>1</sub>/<i>T</i><sub>1</sub> = <i>P</i><sub>2</sub><i>V</i><sub>2</sub>/<i>T</i><sub>2</sub></span><small>fixed amount</small></div><div class="eqn"><span><i>P</i><sub>A</sub> = <i>X</i><sub>A</sub><i>P</i><sub>total</sub></span><small>Dalton</small></div></div>
+      <div class="lab" id="gs-lab">
+        <div class="labbar"><span class="title">The piston</span><div class="seg" id="gs-mode" role="group" aria-label="Which law"><button type="button" data-k="boyle" aria-pressed="true">Boyle</button><button type="button" data-k="charles" aria-pressed="false">Charles</button><button type="button" data-k="gay" aria-pressed="false">Gay-Lussac</button><button type="button" data-k="avo" aria-pressed="false">Avogadro</button><button type="button" data-k="real" aria-pressed="false">Real gas</button></div></div>
+        <p class="small" id="gs-law" style="margin:0;font-weight:600"></p>
+        <div class="controls">
+          <div class="ctl"><label for="gs-p"><span>Pressure P</span> <output id="gs-p-out"></output></label><input type="range" id="gs-p" min="0.25" max="5" step="0.05" value="1"></div>
+          <div class="ctl"><label for="gs-v"><span>Volume V</span> <output id="gs-v-out"></output></label><input type="range" id="gs-v" min="5" max="50" step="0.5" value="24.6"></div>
+          <div class="ctl"><label for="gs-t"><span>Temperature T</span> <output id="gs-t-out"></output></label><input type="range" id="gs-t" min="100" max="600" step="5" value="300"></div>
+          <div class="ctl"><label for="gs-n"><span>Amount n</span> <output id="gs-n-out"></output></label><input type="range" id="gs-n" min="0.5" max="3" step="0.1" value="1"></div>
+          <div class="ctl" id="gs-gasbox" hidden><label for="gs-gas"><span>Gas</span></label><select id="gs-gas"></select></div>
+        </div>
+        <div class="split"><div><canvas id="gs-canvas" aria-label="A cylinder of gas particles with a movable piston"></canvas></div><div><canvas id="gs-graph" aria-label="Graph of the law being explored, with a dot for the current state"></canvas></div></div>
+        <div class="readout"><div><span>Piston hits per second</span><strong class="hot" id="gs-hits">—</strong></div><div><span>Pressure from PV = nRT</span><strong class="x" id="gs-pid">—</strong></div><div id="gs-realbox" hidden><span>Pressure, real gas</span><strong class="a" id="gs-preal">—</strong></div><div id="gs-zbox" hidden><span>Z = PV/nRT</span><strong id="gs-z">—</strong></div></div>
+        <p class="small" style="margin:0" id="gs-note"></p>
+      </div>
+      <div class="lab" id="mb-lab" data-reset="own">
+        <div class="labbar"><span class="title">How fast are the particles?</span><div class="seg" id="mb-mode" role="group" aria-label="Compare"><button type="button" data-k="T" aria-pressed="true">Two temperatures</button><button type="button" data-k="M" aria-pressed="false">Three gases</button></div></div>
+        <div class="controls"><div class="ctl"><label for="mb-t1"><span>Temperature T₁</span> <output id="mb-t1-out"></output></label><input type="range" id="mb-t1" min="100" max="1000" step="10" value="300"></div>
+          <div class="ctl" id="mb-t2box"><label for="mb-t2"><span>Temperature T₂</span> <output id="mb-t2-out"></output></label><input type="range" id="mb-t2" min="100" max="1000" step="10" value="600"></div>
+          <div class="ctl" id="mb-gasbox"><label for="mb-gas"><span>Gas</span></label><select id="mb-gas"></select></div></div>
+        <canvas id="mb-canvas" aria-label="Maxwell-Boltzmann distribution of molecular speeds"></canvas>
+        <div class="readout"><div><span>Most probable speed</span><strong id="mb-up">—</strong></div><div><span>Average speed</span><strong id="mb-uav">—</strong></div><div><span>Root-mean-square speed</span><strong class="v" id="mb-urms">—</strong></div><div><span>Average KE per mole</span><strong class="hot" id="mb-ke">—</strong></div></div>
+        <p class="small" style="margin:0">The curve shows what fraction of molecules have each speed. The area under it is always 1 (every molecule has some speed). The dashed lines mark the three typical speeds of the selected gas at T₁.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Halve the volume of a gas at constant temperature. What happens to the pressure? <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=boyle]"],["#gs-v",24.6]]'>V = 24.6 L</button> <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=boyle]"],["#gs-v",12.3]]'>Halve it</button></p><details><summary>What you should see</summary><p>The pressure doubles (1 atm → 2 atm). The same particles in half the room hit the walls twice as often: <i>P</i> ∝ 1/<i>V</i>, Boyle's law.</p></details></li>
+        <li><p>Heat the gas while the piston is free to move at constant pressure. <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=charles]"],["#gs-t",300]]'>300 K</button> <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=charles]"],["#gs-t",600]]'>600 K</button></p><details><summary>What you should see</summary><p>Doubling the Kelvin temperature doubles the volume (24.6 L → 49.3 L). Faster particles push the piston out until the hit rate falls back to what the constant pressure needs. Temperature must be in kelvins.</p></details></li>
+        <li><p>Squeeze 1 mol of CO₂ into a tiny volume in real-gas mode. Does it behave like an ideal gas? <button type="button" class="btn link" data-show='[["click","#gs-mode button[data-k=real]"],["#gs-gas","CO₂"],["#gs-v",0.5],["#gs-t",300],["#gs-n",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>At 0.5 L the real pressure is about 39 atm against 49 atm for an ideal gas (Z ≈ 0.8): the attractions between molecules make the pressure lower. Squeeze much further (try 0.06 L) and the molecules' own volume takes over, so the real pressure is far higher than ideal.</p></details></li>
+        <li><p>Compare helium, nitrogen and carbon dioxide at the same temperature. <button type="button" class="btn link" data-show='[["click","#mb-mode button[data-k=M]"],["#mb-t1",300]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Light helium molecules are fastest and its curve is broad; heavy CO₂ molecules are slower with a narrow curve. All three have the same average kinetic energy, because it depends only on temperature.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A 5.00 L tank holds 0.250 mol of nitrogen at 300. K. What is the pressure? If the gas is heated to 450. K in the same tank, what is the new pressure?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Write the ideal gas law.</b> <i>PV</i> = <i>nRT</i>, so <i>P</i> = <i>nRT</i>/<i>V</i>. With atm and L, use <i>R</i> = 0.08206 L·atm/(mol·K).</li>
+          <li hidden><b>Substitute.</b> <i>P</i> = (0.250)(0.08206)(300.) / 5.00 = <b>1.23 atm</b>.</li>
+          <li hidden><b>Constant volume and amount.</b> <i>P</i>/<i>T</i> stays constant, so <i>P</i><sub>2</sub> = <i>P</i><sub>1</sub>(<i>T</i><sub>2</sub>/<i>T</i><sub>1</sub>) = 1.23 × (450/300) = <b>1.85 atm</b>.</li>
+          <li hidden><b>Check.</b> The temperature went up by a factor of 1.5, and so did the pressure. ✓ Always use kelvins.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using °C in gas-law problems. Always convert to kelvins: K = °C + 273.15.</li>
+        <li>Using the wrong value of R for the units: 0.08206 for atm and L, 8.314 for joules, 62.36 for torr and L.</li>
+        <li>Thinking heavier gases have more kinetic energy at the same temperature. The average KE is the same; the heavier ones are just slower.</li>
+        <li>Thinking all particles move at the average speed. The speeds span a wide range.</li>
+        <li>Expecting ideal behavior at high pressure and low temperature, where real gases deviate.</li>
+      </ul></div>
+      <div class="prose"><h2>Deviations from ideal</h2>
+        <p>The ideal gas law assumes particles occupy no volume and attract nothing. At high pressure the particles are crowded, their own volume matters and the pressure is higher than ideal. At low temperature the attractions pull particles together, so they hit the walls less hard and the pressure is lower than ideal. The van der Waals equation corrects for both: <span class="m">(<i>P</i> + <i>an</i>²/<i>V</i>²)(<i>V</i> − <i>nb</i>) = <i>nRT</i></span>. Gases with stronger IMFs (large <i>a</i>) and larger molecules (large <i>b</i>) deviate more.</p>
+        <p>Dalton's law: in a mixture, each gas contributes its own partial pressure, <i>P</i><sub>A</sub> = <i>X</i><sub>A</sub><i>P</i><sub>total</sub>, where <i>X</i><sub>A</sub> is the mole fraction. The root-mean-square speed is <span class="m"><i>u</i><sub>rms</sub> = √(3<i>RT</i>/<i>M</i>)</span> with <i>M</i> in kg/mol.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Both gases are at the same temperature, so they have the same average kinetic energy. Since KE = ½mv², the lighter molecule must move faster on average. Helium is faster, but the energies are equal.">
+        <p class="q">Check yourself: helium and argon are at the same temperature. Which statement is true?</p>
+        <div class="opts"><button type="button">Argon atoms have more kinetic energy on average</button><button type="button">They have equal average kinetic energy; helium atoms move faster</button><button type="button">Helium atoms have more kinetic energy because they move faster</button><button type="button">They move at the same speed</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -1921,8 +2045,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "gases"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "gases"], "soon": ["solids", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -3317,6 +3441,154 @@ const lwEl=(m,v,i)=>2*v.lp[i]+2*v.b.reduce((s,b)=>s+(b[0]===i||b[1]===i?b[2]:0),
       sol:`${f} has <b>${s} σ</b> and <b>${p} π</b> bonds. (Every bond contains one σ; double bonds add one π, triple bonds add two.)`};}});
   PROBS.push({id:'hy-angle',topic:'hybrid',title:'Angle between hybrid orbitals',gen(){const [h,ang]=pick([['sp',180],['sp²',120],['sp³',109.5]]),ch=['180°','120°','109.5°','90°'];
     return {q:`What is the angle between two ${h} hybrid orbitals on the same atom?`,choices:ch,ans:ch.indexOf(ang+'°'),hint:'sp: two orbitals, as far apart as possible; sp²: a flat triangle; sp³: a tetrahedron.',sol:`${h} hybrids are arranged ${h==='sp'?'in a line':h==='sp²'?'in a flat triangle':'at the corners of a tetrahedron'}: <b>${ang}°</b>.`};}});
+})();
+
+/* ===== modules/imf.js ===== */
+
+/* ---------------- Intermolecular forces ---------------- */
+const IMF_SUB=[['He','London dispersion (very weak)',4.2,'#7CC4E6'],['Ar','London dispersion',87.3,'#4FB9E3'],['CH₄','London dispersion',111.7,'#4A5160'],['C₄H₁₀','London dispersion (larger molecule)',272.7,'#6B7280'],['HCl','dipole–dipole',188.1,'#2FB55A'],['NH₃','hydrogen bonding',239.8,'#3E63DD'],['H₂O','hydrogen bonding',373.15,'#E5484D'],['HF','hydrogen bonding',292.7,'#53C98A']];
+(function imf(){
+  const cv=$('#im-canvas');if(!cv)return;
+  const sel=$('#im-sub');sel.innerHTML=IMF_SUB.map(s=>`<option value="${s[0]}">${s[0]} · boils at ${s[2]} K</option>`).join('');sel.value='H₂O';
+  const N=64,L=16;let P,Tk=100,S0=IMF_SUB[6],bound=1,acc=0;
+  function init(){const side=Math.ceil(Math.sqrt(N));P={x:[],y:[],vx:[],vy:[],fx:Array(N).fill(0),fy:Array(N).fill(0)};
+    for(let i=0;i<N;i++){P.x.push((i%side+.5)*L/side*.55+L*.22);P.y.push((Math.floor(i/side)+.5)*L/side*.55+L*.22);const a=Math.random()*6.283;P.vx.push(.3*Math.cos(a));P.vy.push(.3*Math.sin(a));}forces();}
+  function forces(){const {x,y,fx,fy}=P;fx.fill(0);fy.fill(0);for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const dx=x[i]-x[j],dy=y[i]-y[j],r2=dx*dx+dy*dy;if(r2<6.25){const i2=1/Math.max(r2,.64),i6=i2*i2*i2,f=24*i6*(2*i6-1)*i2;fx[i]+=f*dx;fy[i]+=f*dy;fx[j]-=f*dx;fy[j]-=f*dy;}}}
+  const Tstar=()=>.55*Tk/S0[2];
+  function stepMD(){const dt=.004,{x,y,vx,vy,fx,fy}=P;let ke=0;
+    for(let i=0;i<N;i++){vx[i]+=.5*dt*fx[i];vy[i]+=.5*dt*fy[i];x[i]+=dt*vx[i];y[i]+=dt*vy[i];if(x[i]<0){x[i]=-x[i];vx[i]=-vx[i];}if(x[i]>L){x[i]=2*L-x[i];vx[i]=-vx[i];}if(y[i]<0){y[i]=-y[i];vy[i]=-vy[i];}if(y[i]>L){y[i]=2*L-y[i];vy[i]=-vy[i];}}
+    forces();for(let i=0;i<N;i++){vx[i]+=.5*dt*fx[i];vy[i]+=.5*dt*fy[i];ke+=vx[i]*vx[i]+vy[i]*vy[i];}
+    const T=ke/(2*N),tgt=Math.max(Tstar(),.002),lam=Math.sqrt(1+.03*(tgt/Math.max(T,1e-6)-1));for(let i=0;i<N;i++){vx[i]*=lam;vy[i]*=lam;}}
+  const sim=sim2d(cv,{h:w=>clamp(w*.62,300,420),step(){for(let k=0;k<10;k++)stepMD();acc++;if(acc%20===0){let c=0;for(let i=0;i<N;i++){let nb=0;for(let j=0;j<N;j++)if(j!==i){const dx=P.x[i]-P.x[j],dy=P.y[i]-P.y[j];if(dx*dx+dy*dy<2.56)nb++;}if(nb>=3)c++;}bound+=(c/N-bound)*.3;phase();}},
+    draw(ctx,w,h){const s=Math.min(w-20,h-20)/L,ox=(w-L*s)/2,oy=(h-L*s)/2;ctx.strokeStyle=T.line;ctx.lineWidth=2;ctx.strokeRect(ox,oy,L*s,L*s);
+      if($('#im-links').checked){ctx.strokeStyle=alpha(T.hot,.4);ctx.lineWidth=1.2;ctx.beginPath();for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const dx=P.x[i]-P.x[j],dy=P.y[i]-P.y[j];if(dx*dx+dy*dy<1.9){ctx.moveTo(ox+P.x[i]*s,oy+P.y[i]*s);ctx.lineTo(ox+P.x[j]*s,oy+P.y[j]*s);}}ctx.stroke();}
+      for(let i=0;i<N;i++)ball2(ctx,ox+P.x[i]*s,oy+P.y[i]*s,.5*s,S0[3]);}});
+  function phase(){const b=bound;setText('im-ph',b>.8?'clumped: liquid or solid':b>.45?'clumps and vapor (boiling)':'free molecules: gas');}
+  function upd(){S0=IMF_SUB.find(s=>s[0]===sel.value);setText('im-f',S0[1]);setText('im-bp',S0[2]+' K ('+(S0[2]-273.15).toFixed(0)+' °C)');setText('im-k',Tk+' K ('+(Tk-273.15).toFixed(0)+' °C)');phase();sim.render();}
+  bindRange('im-t',x=>x+' K',x=>{Tk=x;upd();});sel.addEventListener('change',()=>{bound=1;upd();});$('#im-links').addEventListener('change',()=>sim.render());
+  init();upd();
+  /* hydride chart */
+  const H=[[14,'CH₄',16.04,111.7],[14,'SiH₄',32.12,161.3],[14,'GeH₄',76.67,184.7],[14,'SnH₄',122.74,221],[15,'NH₃',17.03,239.8],[15,'PH₃',34.00,185.4],[15,'AsH₃',77.95,210.6],[15,'SbH₃',124.77,256],[16,'H₂O',18.02,373.15],[16,'H₂S',34.08,212.8],[16,'H₂Se',80.98,231.8],[16,'H₂Te',129.62,271],[17,'HF',20.01,292.7],[17,'HCl',36.46,188.1],[17,'HBr',80.91,206.4],[17,'HI',127.91,237.8]];
+  const GC={14:T=>T.ink,15:T=>T.cx,16:T=>T.bad,17:T=>T.cv};
+  const sim2=sim2d($('#im-bpc'),{h:w=>clamp(w*.55,260,360),draw(ctx,w,h){const P=panel(ctx,{x:52,y:12,w:w-70,h:h-50},[0,140],[100,400],{xn:7,yn:3,xlabel:'molar mass (g/mol)',ylabel:'boiling point (K)',color:T.ink});
+    [14,15,16,17].forEach(g=>{if(!$('#im-g'+g).checked)return;const pts=H.filter(x=>x[0]===g),col=GC[g](T);ctx.save();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(P.X(p[2]),P.Y(p[3])):ctx.moveTo(P.X(p[2]),P.Y(p[3])));ctx.stroke();ctx.restore();
+      pts.forEach(p=>{dot(ctx,P.X(p[2]),P.Y(p[3]),4.5,col);label(ctx,p[1],P.X(p[2])+7,P.Y(p[3])-2,col,'left','bottom',MONO);});});}});
+  ['14','15','16','17'].forEach(g=>$('#im-g'+g).addEventListener('change',()=>sim2.render()));
+  drawers.imf=()=>{sim.render();sim2.render();};
+  TIPS['im-sub']='The attraction strength is scaled from this substance\'s real boiling point.';
+  TIPS['im-t']='Raising the temperature makes molecules move faster until they can escape each other: the boiling point.';
+  TIPS['im-links']='Lines join neighbors close enough to attract. Count how many each molecule has as you heat.';
+  KEYS['im-canvas']=['Choose a substance and slide the temperature.',[['hot','attractions between neighbors','dash']]];
+  GLOSS['london dispersion']='Weak attraction from momentary dipoles; present in all substances and stronger for larger electron clouds.';
+  GLOSS['hydrogen bonding']='Strong attraction between an H bonded to N, O or F and a lone pair on another N, O or F.';
+  GLOSS['intermolecular']='Between molecules (as opposed to inside them).';
+  TT.imf='Say "what do you break when water boils?" until students answer "only attractions between molecules". Use the hydride graph to argue that hydrogen bonding is an extra effect on top of the dispersion trend.';
+})();
+(function(){
+  const F=[['CH₄','London dispersion'],['Ar','London dispersion'],['CO₂','London dispersion'],['N₂','London dispersion'],['HCl','dipole–dipole'],['HBr','dipole–dipole'],['CH₃Cl','dipole–dipole'],['CH₃OCH₃','dipole–dipole'],['H₂O','hydrogen bonding'],['NH₃','hydrogen bonding'],['CH₃OH','hydrogen bonding'],['HF','hydrogen bonding'],['CH₃CH₂OH','hydrogen bonding']];
+  PROBS.push({id:'imf-which',topic:'imf',title:'The strongest intermolecular force',gen(){const [f,t]=pick(F),ch=['London dispersion','dipole–dipole','hydrogen bonding'];
+    return {q:`What is the strongest type of intermolecular force between molecules of ${f}?`,choices:ch,ans:ch.indexOf(t),hint:'Is the molecule polar? Does it have an H bonded to N, O or F? Otherwise only dispersion forces act.',sol:`${t==='hydrogen bonding'?'It has an H bonded to N, O or F (and a lone pair to bond to).':t==='dipole–dipole'?'It is polar but has no H on N, O or F.':'It is nonpolar.'} The strongest force is <b>${t}</b>.`};}});
+  const BP={'CH₄':111.7,'C₂H₆':184.6,'C₃H₈':231.1,'C₄H₁₀':272.7,'H₂O':373.2,'H₂S':212.8,'HF':292.7,'HCl':188.1,'NH₃':239.8,'PH₃':185.4,'CH₃OH':337.8,'CH₃CH₃':184.6,'Ar':87.3,'Ne':27.1,'CH₃CH₂OH':351.4,'Br₂':332,'Cl₂':239.1,'HBr':206.4,'HI':237.8};
+  const PAIRS=[['H₂O','H₂S'],['HF','HCl'],['NH₃','PH₃'],['CH₄','C₄H₁₀'],['Ar','Ne'],['CH₃OH','C₂H₆'],['Br₂','Cl₂'],['HI','HCl'],['CH₃CH₂OH','C₃H₈']];
+  PROBS.push({id:'imf-bp',topic:'imf',title:'Which boils at the higher temperature?',gen(){const [a,b]=pick(PAIRS),sw=Math.random()<.5,x=sw?b:a,y=sw?a:b,hi=BP[x]>BP[y]?x:y;
+    return {q:`Which has the higher boiling point, ${x} or ${y}?`,choices:[x,y],ans:hi===x?0:1,hint:'Compare the strongest IMF first (hydrogen bonding > dipole–dipole > dispersion). If they are the same type, the larger molecule (more electrons) wins.',sol:`<b>${hi}</b> (${BP[hi]} K against ${BP[hi===x?y:x]} K): it has stronger intermolecular attractions.`};}});
+  const SOL=[['NaCl','yes','ion–dipole attraction to water'],['CH₃OH','yes','it hydrogen bonds with water'],['glucose','yes','many O–H groups hydrogen bond with water'],['NH₃','yes','it hydrogen bonds with water'],['CCl₄','no','it is nonpolar, so water prefers its own hydrogen bonds'],['hexane (C₆H₁₄)','no','it is nonpolar'],['I₂','no','it is nonpolar'],['CH₄','no','it is nonpolar']];
+  PROBS.push({id:'imf-like',topic:'imf',title:'Like dissolves like',gen(){const [f,a,why]=pick(SOL),ch=['soluble in water','not very soluble in water'];
+    return {q:`Is ${f} likely to be soluble in water?`,choices:ch,ans:a==='yes'?0:1,hint:'Water is polar and hydrogen bonds. Substances that can form strong attractions with water dissolve; nonpolar ones do not.',sol:`${f} is <b>${a==='yes'?'soluble':'not very soluble'}</b>: ${why}.`};}});
+})();
+
+/* ===== modules/gases.js ===== */
+
+/* ---------------- Gas laws & kinetic theory ---------------- */
+const RG=0.08206;
+const VDW={'He':[.0346,.0238],'N₂':[1.370,.0387],'CH₄':[2.253,.0428],'CO₂':[3.640,.04267],'NH₃':[4.225,.0371]};
+(function gases(){
+  const cv=$('#gs-canvas');if(!cv)return;
+  const MODES={boyle:{inp:['v'],law:"Boyle's law: at constant temperature and amount, pressure is inversely proportional to volume. Move the volume slider; pressure follows.",d:{n:1,t:300}},
+    charles:{inp:['t'],law:"Charles's law: at constant pressure and amount, volume is proportional to the Kelvin temperature. Heat the gas; the piston rises.",d:{n:1,p:1}},
+    gay:{inp:['t'],law:"Gay-Lussac's law: at constant volume and amount, pressure is proportional to the Kelvin temperature. Heat the gas in a rigid tank.",d:{n:1,v:24.6}},
+    avo:{inp:['n'],law:"Avogadro's law: at constant pressure and temperature, volume is proportional to the number of moles. Add gas; the piston rises.",d:{p:1,t:300}},
+    real:{inp:['n','t','v'],law:'Real gas (van der Waals): squeeze and cool it and compare the real pressure with the ideal-gas prediction.',d:{}}};
+  const sel=$('#gs-gas');sel.innerHTML=Object.keys(VDW).map(g=>`<option value="${g}">${g}</option>`).join('');sel.value='N₂';
+  let mode='boyle',S={p:1,v:24.6,t:300,n:1},parts=[],hits=[],pxCur=0,tPrev=300;
+  const el={p:$('#gs-p'),v:$('#gs-v'),t:$('#gs-t'),n:$('#gs-n')};
+  const vdw=(n,t,v)=>{const [a,b]=VDW[sel.value];v=Math.max(v,n*b*1.02);return n*RG*t/(v-n*b)-a*n*n/(v*v);};
+  function compute(){const M=MODES[mode];
+    if(mode==='boyle'||mode==='gay')S.p=S.n*RG*S.t/S.v;else if(mode==='charles'||mode==='avo')S.v=S.n*RG*S.t/S.p;else S.p=vdw(S.n,S.t,S.v);}
+  function sync(){['p','v','t','n'].forEach(k=>{const e=el[k];e.value=clamp(S[k],+e.min,+e.max);const o=$('#gs-'+k+'-out');o.textContent=({p:x=>fmt(x,x<10?2:0)+' atm',v:x=>fmt(x,x<10?2:1)+' L',t:x=>x+' K',n:x=>fmt(x,1)+' mol'})[k](S[k]);});}
+  function setMode(m){mode=m;const M=MODES[m];S={p:1,v:24.6,t:300,n:1,...M.d};
+    el.v.min=m==='real'?.05:5;el.v.step=m==='real'?.05:.5;el.n.max=m==='avo'?2:3;S.v=m==='real'?5:S.v;
+    ['p','v','t','n'].forEach(k=>{el[k].disabled=!M.inp.includes(k);});$('#gs-p').closest('.ctl').hidden=m==='real';$('#gs-gasbox').hidden=m!=='real';$('#gs-realbox').hidden=m!=='real';$('#gs-zbox').hidden=m!=='real';
+    $('#gs-law').textContent=M.law;compute();sync();fit();upd();}
+  function fit(){const N=Math.round(S.n*14),w=cv.clientWidth||400,h=230;while(parts.length<N)parts.push({x:Math.random()*60,y:Math.random()*h,a:Math.random()*6.28,u:Math.random()});parts.length=N;tPrev=S.t;}
+  const sim=sim2d(cv,{h:()=>272,step(dt){const w=cv.clientWidth,boxW=w-56,tx=Math.max(24,boxW*S.v/50);pxCur=pxCur?pxCur+(tx-pxCur)*Math.min(1,dt*6):tx;
+      const sig=60*Math.sqrt(S.t/300),H=230,now=performance.now();
+      parts.forEach(p=>{if(!p.vx){const s=sig*Math.sqrt(-2*Math.log(1-p.u*.999));p.vx=s*Math.cos(p.a);p.vy=s*Math.sin(p.a);p.s=s;}
+        const k=Math.sqrt(S.t/ (p.T||300));if(p.T!==S.t){p.vx*=k;p.vy*=k;p.T=S.t;}
+        p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<4){p.x=4;p.vx=Math.abs(p.vx);}if(p.y<4){p.y=4;p.vy=Math.abs(p.vy);}if(p.y>H-4){p.y=H-4;p.vy=-Math.abs(p.vy);}
+        if(p.x>pxCur-4){p.x=pxCur-4;if(p.vx>0){p.vx=-p.vx;hits.push(now);}}});
+      while(hits.length&&now-hits[0]>1000)hits.shift();},
+    draw(ctx,w,h){const H=230,x0=8,y0=10;ctx.save();ctx.translate(x0,y0);ctx.strokeStyle=T.ink;ctx.lineWidth=3;ctx.strokeRect(0,0,Math.max(pxCur,10),H);
+      const r=mode==='real'?2.4+VDW[sel.value][1]*50:3.2;parts.forEach(p=>ball2(ctx,p.x,p.y,r,mode==='real'?T.ca:T.cx));
+      /* piston: plate, rod and a stack of weights for pressure */
+      ctx.fillStyle=T.muted;ctx.fillRect(pxCur-3,-6,9,H+12);ctx.fillRect(pxCur+6,H/2-4,w-pxCur-30,8);
+      const nw=clamp(Math.round(S.p*2),1,10);ctx.fillStyle=T.ink;for(let i=0;i<nw;i++)ctx.fillRect(pxCur+6,H/2-14-i*8+(-4),20,6);
+      label(ctx,'P = '+fmt(S.p,S.p<10?2:0)+' atm',Math.max(pxCur/2,50),H+10,T.muted,'center','top',MONO);
+      const arrowLen=clamp(S.p*10,6,50);arrow(ctx,pxCur+12,H-14,pxCur+12,H-14-0,T.hot,1);ctx.restore();}});
+  const g=$('#gs-graph'),simG=sim2d(g,{h:()=>272,draw(ctx,w,h){const box={x:48,y:12,w:w-62,h:h-46};let P,xr,yr,cx,cy,lab;
+      if(mode==='real'){const [a,b]=VDW[sel.value];xr=[0,500];yr=[.2,2.0];P=panel(ctx,box,xr,yr,{xn:5,yn:4,xlabel:'pressure (atm)',ylabel:'Z = PV/nRT',color:T.ink});line(ctx,P,0,1,500,1,T.muted,1.5,[5,4]);label(ctx,'ideal gas',P.X(495),P.Y(1)-6,T.muted,'right','bottom',MONO);
+        ctx.save();clip(ctx,P);ctx.strokeStyle=T.ca;ctx.lineWidth=2.4;ctx.beginPath();let first=true,lastP=0;for(let v=60;v>=b*1.12;v*=.97){const p=vdw(1,S.t,v),z=p*v/(RG*S.t);if(p>500||p<lastP)break;lastP=p;first?ctx.moveTo(P.X(p),P.Y(z)):ctx.lineTo(P.X(p),P.Y(z));first=false;}ctx.stroke();ctx.restore();
+        const Z=S.p*S.v/(S.n*RG*S.t);if(S.p<=500)dot(ctx,P.X(S.p),P.Y(clamp(Z,.2,2)),6,T.hot,T.surface);label(ctx,sel.value+' at '+S.t+' K',P.X(250),P.Y(1.85),T.ca,'center','middle',MONO);return;}
+      const C={boyle:{x:'v',y:'p',xr:[0,50],yr:[0,5.2],xl:'V (L)',yl:'P (atm)',f:x=>S.n*RG*S.t/x},charles:{x:'t',y:'v',xr:[0,600],yr:[0,55],xl:'T (K)',yl:'V (L)',f:x=>S.n*RG*x/S.p},gay:{x:'t',y:'p',xr:[0,600],yr:[0,2.4],xl:'T (K)',yl:'P (atm)',f:x=>S.n*RG*x/S.v},avo:{x:'n',y:'v',xr:[0,2.05],yr:[0,55],xl:'n (mol)',yl:'V (L)',f:x=>x*RG*S.t/S.p}}[mode];
+      P=panel(ctx,box,C.xr,C.yr,{xn:5,yn:4,xlabel:C.xl,ylabel:C.yl,color:T.ink});curve(ctx,P,C.f,Math.max(C.xr[0]+(mode==='boyle'?4:0),0.001),C.xr[1],T.cx,2.6,200);dot(ctx,P.X(S[C.x]),P.Y(S[C.y]),6.5,T.hot,T.surface);}});
+  drawers.gases=()=>{sim.render();simG.render();mb.render();};
+  function upd(){const id=S.n*RG*S.t/S.v;setText('gs-pid',fmt(id,id<10?2:1)+' atm');
+    if(mode==='real'){const pr=vdw(S.n,S.t,S.v),z=pr*S.v/(S.n*RG*S.t);setText('gs-preal',fmt(pr,pr<10?2:1)+' atm');setText('gs-z',fmt(z,3));setText('gs-note',z<.98?'Z < 1: attractions between the particles dominate, so the pressure is lower than ideal.':z>1.02?'Z > 1: the particles\' own volume dominates, so the pressure is higher than ideal.':'Close to ideal: the particles are far apart and moving fast.');}else setText('gs-note','');
+    simG.render();sim.render();}
+  setInterval(()=>{if(current==='gases')setText('gs-hits',hits.length);},250);
+  ['p','v','t','n'].forEach(k=>el[k].addEventListener('input',()=>{S[k]=+el[k].value;if(k==='n')fit();compute();sync();upd();}));
+  sel.addEventListener('change',()=>{compute();sync();upd();});
+  segBind('gs-mode','k',m=>setMode(m));
+  /* ---- Maxwell-Boltzmann ---- */
+  const GAS={'He':4.003,'N₂':28.01,'CO₂':44.01},R8=8.314;
+  $('#mb-gas').innerHTML=Object.keys(GAS).map(k=>`<option value="${k}">${k}</option>`).join('');$('#mb-gas').value='N₂';
+  let mm='T';
+  const fMB=(v,Tk,M)=>{const m=M/1000;return 4*Math.PI*Math.pow(m/(2*Math.PI*R8*Tk),1.5)*v*v*Math.exp(-m*v*v/(2*R8*Tk));};
+  const sp=(Tk,M)=>({up:Math.sqrt(2*R8*Tk/(M/1000)),av:Math.sqrt(8*R8*Tk/(Math.PI*M/1000)),rms:Math.sqrt(3*R8*Tk/(M/1000))});
+  const mb=sim2d($('#mb-canvas'),{h:w=>clamp(w*.45,250,330),draw(ctx,w,h){const T1=+$('#mb-t1').value,T2=+$('#mb-t2').value,g=$('#mb-gas').value,M=GAS[g];
+      const sets=mm==='T'?[[g,T1,M,T.cx],[g,T2,M,T.hot]]:Object.keys(GAS).map((k,i)=>[k,T1,GAS[k],[T.cx,T.cv,T.hot][i]]);
+      const vmax=Math.ceil(Math.max(...sets.map(s=>sp(s[1],s[2]).rms))*3/500)*500;let ymax=0;sets.forEach(s=>{for(let v=0;v<=vmax;v+=vmax/200)ymax=Math.max(ymax,fMB(v,s[1],s[2]));});
+      const P=panel(ctx,{x:56,y:12,w:w-72,h:h-48},[0,vmax],[0,ymax*1.15],{xn:6,yn:3,xlabel:'speed (m/s)',ylabel:'fraction of molecules',color:T.ink});
+      sets.forEach(s=>{area(ctx,P,v=>fMB(v,s[1],s[2]),0,vmax,s[3],.14,200);curve(ctx,P,v=>fMB(v,s[1],s[2]),0,vmax,s[3],2.6,200);});
+      sets.forEach((s,i)=>label(ctx,`${s[0]}, ${s[1]} K`,P.box.x+P.box.w-6,P.box.y+8+i*16,s[3],'right','top',MONO));
+      const ref=sets.find(x=>x[0]===g)||sets[0],q=sp(ref[1],ref[2]);[['up',q.up,'most probable'],['av',q.av,'average'],['rms',q.rms,'rms']].forEach(([k,v,n],i)=>{line(ctx,P,v,0,v,fMB(v,ref[1],ref[2]),T.ink,1.2,[3,3]);label(ctx,n,P.X(v)+(i===0?-4:4),P.Y(fMB(v,ref[1],ref[2]))-4-(i===2?14:0),T.ink,i===0?'right':'left','bottom',MONO);});}});
+  function updMB(){const T1=+$('#mb-t1').value,M=GAS[$('#mb-gas').value],q=sp(T1,M);$('#mb-t1-out').textContent=T1+' K';$('#mb-t2-out').textContent=$('#mb-t2').value+' K';
+    setText('mb-up',fmt(q.up,0)+' m/s');setText('mb-uav',fmt(q.av,0)+' m/s');setText('mb-urms',fmt(q.rms,0)+' m/s');setText('mb-ke',fmt(1.5*R8*T1/1000,2)+' kJ/mol');mb.render();}
+  ['mb-t1','mb-t2','mb-gas'].forEach(id=>$('#'+id).addEventListener('input',updMB));$('#mb-gas').addEventListener('change',updMB);
+  segBind('mb-mode','k',m=>{mm=m;$('#mb-t2box').hidden=m==='M';updMB();});
+  setMode('boyle');updMB();
+  TIPS['gs-v']='Smaller volume: the same particles hit the walls more often, so the pressure rises.';
+  TIPS['gs-t']='Hotter: the particles move faster, so they hit the piston harder and more often.';
+  TIPS['gs-n']='More particles: more hits on the wall, so more pressure or more volume.';
+  TIPS['gs-gas']='Larger a means stronger attractions; larger b means bigger molecules.';
+  TIPS['mb-t1']='A higher temperature shifts the peak to higher speed and flattens the curve; the area stays 1.';
+  TIPS['mb-gas']='At the same temperature, lighter molecules are faster.';
+  KEYS['gs-canvas']=['Choose a law, then move the one slider that is not grayed out.',[['cx','gas particles'],['hot','current state on the graph']]];
+  GLOSS['kinetic molecular theory']='A gas is made of tiny particles in constant random motion; temperature measures their average kinetic energy.';
+  GLOSS['mole fraction']='The moles of one gas divided by the total moles in the mixture.';
+  GLOSS['partial pressure']='The pressure one gas in a mixture would exert if it were alone.';
+  TT.gases='Have students predict the direction of every change before touching the slider. The four named laws are all PV = nRT with two things held fixed. The Real gas mode answers "when does the ideal gas law fail?" with evidence rather than a list.';
+})();
+(function(){
+  PROBS.push({id:'gas-ideal',topic:'gases',title:'Ideal gas law',gen(){const n=ri(2,40)/10,P=ri(5,40)/10,Tc=ri(0,150)*2+10,ans=n*RG*(Tc+273.15)/P;
+    return {q:`What volume does ${n.toFixed(1)} mol of an ideal gas occupy at ${P.toFixed(1)} atm and ${Tc} °C?`,ans,unit:'L',tol:.02,hint:'Convert °C to K by adding 273.15, then V = nRT/P with R = 0.08206 L·atm/(mol·K).',sol:`T = ${Tc} + 273.15 = ${(Tc+273.15).toFixed(2)} K. V = (${n.toFixed(1)})(0.08206)(${(Tc+273.15).toFixed(2)}) / ${P.toFixed(1)} = <b>${fmt(ans,2)} L</b>.`};}});
+  PROBS.push({id:'gas-combined',topic:'gases',title:'Combined gas law',gen(){const P1=ri(5,30)/10,V1=ri(20,90)/10,T1=ri(0,100)*2+5,P2=ri(5,40)/10,T2=ri(0,100)*2+5,ans=P1*V1*(T2+273.15)/((T1+273.15)*P2);
+    return {q:`A sealed sample of gas has V = ${V1.toFixed(1)} L at ${P1.toFixed(1)} atm and ${T1} °C. What volume will it have at ${P2.toFixed(1)} atm and ${T2} °C?`,ans,unit:'L',tol:.02,hint:'P₁V₁/T₁ = P₂V₂/T₂ with temperatures in kelvins.',sol:`V₂ = V₁(P₁/P₂)(T₂/T₁) = ${V1.toFixed(1)} × (${P1.toFixed(1)}/${P2.toFixed(1)}) × (${(T2+273.15).toFixed(2)}/${(T1+273.15).toFixed(2)}) = <b>${fmt(ans,2)} L</b>.`};}});
+  PROBS.push({id:'gas-partial',topic:'gases',title:'Partial pressure',gen(){const a=ri(5,40)/10,b=ri(5,40)/10,c=ri(0,30)/10,Pt=ri(10,40)/10,ans=a/(a+b+c)*Pt;
+    return {q:`A mixture contains ${a.toFixed(1)} mol N₂, ${b.toFixed(1)} mol O₂${c>0?` and ${c.toFixed(1)} mol Ar`:''}. The total pressure is ${Pt.toFixed(1)} atm. What is the partial pressure of N₂?`,ans,unit:'atm',tol:.02,hint:'P(N₂) = X(N₂) × P(total), where X is the mole fraction.',sol:`X = ${a.toFixed(1)} / ${(a+b+c).toFixed(1)} = ${fmt(a/(a+b+c),3)}; P = ${fmt(a/(a+b+c),3)} × ${Pt.toFixed(1)} = <b>${fmt(ans,3)} atm</b>.`};}});
+  const MG=[['CO₂',44.01],['N₂',28.01],['O₂',32.00],['CH₄',16.04],['NH₃',17.03],['SO₂',64.07],['Ar',39.95]];
+  PROBS.push({id:'gas-molarmass',topic:'gases',title:'Molar mass from gas density',gen(){const [f,M]=pick(MG),P=ri(8,20)/10,Tc=ri(0,60)*2,d=P*M/(RG*(Tc+273.15));
+    return {q:`An unknown gas has a density of ${d.toFixed(3)} g/L at ${P.toFixed(1)} atm and ${Tc} °C. What is its molar mass?`,ans:M,unit:'g/mol',tol:.02,hint:'Density d = mass/V, and PV = nRT gives M = dRT/P.',sol:`M = dRT/P = (${d.toFixed(3)})(0.08206)(${(Tc+273.15).toFixed(2)}) / ${P.toFixed(1)} = <b>${fmt(M,1)} g/mol</b> (it could be ${f}).`};}});
 })();
 
 /* ===== overview.js ===== */
