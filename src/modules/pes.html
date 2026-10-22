@@ -1,0 +1,52 @@
+  <section class="view" id="v-pes" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span><span class="tag">3D</span></div>
+        <h1>Electron configuration &amp; PES</h1>
+        <p class="lede">Electrons sit in shells and subshells, and a photoelectron spectrum is a photograph of that structure: one peak per subshell, as tall as the number of electrons in it.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of an apartment building. Each floor (shell) holds a limited number of people, and each floor is divided into rooms (subshells: s, p, d). Electrons fill the lowest-energy rooms first, one to a space before doubling up. That filling order gives the <b>electron configuration</b>, such as 1s² 2s² 2p⁴ for oxygen.</p>
+        <p>In <b>photoelectron spectroscopy</b> you shine high-energy light on atoms and measure how much energy it takes to knock each electron out. Electrons close to the nucleus are held tightly, so they need a lot of energy; outer electrons need little. Each peak is a subshell. Its position tells you the binding energy; its height tells you how many electrons share that energy.</p>
+      </div>
+      <div class="lab" id="pe-lab">
+        <div class="labbar"><span class="title">Build an atom</span><div class="row"><button type="button" class="btn primary" id="pe-play">Build up the table</button></div></div>
+        <div class="controls"><div class="ctl"><label for="pe-z"><span>Atomic number Z (protons = electrons)</span> <output id="pe-z-out"></output></label><input type="range" id="pe-z" min="1" max="18" step="1" value="8"></div></div>
+        <div class="split">
+          <div><canvas id="pe-atom" aria-label="3D model of the atom: nucleus with shells of orbiting electrons. Drag to rotate."></canvas></div>
+          <div><canvas id="pe-spec" aria-label="Photoelectron spectrum: one peak for each occupied subshell, taller for more electrons, further left for more tightly held"></canvas></div>
+        </div>
+        <canvas id="pe-box" aria-label="Orbital box diagram showing electron spins"></canvas>
+        <div class="readout"><div><span>Element</span><strong class="x" id="pe-el">—</strong></div><div><span>Configuration</span><strong id="pe-cfg" style="white-space:normal;font-size:15px">—</strong></div><div><span>Peaks in the PES</span><strong id="pe-np">—</strong></div><div><span>Unpaired electrons</span><strong id="pe-un">—</strong></div><div><span>Outermost electron (MJ/mol)</span><strong class="hot" id="pe-ie">—</strong></div></div>
+        <p class="small" style="margin:0">Energies are approximate, rounded values. On the exam the numbers are given with the question; what counts is the pattern. The horizontal axis is logarithmic and runs from high energy on the left to low energy on the right.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Neon fills its second shell completely. Count the peaks and compare their heights. <button type="button" class="btn link" data-show='[["#pe-z",10]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Three peaks with height ratio 2 : 2 : 6, for 1s², 2s² and 2p⁶. The 1s peak is far to the left because those electrons are closest to the nucleus.</p></details></li>
+        <li><p>Go from neon to sodium. What changes in the spectrum? <button type="button" class="btn link" data-show='[["#pe-z",11]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>A new, small peak (height 1) appears at very low energy: the lone 3s electron in a new shell. All the old peaks also move left (to higher energy) because the nucleus has one more proton pulling on every electron.</p></details></li>
+        <li><p>Compare nitrogen and oxygen. How many unpaired electrons does each have? <button type="button" class="btn link" data-show='[["#pe-z",7]]'>Nitrogen</button> <button type="button" class="btn link" data-show='[["#pe-z",8]]'>Oxygen</button></p><details><summary>What you should see</summary><p>Nitrogen: 2p³, three unpaired electrons (one in each p box, Hund's rule). Oxygen: 2p⁴, so one box now holds a pair and only two electrons are unpaired.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A PES of an element shows peaks with relative heights 2, 2, 6, 1 (from highest to lowest binding energy). Which element is it?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Each peak is a subshell.</b> The heights are the numbers of electrons: 2, 2, 6 and 1.</li>
+          <li hidden><b>Assign them in order.</b> From the highest energy (the most tightly held electrons), the order is 1s, 2s, 2p, 3s: 1s² 2s² 2p⁶ 3s¹.</li>
+          <li hidden><b>Total the electrons.</b> 2 + 2 + 6 + 1 = 11 electrons. A neutral atom has equal protons, so Z = 11.</li>
+          <li hidden><b>Answer.</b> The element is <b>sodium</b>. The 1-electron peak at the lowest energy is the valence electron in a new shell.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Reading peak height as energy. Height is the number of electrons; position is the energy.</li>
+        <li>Forgetting that the axis runs backwards: the peak farthest left has the highest binding energy.</li>
+        <li>Pairing electrons in p orbitals before every box has one (Hund's rule says spread out first).</li>
+        <li>Thinking the 2s and 2p peaks are at the same energy. They are close, but 2p electrons are held a little less tightly.</li>
+        <li>Thinking binding energies stay put as Z grows. Every peak shifts to higher energy as the nucleus gains protons.</li>
+      </ul></div>
+      <div class="prose"><h2>Filling the boxes</h2>
+        <p>Three rules put electrons in boxes: <b>Aufbau</b> (fill the lowest-energy subshell first: 1s, 2s, 2p, 3s, 3p, 4s, 3d …), <b>Pauli exclusion</b> (a box holds at most two electrons, with opposite spins) and <b>Hund's rule</b> (in a set of equal-energy boxes, put one electron in each before pairing any).</p>
+        <p>The capacity of a subshell is 2(2ℓ + 1): s holds 2, p holds 6, d holds 10. A shell n holds 2n² electrons: 2, 8, 18 and so on. In a PES, the peak for a full subshell has relative height 2 (s), 6 (p) or 10 (d).</p></div>
+      <div class="quiz" data-correct="2" data-explain="The relative heights 2, 2, 6, 2, 3 are the electron counts in 1s, 2s, 2p, 3s and 3p: 1s² 2s² 2p⁶ 3s² 3p³. That is 15 electrons: phosphorus.">
+        <p class="q">Check yourself: a PES has five peaks with relative heights 2, 2, 6, 2, 3. Which element?</p>
+        <div class="opts"><button type="button">Silicon (Z = 14)</button><button type="button">Sulfur (Z = 16)</button><button type="button">Phosphorus (Z = 15)</button><button type="button">Aluminum (Z = 13)</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

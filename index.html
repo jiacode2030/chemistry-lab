@@ -1241,6 +1241,171 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
     </div>
   </section>
 
+  <section class="view" id="v-pes" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span><span class="tag">3D</span></div>
+        <h1>Electron configuration &amp; PES</h1>
+        <p class="lede">Electrons sit in shells and subshells, and a photoelectron spectrum is a photograph of that structure: one peak per subshell, as tall as the number of electrons in it.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of an apartment building. Each floor (shell) holds a limited number of people, and each floor is divided into rooms (subshells: s, p, d). Electrons fill the lowest-energy rooms first, one to a space before doubling up. That filling order gives the <b>electron configuration</b>, such as 1s² 2s² 2p⁴ for oxygen.</p>
+        <p>In <b>photoelectron spectroscopy</b> you shine high-energy light on atoms and measure how much energy it takes to knock each electron out. Electrons close to the nucleus are held tightly, so they need a lot of energy; outer electrons need little. Each peak is a subshell. Its position tells you the binding energy; its height tells you how many electrons share that energy.</p>
+      </div>
+      <div class="lab" id="pe-lab">
+        <div class="labbar"><span class="title">Build an atom</span><div class="row"><button type="button" class="btn primary" id="pe-play">Build up the table</button></div></div>
+        <div class="controls"><div class="ctl"><label for="pe-z"><span>Atomic number Z (protons = electrons)</span> <output id="pe-z-out"></output></label><input type="range" id="pe-z" min="1" max="18" step="1" value="8"></div></div>
+        <div class="split">
+          <div><canvas id="pe-atom" aria-label="3D model of the atom: nucleus with shells of orbiting electrons. Drag to rotate."></canvas></div>
+          <div><canvas id="pe-spec" aria-label="Photoelectron spectrum: one peak for each occupied subshell, taller for more electrons, further left for more tightly held"></canvas></div>
+        </div>
+        <canvas id="pe-box" aria-label="Orbital box diagram showing electron spins"></canvas>
+        <div class="readout"><div><span>Element</span><strong class="x" id="pe-el">—</strong></div><div><span>Configuration</span><strong id="pe-cfg" style="white-space:normal;font-size:15px">—</strong></div><div><span>Peaks in the PES</span><strong id="pe-np">—</strong></div><div><span>Unpaired electrons</span><strong id="pe-un">—</strong></div><div><span>Outermost electron (MJ/mol)</span><strong class="hot" id="pe-ie">—</strong></div></div>
+        <p class="small" style="margin:0">Energies are approximate, rounded values. On the exam the numbers are given with the question; what counts is the pattern. The horizontal axis is logarithmic and runs from high energy on the left to low energy on the right.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Neon fills its second shell completely. Count the peaks and compare their heights. <button type="button" class="btn link" data-show='[["#pe-z",10]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Three peaks with height ratio 2 : 2 : 6, for 1s², 2s² and 2p⁶. The 1s peak is far to the left because those electrons are closest to the nucleus.</p></details></li>
+        <li><p>Go from neon to sodium. What changes in the spectrum? <button type="button" class="btn link" data-show='[["#pe-z",11]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>A new, small peak (height 1) appears at very low energy: the lone 3s electron in a new shell. All the old peaks also move left (to higher energy) because the nucleus has one more proton pulling on every electron.</p></details></li>
+        <li><p>Compare nitrogen and oxygen. How many unpaired electrons does each have? <button type="button" class="btn link" data-show='[["#pe-z",7]]'>Nitrogen</button> <button type="button" class="btn link" data-show='[["#pe-z",8]]'>Oxygen</button></p><details><summary>What you should see</summary><p>Nitrogen: 2p³, three unpaired electrons (one in each p box, Hund's rule). Oxygen: 2p⁴, so one box now holds a pair and only two electrons are unpaired.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A PES of an element shows peaks with relative heights 2, 2, 6, 1 (from highest to lowest binding energy). Which element is it?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Each peak is a subshell.</b> The heights are the numbers of electrons: 2, 2, 6 and 1.</li>
+          <li hidden><b>Assign them in order.</b> From the highest energy (the most tightly held electrons), the order is 1s, 2s, 2p, 3s: 1s² 2s² 2p⁶ 3s¹.</li>
+          <li hidden><b>Total the electrons.</b> 2 + 2 + 6 + 1 = 11 electrons. A neutral atom has equal protons, so Z = 11.</li>
+          <li hidden><b>Answer.</b> The element is <b>sodium</b>. The 1-electron peak at the lowest energy is the valence electron in a new shell.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Reading peak height as energy. Height is the number of electrons; position is the energy.</li>
+        <li>Forgetting that the axis runs backwards: the peak farthest left has the highest binding energy.</li>
+        <li>Pairing electrons in p orbitals before every box has one (Hund's rule says spread out first).</li>
+        <li>Thinking the 2s and 2p peaks are at the same energy. They are close, but 2p electrons are held a little less tightly.</li>
+        <li>Thinking binding energies stay put as Z grows. Every peak shifts to higher energy as the nucleus gains protons.</li>
+      </ul></div>
+      <div class="prose"><h2>Filling the boxes</h2>
+        <p>Three rules put electrons in boxes: <b>Aufbau</b> (fill the lowest-energy subshell first: 1s, 2s, 2p, 3s, 3p, 4s, 3d …), <b>Pauli exclusion</b> (a box holds at most two electrons, with opposite spins) and <b>Hund's rule</b> (in a set of equal-energy boxes, put one electron in each before pairing any).</p>
+        <p>The capacity of a subshell is 2(2ℓ + 1): s holds 2, p holds 6, d holds 10. A shell n holds 2n² electrons: 2, 8, 18 and so on. In a PES, the peak for a full subshell has relative height 2 (s), 6 (p) or 10 (d).</p></div>
+      <div class="quiz" data-correct="2" data-explain="The relative heights 2, 2, 6, 2, 3 are the electron counts in 1s, 2s, 2p, 3s and 3p: 1s² 2s² 2p⁶ 3s² 3p³. That is 15 electrons: phosphorus.">
+        <p class="q">Check yourself: a PES has five peaks with relative heights 2, 2, 6, 2, 3. Which element?</p>
+        <div class="opts"><button type="button">Silicon (Z = 14)</button><button type="button">Sulfur (Z = 16)</button><button type="button">Phosphorus (Z = 15)</button><button type="button">Aluminum (Z = 13)</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-orbitals" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span><span class="tag">3D</span></div>
+        <h1>Orbital shapes in 3D</h1>
+        <p class="lede">An orbital is not a track the electron follows. It is a map of where the electron is likely to be found. Take enough snapshots and the map appears.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine photographing a bee near a hive a thousand times and drawing a dot for each photo. You never see its path, but the cloud of dots shows where it spends its time. The electron works like that, except that nobody can say where it is at any moment; quantum mechanics only gives the odds. Each orbital is a different pattern of odds.</p>
+        <p>The pattern has a size and a shape. An <b>s</b> orbital is a ball. A <b>p</b> orbital has two lobes, like a dumbbell, pointing along x, y or z. A <b>d</b> orbital has four lobes (or a donut with two). Higher shells (n) are bigger, and can have <b>nodes</b>: places where the electron is never found.</p>
+      </div>
+      <div class="lab" id="or-lab">
+        <div class="labbar"><span class="title">Electron snapshots</span><div class="row"><button type="button" class="btn primary" id="or-again">Take new snapshots</button><button type="button" class="btn" id="or-all">Show all at once</button></div></div>
+        <div class="controls"><div class="ctl"><label for="or-sel"><span>Orbital</span></label><select id="or-sel"></select></div>
+          <div class="toggles"><label class="check"><input type="checkbox" id="or-phase"> Color by sign (phase)</label><label class="check"><input type="checkbox" id="or-set"> Show the whole subshell as lobes</label></div></div>
+        <canvas id="or-canvas" aria-label="3D cloud of electron positions for the chosen orbital. Drag to rotate."></canvas>
+        <canvas id="or-radial" aria-label="Graph of the probability of finding the electron at each distance from the nucleus, with a histogram of the snapshots"></canvas>
+        <div class="readout"><div><span>Shell n · subshell</span><strong class="x" id="or-nl">—</strong></div><div><span>Radial nodes (n − ℓ − 1)</span><strong id="or-rn">—</strong></div><div><span>Angular nodes (ℓ)</span><strong id="or-an">—</strong></div><div><span>Most likely distance</span><strong class="hot" id="or-pk">—</strong></div><div><span>Size (90% of the time inside)</span><strong id="or-r90">—</strong></div></div>
+        <p class="small" style="margin:0">One scene unit is 5 a₀ ≈ 2.6 Å (the gold bar shows the scale). The graph is the probability of finding the electron in a thin shell at distance r from the nucleus; the bars are your snapshots. Orbital shapes shown are for a hydrogen-like atom.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Watch a 1s cloud build. Where do the dots pile up? <button type="button" class="btn link" data-show='[["#or-sel","1s"],["#or-set",false],["click","#or-again"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The cloud is densest near the center, but the graph below peaks at 1 a₀ (0.53 Å), not at the nucleus: the volume of a thin shell grows as r², and that beats the falling density. 90% of the time the electron is within about 2.7 a₀.</p></details></li>
+        <li><p>Compare 1s, 2s and 3s. How do the sizes and node counts change? <button type="button" class="btn link" data-show='[["#or-sel","2s"],["#or-set",false]]'>2s</button> <button type="button" class="btn link" data-show='[["#or-sel","3s"],["#or-set",false]]'>3s</button></p><details><summary>What you should see</summary><p>Each step up a shell makes the orbital larger and adds one radial node: a spherical surface where the electron is never found (the gap in the cloud and the dashed lines on the graph). The count is n − ℓ − 1.</p></details></li>
+        <li><p>Show a whole p subshell: three dumbbells, one on each axis. <button type="button" class="btn link" data-show='[["#or-sel","2pz"],["#or-set",true]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The three p orbitals point along x, y and z, at right angles to each other. They have the same energy in an atom. Each has one angular node: the plane through the nucleus perpendicular to its lobes.</p></details></li>
+        <li><p>Compare the five d orbitals. <button type="button" class="btn link" data-show='[["#or-sel","3dz2"],["#or-set",true]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Four of the d orbitals are four-lobed clovers (they differ only in orientation); d<sub>z²</sub> is two lobes with a donut around the middle. d orbitals have two angular nodes.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How many radial and angular nodes does a 3p orbital have, and how many orbitals are in the n = 3 shell?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Identify n and ℓ.</b> 3p means n = 3 and ℓ = 1 (s = 0, p = 1, d = 2).</li>
+          <li hidden><b>Angular nodes.</b> The number of angular nodes equals ℓ, so a 3p orbital has <b>1</b>.</li>
+          <li hidden><b>Radial nodes.</b> n − ℓ − 1 = 3 − 1 − 1 = <b>1</b>.</li>
+          <li hidden><b>Count the orbitals in the shell.</b> n = 3 has subshells 3s (1 orbital), 3p (3) and 3d (5): 1 + 3 + 5 = <b>9</b> orbitals, which is n². With two electrons per orbital, the shell holds 18.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Picturing the electron as a planet circling the nucleus on a flat track. An orbital is a 3D probability map.</li>
+        <li>Thinking the outline of an orbital is a wall. It is just the surface inside which the electron spends most (say 90%) of its time.</li>
+        <li>Thinking the p orbital's two lobes are two electrons. One electron (or a pair) is spread over the whole dumbbell.</li>
+        <li>Confusing the plus and minus signs of the lobes with electric charge. They are the sign of the wavefunction, which matters for bonding but isn't a charge.</li>
+        <li>Mixing up radial and angular nodes: radial nodes are spheres (n − ℓ − 1); angular nodes are planes or cones through the nucleus (ℓ).</li>
+      </ul></div>
+      <div class="prose"><h2>Quantum numbers in one place</h2>
+        <p>Three quantum numbers name an orbital. <b>n</b> (1, 2, 3 …) sets size and energy. <b>ℓ</b> (0 to n − 1) sets the shape: s, p, d, f. <b>m<sub>ℓ</sub></b> (from −ℓ to +ℓ) sets the orientation, so a subshell has 2ℓ + 1 orbitals. A fourth number, the spin <b>m<sub>s</sub></b> (±½), tells which of the two electrons in an orbital you mean.</p>
+        <p>Nodes tell you the shape without the picture: total nodes = n − 1; angular nodes = ℓ; radial nodes = n − ℓ − 1.</p></div>
+      <div class="quiz" data-correct="1" data-explain="A 3p orbital has n − ℓ − 1 = 3 − 1 − 1 = 1 radial node and ℓ = 1 angular node, for 2 nodes in total (n − 1).">
+        <p class="q">Check yourself: how many nodes in total does a 3p orbital have?</p>
+        <div class="opts"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">0</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-trends" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Periodic trends &amp; Coulomb's law</h1>
+        <p class="lede">Atomic size, ionization energy and electronegativity all come from one question: how hard does the nucleus pull on the outermost electron, and how far away is that electron?</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Opposite charges attract, and the pull falls off fast with distance: <b>Coulomb's law</b> says the force is proportional to the product of the charges and inversely proportional to the distance squared. Double the distance and the pull drops to a quarter; double one charge and it doubles.</p>
+        <p>An outer electron feels the nucleus's positive charge, but the inner (core) electrons cancel part of it. That leaves an <b>effective nuclear charge</b>, roughly the number of protons minus the number of core electrons. Moving across a period, protons are added but the electrons go into the same shell, so the pull grows and the atom shrinks. Moving down a group, a whole new shell is added, so the outer electron is much farther away and the atom grows.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span><i>F</i> ∝ <i>q</i><sub>1</sub><i>q</i><sub>2</sub> / <i>r</i>²</span><small>Coulomb's law</small></div><div class="eqn"><span><i>Z</i><sub>eff</sub> ≈ <i>Z</i> − core electrons</span><small>simple shielding</small></div></div>
+      <div class="lab" id="tr-lab1">
+        <div class="labbar"><span class="title">Coulomb's law</span></div>
+        <canvas id="tr-cl" aria-label="A positive and a negative charge with arrows for the attractive force; drag the negative charge to change the distance"></canvas>
+        <div class="controls">
+          <div class="ctl"><label for="tr-q1"><span>Positive charge (protons)</span> <output id="tr-q1-out"></output></label><input type="range" id="tr-q1" min="1" max="6" step="1" value="1"></div>
+          <div class="ctl"><label for="tr-q2"><span>Negative charge (electrons)</span> <output id="tr-q2-out"></output></label><input type="range" id="tr-q2" min="1" max="3" step="1" value="1"></div>
+          <div class="ctl"><label for="tr-r"><span>Distance r</span> <output id="tr-r-out"></output></label><input type="range" id="tr-r" min="1" max="6" step="0.25" value="3"></div>
+        </div>
+        <div class="readout"><div><span>Force (relative)</span><strong class="hot" id="tr-f">—</strong></div><div><span>vs the starting setup</span><strong id="tr-fx" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="tr-lab2">
+        <div class="labbar"><span class="title">Trend explorer</span><div class="seg" id="tr-prop" role="group" aria-label="Property"><button type="button" data-k="r" aria-pressed="true">Atomic radius</button><button type="button" data-k="ie" aria-pressed="false">Ionization energy</button><button type="button" data-k="en" aria-pressed="false">Electronegativity</button></div></div>
+        <div class="controls"><div class="ctl"><label for="tr-i"><span>Element</span> <output id="tr-i-out"></output></label><input type="range" id="tr-i" min="0" max="20" step="1" value="5"></div></div>
+        <div class="split"><div><canvas id="tr-chart" aria-label="Graph of the chosen property against atomic number for main-group elements in periods 2 to 4. Tap a point to choose an element."></canvas></div><div><canvas id="tr-atom" aria-label="Picture of the chosen atom: nucleus, core electrons, and the outer electron with an arrow for the pull of the nucleus"></canvas></div></div>
+        <div class="readout"><div><span>Element</span><strong class="x" id="tr-el">—</strong></div><div><span id="tr-vl">Value</span><strong class="hot" id="tr-v">—</strong></div><div><span>Core electrons</span><strong id="tr-core">—</strong></div><div><span>Z<sub>eff</sub> ≈ Z − core</span><strong class="v" id="tr-zeff">—</strong></div><div><span>Shell of the outer electron</span><strong id="tr-n">—</strong></div></div>
+        <p class="small" style="margin:0">Radius is the covalent radius in pm. Transition metals and noble gases are left out so that the trends are clean. Lines connect elements in the same period.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Double the distance between the charges. What happens to the force? <button type="button" class="btn link" data-show='[["#tr-q1",1],["#tr-q2",1],["#tr-r",3]]'>Start at r = 3</button> <button type="button" class="btn link" data-show='[["#tr-q1",1],["#tr-q2",1],["#tr-r",6]]'>Double to r = 6</button></p><details><summary>What you should see</summary><p>The force falls to one quarter: double the distance, ¼ the force (inverse square).</p></details></li>
+        <li><p>Go across period 2 from lithium to fluorine on the radius graph. <button type="button" class="btn link" data-show='[["click","#tr-prop button[data-k=r]"],["#tr-i",0]]'>Lithium</button> <button type="button" class="btn link" data-show='[["#tr-i",6]]'>Fluorine</button></p><details><summary>What you should see</summary><p>The atom shrinks from 128 pm to 57 pm. Z<sub>eff</sub> climbs from 1 to 7 while the outer electron stays in shell 2, so the nucleus pulls harder on electrons at about the same distance.</p></details></li>
+        <li><p>Go down group 1: lithium, sodium, potassium. <button type="button" class="btn link" data-show='[["#tr-i",0]]'>Li</button> <button type="button" class="btn link" data-show='[["#tr-i",7]]'>Na</button> <button type="button" class="btn link" data-show='[["#tr-i",14]]'>K</button></p><details><summary>What you should see</summary><p>Z<sub>eff</sub> stays at 1 but the atom grows because each step adds a shell. The outer electron is farther from the nucleus, so it is easier to remove: check the ionization-energy graph.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Explain why the first ionization energy of sodium (496 kJ/mol) is much lower than that of neon (2081 kJ/mol).</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Compare the outer electrons.</b> Neon's outer electron is in shell 2; sodium's is in shell 3 (3s¹).</li>
+          <li hidden><b>Compare the pull.</b> Neon: Z = 10, core = 2, Z<sub>eff</sub> ≈ 8. Sodium: Z = 11, core = 10, Z<sub>eff</sub> ≈ 1.</li>
+          <li hidden><b>Compare the distance.</b> Sodium's outer electron is in a larger shell, so it is farther from the nucleus than neon's.</li>
+          <li hidden><b>Use Coulomb's law.</b> Neon's outer electron is closer to a much stronger effective charge, so the attraction is much greater and more energy is needed to remove it. Sodium's is held weakly, so its ionization energy is low.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying "more protons means a bigger pull" without noticing the core electrons cancel most of it when you move down a group.</li>
+        <li>Answering with only "it is farther away". A full answer names both the charge felt (Z<sub>eff</sub>) and the distance (shell).</li>
+        <li>Thinking atoms get bigger across a period because they have more electrons. The electrons go into the same shell and the stronger pull wins.</li>
+        <li>Forgetting the small dips: first ionization energy drops from Be to B and from N to O, because of subshell and electron-pairing effects.</li>
+        <li>Mixing up atomic radius (shrinks across) with ionic radius (cations are smaller than their atoms; anions are larger).</li>
+      </ul></div>
+      <div class="prose"><h2>Summary of the trends</h2>
+        <p>Across a period (left to right): Z<sub>eff</sub> goes up, atomic radius goes down, first ionization energy generally goes up, electronegativity goes up. Down a group: the outer electron is in a larger shell, so radius goes up, ionization energy goes down, and electronegativity goes down.</p>
+        <p>Cations are smaller than their parent atoms (fewer electrons, and often a whole shell is gone, so the same nuclear pull is shared by fewer electrons). Anions are larger (more electrons repel each other while the nuclear pull is unchanged).</p></div>
+      <div class="quiz" data-correct="0" data-explain="Chlorine and sulfur are in the same period (shell 3), but chlorine has two more protons pulling on electrons in the same shell: higher Z_eff, smaller radius, so a smaller atom than sulfur. Bromine is a period lower, so it is larger.">
+        <p class="q">Check yourself: which atom is the smallest?</p>
+        <div class="opts"><button type="button">Cl</button><button type="button">S</button><button type="button">Br</button><button type="button">Se</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-vsepr" hidden>
     <div class="wrap">
       <div class="head">
@@ -1589,8 +1754,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition"], "soon": ["pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"], "soon": ["bonding", "lewis", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["vsepr"], "soon": ["bonding", "lewis", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": [], "soon": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -1720,6 +1885,175 @@ function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=
 const SUBD='₀₁₂₃₄₅₆₇₈₉';
 const fsub=f=>String(f).replace(/(\d+)/g,d=>[...d].map(c=>SUBD[c]).join(''));
 const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+
+/* ---------------- Hydrogen-like orbitals: radial distribution and Monte Carlo snapshots (lengths in Bohr radii a0) ---------------- */
+const ORB_R={ /* radial functions up to a constant factor */
+  '1s':r=>Math.exp(-r),'2s':r=>(2-r)*Math.exp(-r/2),'2p':r=>r*Math.exp(-r/2),
+  '3s':r=>(27-18*r+2*r*r)*Math.exp(-r/3),'3p':r=>r*(1-r/6)*Math.exp(-r/3),'3d':r=>r*r*Math.exp(-r/3)};
+const ORB_Y={ /* angular functions (unnormalized, real forms) and their maximum of Y² on the unit sphere */
+  s:{f:()=>1,m:1},px:{f:(x)=>x,m:1},py:{f:(x,y)=>y,m:1},pz:{f:(x,y,z)=>z,m:1},
+  dz2:{f:(x,y,z)=>3*z*z-1,m:4},dx2y2:{f:(x,y)=>x*x-y*y,m:1},dxy:{f:(x,y)=>x*y,m:.25},dxz:{f:(x,y,z)=>x*z,m:.25},dyz:{f:(x,y,z)=>y*z,m:.25}};
+function orbitalModel(nl,ang,rmax){
+  const R=ORB_R[nl],N=1200,dr=rmax/N,P=[],cdf=[0];let tot=0;
+  for(let i=0;i<=N;i++){const r=i*dr,v=r*r*R(r)*R(r);P.push(v);}
+  for(let i=1;i<=N;i++){tot+=(P[i-1]+P[i])/2*dr;cdf.push(tot);}
+  const peak=P.indexOf(Math.max(...P))*dr;
+  const at=q=>{let lo=0,hi=N;const t=q*tot;while(hi-lo>1){const m=(lo+hi)>>1;if(cdf[m]<t)lo=m;else hi=m;}return lo*dr;};
+  const nodes=[];for(let i=1;i<=N;i++){const a=R((i-1)*dr),b=R(i*dr);if((a>0&&b<=0)||(a<0&&b>=0))nodes.push(i*dr);}
+  const Y=ORB_Y[ang];
+  function sample(n){const out=[];while(out.length<n){const r=at(Math.random());
+    let x,y,z,f;for(let k=0;k<200;k++){const u=Math.random()*2-1,ph=Math.random()*6.2832,s=Math.sqrt(1-u*u);x=s*Math.cos(ph);y=s*Math.sin(ph);z=u;f=Y.f(x,y,z);if(Math.random()<f*f/Y.m)break;}
+    const sign=(R(r)<0?-1:1)*(Y.f(x,y,z)<0?-1:1);out.push({p:[x*r,y*r,z*r],r,sign});}return out;}
+  return {peak,r90:at(.9),nodes,sample,tot};}
+
+/* ===== data/elements.js ===== */
+
+/* ---------------- Periodic table data ----------------
+   Z|symbol|name|atomic mass (u; bracketed = mass number of the longest-lived isotope)|Pauling electronegativity (blank = none/unknown)|common ions */
+const ELEMENT_ROWS=`1|H|Hydrogen|1.008|2.20|H⁺, H⁻
+2|He|Helium|4.003||
+3|Li|Lithium|6.94|0.98|Li⁺
+4|Be|Beryllium|9.012|1.57|Be²⁺
+5|B|Boron|10.81|2.04|
+6|C|Carbon|12.011|2.55|
+7|N|Nitrogen|14.007|3.04|N³⁻
+8|O|Oxygen|15.999|3.44|O²⁻
+9|F|Fluorine|18.998|3.98|F⁻
+10|Ne|Neon|20.180||
+11|Na|Sodium|22.990|0.93|Na⁺
+12|Mg|Magnesium|24.305|1.31|Mg²⁺
+13|Al|Aluminum|26.982|1.61|Al³⁺
+14|Si|Silicon|28.085|1.90|
+15|P|Phosphorus|30.974|2.19|P³⁻
+16|S|Sulfur|32.06|2.58|S²⁻
+17|Cl|Chlorine|35.45|3.16|Cl⁻
+18|Ar|Argon|39.948||
+19|K|Potassium|39.098|0.82|K⁺
+20|Ca|Calcium|40.078|1.00|Ca²⁺
+21|Sc|Scandium|44.956|1.36|Sc³⁺
+22|Ti|Titanium|47.867|1.54|Ti⁴⁺, Ti³⁺
+23|V|Vanadium|50.942|1.63|V²⁺, V³⁺
+24|Cr|Chromium|51.996|1.66|Cr³⁺, Cr²⁺
+25|Mn|Manganese|54.938|1.55|Mn²⁺
+26|Fe|Iron|55.845|1.83|Fe²⁺, Fe³⁺
+27|Co|Cobalt|58.933|1.88|Co²⁺, Co³⁺
+28|Ni|Nickel|58.693|1.91|Ni²⁺
+29|Cu|Copper|63.546|1.90|Cu²⁺, Cu⁺
+30|Zn|Zinc|65.38|1.65|Zn²⁺
+31|Ga|Gallium|69.723|1.81|Ga³⁺
+32|Ge|Germanium|72.630|2.01|
+33|As|Arsenic|74.922|2.18|As³⁻
+34|Se|Selenium|78.971|2.55|Se²⁻
+35|Br|Bromine|79.904|2.96|Br⁻
+36|Kr|Krypton|83.798|3.00|
+37|Rb|Rubidium|85.468|0.82|Rb⁺
+38|Sr|Strontium|87.62|0.95|Sr²⁺
+39|Y|Yttrium|88.906|1.22|Y³⁺
+40|Zr|Zirconium|91.224|1.33|Zr⁴⁺
+41|Nb|Niobium|92.906|1.6|
+42|Mo|Molybdenum|95.95|2.16|
+43|Tc|Technetium|[98]|1.9|
+44|Ru|Ruthenium|101.07|2.2|
+45|Rh|Rhodium|102.91|2.28|
+46|Pd|Palladium|106.42|2.20|Pd²⁺
+47|Ag|Silver|107.87|1.93|Ag⁺
+48|Cd|Cadmium|112.41|1.69|Cd²⁺
+49|In|Indium|114.82|1.78|In³⁺
+50|Sn|Tin|118.71|1.96|Sn²⁺, Sn⁴⁺
+51|Sb|Antimony|121.76|2.05|
+52|Te|Tellurium|127.60|2.1|Te²⁻
+53|I|Iodine|126.90|2.66|I⁻
+54|Xe|Xenon|131.29|2.60|
+55|Cs|Cesium|132.91|0.79|Cs⁺
+56|Ba|Barium|137.33|0.89|Ba²⁺
+57|La|Lanthanum|138.91|1.10|La³⁺
+58|Ce|Cerium|140.12|1.12|Ce³⁺, Ce⁴⁺
+59|Pr|Praseodymium|140.91|1.13|Pr³⁺
+60|Nd|Neodymium|144.24|1.14|Nd³⁺
+61|Pm|Promethium|[145]|1.13|Pm³⁺
+62|Sm|Samarium|150.36|1.17|Sm³⁺
+63|Eu|Europium|151.96|1.2|Eu³⁺, Eu²⁺
+64|Gd|Gadolinium|157.25|1.2|Gd³⁺
+65|Tb|Terbium|158.93|1.1|Tb³⁺
+66|Dy|Dysprosium|162.50|1.22|Dy³⁺
+67|Ho|Holmium|164.93|1.23|Ho³⁺
+68|Er|Erbium|167.26|1.24|Er³⁺
+69|Tm|Thulium|168.93|1.25|Tm³⁺
+70|Yb|Ytterbium|173.05|1.1|Yb³⁺, Yb²⁺
+71|Lu|Lutetium|174.97|1.27|Lu³⁺
+72|Hf|Hafnium|178.49|1.3|Hf⁴⁺
+73|Ta|Tantalum|180.95|1.5|
+74|W|Tungsten|183.84|2.36|
+75|Re|Rhenium|186.21|1.9|
+76|Os|Osmium|190.23|2.2|
+77|Ir|Iridium|192.22|2.20|
+78|Pt|Platinum|195.08|2.28|Pt²⁺, Pt⁴⁺
+79|Au|Gold|196.97|2.54|Au⁺, Au³⁺
+80|Hg|Mercury|200.59|2.00|Hg²⁺, Hg₂²⁺
+81|Tl|Thallium|204.38|1.62|Tl⁺, Tl³⁺
+82|Pb|Lead|207.2|1.87|Pb²⁺, Pb⁴⁺
+83|Bi|Bismuth|208.98|2.02|Bi³⁺
+84|Po|Polonium|[209]|2.0|
+85|At|Astatine|[210]|2.2|
+86|Rn|Radon|[222]|2.2|
+87|Fr|Francium|[223]|0.7|Fr⁺
+88|Ra|Radium|[226]|0.9|Ra²⁺
+89|Ac|Actinium|[227]|1.1|Ac³⁺
+90|Th|Thorium|232.04|1.3|Th⁴⁺
+91|Pa|Protactinium|231.04|1.5|
+92|U|Uranium|238.03|1.38|
+93|Np|Neptunium|[237]|1.36|
+94|Pu|Plutonium|[244]|1.28|
+95|Am|Americium|[243]|1.13|
+96|Cm|Curium|[247]|1.28|
+97|Bk|Berkelium|[247]|1.3|
+98|Cf|Californium|[251]|1.3|
+99|Es|Einsteinium|[252]||
+100|Fm|Fermium|[257]||
+101|Md|Mendelevium|[258]||
+102|No|Nobelium|[259]||
+103|Lr|Lawrencium|[266]||
+104|Rf|Rutherfordium|[267]||
+105|Db|Dubnium|[268]||
+106|Sg|Seaborgium|[269]||
+107|Bh|Bohrium|[270]||
+108|Hs|Hassium|[277]||
+109|Mt|Meitnerium|[278]||
+110|Ds|Darmstadtium|[281]||
+111|Rg|Roentgenium|[282]||
+112|Cn|Copernicium|[285]||
+113|Nh|Nihonium|[286]||
+114|Fl|Flerovium|[289]||
+115|Mc|Moscovium|[290]||
+116|Lv|Livermorium|[293]||
+117|Ts|Tennessine|[294]||
+118|Og|Oganesson|[294]||`;
+/* Ground-state electron configurations: fill in Madelung (aufbau) order, then apply the known exceptions. Z ≥ 103 are predicted. */
+const ELEMENTS=(()=>{
+  const ORB=[['1s',2],['2s',2],['2p',6],['3s',2],['3p',6],['4s',2],['3d',10],['4p',6],['5s',2],['4d',10],['5p',6],['6s',2],['4f',14],['5d',10],['6p',6],['7s',2],['5f',14],['6d',10],['7p',6]];
+  const EXC={24:{'4s':1,'3d':5},29:{'4s':1,'3d':10},41:{'5s':1,'4d':4},42:{'5s':1,'4d':5},44:{'5s':1,'4d':7},45:{'5s':1,'4d':8},46:{'5s':0,'4d':10},47:{'5s':1,'4d':10},
+    57:{'4f':0,'5d':1},58:{'4f':1,'5d':1},64:{'4f':7,'5d':1},78:{'6s':1,'5d':9},79:{'6s':1,'5d':10},89:{'5f':0,'6d':1},90:{'5f':0,'6d':2},91:{'5f':2,'6d':1},92:{'5f':3,'6d':1},93:{'5f':4,'6d':1},96:{'5f':7,'6d':1},103:{'6d':0,'7p':1},111:{'7s':1,'6d':10}};
+  const NOBLE=[2,10,18,36,54,86],SYM={2:'He',10:'Ne',18:'Ar',36:'Kr',54:'Xe',86:'Rn'};
+  const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹',sup=n=>String(n).split('').map(d=>SUPD[d]).join('');
+  function occupancy(Z){let left=Z;const o=ORB.map(([n,c])=>{const k=Math.min(c,left);left-=k;return [n,k];});const ex=EXC[Z];if(ex)o.forEach(a=>{if(a[0] in ex)a[1]=ex[a[0]];});return o;}
+  function config(Z){const occ=occupancy(Z);const core=NOBLE.filter(n=>n<Z).pop();let skip=0,pre='';
+    if(core){pre='['+SYM[core]+'] ';const oc=occupancy(core);skip=oc.filter(a=>a[1]>0).length;/* orbitals already full in the core */}
+    const coreOcc=core?occupancy(core):[];const rest=occ.filter((a,i)=>a[1]>0&&!(core&&coreOcc[i][1]===a[1]&&coreOcc[i][1]>0));
+    return pre+rest.map(a=>a[0]+sup(a[1])).join(' ');}
+  /* position in the 18-column table */
+  function pos(Z){if(Z===1)return [1,1];if(Z===2)return [1,18];
+    const per=Z<=10?2:Z<=18?3:Z<=36?4:Z<=54?5:Z<=86?6:7,first=[0,1,3,11,19,37,55,87][per],off=Z-first;
+    if(per<=3)return [per,off<2?off+1:off+11];
+    if(per<=5)return [per,off+1];
+    if(Z>=57&&Z<=71)return [9,Z-57+3];if(Z>=89&&Z<=103)return [10,Z-89+3];
+    if(per===6)return [6,off<2?off+1:Z-72+4];return [7,off<2?off+1:Z-104+4];}
+  function cat(Z,r,g){if(Z>=109)return 'unknown';if(Z===1)return 'nonmetal';if([2,10,18,36,54,86].includes(Z))return 'noble gas';if(r===9)return 'lanthanide';if(r===10)return 'actinide';
+    if(g===1)return 'alkali metal';if(g===2)return 'alkaline earth metal';if(g===17)return 'halogen';
+    if([5,14,32,33,51,52].includes(Z))return 'metalloid';if(g>=3&&g<=12)return 'transition metal';
+    if([13,31,49,50,81,82,83,84].includes(Z))return 'post-transition metal';if([6,7,8,15,16,34].includes(Z))return 'nonmetal';return 'post-transition metal';}
+  return ELEMENT_ROWS.split('\n').map(l=>{const [z,s,n,m,en,ions]=l.split('|'),Z=+z,[r,g]=pos(Z);
+    return {Z,sym:s,name:n,mass:m,en:en?+en:null,ions:ions||'',cfg:config(Z),row:r,col:g,cat:cat(Z,r,g),group:(r>=9)?null:g,period:r>=9?(r===9?6:7):r,pred:Z>=103};});
+})();
 
 /* ===== modules/units.js ===== */
 
@@ -2179,6 +2513,231 @@ const formulaStr=(els,nums)=>els.map((e,i)=>e+(nums[i]>1?nums[i]:'')).join('');
       sol:`Empirical formula mass = ${d.Me.toFixed(2)} g/mol. ${M} ÷ ${d.Me.toFixed(2)} = ${(M/d.Me).toFixed(2)} ≈ ${d.n}, so the molecular formula is <b>${fsub(formulaStr(d.els,d.whole.map(w=>w*d.n)))}</b>.`};}});
 })();
 
+/* ===== modules/pes.js ===== */
+
+/* ---------------- Electron configuration & PES ---------------- */
+const PES_DATA={1:[1.31],2:[2.37],3:[6.26,.52],4:[11.5,.90],5:[19.3,1.36,.80],6:[28.1,1.72,1.09],7:[39.6,2.45,1.40],8:[52.6,3.12,1.31],9:[67.2,3.88,1.68],10:[84.0,4.68,2.08],
+  11:[104,6.84,3.67,.496],12:[126,9.07,5.31,.738],13:[151,12.1,7.19,1.09,.578],14:[178,15.1,10.2,1.46,.786],15:[208,19.7,14.5,1.95,1.06],16:[239,23.9,17.4,2.05,1.00],17:[273,26.8,20.2,2.38,1.25],18:[310,31.5,24.1,2.82,1.52]};
+const PES_SUB=[['1s',2,1],['2s',2,1],['2p',6,3],['3s',2,1],['3p',6,3]];/* name, capacity, boxes */
+function pesShells(Z){let left=Z;const out=[];PES_SUB.forEach(([n,cap,boxes],i)=>{if(left<=0)return;const k=Math.min(cap,left);left-=k;out.push({n,k,cap,boxes,E:PES_DATA[Z][i]});});return out;}
+/* Hund's rule: electrons per box, first one up in each box, then pair */
+const pesCfgStr=z=>pesShells(z).map(s=>s.n+String(s.k).split('').map(c=>SUP[c]).join('')).join(' ');
+function pesBoxes(k,boxes){const b=Array(boxes).fill(0);for(let i=0;i<k;i++)b[i%boxes]++;return b;}
+(function pes(){
+  const cvA=$('#pe-atom'),cvS=$('#pe-spec'),cvB=$('#pe-box');if(!cvA)return;
+  let Z=8,lastZ=8,tAdd=-9,play=false,pt=0;
+  const cfgStr=pesCfgStr;
+  const SHELLS=n=>{const s=pesShells(Z),o=[0,0,0];s.forEach(x=>{o[+x.n[0]-1]+=x.k;});return o;};
+  const TILT=[[0,0],[.65,.5],[-.6,1.6]];
+  const v3=view3d(cvA,{yaw:-.7,pitch:.45,dist:8.2,target:[0,0,0],min:4,max:16,height:w=>clamp(w*.8,260,340),scene:(S,t)=>{
+    const tt=t==null?0:t,sh=SHELLS();const age=tt-tAdd;
+    [1,2,3].forEach((n,i)=>{const N=sh[i];if(!N)return;const r=.85*n+(n===3?.15:0);const [tx,ty]=TILT[i];
+      const rot=p=>{/* tilt the orbit plane about x by tx then z by ty */let [x,y,z]=p;let y1=y*Math.cos(tx)-z*Math.sin(tx),z1=y*Math.sin(tx)+z*Math.cos(tx);return [x*Math.cos(ty)-y1*Math.sin(ty),x*Math.sin(ty)+y1*Math.cos(ty),z1];};
+      const ring=Array.from({length:49},(_,k)=>rot([r*Math.cos(k/48*6.2832),r*Math.sin(k/48*6.2832),0]));S.path(ring,T.line,1.3,null,undefined);
+      for(let e=0;e<N;e++){const th=(tt*(1.6/n**1.3))+e/N*6.2832;const isNew=Z>lastZ&&e===N-1&&sh.slice(0,i).reduce((a,b)=>a+b,0)+N===Z;
+        const pos=rot([r*Math.cos(th),r*Math.sin(th),0]);S.ball(pos,.13*(isNew&&age<1?1+1.2*(1-age):1),T.ce,1,false);}});
+    S.atom([0,0,0],.45,T.hot);S.text([0,0,.95],'+'+Z,T.hot,'600 13px "IBM Plex Mono",monospace');}});
+  const simS=sim2d(cvS,{h:()=>clamp(cvS.clientWidth*.8,260,340),draw(ctx,w,h,t){const sh=pesShells(Z),bx=14,bw=w-bx-14,bot=h-44,top=22,H=bot-top;
+      const L=v=>Math.log10(v),lo=L(.35),hi=L(450),X=E=>bx+(hi-L(E))/(hi-lo)*bw;
+      ctx.strokeStyle=T.line;ctx.lineWidth=1;ctx.fillStyle=T.muted;ctx.font=MONO;ctx.textAlign='center';ctx.textBaseline='top';
+      [.5,1,2,5,10,20,50,100,200,400].forEach(E=>{const x=Math.round(X(E))+.5;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bot);ctx.stroke();ctx.fillText(E,x,bot+5);});
+      ctx.strokeStyle=T.ink;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(bx,bot+.5);ctx.lineTo(bx+bw,bot+.5);ctx.stroke();
+      label(ctx,'binding energy (MJ/mol), high → low',bx+bw/2,h-14,T.muted,'center','middle',MONO);
+      const cols=[T.cx,T.hot,T.cv,T.ca,T.ce];
+      sh.forEach((s,i)=>{const x=X(s.E),pk=s.k/6,hh=Math.max(.14,pk)*H*.92*Math.min(1,(t-0)*0+1);
+        ctx.fillStyle=alpha(cols[i],.9);ctx.beginPath();ctx.moveTo(x-5,bot);ctx.lineTo(x-2.2,bot-hh+5);ctx.quadraticCurveTo(x,bot-hh-3,x+2.2,bot-hh+5);ctx.lineTo(x+5,bot);ctx.fill();
+        label(ctx,s.n,x,bot-hh-16,cols[i],'center','bottom','700 13px "IBM Plex Sans",sans-serif');label(ctx,String(s.k),x,bot-hh-3,T.ink,'center','bottom',MONO);});}});
+  const simB=sim2d(cvB,{h:()=>86,draw(ctx,w,h,t){const sh=pesShells(Z);const items=PES_SUB.map((p,i)=>({p,s:sh[i]}));const boxW=30,gap=8;let total=0;PES_SUB.forEach(p=>total+=p[2]*boxW+gap*2);let x=Math.max(8,(w-total)/2);
+      items.forEach(({p,s})=>{const [n,cap,bx]=p;const occ=s?pesBoxes(s.k,bx):Array(bx).fill(0);
+        for(let b=0;b<bx;b++){const bxp=x+b*boxW;ctx.strokeStyle=s?T.ink:T.line;ctx.lineWidth=1.6;ctx.strokeRect(bxp+.5,22.5,boxW-4,34);
+          ctx.fillStyle=T.ce;ctx.font='600 20px "IBM Plex Sans",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+          if(occ[b]>=1)ctx.fillText('↑',bxp+(boxW-4)/2-(occ[b]===2?5:0),40);if(occ[b]===2)ctx.fillText('↓',bxp+(boxW-4)/2+5,40);}
+        label(ctx,n,x+(bx*boxW-4)/2,70,s?T.ink:T.muted,'center','middle','600 13px "IBM Plex Mono",monospace');x+=bx*boxW+gap*2;});}});
+  drawers.pes=()=>{v3.render();simS.render();simB.render();};
+  function upd(){const sh=pesShells(Z),boxes=sh.reduce((a,s)=>a.concat(pesBoxes(s.k,s.boxes)),[]),un=boxes.filter(x=>x===1).length;
+    setText('pe-el',`${ELEMENTS[Z-1].name} (${ELEMENTS[Z-1].sym})`);setText('pe-cfg',cfgStr(Z));setText('pe-np',sh.length);setText('pe-un',un);setText('pe-ie',String(sh[sh.length-1].E));drawers.pes();}
+  bindRange('pe-z',x=>x,x=>{lastZ=Z;Z=x;if(Z>lastZ)tAdd=(v3.t||performance.now()/1000);upd();},false);
+  $('#pe-play').addEventListener('click',()=>{play=!play;$('#pe-play').textContent=play?'Pause':'Build up the table';if(play&&Z>=18){$('#pe-z').value=1;$('#pe-z').dispatchEvent(new Event('input',{bubbles:true}));}});
+  setInterval(()=>{if(!play||document.hidden||current!=='pes')return;const el=$('#pe-z');if(+el.value>=18){play=false;$('#pe-play').textContent='Build up the table';return;}el.value=+el.value+1;el.dispatchEvent(new Event('input',{bubbles:true}));},1400);
+  $('#pe-z-out').textContent=Z;upd();
+  TIPS['pe-z']=el=>{const z=+el.value,s=pesShells(z);const l=s[s.length-1];return `${ELEMENTS[z-1].name}: ${cfgStr(z)}. The last electron went into ${l.n}. In the PES, that subshell is the peak farthest to the right.`;};
+  KEYS['pe-spec']=['Slide Z and watch peaks appear and shift left.',[['cx','1s'],['hot','2s'],['cv','2p'],['ca','3s'],['ce','3p']]];
+  GLOSS['electron configuration']='Which subshells hold the electrons of an atom, such as 1s² 2s² 2p⁴.';
+  GLOSS['subshell']='A group of equal-energy orbitals within a shell: s (1 orbital), p (3), d (5).';
+  GLOSS['binding energy']='The energy needed to remove an electron from the atom.';
+  TT.pes='Cover the configuration and ask students to read it off the spectrum. The two common mistakes are reading height as energy and forgetting that the axis runs high to low.';
+})();
+(function(){
+  const cfgStr=pesCfgStr;
+  const NAMES=[null,'H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar'];
+  PROBS.push({id:'pes-which',topic:'pes',title:'Which element has this PES?',gen(){const Z=ri(5,18),sh=pesShells(Z),opts=[Z];[Z-1,Z+1,Z+2,Z-2].forEach(z=>{if(z>=3&&z<=18&&opts.length<4&&!opts.includes(z))opts.push(z);});const ch=opts.sort(()=>Math.random()-.5);
+    return {q:`A photoelectron spectrum shows ${sh.length} peaks with relative heights ${sh.map(s=>s.k).join(', ')} (from highest to lowest binding energy). Which element is it?`,choices:ch.map(z=>NAMES[z]),ans:ch.indexOf(Z),hint:'Peak heights are electron counts. Add them to get the number of electrons, which equals the atomic number for a neutral atom.',
+      sol:`${sh.map(s=>s.k).join(' + ')} = ${Z} electrons → Z = ${Z}: <b>${NAMES[Z]}</b> (${cfgStr(Z)}).`};}});
+  PROBS.push({id:'pes-unpaired',topic:'pes',title:'Unpaired electrons',gen(){const Z=ri(3,18),sh=pesShells(Z),un=sh.reduce((a,s)=>a.concat(pesBoxes(s.k,s.boxes)),[]).filter(x=>x===1).length;
+    return {q:`How many unpaired electrons are in a ground-state atom of ${NAMES[Z]} (Z = ${Z})?`,ans:un,unit:'electrons',abs:.01,hint:'Write the configuration, then place the electrons of the outer subshell in boxes using Hund\'s rule: one in each box before pairing.',
+      sol:`${NAMES[Z]}: ${cfgStr(Z)}. The outer subshell has ${sh[sh.length-1].k} electron${sh[sh.length-1].k>1?'s':''} in ${sh[sh.length-1].boxes} box${sh[sh.length-1].boxes>1?'es':''}; by Hund's rule that leaves <b>${un}</b> unpaired.`};}});
+  PROBS.push({id:'pes-compare',topic:'pes',title:'Comparing two spectra',gen(){const a=ri(3,8),b=a+ri(2,9),A=pesShells(a),B=pesShells(b),which=pick(['1s','1s','outermost']);
+    const ch=[`${NAMES[a]}`,`${NAMES[b]}`,'They are equal'],ans=1;
+    const q=which==='1s'?`Which element has its 1s peak at the higher binding energy: ${NAMES[a]} or ${NAMES[b]}?`:`Which has the larger number of peaks? ${NAMES[a]} (${A.length} peaks) or ${NAMES[b]}?`;
+    if(which==='1s')return {q,choices:ch,ans:1,hint:'Both 1s electrons feel only the nucleus and the other 1s electron. Which nucleus has more protons?',sol:`${NAMES[b]} has ${b} protons against ${a} for ${NAMES[a]}, so it pulls its 1s electrons harder: <b>${NAMES[b]}</b>.`};
+    const ans2=B.length>A.length?1:B.length===A.length?2:0,ch2=[`${NAMES[a]} (${A.length} peaks)`,`${NAMES[b]} (${B.length} peaks)`,'They have the same number of peaks'];
+    return {q:`Which has more peaks in its photoelectron spectrum: ${NAMES[a]} or ${NAMES[b]}?`,choices:ch2,ans:ans2,hint:'The number of peaks is the number of occupied subshells.',sol:`${NAMES[a]}: ${cfgStr(a)} (${A.length} subshells). ${NAMES[b]}: ${cfgStr(b)} (${B.length} subshells). <b>${ch2[ans2]}</b>.`};}});
+})();
+
+/* ===== modules/orbitals.js ===== */
+
+/* ---------------- Orbital shapes in 3D ---------------- */
+(function orbitals(){
+  const cv=$('#or-canvas'),cr=$('#or-radial');if(!cv)return;
+  const ORBS=[['1s','1s','s',1,0,'1s'],['2s','2s','s',2,0,'2s'],['2px','2p','px',2,1,'2p<sub>x</sub>'],['2py','2p','py',2,1,'2p<sub>y</sub>'],['2pz','2p','pz',2,1,'2p<sub>z</sub>'],
+    ['3s','3s','s',3,0,'3s'],['3pz','3p','pz',3,1,'3p<sub>z</sub>'],['3dz2','3d','dz2',3,2,'3d<sub>z²</sub>'],['3dx2y2','3d','dx2y2',3,2,'3d<sub>x²−y²</sub>'],['3dxy','3d','dxy',3,2,'3d<sub>xy</sub>'],['3dxz','3d','dxz',3,2,'3d<sub>xz</sub>'],['3dyz','3d','dyz',3,2,'3d<sub>yz</sub>']];
+  const LAB={'1s':'1s','2s':'2s','2px':'2pₓ','2py':'2p_y','2pz':'2p_z','3s':'3s','3pz':'3p_z','3dz2':'3d_z²','3dx2y2':'3d_x²−y²','3dxy':'3d_xy','3dxz':'3d_xz','3dyz':'3d_yz'};
+  const sel=$('#or-sel');sel.innerHTML=ORBS.map(o=>`<option value="${o[0]}">${LAB[o[0]]}</option>`).join('');sel.value='1s';
+  const RMAX={'1s':30,'2s':60,'2p':60,'3s':120,'3p':120,'3d':120},SC=.2;
+  const cache={};const model=(nl,ang)=>cache[nl+ang]||(cache[nl+ang]=orbitalModel(nl,ang,RMAX[nl]));
+  let sets=[],shown=0,cur=ORBS[0],mdl=null,view=null,lobes=false,subset=[];
+  const sub=n=>String(n);
+  function build(){cur=ORBS.find(o=>o[0]===sel.value);const nl=cur[1];lobes=$('#or-set').checked&&cur[4]>0;
+    subset=ORBS.filter(o=>o[1]===nl&&o[3]===cur[3]);const list=[cur];
+    mdl=model(nl,cur[2]);sets=list.map(o=>({o,m:model(o[1],o[2]),pts:model(o[1],o[2]).sample(3000)}));shown=REDUCE?9999:0;
+    const r90=mdl.r90;if(view)view.setHome({dist:Math.max(3.4,r90*SC*3.3+1)});
+    setHTML('or-nl',`${cur[3]}${['s','p','d'][cur[4]]}`);setText('or-rn',cur[3]-cur[4]-1);setText('or-an',cur[4]);setText('or-pk',fmt(mdl.peak,2)+' a₀ ('+fmt(mdl.peak*.529177,2)+' Å)');setText('or-r90',fmt(r90,1)+' a₀ ('+fmt(r90*.529177,1)+' Å)');}
+  const PAL=()=>[T.cx,T.hot,T.cv,T.ca,T.ce];
+  view=view3d(cv,{yaw:-.8,pitch:.4,dist:4,target:[0,0,0],min:1.5,max:30,height:w=>clamp(w*.62,300,440),scene:(S,t)=>{
+    const phase=$('#or-phase').checked&&!lobes,pal=PAL();
+    if(lobes){const L=mdl.peak*SC*1.7,pal5=PAL(),D=(x,y,z)=>V3.norm([x,y,z]);
+      const DIRS={px:[[1,0,0],[-1,0,0]],py:[[0,1,0],[0,-1,0]],pz:[[0,0,1],[0,0,-1]],dz2:[[0,0,1],[0,0,-1]],dx2y2:[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0]],dxy:[D(1,1,0),D(-1,1,0),D(-1,-1,0),D(1,-1,0)],dxz:[D(1,0,1),D(-1,0,1),D(-1,0,-1),D(1,0,-1)],dyz:[D(0,1,1),D(0,-1,1),D(0,-1,-1),D(0,1,-1)]};
+      subset.forEach((o,k)=>{const col=pal5[k%5],ang=o[2],dirs=DIRS[ang]||[],len=ang==='dz2'?L*.95:L,rad=ang[0]==='d'?len*.34:len*.42;
+        dirs.forEach(d=>S.lobe([0,0,0],d,len,rad,col,.62));
+        if(ang==='dz2'){const rg=[];for(let i=0;i<=48;i++){const a=i/48*6.2832;rg.push([Math.cos(a)*L*.5,Math.sin(a)*L*.5,0]);}S.path(rg,alpha(col,.7),9,null,undefined);}
+        S.text(V3.mul(dirs[0]||[0,0,1],len*1.12),LAB[o[0]].replace(/^\d/,''),col,'600 12px "IBM Plex Mono",monospace');});}
+    else sets.forEach((st,si)=>{const n=Math.min(Math.floor(shown),st.pts.length);
+      if(phase){const pos=[],neg=[];for(let i=0;i<n;i++){const q=st.pts[i];(q.sign>0?pos:neg).push(V3.mul(q.p,SC));}S.dots(pos,.016,T.cx,.8);S.dots(neg,.016,T.hot,.8);}
+      else S.dots(st.pts.slice(0,n).map(q=>V3.mul(q.p,SC)),.016,T.cx,.78);
+      if(n>0&&n<st.pts.length){S.ball(V3.mul(st.pts[n-1].p,SC),.05,T.ce,1,false);}});
+    S.atom([0,0,0],.07,T.ink);
+    const L5=5*SC,zb=-(mdl.r90*SC+.4);S.line([-L5/2,0,zb],[L5/2,0,zb],T.ce,3);S.text([0,0,zb-.2],'5 a₀ ≈ 2.6 Å',T.ce,MONO);
+    S.line([-1,0,0].map(v=>v*mdl.r90*SC*1.1),[1,0,0].map(v=>v*mdl.r90*SC*1.1),T.line,1);S.line([0,-1,0].map(v=>v*mdl.r90*SC*1.1),[0,1,0].map(v=>v*mdl.r90*SC*1.1),T.line,1);S.line([0,0,-1].map(v=>v*mdl.r90*SC*1.1),[0,0,1].map(v=>v*mdl.r90*SC*1.1),T.line,1);
+    S.text([mdl.r90*SC*1.15,0,0],'x',T.muted,MONO);S.text([0,mdl.r90*SC*1.15,0],'y',T.muted,MONO);S.text([0,0,mdl.r90*SC*1.15],'z',T.muted,MONO);}});
+  const sim=sim2d(cr,{h:w=>clamp(w*.3,170,230),step(dt){if(shown<9999)shown=Math.min(9999,shown+dt*600);if(shown<9999)view&&view.render();},
+    draw(ctx,w,h){const m=mdl,rp=Math.min(RMAX[cur[1]],m.r90*1.7),bx=44,by=10,bw=w-bx-14,bh=h-44;const dens=r=>{const R=ORB_R[cur[1]](r);return r*r*R*R/m.tot;};
+      let mx=0;for(let r=0;r<=rp;r+=rp/300)mx=Math.max(mx,dens(r));
+      const P=panel(ctx,{x:bx,y:by,w:bw,h:bh},[0,rp],[0,mx*1.18],{xn:6,yn:3,xlabel:'distance r (a₀)',ylabel:'probability density',color:T.ink});
+      /* histogram of the snapshots shown so far */
+      const pts=sets[0].pts,n=Math.min(Math.floor(shown),pts.length),B=48,bw2=rp/B,cnt=Array(B).fill(0);for(let i=0;i<n;i++){const b=Math.floor(pts[i].r/bw2);if(b<B)cnt[b]++;}
+      if(n>0){ctx.fillStyle=alpha(T.ce,.45);cnt.forEach((c,b)=>{const d=c/(n*bw2),y=P.Y(Math.min(d,mx*1.18));ctx.fillRect(P.X(b*bw2),y,P.X(bw2)-P.X(0)-1,bh+by-y);});}
+      area(ctx,P,dens,0,rp,T.cx,.15,300);curve(ctx,P,dens,0,rp,T.cx,2.4,300);
+      m.nodes.forEach(r=>{if(r<rp){line(ctx,P,r,0,r,mx*1.18,T.bad,1.4,[4,4]);label(ctx,'node',P.X(r)+4,by+8,T.bad,'left','top',MONO);}});
+      line(ctx,P,m.peak,0,m.peak,dens(m.peak),T.hot,1.6,[3,3]);dot(ctx,P.X(m.peak),P.Y(dens(m.peak)),4.5,T.hot);label(ctx,'most likely',P.X(m.peak)+8,P.Y(dens(m.peak))+2,T.hot,'left','top',MONO);}});
+  drawers.orbitals=()=>{view.render();sim.render();};
+  function change(){build();view.render();sim.render();}
+  sel.addEventListener('change',change);$('#or-set').addEventListener('change',change);$('#or-phase').addEventListener('change',()=>view.render());
+  $('#or-again').addEventListener('click',()=>{sets.forEach(st=>st.pts=st.m.sample(st.pts.length));shown=REDUCE?9999:0;view.render();});$('#or-all').addEventListener('click',()=>{shown=9999;view.render();sim.render();});
+  build();
+  TIPS['or-sel']=el=>({'1s':'1s: a ball, densest at the center, most likely at 1 a₀ (the Bohr radius).','2s':'2s: bigger, with one spherical node (a gap in the cloud).','3s':'3s: bigger again, with two radial nodes.','2px':'p orbitals have two lobes with a plane node between them.','2py':'p orbitals have two lobes with a plane node between them.','2pz':'p orbitals have two lobes with a plane node between them.','3pz':'3p has two lobes and also one radial node.'})[el.value]||'d orbitals have two angular nodes: four lobes (or two lobes and a donut for d_z²).';
+  TIPS['or-set']='Boundary surfaces: each lobe encloses the region where the electron is found most of the time. The orbitals of a subshell have the same energy.';
+  TIPS['or-phase']='Blue and orange are the two signs of the wavefunction. They are not electric charges, but they decide how orbitals combine when atoms bond.';
+  KEYS['or-canvas']=['Drag to spin it. Each dot is one snapshot of the electron.',[['cx','electron position'],['ce','newest snapshot · scale bar']]];
+  GLOSS['orbital']='A region of space where an electron is likely to be found, described by a probability pattern.';
+  GLOSS['node']='A place where the probability of finding the electron is zero.';
+  TT.orbitals='Say "probability cloud" from the start and avoid orbits. Let the snapshots build slowly and ask students to predict where the next dot will land. Then connect nodes to the number n − 1.';
+})();
+(function(){
+  const SPEC=[['1s',1,0],['2s',2,0],['2p',2,1],['3s',3,0],['3p',3,1],['3d',3,2]];
+  PROBS.push({id:'orb-nodes',topic:'orbitals',title:'Counting nodes',gen(){const [nl,n,l]=pick(SPEC.filter(s=>s[0]!=='1s')),kind=pick(['radial','angular','total']),ans=kind==='radial'?n-l-1:kind==='angular'?l:n-1;
+    return {q:`How many ${kind} nodes does a ${nl} orbital have?`,ans,unit:'nodes',abs:.01,hint:'Total nodes = n − 1. Angular nodes = ℓ (s = 0, p = 1, d = 2). Radial nodes = n − ℓ − 1.',sol:`For ${nl}, n = ${n} and ℓ = ${l}. Radial: n − ℓ − 1 = ${n-l-1}. Angular: ℓ = ${l}. Total: n − 1 = ${n-1}. So <b>${ans}</b> ${kind} node${ans===1?'':'s'}.`};}});
+  PROBS.push({id:'orb-count',topic:'orbitals',title:'Orbitals and electrons in a subshell or shell',gen(){const mode=pick(['subshell-orbitals','subshell-electrons','shell-orbitals','shell-electrons']),l=ri(0,3),n=ri(2,4),nm='spdf'[l];
+    const ans={'subshell-orbitals':2*l+1,'subshell-electrons':2*(2*l+1),'shell-orbitals':n*n,'shell-electrons':2*n*n}[mode];
+    const q={'subshell-orbitals':`How many orbitals are in a ${nm} subshell?`,'subshell-electrons':`What is the maximum number of electrons in a ${nm} subshell?`,'shell-orbitals':`How many orbitals are in the n = ${n} shell?`,'shell-electrons':`What is the maximum number of electrons in the n = ${n} shell?`}[mode];
+    return {q,ans,unit:'',abs:.01,hint:'A subshell with quantum number ℓ has 2ℓ + 1 orbitals (s 1, p 3, d 5, f 7). A shell n has n² orbitals. Each orbital holds two electrons.',
+      sol:{'subshell-orbitals':`2ℓ + 1 = 2(${l}) + 1 = <b>${ans}</b>.`,'subshell-electrons':`2 × (2ℓ + 1) = 2 × ${2*l+1} = <b>${ans}</b>.`,'shell-orbitals':`n² = ${n}² = <b>${ans}</b>.`,'shell-electrons':`2n² = 2 × ${n}² = <b>${ans}</b>.`}[mode]};}});
+  PROBS.push({id:'orb-size',topic:'orbitals',title:'Which orbital is larger?',gen(){const a=pick(['1s','2s','2p']),b=pick(['3s','3p','3d']);const ch=[a,b,'They are the same size'];
+    return {q:`In a hydrogen atom, which orbital is larger on average: ${a} or ${b}?`,choices:ch,ans:1,hint:'The size grows with the shell number n.',sol:`Orbital size and energy increase with n: n = ${b[0]} is larger than n = ${a[0]}, so <b>${b}</b>.`};}});
+})();
+
+/* ===== modules/trends.js ===== */
+
+/* ---------------- Periodic trends & Coulomb's law ---------------- */
+const TR_LIST=[3,4,5,6,7,8,9,11,12,13,14,15,16,17,19,20,31,32,33,34,35];
+const TR_R={3:128,4:96,5:84,6:76,7:71,8:66,9:57,11:166,12:141,13:121,14:111,15:107,16:105,17:102,19:203,20:176,31:122,32:120,33:119,34:120,35:120};
+const TR_IE={3:520,4:900,5:801,6:1086,7:1402,8:1314,9:1681,11:496,12:738,13:578,14:787,15:1012,16:1000,17:1251,19:419,20:590,31:579,32:762,33:947,34:941,35:1140};
+const TR_VAL={3:1,4:2,5:3,6:4,7:5,8:6,9:7,11:1,12:2,13:3,14:4,15:5,16:6,17:7,19:1,20:2,31:3,32:4,33:5,34:6,35:7};
+const trShell=z=>z<=10?2:z<=18?3:4;
+(function trends(){
+  const cl=$('#tr-cl');if(!cl)return;
+  /* ---- Coulomb ---- */
+  let q1=1,q2=1,r=3,tR=3,dragging=false;
+  const simC=sim2d(cl,{h:w=>clamp(w*.3,170,220),step(dt){tR=r;},
+    drag:(k,e)=>{if(k==='down'){dragging=true;}if(k==='up'){dragging=false;return;}if(!dragging)return;const [x]=ptr(e,cl),w=cl.clientWidth,x0=w*.16,sc=(w*.8-x0)/6.4;const nr=clamp(Math.round((x-x0)/sc*4)/4,1,6);const el=$('#tr-r');el.value=nr;el.dispatchEvent(new Event('input',{bubbles:true}));},
+    draw(ctx,w,h,t){const x0=w*.16,sc=(w*.8-x0)/6.4,y=h*.48,x1=x0+r*sc;
+      ctx.strokeStyle=T.line;ctx.setLineDash([4,5]);ctx.beginPath();ctx.moveTo(x0,y+36);ctx.lineTo(x1,y+36);ctx.stroke();ctx.setLineDash([]);label(ctx,'r = '+r.toFixed(2),(x0+x1)/2,y+48,T.muted,'center','top',MONO);
+      const F=q1*q2/(r*r),F0=1/9,len=clamp(Math.sqrt(F/F0)*38,10,Math.min(w*.3,160));
+      arrow(ctx,x0+22,y,x0+22+len,y,T.hot,3.4);arrow(ctx,x1-22,y,x1-22-len,y,T.hot,3.4);
+      ball2(ctx,x0,y,16+q1*2.2,T.cx);label(ctx,'+'+q1,x0,y,'#fff','center','middle','700 14px "IBM Plex Mono",monospace');
+      ball2(ctx,x1,y,12+q2*2.2,T.ca);label(ctx,'−'+q2,x1,y,'#fff','center','middle','700 14px "IBM Plex Mono",monospace');
+      label(ctx,'drag the electron',x1,y-44,T.muted,'center','bottom',MONO);}});
+  const rel=()=>q1*q2/(r*r);
+  function updC(){const F=rel(),F0=1/9;setText('tr-f',F.toFixed(3));const x=F/F0;setText('tr-fx',Math.abs(x-1)<.005?'same as the start (q = 1, 1, r = 3)':`${x>=1?x.toFixed(2):x.toFixed(3)}× the starting force`);simC.render();}
+  bindRange('tr-q1',x=>'+'+x,x=>{q1=x;updC();});bindRange('tr-q2',x=>'−'+x,x=>{q2=x;updC();});bindRange('tr-r',x=>x.toFixed(2),x=>{r=x;updC();});
+  /* ---- Trend explorer ---- */
+  const ch=$('#tr-chart'),at=$('#tr-atom');let prop='r',idx=5,rShown=null,zShown=null;
+  const val=z=>prop==='r'?TR_R[z]:prop==='ie'?TR_IE[z]:ELEMENTS[z-1].en;
+  const UNIT={r:'pm',ie:'kJ/mol',en:''},NAME={r:'Atomic radius (covalent, pm)',ie:'First ionization energy (kJ/mol)',en:'Electronegativity (Pauling)'};
+  const PC=()=>({2:T.cx,3:T.hot,4:T.cv});
+  const simChart=sim2d(ch,{h:()=>clamp(ch.clientWidth*.78,250,320),drag:(k,e)=>{if(k==='up')return;if(k==='move'&&!e.buttons)return;const [x]=ptr(e,ch);const bx=44,bw=ch.clientWidth-bx-12;const z=2+(x-bx)/bw*34;let best=0,bd=1e9;TR_LIST.forEach((q,i)=>{const d=Math.abs(q-z);if(d<bd){bd=d;best=i;}});const el=$('#tr-i');el.value=best;el.dispatchEvent(new Event('input',{bubbles:true}));},
+    draw(ctx,w,h){const vs=TR_LIST.map(val),mx=Math.max(...vs)*1.1,box={x:44,y:14,w:w-44-12,h:h-48};const P=panel(ctx,box,[2,36],[0,mx],{xn:6,yn:4,xlabel:'atomic number Z',ylabel:NAME[prop],color:T.ink});const pc=PC();
+      [2,3,4].forEach(p=>{const zs=TR_LIST.filter(z=>trShell(z)===p);ctx.save();ctx.strokeStyle=pc[p];ctx.lineWidth=2;ctx.beginPath();zs.forEach((z,i)=>i?ctx.lineTo(P.X(z),P.Y(val(z))):ctx.moveTo(P.X(z),P.Y(val(z))));ctx.stroke();ctx.restore();zs.forEach(z=>dot(ctx,P.X(z),P.Y(val(z)),4,pc[p]));
+        label(ctx,'period '+p,P.X(zs[zs.length-1])+(p===4?-8:6),P.Y(val(zs[zs.length-1]))-(p===4?-14:0),pc[p],p===4?'right':'left','middle',MONO);});
+      const z=TR_LIST[idx];ctx.save();ctx.strokeStyle=T.ink;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(P.X(z),box.y);ctx.lineTo(P.X(z),box.y+box.h);ctx.stroke();ctx.restore();dot(ctx,P.X(z),P.Y(val(z)),7,T.surface,T.ink);label(ctx,ELEMENTS[z-1].sym,P.X(z),P.Y(val(z))-12,T.ink,'center','bottom','700 14px "IBM Plex Sans",sans-serif');}});
+  const simAtom=sim2d(at,{h:()=>clamp(ch.clientWidth*.78,250,320),step(dt){const z=TR_LIST[idx],tr=TR_R[z],tz=TR_VAL[z];rShown=rShown==null?tr:rShown+(tr-rShown)*Math.min(1,dt*5);zShown=zShown==null?tz:zShown+(tz-zShown)*Math.min(1,dt*5);},
+    draw(ctx,w,h,t){const z=TR_LIST[idx],cx=w*.42,cy=h/2,k=(Math.min(w,h)*.42)/210,R=(rShown??TR_R[z])*k,n=trShell(z);
+      /* shells to scale: core shells inside */
+      ctx.strokeStyle=T.line;ctx.lineWidth=1.2;[2,3].forEach(s=>{if(s<n){const rr=(s===2?60:110)*k*(n===4?1.1:1);ctx.beginPath();ctx.arc(cx,cy,rr,0,7);ctx.stroke();}});
+      ctx.fillStyle=alpha(T.cx,.07);ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();ctx.strokeStyle=T.cx;ctx.lineWidth=2;ctx.stroke();
+      const core=z-TR_VAL[z];ball2(ctx,cx,cy,13,T.hot);label(ctx,'+'+z,cx,cy,'#fff','center','middle','700 11px "IBM Plex Mono",monospace');
+      label(ctx,core+' core electrons in the inner shells (rings)',cx,h-26,T.muted,'center','bottom',MONO);
+      const th=t*(1.6/Math.sqrt(n))+0;const ex=cx+R*Math.cos(th),ey=cy+R*Math.sin(th);ball2(ctx,ex,ey,6,T.ce);
+      /* the pull toward the nucleus: length ~ Zeff / r² */
+      const F=(zShown??TR_VAL[z])/((R/k)**2)*1e4;const len=clamp(F*3,6,R*.8);const ux=(cx-ex)/R,uy=(cy-ey)/R;arrow(ctx,ex,ey,ex+ux*len,ey+uy*len,T.hot,3);
+      label(ctx,'orange arrow: pull on the outer electron',8,10,T.hot,'left','top',MONO);label(ctx,'shell '+n,cx,cy-R-6,T.cx,'center','bottom',MONO);
+      label(ctx,'radius '+TR_R[z]+' pm · Zeff ≈ '+TR_VAL[z],cx,h-8,T.ink,'center','bottom',MONO);}});
+  drawers.trends=()=>{simC.render();simChart.render();simAtom.render();};
+  function upd(){const z=TR_LIST[idx],E=ELEMENTS[z-1];setText('tr-el',`${E.name} (${E.sym})`);const v=val(z);setText('tr-v',prop==='r'?v+' pm':prop==='ie'?v+' kJ/mol':v.toFixed(2));setText('tr-vl',NAME[prop].replace(/ \(.*\)/,''));
+    setText('tr-core',z-TR_VAL[z]);setText('tr-zeff',TR_VAL[z]);setText('tr-n',trShell(z));$('#tr-i-out').textContent=E.sym;drawers.trends();}
+  bindRange('tr-i',x=>ELEMENTS[TR_LIST[x]-1].sym,x=>{idx=x;upd();});
+  segBind('tr-prop','k',k=>{prop=k;upd();});
+  updC();upd();
+  TIPS['tr-q1']='More positive charge pulls harder: the force is proportional to q₁.';
+  TIPS['tr-q2']='Force is proportional to the product of the charges, so doubling either one doubles it.';
+  TIPS['tr-r']='Force falls with the square of the distance: double r and the force is a quarter, triple r and it is a ninth.';
+  TIPS['tr-i']=el=>{const z=TR_LIST[+el.value],E=ELEMENTS[z-1];return `${E.name}: outer electron in shell ${trShell(z)}, Zeff ≈ ${TR_VAL[z]}. Compare with the element next to it.`;};
+  TIPS['tr-prop:r']='Radius shrinks across a period (Zeff grows) and grows down a group (new shells).';
+  TIPS['tr-prop:ie']='Ionization energy is the cost of removing the outer electron: it follows the pull, so it rises across a period and falls down a group.';
+  TIPS['tr-prop:en']='Electronegativity is how strongly an atom pulls on shared electrons: it also rises across a period and falls down a group.';
+  KEYS['tr-chart']=['Tap a point or use the slider. Compare along a period and down a group.',[['cx','period 2'],['hot','period 3'],['cv','period 4']]];
+  GLOSS['coulomb']='The force between charges: proportional to q₁q₂ and inversely proportional to the distance squared.';
+  GLOSS['effective nuclear charge']='The positive charge an outer electron actually feels, after inner electrons cancel part of the nucleus: about Z minus the core electrons.';
+  GLOSS['ionization energy']='The energy needed to remove an electron from a gaseous atom.';
+  GLOSS['electronegativity']='How strongly an atom pulls shared electrons toward itself.';
+  TT.trends='Ask for two reasons in every explanation: the charge the outer electron feels (Zeff) and how far away it is (the shell). Rubrics reward both. Let students drag the electron in the Coulomb lab until inverse-square feels natural.';
+})();
+(function(){
+  const NAME={3:'Li',4:'Be',5:'B',6:'C',7:'N',8:'O',9:'F',11:'Na',12:'Mg',13:'Al',14:'Si',15:'P',16:'S',17:'Cl',19:'K',20:'Ca',31:'Ga',32:'Ge',33:'As',34:'Se',35:'Br'};
+  const EXC=[[4,5],[7,8],[12,13],[15,16]];
+  function pair(){let a,b;do{a=pick(TR_LIST);b=pick(TR_LIST);}while(a===b);return [a,b];}
+  PROBS.push({id:'tr-radius',topic:'trends',title:'Which atom is larger?',gen(){const [a,b]=pair(),big=TR_R[a]>TR_R[b]?a:b,small=big===a?b:a;const ch=[NAME[a],NAME[b]];
+    const same=trShell(a)===trShell(b);
+    return {q:`Which atom has the larger atomic radius: ${NAME[a]} or ${NAME[b]}?`,choices:ch,ans:big===a?0:1,hint:'Compare the shell of the outer electron first (more shells means larger), then the effective nuclear charge for atoms in the same period.',
+      sol:`${same?`${NAME[a]} and ${NAME[b]} are in the same period, and the one with the lower Z<sub>eff</sub> (fewer protons pulling on the same shell) is larger.`:`${NAME[big]} has its outer electron in shell ${trShell(big)}, compared with shell ${trShell(small)} for ${NAME[small]}.`} The larger atom is <b>${NAME[big]}</b> (${TR_R[big]} pm against ${TR_R[small]} pm).`};}});
+  PROBS.push({id:'tr-ie',topic:'trends',title:'Which has the higher ionization energy?',gen(){const [a,b]=pair(),hi=TR_IE[a]>TR_IE[b]?a:b,lo=hi===a?b:a;const ch=[NAME[a],NAME[b]];
+    const exc=EXC.some(([x,y])=>(a===x&&b===y)||(a===y&&b===x));const same=trShell(a)===trShell(b);
+    return {q:`Which has the higher first ionization energy: ${NAME[a]} or ${NAME[b]}?`,choices:ch,ans:hi===a?0:1,hint:'Higher Zeff and a smaller distance mean the outer electron is held more tightly. Watch for the two small exceptions in each period.',
+      sol:`${exc?'This is one of the exceptions: a p electron is removed more easily than an s electron of the same shell (Be → B, Mg → Al), or a paired p electron is removed more easily than an unpaired one (N → O, P → S).':same?`Same period: the one farther right has the larger Z<sub>eff</sub>.`:`${NAME[hi]}'s outer electron is in a smaller shell (${trShell(hi)} against ${trShell(lo)}), so it is closer to the nucleus.`} The higher ionization energy is <b>${NAME[hi]}</b> (${TR_IE[hi]} kJ/mol against ${TR_IE[lo]} kJ/mol).`};}});
+  PROBS.push({id:'tr-coulomb',topic:'trends',title:"Coulomb's law scaling",gen(){const a=pick([2,3,4]),b=pick([1,2,3]),d=pick([2,3,.5]),ans=a*b/(d*d);
+    return {q:`Two oppositely charged particles attract with force F. The positive charge is multiplied by ${a}, the negative charge by ${b}, and the distance between them is ${d===.5?'halved':'multiplied by '+d}. By what factor does the force change?`,ans,unit:'× F',tol:.02,hint:'F is proportional to q₁q₂/r². Multiply the charge factors and divide by the square of the distance factor.',
+      sol:`Factor = (${a} × ${b}) / ${d}² = ${a*b} / ${d*d} = <b>${fmt(ans,3)}</b>.`};}});
+})();
+
 /* ===== modules/vsepr.js ===== */
 
 /* ---------------- VSEPR: balloon lab + molecule explorer ---------------- */
@@ -2337,155 +2896,6 @@ const formulaStr=(els,nums)=>els.map((e,i)=>e+(nums[i]>1?nums[i]:'')).join('');
   PROBS.push({id:'vsepr-polar',topic:'vsepr',title:'Polar or nonpolar?',gen(){const s=pick(SP.filter(x=>x[4]!==null)),[f,n,lp,shape,pol]=s;const ch=['polar','nonpolar'];
     return {q:`Is the molecule ${f} polar or nonpolar?`,choices:ch,ans:pol?0:1,hint:'First find the shape. Then ask whether the bond dipoles point in directions that cancel.',
       sol:`${f} is ${shape}. ${pol?'The bond dipoles (or the lone pair) leave a net dipole because the shape is not symmetric with identical outer atoms.':'All the outer atoms are identical and arranged symmetrically, so the bond dipoles cancel.'} It is <b>${pol?'polar':'nonpolar'}</b>.`};}});
-})();
-
-/* ===== data/elements.js ===== */
-
-/* ---------------- Periodic table data ----------------
-   Z|symbol|name|atomic mass (u; bracketed = mass number of the longest-lived isotope)|Pauling electronegativity (blank = none/unknown)|common ions */
-const ELEMENT_ROWS=`1|H|Hydrogen|1.008|2.20|H⁺, H⁻
-2|He|Helium|4.003||
-3|Li|Lithium|6.94|0.98|Li⁺
-4|Be|Beryllium|9.012|1.57|Be²⁺
-5|B|Boron|10.81|2.04|
-6|C|Carbon|12.011|2.55|
-7|N|Nitrogen|14.007|3.04|N³⁻
-8|O|Oxygen|15.999|3.44|O²⁻
-9|F|Fluorine|18.998|3.98|F⁻
-10|Ne|Neon|20.180||
-11|Na|Sodium|22.990|0.93|Na⁺
-12|Mg|Magnesium|24.305|1.31|Mg²⁺
-13|Al|Aluminum|26.982|1.61|Al³⁺
-14|Si|Silicon|28.085|1.90|
-15|P|Phosphorus|30.974|2.19|P³⁻
-16|S|Sulfur|32.06|2.58|S²⁻
-17|Cl|Chlorine|35.45|3.16|Cl⁻
-18|Ar|Argon|39.948||
-19|K|Potassium|39.098|0.82|K⁺
-20|Ca|Calcium|40.078|1.00|Ca²⁺
-21|Sc|Scandium|44.956|1.36|Sc³⁺
-22|Ti|Titanium|47.867|1.54|Ti⁴⁺, Ti³⁺
-23|V|Vanadium|50.942|1.63|V²⁺, V³⁺
-24|Cr|Chromium|51.996|1.66|Cr³⁺, Cr²⁺
-25|Mn|Manganese|54.938|1.55|Mn²⁺
-26|Fe|Iron|55.845|1.83|Fe²⁺, Fe³⁺
-27|Co|Cobalt|58.933|1.88|Co²⁺, Co³⁺
-28|Ni|Nickel|58.693|1.91|Ni²⁺
-29|Cu|Copper|63.546|1.90|Cu²⁺, Cu⁺
-30|Zn|Zinc|65.38|1.65|Zn²⁺
-31|Ga|Gallium|69.723|1.81|Ga³⁺
-32|Ge|Germanium|72.630|2.01|
-33|As|Arsenic|74.922|2.18|As³⁻
-34|Se|Selenium|78.971|2.55|Se²⁻
-35|Br|Bromine|79.904|2.96|Br⁻
-36|Kr|Krypton|83.798|3.00|
-37|Rb|Rubidium|85.468|0.82|Rb⁺
-38|Sr|Strontium|87.62|0.95|Sr²⁺
-39|Y|Yttrium|88.906|1.22|Y³⁺
-40|Zr|Zirconium|91.224|1.33|Zr⁴⁺
-41|Nb|Niobium|92.906|1.6|
-42|Mo|Molybdenum|95.95|2.16|
-43|Tc|Technetium|[98]|1.9|
-44|Ru|Ruthenium|101.07|2.2|
-45|Rh|Rhodium|102.91|2.28|
-46|Pd|Palladium|106.42|2.20|Pd²⁺
-47|Ag|Silver|107.87|1.93|Ag⁺
-48|Cd|Cadmium|112.41|1.69|Cd²⁺
-49|In|Indium|114.82|1.78|In³⁺
-50|Sn|Tin|118.71|1.96|Sn²⁺, Sn⁴⁺
-51|Sb|Antimony|121.76|2.05|
-52|Te|Tellurium|127.60|2.1|Te²⁻
-53|I|Iodine|126.90|2.66|I⁻
-54|Xe|Xenon|131.29|2.60|
-55|Cs|Cesium|132.91|0.79|Cs⁺
-56|Ba|Barium|137.33|0.89|Ba²⁺
-57|La|Lanthanum|138.91|1.10|La³⁺
-58|Ce|Cerium|140.12|1.12|Ce³⁺, Ce⁴⁺
-59|Pr|Praseodymium|140.91|1.13|Pr³⁺
-60|Nd|Neodymium|144.24|1.14|Nd³⁺
-61|Pm|Promethium|[145]|1.13|Pm³⁺
-62|Sm|Samarium|150.36|1.17|Sm³⁺
-63|Eu|Europium|151.96|1.2|Eu³⁺, Eu²⁺
-64|Gd|Gadolinium|157.25|1.2|Gd³⁺
-65|Tb|Terbium|158.93|1.1|Tb³⁺
-66|Dy|Dysprosium|162.50|1.22|Dy³⁺
-67|Ho|Holmium|164.93|1.23|Ho³⁺
-68|Er|Erbium|167.26|1.24|Er³⁺
-69|Tm|Thulium|168.93|1.25|Tm³⁺
-70|Yb|Ytterbium|173.05|1.1|Yb³⁺, Yb²⁺
-71|Lu|Lutetium|174.97|1.27|Lu³⁺
-72|Hf|Hafnium|178.49|1.3|Hf⁴⁺
-73|Ta|Tantalum|180.95|1.5|
-74|W|Tungsten|183.84|2.36|
-75|Re|Rhenium|186.21|1.9|
-76|Os|Osmium|190.23|2.2|
-77|Ir|Iridium|192.22|2.20|
-78|Pt|Platinum|195.08|2.28|Pt²⁺, Pt⁴⁺
-79|Au|Gold|196.97|2.54|Au⁺, Au³⁺
-80|Hg|Mercury|200.59|2.00|Hg²⁺, Hg₂²⁺
-81|Tl|Thallium|204.38|1.62|Tl⁺, Tl³⁺
-82|Pb|Lead|207.2|1.87|Pb²⁺, Pb⁴⁺
-83|Bi|Bismuth|208.98|2.02|Bi³⁺
-84|Po|Polonium|[209]|2.0|
-85|At|Astatine|[210]|2.2|
-86|Rn|Radon|[222]|2.2|
-87|Fr|Francium|[223]|0.7|Fr⁺
-88|Ra|Radium|[226]|0.9|Ra²⁺
-89|Ac|Actinium|[227]|1.1|Ac³⁺
-90|Th|Thorium|232.04|1.3|Th⁴⁺
-91|Pa|Protactinium|231.04|1.5|
-92|U|Uranium|238.03|1.38|
-93|Np|Neptunium|[237]|1.36|
-94|Pu|Plutonium|[244]|1.28|
-95|Am|Americium|[243]|1.13|
-96|Cm|Curium|[247]|1.28|
-97|Bk|Berkelium|[247]|1.3|
-98|Cf|Californium|[251]|1.3|
-99|Es|Einsteinium|[252]||
-100|Fm|Fermium|[257]||
-101|Md|Mendelevium|[258]||
-102|No|Nobelium|[259]||
-103|Lr|Lawrencium|[266]||
-104|Rf|Rutherfordium|[267]||
-105|Db|Dubnium|[268]||
-106|Sg|Seaborgium|[269]||
-107|Bh|Bohrium|[270]||
-108|Hs|Hassium|[277]||
-109|Mt|Meitnerium|[278]||
-110|Ds|Darmstadtium|[281]||
-111|Rg|Roentgenium|[282]||
-112|Cn|Copernicium|[285]||
-113|Nh|Nihonium|[286]||
-114|Fl|Flerovium|[289]||
-115|Mc|Moscovium|[290]||
-116|Lv|Livermorium|[293]||
-117|Ts|Tennessine|[294]||
-118|Og|Oganesson|[294]||`;
-/* Ground-state electron configurations: fill in Madelung (aufbau) order, then apply the known exceptions. Z ≥ 103 are predicted. */
-const ELEMENTS=(()=>{
-  const ORB=[['1s',2],['2s',2],['2p',6],['3s',2],['3p',6],['4s',2],['3d',10],['4p',6],['5s',2],['4d',10],['5p',6],['6s',2],['4f',14],['5d',10],['6p',6],['7s',2],['5f',14],['6d',10],['7p',6]];
-  const EXC={24:{'4s':1,'3d':5},29:{'4s':1,'3d':10},41:{'5s':1,'4d':4},42:{'5s':1,'4d':5},44:{'5s':1,'4d':7},45:{'5s':1,'4d':8},46:{'5s':0,'4d':10},47:{'5s':1,'4d':10},
-    57:{'4f':0,'5d':1},58:{'4f':1,'5d':1},64:{'4f':7,'5d':1},78:{'6s':1,'5d':9},79:{'6s':1,'5d':10},89:{'5f':0,'6d':1},90:{'5f':0,'6d':2},91:{'5f':2,'6d':1},92:{'5f':3,'6d':1},93:{'5f':4,'6d':1},96:{'5f':7,'6d':1},103:{'6d':0,'7p':1},111:{'7s':1,'6d':10}};
-  const NOBLE=[2,10,18,36,54,86],SYM={2:'He',10:'Ne',18:'Ar',36:'Kr',54:'Xe',86:'Rn'};
-  const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹',sup=n=>String(n).split('').map(d=>SUPD[d]).join('');
-  function occupancy(Z){let left=Z;const o=ORB.map(([n,c])=>{const k=Math.min(c,left);left-=k;return [n,k];});const ex=EXC[Z];if(ex)o.forEach(a=>{if(a[0] in ex)a[1]=ex[a[0]];});return o;}
-  function config(Z){const occ=occupancy(Z);const core=NOBLE.filter(n=>n<Z).pop();let skip=0,pre='';
-    if(core){pre='['+SYM[core]+'] ';const oc=occupancy(core);skip=oc.filter(a=>a[1]>0).length;/* orbitals already full in the core */}
-    const coreOcc=core?occupancy(core):[];const rest=occ.filter((a,i)=>a[1]>0&&!(core&&coreOcc[i][1]===a[1]&&coreOcc[i][1]>0));
-    return pre+rest.map(a=>a[0]+sup(a[1])).join(' ');}
-  /* position in the 18-column table */
-  function pos(Z){if(Z===1)return [1,1];if(Z===2)return [1,18];
-    const per=Z<=10?2:Z<=18?3:Z<=36?4:Z<=54?5:Z<=86?6:7,first=[0,1,3,11,19,37,55,87][per],off=Z-first;
-    if(per<=3)return [per,off<2?off+1:off+11];
-    if(per<=5)return [per,off+1];
-    if(Z>=57&&Z<=71)return [9,Z-57+3];if(Z>=89&&Z<=103)return [10,Z-89+3];
-    if(per===6)return [6,off<2?off+1:Z-72+4];return [7,off<2?off+1:Z-104+4];}
-  function cat(Z,r,g){if(Z>=109)return 'unknown';if(Z===1)return 'nonmetal';if([2,10,18,36,54,86].includes(Z))return 'noble gas';if(r===9)return 'lanthanide';if(r===10)return 'actinide';
-    if(g===1)return 'alkali metal';if(g===2)return 'alkaline earth metal';if(g===17)return 'halogen';
-    if([5,14,32,33,51,52].includes(Z))return 'metalloid';if(g>=3&&g<=12)return 'transition metal';
-    if([13,31,49,50,81,82,83,84].includes(Z))return 'post-transition metal';if([6,7,8,15,16,34].includes(Z))return 'nonmetal';return 'post-transition metal';}
-  return ELEMENT_ROWS.split('\n').map(l=>{const [z,s,n,m,en,ions]=l.split('|'),Z=+z,[r,g]=pos(Z);
-    return {Z,sym:s,name:n,mass:m,en:en?+en:null,ions:ions||'',cfg:config(Z),row:r,col:g,cat:cat(Z,r,g),group:(r>=9)?null:g,period:r>=9?(r===9?6:7):r,pred:Z>=103};});
 })();
 
 /* ===== overview.js ===== */

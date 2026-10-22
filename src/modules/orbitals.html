@@ -1,0 +1,51 @@
+  <section class="view" id="v-orbitals" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span><span class="tag">3D</span></div>
+        <h1>Orbital shapes in 3D</h1>
+        <p class="lede">An orbital is not a track the electron follows. It is a map of where the electron is likely to be found. Take enough snapshots and the map appears.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine photographing a bee near a hive a thousand times and drawing a dot for each photo. You never see its path, but the cloud of dots shows where it spends its time. The electron works like that, except that nobody can say where it is at any moment; quantum mechanics only gives the odds. Each orbital is a different pattern of odds.</p>
+        <p>The pattern has a size and a shape. An <b>s</b> orbital is a ball. A <b>p</b> orbital has two lobes, like a dumbbell, pointing along x, y or z. A <b>d</b> orbital has four lobes (or a donut with two). Higher shells (n) are bigger, and can have <b>nodes</b>: places where the electron is never found.</p>
+      </div>
+      <div class="lab" id="or-lab">
+        <div class="labbar"><span class="title">Electron snapshots</span><div class="row"><button type="button" class="btn primary" id="or-again">Take new snapshots</button><button type="button" class="btn" id="or-all">Show all at once</button></div></div>
+        <div class="controls"><div class="ctl"><label for="or-sel"><span>Orbital</span></label><select id="or-sel"></select></div>
+          <div class="toggles"><label class="check"><input type="checkbox" id="or-phase"> Color by sign (phase)</label><label class="check"><input type="checkbox" id="or-set"> Show the whole subshell as lobes</label></div></div>
+        <canvas id="or-canvas" aria-label="3D cloud of electron positions for the chosen orbital. Drag to rotate."></canvas>
+        <canvas id="or-radial" aria-label="Graph of the probability of finding the electron at each distance from the nucleus, with a histogram of the snapshots"></canvas>
+        <div class="readout"><div><span>Shell n · subshell</span><strong class="x" id="or-nl">—</strong></div><div><span>Radial nodes (n − ℓ − 1)</span><strong id="or-rn">—</strong></div><div><span>Angular nodes (ℓ)</span><strong id="or-an">—</strong></div><div><span>Most likely distance</span><strong class="hot" id="or-pk">—</strong></div><div><span>Size (90% of the time inside)</span><strong id="or-r90">—</strong></div></div>
+        <p class="small" style="margin:0">One scene unit is 5 a₀ ≈ 2.6 Å (the gold bar shows the scale). The graph is the probability of finding the electron in a thin shell at distance r from the nucleus; the bars are your snapshots. Orbital shapes shown are for a hydrogen-like atom.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Watch a 1s cloud build. Where do the dots pile up? <button type="button" class="btn link" data-show='[["#or-sel","1s"],["#or-set",false],["click","#or-again"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The cloud is densest near the center, but the graph below peaks at 1 a₀ (0.53 Å), not at the nucleus: the volume of a thin shell grows as r², and that beats the falling density. 90% of the time the electron is within about 2.7 a₀.</p></details></li>
+        <li><p>Compare 1s, 2s and 3s. How do the sizes and node counts change? <button type="button" class="btn link" data-show='[["#or-sel","2s"],["#or-set",false]]'>2s</button> <button type="button" class="btn link" data-show='[["#or-sel","3s"],["#or-set",false]]'>3s</button></p><details><summary>What you should see</summary><p>Each step up a shell makes the orbital larger and adds one radial node: a spherical surface where the electron is never found (the gap in the cloud and the dashed lines on the graph). The count is n − ℓ − 1.</p></details></li>
+        <li><p>Show a whole p subshell: three dumbbells, one on each axis. <button type="button" class="btn link" data-show='[["#or-sel","2pz"],["#or-set",true]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The three p orbitals point along x, y and z, at right angles to each other. They have the same energy in an atom. Each has one angular node: the plane through the nucleus perpendicular to its lobes.</p></details></li>
+        <li><p>Compare the five d orbitals. <button type="button" class="btn link" data-show='[["#or-sel","3dz2"],["#or-set",true]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Four of the d orbitals are four-lobed clovers (they differ only in orientation); d<sub>z²</sub> is two lobes with a donut around the middle. d orbitals have two angular nodes.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How many radial and angular nodes does a 3p orbital have, and how many orbitals are in the n = 3 shell?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Identify n and ℓ.</b> 3p means n = 3 and ℓ = 1 (s = 0, p = 1, d = 2).</li>
+          <li hidden><b>Angular nodes.</b> The number of angular nodes equals ℓ, so a 3p orbital has <b>1</b>.</li>
+          <li hidden><b>Radial nodes.</b> n − ℓ − 1 = 3 − 1 − 1 = <b>1</b>.</li>
+          <li hidden><b>Count the orbitals in the shell.</b> n = 3 has subshells 3s (1 orbital), 3p (3) and 3d (5): 1 + 3 + 5 = <b>9</b> orbitals, which is n². With two electrons per orbital, the shell holds 18.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Picturing the electron as a planet circling the nucleus on a flat track. An orbital is a 3D probability map.</li>
+        <li>Thinking the outline of an orbital is a wall. It is just the surface inside which the electron spends most (say 90%) of its time.</li>
+        <li>Thinking the p orbital's two lobes are two electrons. One electron (or a pair) is spread over the whole dumbbell.</li>
+        <li>Confusing the plus and minus signs of the lobes with electric charge. They are the sign of the wavefunction, which matters for bonding but isn't a charge.</li>
+        <li>Mixing up radial and angular nodes: radial nodes are spheres (n − ℓ − 1); angular nodes are planes or cones through the nucleus (ℓ).</li>
+      </ul></div>
+      <div class="prose"><h2>Quantum numbers in one place</h2>
+        <p>Three quantum numbers name an orbital. <b>n</b> (1, 2, 3 …) sets size and energy. <b>ℓ</b> (0 to n − 1) sets the shape: s, p, d, f. <b>m<sub>ℓ</sub></b> (from −ℓ to +ℓ) sets the orientation, so a subshell has 2ℓ + 1 orbitals. A fourth number, the spin <b>m<sub>s</sub></b> (±½), tells which of the two electrons in an orbital you mean.</p>
+        <p>Nodes tell you the shape without the picture: total nodes = n − 1; angular nodes = ℓ; radial nodes = n − ℓ − 1.</p></div>
+      <div class="quiz" data-correct="1" data-explain="A 3p orbital has n − ℓ − 1 = 3 − 1 − 1 = 1 radial node and ℓ = 1 angular node, for 2 nodes in total (n − 1).">
+        <p class="q">Check yourself: how many nodes in total does a 3p orbital have?</p>
+        <div class="opts"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">0</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

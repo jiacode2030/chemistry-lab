@@ -100,3 +100,23 @@ function solve(f,a,b,n=200){let fa=f(a);for(let i=0;i<n;i++){const m=(a+b)/2,fm=
 const SUBD='₀₁₂₃₄₅₆₇₈₉';
 const fsub=f=>String(f).replace(/(\d+)/g,d=>[...d].map(c=>SUBD[c]).join(''));
 const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+
+/* ---------------- Hydrogen-like orbitals: radial distribution and Monte Carlo snapshots (lengths in Bohr radii a0) ---------------- */
+const ORB_R={ /* radial functions up to a constant factor */
+  '1s':r=>Math.exp(-r),'2s':r=>(2-r)*Math.exp(-r/2),'2p':r=>r*Math.exp(-r/2),
+  '3s':r=>(27-18*r+2*r*r)*Math.exp(-r/3),'3p':r=>r*(1-r/6)*Math.exp(-r/3),'3d':r=>r*r*Math.exp(-r/3)};
+const ORB_Y={ /* angular functions (unnormalized, real forms) and their maximum of Y² on the unit sphere */
+  s:{f:()=>1,m:1},px:{f:(x)=>x,m:1},py:{f:(x,y)=>y,m:1},pz:{f:(x,y,z)=>z,m:1},
+  dz2:{f:(x,y,z)=>3*z*z-1,m:4},dx2y2:{f:(x,y)=>x*x-y*y,m:1},dxy:{f:(x,y)=>x*y,m:.25},dxz:{f:(x,y,z)=>x*z,m:.25},dyz:{f:(x,y,z)=>y*z,m:.25}};
+function orbitalModel(nl,ang,rmax){
+  const R=ORB_R[nl],N=1200,dr=rmax/N,P=[],cdf=[0];let tot=0;
+  for(let i=0;i<=N;i++){const r=i*dr,v=r*r*R(r)*R(r);P.push(v);}
+  for(let i=1;i<=N;i++){tot+=(P[i-1]+P[i])/2*dr;cdf.push(tot);}
+  const peak=P.indexOf(Math.max(...P))*dr;
+  const at=q=>{let lo=0,hi=N;const t=q*tot;while(hi-lo>1){const m=(lo+hi)>>1;if(cdf[m]<t)lo=m;else hi=m;}return lo*dr;};
+  const nodes=[];for(let i=1;i<=N;i++){const a=R((i-1)*dr),b=R(i*dr);if((a>0&&b<=0)||(a<0&&b>=0))nodes.push(i*dr);}
+  const Y=ORB_Y[ang];
+  function sample(n){const out=[];while(out.length<n){const r=at(Math.random());
+    let x,y,z,f;for(let k=0;k<200;k++){const u=Math.random()*2-1,ph=Math.random()*6.2832,s=Math.sqrt(1-u*u);x=s*Math.cos(ph);y=s*Math.sin(ph);z=u;f=Y.f(x,y,z);if(Math.random()<f*f/Y.m)break;}
+    const sign=(R(r)<0?-1:1)*(Y.f(x,y,z)<0?-1:1);out.push({p:[x*r,y*r,z*r],r,sign});}return out;}
+  return {peak,r90:at(.9),nodes,sample,tot};}

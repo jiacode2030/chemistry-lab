@@ -58,10 +58,9 @@ for i in order:
 for n in ['overview.js', 'practice.js', 'teach.js', 'review_core.js', 'exam_review.js', 'route.js', 'ui.js', 'panels.js', 'report.js']:
     js_parts.append(f'/* ===== {n} ===== */\n' + rd(f'js/{n}'))
 data_files = sorted((SRC / 'data').glob('*.js'))
-# problem and FRQ banks load before the practice views are built, so insert them ahead of overview.js
+# data banks load right after the shared engine pieces, so modules can use them
 bank = '\n'.join(f'/* ===== data/{p.name} ===== */\n' + p.read_text(encoding='utf-8') for p in data_files)
-idx = next(k for k, t in enumerate(js_parts) if t.startswith('/* ===== overview.js'))
-js_parts.insert(idx, bank)
+js_parts.insert(len(JS_ORDER), bank)  # data banks (periodic table, FRQs) load before the modules
 tail = "if(/[?&]debug/.test(location.search))window.__chem={PROBS,FRQS,GROUPS,MODS,METHODS,fmt,sci};\nif(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{redraw();navSync(true);stepSync(true);});\ncurrent='';route();\n"
 js = "(function(){\n'use strict';\n" + '\n'.join(js_parts) + '\n' + tail + '})();\n'
 

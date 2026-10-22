@@ -1,0 +1,59 @@
+  <section class="view" id="v-trends" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 1</span></div>
+        <h1>Periodic trends &amp; Coulomb's law</h1>
+        <p class="lede">Atomic size, ionization energy and electronegativity all come from one question: how hard does the nucleus pull on the outermost electron, and how far away is that electron?</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Opposite charges attract, and the pull falls off fast with distance: <b>Coulomb's law</b> says the force is proportional to the product of the charges and inversely proportional to the distance squared. Double the distance and the pull drops to a quarter; double one charge and it doubles.</p>
+        <p>An outer electron feels the nucleus's positive charge, but the inner (core) electrons cancel part of it. That leaves an <b>effective nuclear charge</b>, roughly the number of protons minus the number of core electrons. Moving across a period, protons are added but the electrons go into the same shell, so the pull grows and the atom shrinks. Moving down a group, a whole new shell is added, so the outer electron is much farther away and the atom grows.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span><i>F</i> ∝ <i>q</i><sub>1</sub><i>q</i><sub>2</sub> / <i>r</i>²</span><small>Coulomb's law</small></div><div class="eqn"><span><i>Z</i><sub>eff</sub> ≈ <i>Z</i> − core electrons</span><small>simple shielding</small></div></div>
+      <div class="lab" id="tr-lab1">
+        <div class="labbar"><span class="title">Coulomb's law</span></div>
+        <canvas id="tr-cl" aria-label="A positive and a negative charge with arrows for the attractive force; drag the negative charge to change the distance"></canvas>
+        <div class="controls">
+          <div class="ctl"><label for="tr-q1"><span>Positive charge (protons)</span> <output id="tr-q1-out"></output></label><input type="range" id="tr-q1" min="1" max="6" step="1" value="1"></div>
+          <div class="ctl"><label for="tr-q2"><span>Negative charge (electrons)</span> <output id="tr-q2-out"></output></label><input type="range" id="tr-q2" min="1" max="3" step="1" value="1"></div>
+          <div class="ctl"><label for="tr-r"><span>Distance r</span> <output id="tr-r-out"></output></label><input type="range" id="tr-r" min="1" max="6" step="0.25" value="3"></div>
+        </div>
+        <div class="readout"><div><span>Force (relative)</span><strong class="hot" id="tr-f">—</strong></div><div><span>vs the starting setup</span><strong id="tr-fx" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="tr-lab2">
+        <div class="labbar"><span class="title">Trend explorer</span><div class="seg" id="tr-prop" role="group" aria-label="Property"><button type="button" data-k="r" aria-pressed="true">Atomic radius</button><button type="button" data-k="ie" aria-pressed="false">Ionization energy</button><button type="button" data-k="en" aria-pressed="false">Electronegativity</button></div></div>
+        <div class="controls"><div class="ctl"><label for="tr-i"><span>Element</span> <output id="tr-i-out"></output></label><input type="range" id="tr-i" min="0" max="20" step="1" value="5"></div></div>
+        <div class="split"><div><canvas id="tr-chart" aria-label="Graph of the chosen property against atomic number for main-group elements in periods 2 to 4. Tap a point to choose an element."></canvas></div><div><canvas id="tr-atom" aria-label="Picture of the chosen atom: nucleus, core electrons, and the outer electron with an arrow for the pull of the nucleus"></canvas></div></div>
+        <div class="readout"><div><span>Element</span><strong class="x" id="tr-el">—</strong></div><div><span id="tr-vl">Value</span><strong class="hot" id="tr-v">—</strong></div><div><span>Core electrons</span><strong id="tr-core">—</strong></div><div><span>Z<sub>eff</sub> ≈ Z − core</span><strong class="v" id="tr-zeff">—</strong></div><div><span>Shell of the outer electron</span><strong id="tr-n">—</strong></div></div>
+        <p class="small" style="margin:0">Radius is the covalent radius in pm. Transition metals and noble gases are left out so that the trends are clean. Lines connect elements in the same period.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Double the distance between the charges. What happens to the force? <button type="button" class="btn link" data-show='[["#tr-q1",1],["#tr-q2",1],["#tr-r",3]]'>Start at r = 3</button> <button type="button" class="btn link" data-show='[["#tr-q1",1],["#tr-q2",1],["#tr-r",6]]'>Double to r = 6</button></p><details><summary>What you should see</summary><p>The force falls to one quarter: double the distance, ¼ the force (inverse square).</p></details></li>
+        <li><p>Go across period 2 from lithium to fluorine on the radius graph. <button type="button" class="btn link" data-show='[["click","#tr-prop button[data-k=r]"],["#tr-i",0]]'>Lithium</button> <button type="button" class="btn link" data-show='[["#tr-i",6]]'>Fluorine</button></p><details><summary>What you should see</summary><p>The atom shrinks from 128 pm to 57 pm. Z<sub>eff</sub> climbs from 1 to 7 while the outer electron stays in shell 2, so the nucleus pulls harder on electrons at about the same distance.</p></details></li>
+        <li><p>Go down group 1: lithium, sodium, potassium. <button type="button" class="btn link" data-show='[["#tr-i",0]]'>Li</button> <button type="button" class="btn link" data-show='[["#tr-i",7]]'>Na</button> <button type="button" class="btn link" data-show='[["#tr-i",14]]'>K</button></p><details><summary>What you should see</summary><p>Z<sub>eff</sub> stays at 1 but the atom grows because each step adds a shell. The outer electron is farther from the nucleus, so it is easier to remove: check the ionization-energy graph.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Explain why the first ionization energy of sodium (496 kJ/mol) is much lower than that of neon (2081 kJ/mol).</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Compare the outer electrons.</b> Neon's outer electron is in shell 2; sodium's is in shell 3 (3s¹).</li>
+          <li hidden><b>Compare the pull.</b> Neon: Z = 10, core = 2, Z<sub>eff</sub> ≈ 8. Sodium: Z = 11, core = 10, Z<sub>eff</sub> ≈ 1.</li>
+          <li hidden><b>Compare the distance.</b> Sodium's outer electron is in a larger shell, so it is farther from the nucleus than neon's.</li>
+          <li hidden><b>Use Coulomb's law.</b> Neon's outer electron is closer to a much stronger effective charge, so the attraction is much greater and more energy is needed to remove it. Sodium's is held weakly, so its ionization energy is low.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying "more protons means a bigger pull" without noticing the core electrons cancel most of it when you move down a group.</li>
+        <li>Answering with only "it is farther away". A full answer names both the charge felt (Z<sub>eff</sub>) and the distance (shell).</li>
+        <li>Thinking atoms get bigger across a period because they have more electrons. The electrons go into the same shell and the stronger pull wins.</li>
+        <li>Forgetting the small dips: first ionization energy drops from Be to B and from N to O, because of subshell and electron-pairing effects.</li>
+        <li>Mixing up atomic radius (shrinks across) with ionic radius (cations are smaller than their atoms; anions are larger).</li>
+      </ul></div>
+      <div class="prose"><h2>Summary of the trends</h2>
+        <p>Across a period (left to right): Z<sub>eff</sub> goes up, atomic radius goes down, first ionization energy generally goes up, electronegativity goes up. Down a group: the outer electron is in a larger shell, so radius goes up, ionization energy goes down, and electronegativity goes down.</p>
+        <p>Cations are smaller than their parent atoms (fewer electrons, and often a whole shell is gone, so the same nuclear pull is shared by fewer electrons). Anions are larger (more electrons repel each other while the nuclear pull is unchanged).</p></div>
+      <div class="quiz" data-correct="0" data-explain="Chlorine and sulfur are in the same period (shell 3), but chlorine has two more protons pulling on electrons in the same shell: higher Z_eff, smaller radius, so a smaller atom than sulfur. Bromine is a period lower, so it is larger.">
+        <p class="q">Check yourself: which atom is the smallest?</p>
+        <div class="opts"><button type="button">Cl</button><button type="button">S</button><button type="button">Br</button><button type="button">Se</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
