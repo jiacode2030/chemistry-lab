@@ -1,0 +1,58 @@
+  <section class="view" id="v-ph" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Acids, bases, pH &amp; strong acids</h1>
+        <p class="lede">Acid-base chemistry is proton hopping. Water itself takes part, and pH is just a convenient way to count the hydronium ions.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A <b>Brønsted–Lowry acid</b> is a proton (H⁺) donor; a <b>base</b> is a proton acceptor. Every acid-base reaction is a proton hand-off, and each side has a <b>conjugate</b> partner: the acid becomes its conjugate base, the base becomes its conjugate acid. In water, a free H⁺ doesn't exist alone: it sticks to a water molecule, making hydronium, H₃O⁺.</p>
+        <p>Even pure water does this a tiny bit: two H₂O molecules swap a proton (<b>autoionization</b>), giving K<sub>w</sub> = [H₃O⁺][OH⁻] = 1.0×10⁻¹⁴ at 25 °C. <b>pH = −log[H₃O⁺]</b>, and pOH = −log[OH⁻], with pH + pOH = 14 at 25 °C. A <b>strong acid</b> (HCl, HBr, HI, HNO₃, HClO₄, H₂SO₄ for its first proton) gives up its proton completely, so [H₃O⁺] equals the acid's concentration. Strong bases (hydroxides of group 1, and Ca, Sr, Ba) dissociate completely too.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, pH = −log(c) for a strong acid. Now we notice water supplies 10⁻⁷ M of H₃O⁺ too. At normal concentrations that doesn't matter, but for a very dilute acid (10⁻⁸ M) it does: the pH of 10⁻⁸ M HCl is about 6.98, not 8, because an acid can't make the solution basic.</div>
+      <div class="lab" id="pt-lab">
+        <div class="labbar"><span class="title">Proton hand-off</span><div class="row"><button type="button" class="btn primary" id="pt-play">Play</button></div></div>
+        <div class="controls"><div class="ctl"><label for="pt-rx"><span>Reaction</span></label><select id="pt-rx"></select></div><div class="ctl"><label for="pt-p"><span>Progress</span> <output id="pt-p-out"></output></label><input type="range" id="pt-p" min="0" max="100" step="1" value="0"></div></div>
+        <canvas id="pt-canvas" aria-label="Two molecules collide and a proton moves from the acid to the base"></canvas>
+        <div class="readout"><div><span>Acid (gives H⁺)</span><strong class="a" id="pt-acid">—</strong></div><div><span>Base (takes H⁺)</span><strong class="x" id="pt-base">—</strong></div><div><span>Conjugate base</span><strong id="pt-cb">—</strong></div><div><span>Conjugate acid</span><strong id="pt-ca">—</strong></div></div>
+      </div>
+      <div class="lab" id="sa-lab">
+        <div class="labbar"><span class="title">The pH of a strong acid or base</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="sa-kind"><span>Solution</span></label><select id="sa-kind"><option value="acid">strong acid (like HCl)</option><option value="base">strong base (like NaOH)</option></select></div>
+          <div class="ctl"><label for="sa-c"><span>Concentration</span> <output id="sa-c-out"></output></label><input type="range" id="sa-c" min="-9" max="0" step="0.05" value="-2"></div>
+          <div class="ctl"><label for="sa-T"><span>Temperature (sets K<sub>w</sub>)</span></label><select id="sa-T"></select></div>
+        </div>
+        <div class="split"><div><canvas id="sa-canvas" aria-label="Bars for hydronium and hydroxide concentrations on a log scale"></canvas></div><div><canvas id="sa-graph" aria-label="pH against the negative log of concentration, with the simple formula dashed"></canvas></div></div>
+        <div class="readout"><div><span>[H₃O⁺]</span><strong class="x" id="sa-h">—</strong></div><div><span>[OH⁻]</span><strong class="a" id="sa-oh">—</strong></div><div><span>pH</span><strong id="sa-ph">—</strong></div><div><span>pOH</span><strong id="sa-poh">—</strong></div><div><span>Simple formula gives</span><strong id="sa-naive">—</strong></div></div>
+        <p class="small" id="sa-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict, then slide the controls.</p><ol>
+        <li><p>Dilute a strong acid by a factor of 10. How much does the pH change? <button type="button" class="btn link" data-show='[["#sa-kind","acid"],["#sa-c","-2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Going from 10⁻² M to 10⁻³ M raises the pH by exactly 1 (from 2 to 3): each factor of 10 in concentration is one pH unit. Check by sliding.</p></details></li>
+        <li><p>Dilute HCl all the way to 10⁻⁸ M. Does the pH go above 7? <button type="button" class="btn link" data-show='[["#sa-kind","acid"],["#sa-c","-8"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>No: about 6.98. Water contributes 10⁻⁷ M of H₃O⁺ and the acid adds to that; an acid can never make the pH basic.</p></details></li>
+        <li><p>Hot water: set the temperature to 50 °C and look at a neutral solution. <button type="button" class="btn link" data-show='[["#sa-kind","acid"],["#sa-c","-9"],["#sa-T","50"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Neutral pH is about 6.63 at 50 °C, not 7, because K<sub>w</sub> grows with temperature. Neutral means [H₃O⁺] = [OH⁻], not "pH = 7".</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">What is the pH of 0.025 M Ba(OH)₂ at 25 °C?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Strong base: dissociates completely.</b> Ba(OH)₂ → Ba²⁺ + 2OH⁻.</li>
+          <li hidden><b>Count hydroxide.</b> Each formula unit gives 2 OH⁻, so [OH⁻] = 2 × 0.025 = 0.050 M.</li>
+          <li hidden><b>pOH.</b> pOH = −log(0.050) = 1.30.</li>
+          <li hidden><b>pH.</b> pH = 14.00 − 1.30 = <b>12.70</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to count the number of OH⁻ per formula unit (Ba(OH)₂ and Ca(OH)₂ give 2).</li>
+        <li>Giving a pH above 7 for a very dilute acid (or below 7 for a very dilute base).</li>
+        <li>Using pH + pOH = 14 at temperatures other than 25 °C: it equals −log K<sub>w</sub>.</li>
+        <li>Saying H⁺ "floats free" in water. It's H₃O⁺, but H⁺ and H₃O⁺ are interchangeable on the AP exam.</li>
+        <li>Mixing up acid and conjugate: an acid's conjugate is a <i>base</i> (it has one fewer H⁺).</li>
+      </ul></div>
+      <div class="prose"><h2>Strong acids and bases to know</h2>
+        <p>Strong acids: HCl, HBr, HI, HNO₃, HClO₄, and H₂SO₄ (first proton only). Strong bases: LiOH, NaOH, KOH, RbOH, CsOH, Ca(OH)₂, Sr(OH)₂, Ba(OH)₂. For a strong acid, [H₃O⁺] = c; for a strong base, [OH⁻] = (number of OH) × c. Everything else is weak. A conjugate pair differs by exactly one H⁺: strong acids have negligible conjugate bases; weak acids have weak conjugate bases.</p></div>
+      <div class="quiz" data-correct="1" data-explain="A strong acid ionizes completely, so [H₃O⁺] = 0.0010 M and pH = 3.00. (If it were weak the pH would be higher.)">
+        <p class="q">Check yourself: what is the pH of 1.0×10⁻³ M HNO₃?</p>
+        <div class="opts"><button type="button">1.00</button><button type="button">3.00</button><button type="button">11.00</button><button type="button">Cannot tell</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

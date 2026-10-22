@@ -1,0 +1,62 @@
+  <section class="view" id="v-equilibrium" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>Equilibrium &amp; the equilibrium constant</h1>
+        <p class="lede">Many reactions run both ways. They don't finish: they settle into a balance. The equilibrium constant K says where that balance sits.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Picture a crowded dance floor with a door at each end. People walk in one door (reactants becoming products) as others walk out the other (products turning back). At first the traffic is lopsided. Over time the number of dancers inside stops changing, not because everyone stopped moving, but because <b>the forward rate equals the reverse rate</b>. That is <b>dynamic equilibrium</b>: motion continues, amounts don't change.</p>
+        <p>The <b>equilibrium constant</b>, K, is the ratio of products to reactants at that balance, with each concentration raised to its coefficient: for aA + bB ⇌ cC + dD, K = [C]<sup>c</sup>[D]<sup>d</sup> / ([A]<sup>a</sup>[B]<sup>b</sup>). Big K (≫1) means products dominate; small K (≪1) means reactants dominate. At any moment, the same ratio computed with <i>current</i> concentrations is the <b>reaction quotient Q</b>. If Q &lt; K the reaction runs forward; if Q &gt; K it runs backward; if Q = K it is at equilibrium.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed reactions go all the way to products (100% yield) and then stop. Now we know many stop part-way, with reactants and products coexisting, and the ratio is fixed by K at a given temperature.</div>
+      <div class="lab" id="eq2-lab">
+        <div class="labbar"><span class="title">Watch a reaction settle</span><div class="row"><button type="button" class="btn primary" id="eq2-go">Start</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="eq2-type"><span>Reaction</span></label><select id="eq2-type"><option value="ab">A ⇌ B</option><option value="a2b">2A ⇌ B (dimer)</option></select></div>
+          <div class="ctl"><label for="eq2-k"><span>Equilibrium constant K</span> <output id="eq2-k-out"></output></label><input type="range" id="eq2-k" min="-1" max="1" step="0.05" value="0"></div>
+          <div class="ctl"><label for="eq2-start"><span>Start with</span></label><select id="eq2-start"><option value="r">only reactants</option><option value="p">only products</option><option value="m">a mixture</option></select></div>
+        </div>
+        <div class="split"><div><canvas id="eq2-canvas" aria-label="Particles of A and B converting back and forth"></canvas></div><div><canvas id="eq2-graph" aria-label="Concentrations and forward and reverse rates against time"></canvas></div></div>
+        <div class="readout"><div><span>[A]</span><strong class="x" id="eq2-A">—</strong></div><div><span>[B]</span><strong class="v" id="eq2-B">—</strong></div><div><span>Q</span><strong class="a" id="eq2-Q">—</strong></div><div><span>K</span><strong id="eq2-kval">—</strong></div><div><span>Status</span><strong id="eq2-st" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="lab" id="qk-lab">
+        <div class="labbar"><span class="title">Which way will it go?</span><div class="row"><button type="button" class="btn primary" id="qk-go">Let it react</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="qk-rx"><span>Reaction (K at this temperature)</span></label><select id="qk-rx"></select></div>
+          <div class="ctl"><label for="qk-a"><span>Starting [reactant side]</span> <output id="qk-a-out"></output></label><input type="range" id="qk-a" min="0.05" max="2" step="0.05" value="1"></div>
+          <div class="ctl"><label for="qk-b"><span>Starting [product side]</span> <output id="qk-b-out"></output></label><input type="range" id="qk-b" min="0.05" max="2" step="0.05" value="0.5"></div>
+        </div>
+        <canvas id="qk-canvas" aria-label="Bars showing concentrations and a number line comparing Q with K"></canvas>
+        <div class="readout"><div><span>Q now</span><strong class="a" id="qk-Q">—</strong></div><div><span>K</span><strong id="qk-K">—</strong></div><div><span>Prediction</span><strong class="x" id="qk-dir" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then press Start.</p><ol>
+        <li><p>Start with only reactants and let it settle. Then restart with only products (same K). Do they reach the same mixture? <button type="button" class="btn link" data-show='[["#eq2-type","ab"],["#eq2-start","p"],["click","#eq2-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes: the same ratio [B]/[A] = K. Equilibrium doesn't care which side you started from.</p></details></li>
+        <li><p>Make K large (slide right). How much A is left at equilibrium? <button type="button" class="btn link" data-show='[["#eq2-k","1"],["click","#eq2-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Almost none: with K = 10, about 9 of every 10 particles are B. A large K favors products, but at equilibrium the reaction is never 100% complete.</p></details></li>
+        <li><p>Choose 2A ⇌ B. Why is K = [B]/[A]² and not [B]/[A]? <button type="button" class="btn link" data-show='[["#eq2-type","a2b"],["click","#eq2-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Two A particles must come together to make each B, so [A] appears twice in the ratio (raised to its coefficient). The graph's forward-rate curve uses [A]².</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">For N₂(g) + 3H₂(g) ⇌ 2NH₃(g), the equilibrium concentrations are [N₂] = 0.50 M, [H₂] = 0.20 M and [NH₃] = 0.15 M. Calculate K<sub>c</sub>, then decide which way the reaction goes if [NH₃] is suddenly 0.60 M.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Write the expression</b> from the balanced equation: K<sub>c</sub> = [NH₃]² / ([N₂][H₂]³).</li>
+          <li hidden><b>Plug in.</b> K<sub>c</sub> = (0.15)² / ((0.50)(0.20)³) = 0.0225 / (0.50 × 0.0080) = 0.0225 / 0.0040 = <b>5.6</b>.</li>
+          <li hidden><b>Compute Q for the new mixture.</b> Q = (0.60)² / ((0.50)(0.20)³) = 0.36 / 0.0040 = 90.</li>
+          <li hidden><b>Compare.</b> Q (90) &gt; K (5.6), so there is too much product. The reaction runs <b>in reverse</b> (toward reactants) until Q falls back to 5.6.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking equilibrium means equal concentrations. It means constant concentrations, with equal <i>rates</i>.</li>
+        <li>Thinking the reaction stops. Both directions keep going at the same rate.</li>
+        <li>Including pure solids and pure liquids in K. Their concentrations are constant and are left out (including water as a solvent).</li>
+        <li>Forgetting to raise concentrations to their coefficients, or putting reactants on top.</li>
+        <li>Believing a large K means a fast reaction. K says <i>where</i> the balance is, not how quickly it gets there.</li>
+        <li>Assuming K changes when you add reactant. Only temperature changes K.</li>
+      </ul></div>
+      <div class="prose"><h2>Manipulating K</h2>
+        <p>Reverse the reaction: K becomes 1/K. Multiply the coefficients by n: K becomes K<sup>n</sup>. Add two reactions: multiply their K values. For gases you can also write K<sub>p</sub> with partial pressures, and K<sub>p</sub> = K<sub>c</sub>(RT)<sup>Δn</sup>, where Δn = moles of gas in products − moles of gas in reactants.</p></div>
+      <div class="quiz" data-correct="3" data-explain="At equilibrium the forward and reverse reactions continue at the same rate, so the concentrations stay constant. Nothing has stopped; the changes just cancel.">
+        <p class="q">Check yourself: what is true at dynamic equilibrium?</p>
+        <div class="opts"><button type="button">Both reactions have stopped</button><button type="button">[reactants] = [products]</button><button type="button">The forward reaction has finished</button><button type="button">The forward and reverse rates are equal</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

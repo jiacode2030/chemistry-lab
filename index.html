@@ -2706,6 +2706,242 @@ table.data{min-width:0}
     </div>
   </section>
 
+  <section class="view" id="v-equilibrium" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>Equilibrium &amp; the equilibrium constant</h1>
+        <p class="lede">Many reactions run both ways. They don't finish: they settle into a balance. The equilibrium constant K says where that balance sits.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Picture a crowded dance floor with a door at each end. People walk in one door (reactants becoming products) as others walk out the other (products turning back). At first the traffic is lopsided. Over time the number of dancers inside stops changing, not because everyone stopped moving, but because <b>the forward rate equals the reverse rate</b>. That is <b>dynamic equilibrium</b>: motion continues, amounts don't change.</p>
+        <p>The <b>equilibrium constant</b>, K, is the ratio of products to reactants at that balance, with each concentration raised to its coefficient: for aA + bB ⇌ cC + dD, K = [C]<sup>c</sup>[D]<sup>d</sup> / ([A]<sup>a</sup>[B]<sup>b</sup>). Big K (≫1) means products dominate; small K (≪1) means reactants dominate. At any moment, the same ratio computed with <i>current</i> concentrations is the <b>reaction quotient Q</b>. If Q &lt; K the reaction runs forward; if Q &gt; K it runs backward; if Q = K it is at equilibrium.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed reactions go all the way to products (100% yield) and then stop. Now we know many stop part-way, with reactants and products coexisting, and the ratio is fixed by K at a given temperature.</div>
+      <div class="lab" id="eq2-lab">
+        <div class="labbar"><span class="title">Watch a reaction settle</span><div class="row"><button type="button" class="btn primary" id="eq2-go">Start</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="eq2-type"><span>Reaction</span></label><select id="eq2-type"><option value="ab">A ⇌ B</option><option value="a2b">2A ⇌ B (dimer)</option></select></div>
+          <div class="ctl"><label for="eq2-k"><span>Equilibrium constant K</span> <output id="eq2-k-out"></output></label><input type="range" id="eq2-k" min="-1" max="1" step="0.05" value="0"></div>
+          <div class="ctl"><label for="eq2-start"><span>Start with</span></label><select id="eq2-start"><option value="r">only reactants</option><option value="p">only products</option><option value="m">a mixture</option></select></div>
+        </div>
+        <div class="split"><div><canvas id="eq2-canvas" aria-label="Particles of A and B converting back and forth"></canvas></div><div><canvas id="eq2-graph" aria-label="Concentrations and forward and reverse rates against time"></canvas></div></div>
+        <div class="readout"><div><span>[A]</span><strong class="x" id="eq2-A">—</strong></div><div><span>[B]</span><strong class="v" id="eq2-B">—</strong></div><div><span>Q</span><strong class="a" id="eq2-Q">—</strong></div><div><span>K</span><strong id="eq2-kval">—</strong></div><div><span>Status</span><strong id="eq2-st" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="lab" id="qk-lab">
+        <div class="labbar"><span class="title">Which way will it go?</span><div class="row"><button type="button" class="btn primary" id="qk-go">Let it react</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="qk-rx"><span>Reaction (K at this temperature)</span></label><select id="qk-rx"></select></div>
+          <div class="ctl"><label for="qk-a"><span>Starting [reactant side]</span> <output id="qk-a-out"></output></label><input type="range" id="qk-a" min="0.05" max="2" step="0.05" value="1"></div>
+          <div class="ctl"><label for="qk-b"><span>Starting [product side]</span> <output id="qk-b-out"></output></label><input type="range" id="qk-b" min="0.05" max="2" step="0.05" value="0.5"></div>
+        </div>
+        <canvas id="qk-canvas" aria-label="Bars showing concentrations and a number line comparing Q with K"></canvas>
+        <div class="readout"><div><span>Q now</span><strong class="a" id="qk-Q">—</strong></div><div><span>K</span><strong id="qk-K">—</strong></div><div><span>Prediction</span><strong class="x" id="qk-dir" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then press Start.</p><ol>
+        <li><p>Start with only reactants and let it settle. Then restart with only products (same K). Do they reach the same mixture? <button type="button" class="btn link" data-show='[["#eq2-type","ab"],["#eq2-start","p"],["click","#eq2-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes: the same ratio [B]/[A] = K. Equilibrium doesn't care which side you started from.</p></details></li>
+        <li><p>Make K large (slide right). How much A is left at equilibrium? <button type="button" class="btn link" data-show='[["#eq2-k","1"],["click","#eq2-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Almost none: with K = 10, about 9 of every 10 particles are B. A large K favors products, but at equilibrium the reaction is never 100% complete.</p></details></li>
+        <li><p>Choose 2A ⇌ B. Why is K = [B]/[A]² and not [B]/[A]? <button type="button" class="btn link" data-show='[["#eq2-type","a2b"],["click","#eq2-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Two A particles must come together to make each B, so [A] appears twice in the ratio (raised to its coefficient). The graph's forward-rate curve uses [A]².</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">For N₂(g) + 3H₂(g) ⇌ 2NH₃(g), the equilibrium concentrations are [N₂] = 0.50 M, [H₂] = 0.20 M and [NH₃] = 0.15 M. Calculate K<sub>c</sub>, then decide which way the reaction goes if [NH₃] is suddenly 0.60 M.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Write the expression</b> from the balanced equation: K<sub>c</sub> = [NH₃]² / ([N₂][H₂]³).</li>
+          <li hidden><b>Plug in.</b> K<sub>c</sub> = (0.15)² / ((0.50)(0.20)³) = 0.0225 / (0.50 × 0.0080) = 0.0225 / 0.0040 = <b>5.6</b>.</li>
+          <li hidden><b>Compute Q for the new mixture.</b> Q = (0.60)² / ((0.50)(0.20)³) = 0.36 / 0.0040 = 90.</li>
+          <li hidden><b>Compare.</b> Q (90) &gt; K (5.6), so there is too much product. The reaction runs <b>in reverse</b> (toward reactants) until Q falls back to 5.6.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking equilibrium means equal concentrations. It means constant concentrations, with equal <i>rates</i>.</li>
+        <li>Thinking the reaction stops. Both directions keep going at the same rate.</li>
+        <li>Including pure solids and pure liquids in K. Their concentrations are constant and are left out (including water as a solvent).</li>
+        <li>Forgetting to raise concentrations to their coefficients, or putting reactants on top.</li>
+        <li>Believing a large K means a fast reaction. K says <i>where</i> the balance is, not how quickly it gets there.</li>
+        <li>Assuming K changes when you add reactant. Only temperature changes K.</li>
+      </ul></div>
+      <div class="prose"><h2>Manipulating K</h2>
+        <p>Reverse the reaction: K becomes 1/K. Multiply the coefficients by n: K becomes K<sup>n</sup>. Add two reactions: multiply their K values. For gases you can also write K<sub>p</sub> with partial pressures, and K<sub>p</sub> = K<sub>c</sub>(RT)<sup>Δn</sup>, where Δn = moles of gas in products − moles of gas in reactants.</p></div>
+      <div class="quiz" data-correct="3" data-explain="At equilibrium the forward and reverse reactions continue at the same rate, so the concentrations stay constant. Nothing has stopped; the changes just cancel.">
+        <p class="q">Check yourself: what is true at dynamic equilibrium?</p>
+        <div class="opts"><button type="button">Both reactions have stopped</button><button type="button">[reactants] = [products]</button><button type="button">The forward reaction has finished</button><button type="button">The forward and reverse rates are equal</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-icecalc" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>ICE tables &amp; calculating equilibrium amounts</h1>
+        <p class="lede">Given K and a starting mixture, how much of each substance is there at equilibrium? An ICE table keeps the bookkeeping straight.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of a tug-of-war that begins with a lopsided rope. <b>I</b>nitial: where the rope starts. <b>C</b>hange: how far the reaction pulls to get to balance, expressed with one unknown, <b>x</b>, times each coefficient. <b>E</b>quilibrium: initial plus change. Plug the E row into K and solve for x.</p>
+        <p>Below, you play the solver: slide x until Q reaches K. Q rises as the reaction moves forward, so there is exactly one x where Q = K. The graph shows this crossing. When K is small, x turns out small compared with the starting amount, and we may use the shortcut of dropping x from the subtraction, but only after checking the <b>5% rule</b>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed "x is small" without testing it. Now we check: if x is more than 5% of the starting concentration, the shortcut fails and we must solve the full equation (often a quadratic).</div>
+      <div class="lab" id="ic-lab">
+        <div class="labbar"><span class="title">Slide x until Q = K</span><div class="row"><button type="button" class="btn primary" id="ic-solve">Solve for me</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ic-rx"><span>Reaction</span></label><select id="ic-rx"></select></div>
+          <div class="ctl"><label for="ic-k"><span>Equilibrium constant K</span> <output id="ic-k-out"></output></label><input type="range" id="ic-k" min="-5" max="2" step="0.01" value="-0.44"></div>
+          <div class="ctl"><label for="ic-c0"><span>Starting concentration</span> <output id="ic-c0-out"></output></label><input type="range" id="ic-c0" min="0.05" max="1" step="0.05" value="0.1"></div>
+          <div class="ctl"><label for="ic-x"><span>Your guess for x</span> <output id="ic-x-out"></output></label><input type="range" id="ic-x" min="0" max="1000" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="ic-bars" aria-label="Bars for each species: starting amounts as outlines and current amounts filled"></canvas></div><div><canvas id="ic-graph" aria-label="Q against x with the K line; the solution is where they cross"></canvas></div></div>
+        <div class="tablewrap" style="min-width:0"><table class="data" id="ic-tab"></table></div>
+        <div class="readout"><div><span>Q at your x</span><strong class="a" id="ic-Q">—</strong></div><div><span>K</span><strong id="ic-kv">—</strong></div><div><span>Verdict</span><strong class="x" id="ic-v" style="font-size:15px;white-space:normal">—</strong></div><div><span>x ÷ start (5% rule)</span><strong id="ic-pct">—</strong></div></div>
+        <p class="small" id="ic-approx" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict x before you slide it.</p><ol>
+        <li><p>Make K very small and press Solve. How big is x compared with the starting amount? <button type="button" class="btn link" data-show='[["#ic-k","-4"],["click","#ic-solve"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is tiny (well under 5%), so ignoring x in the "start − x" term barely changes the answer: the shortcut and the exact answer agree.</p></details></li>
+        <li><p>Now use K near 1 and see if the shortcut still works. <button type="button" class="btn link" data-show='[["#ic-k","-0.4"],["click","#ic-solve"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is a big fraction of the start, and the shortcut estimate is noticeably off. The 5% rule flags it: solve the full quadratic.</p></details></li>
+        <li><p>Double the starting concentration with the same K. Does the <i>percent</i> that reacts stay the same? <button type="button" class="btn link" data-show='[["#ic-rx","0"],["#ic-c0","0.2"],["click","#ic-solve"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>For N₂O₄ ⇌ 2NO₂ no: when one reactant makes two products, higher starting concentration means a smaller fraction reacts (Le Châtelier: more crowded favors fewer particles).</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">N₂O₄(g) ⇌ 2NO₂(g), K<sub>c</sub> = 0.36 at 100 °C. Starting from 0.100 M N₂O₄ with no NO₂, find the equilibrium concentrations.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Set up the table.</b> I: [N₂O₄] = 0.100, [NO₂] = 0. C: −x and +2x. E: 0.100 − x and 2x.</li>
+          <li hidden><b>Write K.</b> 0.36 = (2x)² / (0.100 − x) = 4x² / (0.100 − x).</li>
+          <li hidden><b>Try the shortcut and check it.</b> Drop x in the denominator: 4x² = 0.036, x ≈ 0.095, which is 95% of 0.100. Far above 5%, so the shortcut <b>fails</b>. Solve the quadratic.</li>
+          <li hidden><b>Quadratic.</b> 4x² + 0.36x − 0.036 = 0. x = [−0.36 + √(0.36² + 4·4·0.036)] / 8 = [−0.36 + √0.7056] / 8 = (−0.36 + 0.84) / 8 = 0.060. So [NO₂] = 2x = <b>0.120 M</b> and [N₂O₄] = 0.100 − 0.060 = <b>0.040 M</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to multiply x by the coefficient (the table's change row is +2x, not +x).</li>
+        <li>Using the shortcut without checking: always test x ÷ start against 5%.</li>
+        <li>Reporting x as the answer. x is the <i>change</i>; the question usually wants the equilibrium concentrations (E row).</li>
+        <li>Putting the starting amounts of products into the table as zero when they aren't, or adding x to the wrong side.</li>
+        <li>Keeping a root that makes a concentration negative. Only one root is physically possible.</li>
+      </ul></div>
+      <div class="prose"><h2>The 5% rule in one line</h2>
+        <p>If K is small and the start is not tiny, then x ≪ start and you may write (start − x) ≈ start. Rule of thumb: the shortcut is acceptable when x/start &lt; 5%. As a quick guide, that usually needs start/K to be about 400 or more.</p></div>
+      <div class="quiz" data-correct="1" data-explain="x/start = 0.012/0.20 = 6%, which is above 5%, so the approximation is not valid and the full quadratic should be solved.">
+        <p class="q">Check yourself: starting at 0.20 M, the shortcut gives x = 0.012 M. Is the shortcut acceptable?</p>
+        <div class="opts"><button type="button">Yes, x is small</button><button type="button">No: 0.012/0.20 = 6% is above 5%</button><button type="button">Yes, because K is small</button><button type="button">No: x must be zero</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-lechatelier" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>Le Châtelier's principle</h1>
+        <p class="lede">Disturb a system at equilibrium and it fights back, shifting to partly undo the disturbance. Q and K tell you exactly why.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine a seesaw perfectly balanced. Add a kid to one end and it tips; the other kids shuffle until the balance returns. A system at equilibrium does the same: <b>add</b> a substance and it shifts away from it; <b>remove</b> one and it shifts toward replacing it. <b>Squeeze</b> a gas mixture (smaller volume, higher pressure) and it shifts toward the side with <i>fewer gas particles</i>. <b>Heat</b> an endothermic reaction (treat heat as a reactant) and it shifts toward products; heat an exothermic reaction (heat is a product) and it shifts toward reactants.</p>
+        <p>Underneath it all is a simple rule: a stress changes <b>Q</b> (or, for temperature, changes <b>K</b>). If Q ≠ K the reaction shifts until Q = K again. Changing concentrations or volume changes Q <i>but not K</i>. Only temperature changes K. A catalyst changes neither: it only gets you to equilibrium sooner.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we described equilibrium as fixed once reached. Now we see it is a balance that can be disturbed, and the shift follows from comparing Q with K, not from memorized rules alone.</div>
+      <div class="lab" id="lc-lab">
+        <div class="labbar"><span class="title">Disturb the equilibrium</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="lc-rx"><span>System</span></label><select id="lc-rx"></select></div>
+          <div class="ctl"><label for="lc-t"><span>Temperature</span> <output id="lc-t-out"></output></label><input type="range" id="lc-t" min="280" max="700" step="5" value="350"></div>
+          <div class="ctl"><label for="lc-v"><span>Volume</span> <output id="lc-v-out"></output></label><input type="range" id="lc-v" min="0.5" max="4" step="0.1" value="2"></div>
+          <div class="ctl"><label for="lc-sp"><span>Species to add or remove</span></label><select id="lc-sp"></select></div>
+        </div>
+        <div class="row"><button type="button" class="btn" id="lc-add">Add some</button><button type="button" class="btn" id="lc-rem">Remove half</button><button type="button" class="btn" id="lc-cat">Add a catalyst</button></div>
+        <div class="split"><div><canvas id="lc-canvas" aria-label="A gas or solution mixture at equilibrium with particles of each species"></canvas></div><div><canvas id="lc-graph" aria-label="Concentrations of each species over time, with stresses marked, and a Q against K gauge"></canvas></div></div>
+        <div class="readout"><div><span>K now</span><strong id="lc-K">—</strong></div><div><span>Q now</span><strong class="a" id="lc-Q">—</strong></div><div><span>Status</span><strong class="x" id="lc-st" style="font-size:15px;white-space:normal">—</strong></div><div><span>Predicted shift</span><strong id="lc-sh" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the shift first. The graph and the Q-vs-K bar will show you.</p><ol>
+        <li><p>N₂O₄ ⇌ 2NO₂ is endothermic. Heat it. Which way does it shift, and what happens to K? <button type="button" class="btn link" data-show='[["#lc-rx","0"],["#lc-t","500"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Toward products (more brown NO₂). K <i>increases</i>: temperature is the one stress that changes K itself.</p></details></li>
+        <li><p>Squeeze the same gas mixture (reduce the volume). Which way does it go? <button type="button" class="btn link" data-show='[["#lc-rx","0"],["#lc-t","350"],["#lc-v","0.8"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Toward N₂O₄, the side with fewer gas particles (1 vs 2). Concentrations jump at first because the volume dropped, then the shift partly relieves the pressure. K doesn't change.</p></details></li>
+        <li><p>Haber process: remove ammonia as it forms. <button type="button" class="btn link" data-show='[["#lc-rx","1"],["#lc-sp","2"],["click","#lc-rem"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Q drops below K, so the reaction shifts right to make more NH₃. Industry removes NH₃ continuously for this reason.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">N₂(g) + 3H₂(g) ⇌ 2NH₃(g), ΔH = −92 kJ. For each stress, predict the shift: (a) add N₂, (b) raise the temperature, (c) decrease the volume.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Add N₂ (a reactant).</b> Q = [NH₃]²/([N₂][H₂]³) falls below K. The reaction shifts <b>right</b> (toward NH₃), using up some of the added N₂.</li>
+          <li hidden><b>Raise T.</b> The reaction is exothermic, so heat is like a product. Adding heat is like adding product: shift <b>left</b>. Here K itself <i>decreases</i>.</li>
+          <li hidden><b>Decrease the volume.</b> Gas concentrations increase. Reactants: 4 mol of gas; products: 2 mol. The system shifts toward the side with fewer moles: <b>right</b>. K is unchanged.</li>
+          <li hidden><b>Summary.</b> (a) right, (b) left (and K gets smaller), (c) right. Only (b) changed the value of K.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying a concentration change or a volume change changes K. Only temperature does.</li>
+        <li>Thinking a catalyst shifts the equilibrium. It speeds up both directions equally and only helps reach equilibrium sooner.</li>
+        <li>Applying the "fewer moles" rule when the number of gas moles is equal on both sides (no shift), or when the pressure is raised by adding an inert gas at constant volume (no shift: the concentrations don't change).</li>
+        <li>Forgetting that pure solids and liquids don't count in the mole comparison.</li>
+        <li>Thinking the shift fully cancels the stress. It only <i>partly</i> offsets it.</li>
+      </ul></div>
+      <div class="prose"><h2>Temperature and K</h2>
+        <p>Raising T favors the endothermic direction, so K increases for an endothermic reaction (ΔH &gt; 0) and decreases for an exothermic one. The van't Hoff relation makes this quantitative: ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁).</p></div>
+      <div class="quiz" data-correct="2" data-explain="Adding an inert gas at constant volume does not change any concentration, so Q still equals K and nothing shifts.">
+        <p class="q">Check yourself: an inert gas is added to an equilibrium mixture in a rigid container. What happens?</p>
+        <div class="opts"><button type="button">It shifts toward fewer moles</button><button type="button">It shifts toward more moles</button><button type="button">No shift: the concentrations are unchanged</button><button type="button">K increases</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-ksp" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>Solubility equilibria &amp; K<sub>sp</sub></h1>
+        <p class="lede">"Insoluble" salts still dissolve a tiny bit. K<sub>sp</sub> measures how much, and tells you when a precipitate will appear.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Drop a crystal of silver chloride in water. A few Ag⁺ and Cl⁻ ions break away; others stick back onto the crystal. Soon the rates match: a <b>saturated solution</b>, which is just an equilibrium, AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq). Since the solid's concentration is constant, we leave it out: <b>K<sub>sp</sub> = [Ag⁺][Cl⁻]</b>. The smaller the K<sub>sp</sub>, the less dissolves.</p>
+        <p>For a salt M<sub>a</sub>X<sub>b</sub>, K<sub>sp</sub> = [M]<sup>a</sup>[X]<sup>b</sup>. The <b>molar solubility</b> s is how many moles dissolve per liter: [M] = a·s and [X] = b·s. If you already have one of the ions in the solution (a <b>common ion</b>), Le Châtelier pushes the equilibrium left and the salt dissolves <i>less</i>. And if you mix solutions so that <b>Q &gt; K<sub>sp</sub></b>, a precipitate forms until Q falls back to K<sub>sp</sub>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, "soluble" or "insoluble" from the solubility rules was a yes or no. Now we put numbers on it: insoluble salts have a small but nonzero solubility, and we can predict exactly when a precipitate forms.</div>
+      <div class="lab" id="ks-lab">
+        <div class="labbar"><span class="title">Dissolve a salt until saturated</span><div class="row"><button type="button" class="btn primary" id="ks-go">Add the crystal</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ks-salt"><span>Salt</span></label><select id="ks-salt"></select></div>
+          <div class="ctl"><label for="ks-c"><span>Common ion already in the water</span> <output id="ks-c-out"></output></label><input type="range" id="ks-c" min="0" max="0.2" step="0.005" value="0"></div>
+          <div class="ctl"><label for="ks-which"><span>The common ion is the</span></label><select id="ks-which"><option value="cat">cation</option><option value="an">anion</option></select></div>
+        </div>
+        <div class="split"><div><canvas id="ks-canvas" aria-label="A crystal dissolving in water until the solution is saturated"></canvas></div><div><canvas id="ks-graph" aria-label="Molar solubility against the amount of common ion already present"></canvas></div></div>
+        <div class="readout"><div><span>K<sub>sp</sub></span><strong id="ks-ksp">—</strong></div><div><span>Molar solubility s</span><strong class="x" id="ks-s">—</strong></div><div><span>[cation]</span><strong id="ks-cat">—</strong></div><div><span>[anion]</span><strong id="ks-an">—</strong></div><div><span>Mass dissolving</span><strong id="ks-gl">—</strong></div></div>
+        <p class="small" style="margin:0">The number of ions drawn is scaled so you can see the trend; real solutions at this level have far fewer ions than particles drawn.</p>
+      </div>
+      <div class="lab" id="mx-lab">
+        <div class="labbar"><span class="title">Mix two solutions: will it precipitate?</span><div class="row"><button type="button" class="btn primary" id="mx-go">Pour together</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="mx-salt"><span>Salt that could form</span></label><select id="mx-salt"></select></div>
+          <div class="ctl"><label for="mx-c1"><span>[cation] in solution 1 (before mixing)</span> <output id="mx-c1-out"></output></label><input type="range" id="mx-c1" min="-6" max="-1" step="0.1" value="-3"></div>
+          <div class="ctl"><label for="mx-c2"><span>[anion] in solution 2 (before mixing)</span> <output id="mx-c2-out"></output></label><input type="range" id="mx-c2" min="-6" max="-1" step="0.1" value="-3"></div>
+          <div class="ctl"><label for="mx-v"><span>Volume of each solution</span> <output id="mx-v-out"></output></label><input type="range" id="mx-v" min="10" max="200" step="5" value="50"></div>
+        </div>
+        <canvas id="mx-canvas" aria-label="Two solutions poured into one beaker; a precipitate forms if Q exceeds Ksp"></canvas>
+        <div class="readout"><div><span>[cation] after mixing</span><strong id="mx-ca">—</strong></div><div><span>[anion] after mixing</span><strong id="mx-an">—</strong></div><div><span>Q</span><strong class="a" id="mx-q">—</strong></div><div><span>K<sub>sp</sub></span><strong id="mx-k">—</strong></div><div><span>Result</span><strong class="x" id="mx-r" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then use the labs.</p><ol>
+        <li><p>Add 0.10 M of the common chloride ion to AgCl. How does the solubility change? <button type="button" class="btn link" data-show='[["#ks-salt","0"],["#ks-which","an"],["#ks-c","0.1"],["click","#ks-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>It drops by about four orders of magnitude, from 1.3×10⁻⁵ M to 1.8×10⁻⁹ M. Extra Cl⁻ pushes AgCl(s) ⇌ Ag⁺ + Cl⁻ to the left, so less dissolves.</p></details></li>
+        <li><p>Compare Ag₂CrO₄ (K<sub>sp</sub> 1.1×10⁻¹²) with AgCl (1.8×10⁻¹⁰). Which has the lower solubility? <button type="button" class="btn link" data-show='[["#ks-salt","5"],["click","#ks-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Surprise: Ag₂CrO₄ is <i>more</i> soluble (6.5×10⁻⁵ M vs 1.3×10⁻⁵ M) despite its smaller K<sub>sp</sub>, because it has a different formula type. You can compare K<sub>sp</sub> values directly only for salts with the same number of ions.</p></details></li>
+        <li><p>Mix 0.001 M Ag⁺ and 0.001 M Cl⁻ in equal volumes. Precipitate? <button type="button" class="btn link" data-show='[["#mx-salt","0"],["#mx-c1","-3"],["#mx-c2","-3"],["click","#mx-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>After mixing, each ion is 5×10⁻⁴ M, so Q = 2.5×10⁻⁷, which is much larger than K<sub>sp</sub> (1.8×10⁻¹⁰): a precipitate forms.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">K<sub>sp</sub> of PbI₂ is 9.8×10⁻⁹. (a) Find its molar solubility in pure water. (b) Find its solubility in 0.050 M KI.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Equilibrium and expression.</b> PbI₂(s) ⇌ Pb²⁺ + 2I⁻, K<sub>sp</sub> = [Pb²⁺][I⁻]².</li>
+          <li hidden><b>(a) Use s.</b> [Pb²⁺] = s, [I⁻] = 2s. K<sub>sp</sub> = s(2s)² = 4s³ = 9.8×10⁻⁹, so s = (2.45×10⁻⁹)<sup>1/3</sup> = <b>1.35×10⁻³ M</b>.</li>
+          <li hidden><b>(b) Add the common ion.</b> [I⁻] = 0.050 + 2s ≈ 0.050 (s is tiny). K<sub>sp</sub> = s(0.050)² so s = 9.8×10⁻⁹ / 2.5×10⁻³ = <b>3.9×10⁻⁶ M</b>.</li>
+          <li hidden><b>Check.</b> 2s = 7.8×10⁻⁶ ≪ 0.050 ✓ (far under 5%). The common ion cut the solubility by a factor of about 350.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting that [X] = b·s: for PbI₂ the iodide concentration is 2s, and it is squared in K<sub>sp</sub>.</li>
+        <li>Comparing K<sub>sp</sub> values to rank solubilities when the salts have different formulas (like AgCl and Ag₂CrO₄).</li>
+        <li>Forgetting dilution when two solutions are mixed: concentrations drop before you compute Q.</li>
+        <li>Including the solid in the K<sub>sp</sub> expression.</li>
+        <li>Calling Q &gt; K<sub>sp</sub> "saturated". Q = K<sub>sp</sub> is saturated; Q &gt; K<sub>sp</sub> is supersaturated and a precipitate forms.</li>
+      </ul></div>
+      <div class="prose"><h2>Other ways to change solubility</h2>
+        <p>Adding acid dissolves salts whose anion is a base (CaCO₃, Mg(OH)₂, many fluorides and sulfides): H⁺ removes the anion, pulling the equilibrium right. Complex-ion formation (like Ag⁺ with NH₃) works the same way. Temperature changes K<sub>sp</sub> itself, as with any K.</p></div>
+      <div class="quiz" data-correct="0" data-explain="Extra chloride from the NaCl shifts AgCl(s) ⇌ Ag⁺ + Cl⁻ to the left, so less AgCl dissolves. This is the common-ion effect.">
+        <p class="q">Check yourself: AgCl is dissolved in 0.10 M NaCl instead of pure water. Its solubility is…</p>
+        <div class="opts"><button type="button">Lower</button><button type="button">Higher</button><button type="button">The same</button><button type="button">Zero</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -2944,8 +3180,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"], "soon": []}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -3049,11 +3285,11 @@ const lpWeight=n=>n<=3?1.07:n===4?LP_WEIGHT:1;
 /* ---------------- sim2d: one animation loop per canvas ----------------
    o.h(w) height, o.step(dt,t) physics, o.draw(ctx,w,h,t) drawing. Runs only while the canvas is on screen and its module is open;
    with reduced motion it draws once and again whenever the module calls .render() after a control changes. */
-function sim2d(cv,o){let seen=true,last=0,t=0,raf=0;
+function sim2d(cv,o){let seen=true,last=0,t=0,raf=0,inF=false;
   const live=()=>seen&&!document.hidden&&cv.offsetParent!==null;
   function render(){const w=cv.clientWidth;if(!w)return;const h=o.h?o.h(w):clamp(w*.5,240,380);const c=prep(cv,h);if(!c)return;o.draw(c.ctx,w,h,t);}
-  function frame(ts){raf=0;if(!live()){last=0;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;t+=dt;if(o.step&&!(o.paused&&o.paused()))o.step(dt,t);render();raf=requestAnimationFrame(frame);}
-  function kick(){if(REDUCE){render();return;}if(!raf&&live())raf=requestAnimationFrame(frame);}
+  function frame(ts){raf=0;if(!live()){last=0;return;}inF=true;const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;t+=dt;try{if(o.step&&!(o.paused&&o.paused()))o.step(dt,t);render();}finally{inF=false;}raf=requestAnimationFrame(frame);}
+  function kick(){if(REDUCE){render();return;}if(!raf&&!inF&&live())raf=requestAnimationFrame(frame);}
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[es.length-1].isIntersecting;if(seen)kick();}).observe(cv);
   document.addEventListener('visibilitychange',kick);window.addEventListener('hashchange',()=>setTimeout(kick,50));
   if(o.drag){cv.classList.add('drag');cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);o.drag('down',e,cv);kick();});cv.addEventListener('pointermove',e=>{o.drag('move',e,cv);if(REDUCE)render();});
@@ -5614,6 +5850,294 @@ const hsMul=[-2,-1,-.5,0,.5,1,2];
     return {q:`${eq}, ΔH = ${dh} kJ. How much heat is released when ${fmt(m,1)} g of ${nm} burns completely? (molar mass ${M} g/mol)`,ans:q,unit:'kJ',tol:.02,hint:'Grams → moles of fuel → divide by its coefficient (ΔH is per reaction as written) → multiply by |ΔH|.',sol:`n = ${fmt(m,1)}/${M} = ${fmt(m/M,3)} mol; reactions = ${fmt(m/M,3)} ÷ ${c} = ${fmt(m/M/c,3)}; q = <b>${fmt(q,0)} kJ</b> released.`};}});
   PROBS.push({id:'en-concept',topic:'enthalpy',title:'Exothermic or endothermic?',gen(){const B=pick([600,800,950,1200]),F=B+pick([-250,-120,90,200,310]),dh=B-F;
     return {q:`Breaking all the bonds in the reactants takes ${B} kJ, and forming all the bonds in the products releases ${F} kJ. What is ΔH?`,ans:dh,unit:'kJ',abs:.5,hint:'ΔH = energy in − energy out.',sol:`ΔH = ${B} − ${F} = <b>${dh} kJ</b> (${dh<0?'exothermic':'endothermic'}).`};}});
+})();
+
+/* ===== modules/equilibrium.js ===== */
+
+/* ---------------- Equilibrium & K ---------------- */
+function kfmt(K){return K>=100||K<.01?sci(K,2):fmt(K,K<1?3:2);}
+(function equilibrium(){
+  const cv=$('#eq2-canvas');if(!cv)return;
+  const typeS=$('#eq2-type'),kS=$('#eq2-k'),stS=$('#eq2-start');
+  const CA='#3E7BDC',CB='#2FA36B',NP=40,H=250;
+  let ents=[],A=1,B=0,run=false,t=0,traj=[],ode={};
+  const K=()=>Math.pow(10,+kS.value),two=()=>typeS.value==='a2b';
+  function rates(){const k=K();return two()?{kf:.5*k,kr:.5}:{kf:.6*k/(1+k),kr:.6/(1+k)};}
+  const fR=(a)=>two()?rates().kf*a*a:rates().kf*a,rR=(b)=>rates().kr*b;
+  function init(){const s=stS.value;if(two()){A=s==='r'?1:s==='p'?0:.5;B=s==='r'?0:s==='p'?.5:.25;}else{A=s==='r'?1:s==='p'?0:.5;B=s==='r'?0:s==='p'?1:.5;}}
+  function step(a,b,dt){const d=(a,b)=>two()?[-2*fR(a)+2*rR(b),fR(a)-rR(b)]:[-fR(a)+rR(b),fR(a)-rR(b)];const k1=d(a,b),k2=d(a+k1[0]*dt/2,b+k1[1]*dt/2),k3=d(a+k2[0]*dt/2,b+k2[1]*dt/2),k4=d(a+k3[0]*dt,b+k3[1]*dt);return [a+dt/6*(k1[0]+2*k2[0]+2*k3[0]+k4[0]),b+dt/6*(k1[1]+2*k2[1]+2*k3[1]+k4[1])];}
+  function precompute(){init();traj=[];let a=A,b=B;const dt=.05;for(let i=0;i<=480;i++){traj.push({t:i*dt,A:a,B:b,f:fR(a),r:rR(b)});[a,b]=step(a,b,dt);}}
+  function at(tt){const i=Math.min(traj.length-1,Math.floor(tt/.05));return traj[i];}
+  const Q=(a,b)=>two()?b/(a*a):b/a;
+  function ents_sync(a,b){/* particle entities follow the concentrations */
+    const w=cv.clientWidth||300,wantB=Math.round(b*NP/(two()?1:1)),wantA=Math.round(a*NP/(two()?1:1));
+    const bs=ents.filter(e=>e.k==='B'),as=ents.filter(e=>e.k==='A');
+    const nB=two()?Math.round(b*NP):Math.round(b*NP),nA=Math.round(a*NP);
+    const mk=(k,x,y)=>({k,x:x??12+Math.random()*(w-24),y:y??12+Math.random()*(H-24),vx:(Math.random()-.5)*150,vy:(Math.random()-.5)*150,fl:0});
+    if(!two()){const need=nA+nB;while(ents.length<need)ents.push(mk('A'));while(ents.length>need)ents.pop();let cntA=ents.filter(e=>e.k==='A').length;
+      for(const e of ents){if(cntA<nA&&e.k==='B'){e.k='A';e.fl=.5;cntA++;}else if(cntA>nA&&e.k==='A'){e.k='B';e.fl=.5;cntA--;}}}
+    else{let cB=bs.length,cA=as.length;while(cB<nB&&cA>=2){const x=as.pop(),y=as.pop();ents.splice(ents.indexOf(x),1);ents.splice(ents.indexOf(y),1);ents.push(mk('B',(x.x+y.x)/2,(x.y+y.y)/2));ents[ents.length-1].fl=.5;cB++;cA-=2;}
+      while(cB>nB){const x=bs.pop();ents.splice(ents.indexOf(x),1);ents.push(mk('A',x.x-8,x.y),mk('A',x.x+8,x.y));ents[ents.length-1].fl=.5;cB--;cA+=2;}
+      while(cA<nA*1&&false){}
+      let guard=0;while(ents.filter(e=>e.k==='A').length+ents.filter(e=>e.k==='B').length*2<NP&&guard++<200)ents.push(mk('A'));
+      guard=0;while(ents.filter(e=>e.k==='A').length+ents.filter(e=>e.k==='B').length*2>NP&&guard++<200){const e=ents.find(e=>e.k==='A');if(!e)break;ents.splice(ents.indexOf(e),1);}}}
+  const sim=sim2d(cv,{h:()=>H,step(dt){const w=cv.clientWidth;if(run){t=Math.min(24,t+dt);const s=at(t);A=s.A;B=s.B;}
+      ents_sync(A,B);ents.forEach(e=>{e.x+=e.vx*dt;e.y+=e.vy*dt;e.fl=Math.max(0,e.fl-dt);if(e.x<8||e.x>w-8)e.vx*=-1;if(e.y<8||e.y>H-8)e.vy*=-1;e.x=clamp(e.x,8,w-8);e.y=clamp(e.y,8,H-8);});updR();},
+    draw(ctx,w,h){ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,1,w-2,H-2);
+      ents.forEach(e=>{const c=e.k==='A'?CA:CB;if(e.k==='B'&&two()){ball2(ctx,e.x-5,e.y,6,c);ball2(ctx,e.x+5,e.y,6,c);}else ball2(ctx,e.x,e.y,6.5,c);if(e.fl>0){ctx.strokeStyle=alpha(c,e.fl*2);ctx.lineWidth=2;ctx.beginPath();ctx.arc(e.x,e.y,10+(.5-e.fl)*30,0,7);ctx.stroke();}});
+      label(ctx,two()?'A (single)  B = A₂ (pair)':'A  ⇄  B',8,H+14,T.muted,'left','middle',MONO);}});
+  const g=$('#eq2-graph'),gs=sim2d(g,{h:()=>H+24,draw(ctx,w,h){const hh=(h-20)/2,tm=24;
+      const P1=panel(ctx,{x:44,y:8,w:w-58,h:hh-24},[0,tm],[0,1.05],{xn:4,yn:2,ylabel:'concentration (M)',color:T.ink});
+      curve(ctx,P1,x=>at(x).A,0,tm,CA,2.4,120);curve(ctx,P1,x=>at(x).B,0,tm,CB,2.4,120);line(ctx,P1,t,0,t,1.05,T.hot,1.5,[4,3]);label(ctx,'A',P1.X(1),P1.Y(at(1).A)-6,CA,'left','bottom',MONO);label(ctx,'B',P1.X(1),P1.Y(at(1).B)-6,CB,'left','bottom',MONO);
+      const mx=Math.max(...traj.map(s=>Math.max(s.f,s.r)))*1.1||1;const P2=panel(ctx,{x:44,y:hh+14,w:w-58,h:hh-24},[0,tm],[0,mx],{xn:4,yn:2,xlabel:'time (s)',ylabel:'rate (M/s)',color:T.ink});
+      curve(ctx,P2,x=>at(x).f,0,tm,CA,2.4,120);curve(ctx,P2,x=>at(x).r,0,tm,CB,2.4,120,[6,3]);line(ctx,P2,t,0,t,mx,T.hot,1.5,[4,3]);label(ctx,'forward',P2.X(tm)-4,P2.Y(at(tm).f)-6,CA,'right','bottom',MONO);label(ctx,'reverse (dashed)',P2.X(tm)-4,P2.Y(at(tm).r)+6,CB,'right','top',MONO);}});
+  function updR(){const q=A>1e-9?Q(A,B):Infinity,k=K(),s=Math.abs(Math.log(q/k))<.03||(!run&&t>0&&Math.abs(Math.log(q/k))<.05);setText('eq2-A',fmt(A,3)+' M');setText('eq2-B',fmt(B,3)+' M');setText('eq2-Q',isFinite(q)?kfmt(q):'∞');setText('eq2-kval',kfmt(k));
+    setText('eq2-st',!isFinite(q)||q>k*1.03?'Q > K: shifting left':q<k/1.03?'Q < K: shifting right':'Q = K: equilibrium');setText('eq2-k-out','K = '+kfmt(k));}
+  function upd(){precompute();t=0;run=false;$('#eq2-go').textContent='Start';ents=[];init();sim.render();gs.render();updR();}
+  bindRange('eq2-k',()=>'',upd,false);typeS.addEventListener('change',upd);stS.addEventListener('change',upd);
+  $('#eq2-go').addEventListener('click',()=>{if(run){run=false;$('#eq2-go').textContent='Resume';return;}if(t>=24||t===0&&false)upd();run=true;$('#eq2-go').textContent='Pause';sim.render();const tick=()=>{gs.render();if(run)requestAnimationFrame(tick);};tick();});
+  $('#eq2-lab').addEventListener('labreset',upd);upd();
+  /* Q vs K lab */
+  const QR=[{t:'N₂O₄ ⇌ 2NO₂   (K = 0.36)',K:.36,r:1,p:2,rn:'N₂O₄',pn:'NO₂'},{t:'A ⇌ B   (K = 4.0)',K:4,r:1,p:1,rn:'A',pn:'B'},{t:'2A ⇌ B   (K = 0.50)',K:.5,r:2,p:1,rn:'A',pn:'B'}];
+  const qs=$('#qk-rx'),qc=$('#qk-canvas');qs.innerHTML=QR.map((r,i)=>`<option value="${i}">${r.t}</option>`).join('');
+  let qa=1,qb=.5,qrun=false;
+  const qQ=(a,b,r)=>Math.pow(b,r.p)/Math.pow(a,r.r);
+  /* equilibrium extent by bisection: x>0 forward */
+  function qx(a,b,r){let lo=-b/r.p+1e-12,hi=a/r.r-1e-12;for(let i=0;i<80;i++){const m=(lo+hi)/2,q=qQ(a-r.r*m,b+r.p*m,r);q<r.K?lo=m:hi=m;}return (lo+hi)/2;}
+  let sh=0;const qsim=sim2d(qc,{h:()=>250,step(dt){if(!qrun)return;sh=Math.min(1,sh+dt*.5);if(sh>=1)qrun=false;},
+    draw(ctx,w,h){const r=QR[+qs.value],a0=+$('#qk-a').value,b0=+$('#qk-b').value,x=qx(a0,b0,r),e=sh<1?(1-Math.pow(1-sh,2)):1,a=a0-r.r*x*e,b=b0+r.p*x*e;
+      const bx=50,bw=w-70,top=14,bh=130,mx=Math.max(2.2,a0+b0+1);const ax=v=>top+bh-bh*v/mx;
+      ctx.strokeStyle=T.muted;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(bx,top);ctx.lineTo(bx,top+bh);ctx.lineTo(bx+bw,top+bh);ctx.stroke();label(ctx,'M',bx-8,top,T.muted,'right','top',MONO);
+      [[a,'#3E7BDC',r.rn,.25],[b,'#2FA36B',r.pn,.6]].forEach(([v,c,n,fx])=>{const x0=bx+bw*fx-30;ctx.fillStyle=c;ctx.fillRect(x0,ax(v),60,top+bh-ax(v));label(ctx,fmt(v,2),x0+30,ax(v)-8,T.ink,'center','bottom',MONO);label(ctx,n,x0+30,top+bh+14,T.ink,'center','middle',MONO);});
+      /* number line for log Q vs log K */
+      const ny=h-48,lg=v=>Math.log10(v),lo=-3,hi=3,X=v=>bx+bw*(clamp(lg(v),lo,hi)-lo)/(hi-lo);ctx.strokeStyle=T.muted;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(bx,ny);ctx.lineTo(bx+bw,ny);ctx.stroke();
+      for(let p=lo;p<=hi;p++){ctx.beginPath();ctx.moveTo(bx+bw*(p-lo)/(hi-lo),ny-4);ctx.lineTo(bx+bw*(p-lo)/(hi-lo),ny+4);ctx.stroke();label(ctx,'10'+(p<0?'⁻':'')+['⁰','¹','²','³'][Math.abs(p)],bx+bw*(p-lo)/(hi-lo),ny+16,T.muted,'center','middle',MONO);}
+      const q=qQ(a,b,r);dot(ctx,X(r.K),ny,7,T.ink);label(ctx,'K',X(r.K),ny-14,T.ink,'center','bottom',MONO);dot(ctx,X(q),ny,6,T.ca);label(ctx,'Q',X(q),ny+30,T.ca,'center','top',MONO);
+      const q0=qQ(a0,b0,r);if(sh<1&&Math.abs(Math.log(q0/r.K))>.03){const dir=q0<r.K?1:-1;arrow(ctx,X(q0)+dir*10,ny-30,X(q0)+dir*60,ny-30,T.hot,3);label(ctx,dir>0?'shifts right':'shifts left',X(q0)+dir*35,ny-40,T.hot,'center','bottom',MONO);}}});
+  function qupd(){const r=QR[+qs.value],a0=+$('#qk-a').value,b0=+$('#qk-b').value,q=qQ(a0,b0,r);setText('qk-a-out',fmt(a0,2)+' M');setText('qk-b-out',fmt(b0,2)+' M');setText('qk-Q',kfmt(q));setText('qk-K',kfmt(r.K));
+    setText('qk-dir',Math.abs(Math.log(q/r.K))<.03?'At equilibrium: no net change':q<r.K?'Q < K: forward (toward products)':'Q > K: reverse (toward reactants)');qsim.render();}
+  bindRange('qk-a',()=>'',()=>{sh=0;qrun=false;qupd();},false);bindRange('qk-b',()=>'',()=>{sh=0;qrun=false;qupd();},false);qs.addEventListener('change',()=>{sh=0;qrun=false;qupd();});
+  $('#qk-go').addEventListener('click',()=>{sh=0;qrun=true;qsim.render();});$('#qk-lab').addEventListener('labreset',()=>{sh=0;qrun=false;qupd();});qupd();
+  drawers.equilibrium=()=>{sim.render();gs.render();qupd();};
+  TIPS['eq2-type']='A ⇌ B has K = [B]/[A]; 2A ⇌ B has K = [B]/[A]².';
+  TIPS['eq2-k']='K sets the final ratio of products to reactants. It does not change how fast you get there.';
+  TIPS['eq2-start']='The same equilibrium mixture is reached from either side.';
+  TIPS['qk-rx']='Pick a reaction; its K is fixed at the given temperature.';
+  TIPS['qk-a']='Raise the reactant concentration and Q gets smaller.';
+  TIPS['qk-b']='Raise the product concentration and Q gets bigger.';
+  KEYS['eq2-canvas']=['Press Start. A ring marks a particle that just switched sides.',[['#3E7BDC','A'],['#2FA36B','B']]];
+  GLOSS['equilibrium']='The state where forward and reverse rates are equal, so concentrations stop changing.';
+  GLOSS['reaction quotient']='Q: the equilibrium expression evaluated with the current concentrations.';
+  GLOSS['dynamic equilibrium']='Both reactions continue at equal rates, so amounts stay constant.';
+  GLOSS['equilibrium constant']='K: the value of Q at equilibrium; it depends only on temperature.';
+  TT.equilibrium='Insist on "equal rates, not equal amounts". Starting from the product side is the quickest way to show that K does not depend on the path.';
+})();
+(function(){
+  const EX=[{eq:'N₂(g) + 3H₂(g) ⇌ 2NH₃(g)',sp:[['N₂',1],['H₂',3],['NH₃',-2]]},{eq:'H₂(g) + I₂(g) ⇌ 2HI(g)',sp:[['H₂',1],['I₂',1],['HI',-2]]},{eq:'2SO₂(g) + O₂(g) ⇌ 2SO₃(g)',sp:[['SO₂',2],['O₂',1],['SO₃',-2]]},{eq:'N₂O₄(g) ⇌ 2NO₂(g)',sp:[['N₂O₄',1],['NO₂',-2]]},{eq:'CO(g) + 2H₂(g) ⇌ CH₃OH(g)',sp:[['CO',1],['H₂',2],['CH₃OH',-1]]}];
+  const KX=(rx,c)=>{let r=1;rx.sp.forEach(([n,k],i)=>{r*=Math.pow(c[i],k>0?-k:-k);});return r;}; /* products have negative k in my notation: exponent -k = +coef */
+  PROBS.push({id:'eq-K',topic:'equilibrium',title:'Calculate Kc',gen(){const rx=pick(EX),c=rx.sp.map(()=>pick([.10,.15,.20,.25,.30,.40,.50,.60])),K=KX(rx,c);
+    return {q:`At equilibrium, ${rx.eq} has ${rx.sp.map((s,i)=>`[${s[0]}] = ${fmt(c[i],2)} M`).join(', ')}. What is K<sub>c</sub>?`,ans:K,unit:'',tol:.02,hint:'Products over reactants, each raised to its coefficient.',sol:`K<sub>c</sub> = ${rx.sp.filter(s=>s[1]<0).map(s=>`[${s[0]}]${-s[1]>1?'<sup>'+(-s[1])+'</sup>':''}`).join('')} / (${rx.sp.filter(s=>s[1]>0).map(s=>`[${s[0]}]${s[1]>1?'<sup>'+s[1]+'</sup>':''}`).join('')}) = <b>${sci(K,3)}</b>.`};}});
+  PROBS.push({id:'eq-Q',topic:'equilibrium',title:'Which way does it shift?',gen(){const rx=pick(EX),c0=rx.sp.map(()=>pick([.10,.20,.30,.50,.80])),Q=KX(rx,c0),f=pick([.1,.25,4,10]),K=Q*f,ch=['Forward (toward products)','Reverse (toward reactants)','It is already at equilibrium'];
+    return {q:`For ${rx.eq}, K<sub>c</sub> = ${sci(K,3)}. A mixture has ${rx.sp.map((s,i)=>`[${s[0]}] = ${fmt(c0[i],2)} M`).join(', ')}. In which direction will the reaction proceed?`,choices:ch,ans:Q<K?0:1,hint:'Compute Q with the same expression as K, then compare Q with K.',sol:`Q = ${sci(Q,3)}; K = ${sci(K,3)}. Q ${Q<K?'&lt;':'&gt;'} K, so the reaction goes <b>${Q<K?'forward':'in reverse'}</b>.`};}});
+  PROBS.push({id:'eq-Kp',topic:'equilibrium',title:'Kp from Kc',gen(){const rx=pick([['N₂(g) + 3H₂(g) ⇌ 2NH₃(g)',-2],['2SO₂(g) + O₂(g) ⇌ 2SO₃(g)',-1],['N₂O₄(g) ⇌ 2NO₂(g)',1],['H₂(g) + I₂(g) ⇌ 2HI(g)',0],['PCl₅(g) ⇌ PCl₃(g) + Cl₂(g)',1]]),Kc=pick([.25,1.8,12,0.040,150]),T=pick([400,500,600,800,1000]),Kp=Kc*Math.pow(.08206*T,rx[1]);
+    return {q:`For ${rx[0]}, K<sub>c</sub> = ${fmt(Kc,Kc<.1?3:2)} at ${T} K. What is K<sub>p</sub>? (R = 0.08206 L·atm/mol·K)`,ans:Kp,unit:'',tol:.02,hint:'Kp = Kc(RT)^Δn, where Δn = moles of gas in products − moles of gas in reactants.',sol:`Δn = ${rx[1]}; RT = ${fmt(.08206*T,2)}; K<sub>p</sub> = ${fmt(Kc,Kc<.1?3:2)} × ${fmt(.08206*T,2)}<sup>${rx[1]}</sup> = <b>${sci(Kp,3)}</b>.`};}});
+  const XE=[['CaCO₃(s) ⇌ CaO(s) + CO₂(g)','K = [CO₂]',['K = [CaO][CO₂]/[CaCO₃]','K = [CO₂]','K = [CaCO₃]/[CO₂]','K = [CaO]/[CaCO₃]'],1],
+    ['Fe₃O₄(s) + 4H₂(g) ⇌ 3Fe(s) + 4H₂O(g)','K = [H₂O]⁴/[H₂]⁴',['K = [Fe]³[H₂O]⁴/([Fe₃O₄][H₂]⁴)','K = [H₂]⁴/[H₂O]⁴','K = [H₂O]⁴/[H₂]⁴','K = [Fe]³/[Fe₃O₄]'],2],
+    ['2NO₂(g) ⇌ N₂O₄(g)','K = [N₂O₄]/[NO₂]²',['K = [NO₂]²/[N₂O₄]','K = [N₂O₄]/[NO₂]','K = [N₂O₄]/[NO₂]²','K = 2[N₂O₄]/[NO₂]'],2],
+    ['AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)','K = [Ag⁺][Cl⁻]',['K = [Ag⁺][Cl⁻]/[AgCl]','K = [AgCl]/([Ag⁺][Cl⁻])','K = [Ag⁺][Cl⁻]','K = [Ag⁺] + [Cl⁻]'],2],
+    ['C(s) + CO₂(g) ⇌ 2CO(g)','K = [CO]²/[CO₂]',['K = [CO]²/([C][CO₂])','K = [CO]/[CO₂]','K = [CO]²/[CO₂]','K = [CO₂]/[CO]²'],2]];
+  PROBS.push({id:'eq-expr',topic:'equilibrium',title:'Write the K expression',gen(){const [rx,,ch,a]=pick(XE);const i=Math.floor(Math.random()*4),shuffled=ch.slice(),corr=ch[a];const arr=ch.filter((x,j)=>j!==a);arr.splice(i,0,corr);
+    return {q:`Which is the correct equilibrium-constant expression for ${rx}?`,choices:arr,ans:i,hint:'Products over reactants with coefficients as exponents; leave out pure solids and liquids.',sol:`<b>${corr}</b>. Pure solids and liquids (their concentrations are constant) don't appear.`};}});
+  PROBS.push({id:'eq-manip',topic:'equilibrium',title:'Manipulating K',gen(){const K1=pick([.020,.50,4.0,25,150]),K2=pick([.10,2.5,8.0,40]),v=pick([0,1,2,3]);let q,ans,sol;
+    if(v===0){q=`For reaction 1, K = ${fmt(K1,K1<.1?3:2)}. What is K for the reverse of reaction 1?`;ans=1/K1;sol=`K<sub>reverse</sub> = 1/K = <b>${sci(ans,3)}</b>.`;}
+    else if(v===1){q=`For A ⇌ B, K = ${fmt(K1,K1<.1?3:2)}. What is K for 2A ⇌ 2B?`;ans=K1*K1;sol=`Doubling the equation squares K: ${fmt(K1,3)}² = <b>${sci(ans,3)}</b>.`;}
+    else if(v===2){q=`A ⇌ B has K<sub>1</sub> = ${fmt(K1,K1<.1?3:2)} and B ⇌ C has K<sub>2</sub> = ${fmt(K2,K2<.1?3:2)}. What is K for A ⇌ C?`;ans=K1*K2;sol=`Adding reactions multiplies K: ${fmt(K1,3)} × ${fmt(K2,3)} = <b>${sci(ans,3)}</b>.`;}
+    else{q=`A ⇌ B has K<sub>1</sub> = ${fmt(K1,K1<.1?3:2)} and C ⇌ B has K<sub>2</sub> = ${fmt(K2,K2<.1?3:2)}. What is K for A ⇌ C?`;ans=K1/K2;sol=`A ⇌ C = (A ⇌ B) + (B ⇌ C), and B ⇌ C is the reverse of C ⇌ B, so K = K<sub>1</sub>/K<sub>2</sub> = <b>${sci(ans,3)}</b>.`;}
+    return {q,ans,unit:'',tol:.02,hint:'Reverse: 1/K. Multiply the equation by n: K^n. Add equations: multiply K values.',sol};}});
+})();
+
+/* ===== modules/icecalc.js ===== */
+
+/* ---------------- ICE tables ---------------- */
+const ICR=[{t:'N₂O₄ ⇌ 2NO₂',R:[['N₂O₄',1]],P:[['NO₂',2]],K:.36,c0:.1},{t:'PCl₅ ⇌ PCl₃ + Cl₂',R:[['PCl₅',1]],P:[['PCl₃',1],['Cl₂',1]],K:.042,c0:.5},{t:'H₂ + I₂ ⇌ 2HI',R:[['H₂',1],['I₂',1]],P:[['HI',2]],K:50,c0:.5},{t:'A ⇌ B',R:[['A',1]],P:[['B',1]],K:.01,c0:.5},{t:'2HI ⇌ H₂ + I₂',R:[['HI',2]],P:[['H₂',1],['I₂',1]],K:.02,c0:.5}];
+function icQ(r,c0,x){let n=1,d=1;r.P.forEach(([,c])=>n*=Math.pow(c*x,c));r.R.forEach(([,c])=>d*=Math.pow(c0-c*x,c));return n/d;}
+function icXmax(r,c0){return Math.min(...r.R.map(([,c])=>c0/c));}
+function icSolve(r,c0,K){let lo=0,hi=icXmax(r,c0)*(1-1e-12);for(let i=0;i<200;i++){const m=(lo+hi)/2;icQ(r,c0,m)<K?lo=m:hi=m;}return (lo+hi)/2;}
+function icApprox(r,c0,K){let rhs=K,e=0,cp=1;r.R.forEach(([,c])=>rhs*=Math.pow(c0,c));r.P.forEach(([,c])=>{e+=c;cp*=Math.pow(c,c);});return Math.pow(rhs/cp,1/e);}
+(function icecalc(){
+  const cb=$('#ic-bars');if(!cb)return;const rs=$('#ic-rx'),kS=$('#ic-k'),cS=$('#ic-c0'),xS=$('#ic-x');rs.innerHTML=ICR.map((r,i)=>`<option value="${i}">${r.t}</option>`).join('');
+  let r=ICR[0],anim=false,target=0;const K=()=>Math.pow(10,+kS.value),c0=()=>+cS.value,xmax=()=>icXmax(r,c0()),X=()=>+xS.value/1000*xmax();
+  const bars=sim2d(cb,{h:()=>250,step(dt){if(!anim)return;const cur=+xS.value,tg=target/xmax()*1000;const d=tg-cur;if(Math.abs(d)<1){xS.value=tg;anim=false;}else xS.value=cur+d*Math.min(1,dt*4);upd();},
+    draw(ctx,w,h){const sp=[...r.R.map(([n,c])=>({n,c,s:-1,i:c0()})),...r.P.map(([n,c])=>({n,c,s:1,i:0}))],mx=Math.max(c0(),...sp.map(s=>s.i+s.c*xmax()))*1.12,x=X(),bw=Math.min(60,(w-80)/sp.length-16),top=16,bh=h-60;const Y=v=>top+bh-bh*v/mx;
+      ctx.strokeStyle=T.muted;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(40,top);ctx.lineTo(40,top+bh);ctx.lineTo(w-10,top+bh);ctx.stroke();label(ctx,'M',34,top,T.muted,'right','top',MONO);
+      sp.forEach((s,k)=>{const cx=40+(w-50)*(k+.5)/sp.length,v=s.i+s.s*s.c*x,col=s.s<0?'#3E7BDC':'#2FA36B';ctx.fillStyle=col;ctx.fillRect(cx-bw/2,Y(v),bw,top+bh-Y(v));ctx.strokeStyle=T.ink;ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.strokeRect(cx-bw/2,Y(s.i),bw,top+bh-Y(s.i));ctx.setLineDash([]);
+        label(ctx,fmt(v,3),cx,Y(v)-6,T.ink,'center','bottom',MONO);label(ctx,s.n,cx,top+bh+14,T.ink,'center','middle',MONO);});}});
+  const g=$('#ic-graph'),gs=sim2d(g,{h:()=>250,draw(ctx,w,h){const k=K(),xm=xmax(),lo=Math.log10(k)-4,hi=Math.log10(k)+4,Pn=panel(ctx,{x:50,y:12,w:w-64,h:h-46},[0,xm],[lo,hi],{xn:4,yn:4,xlabel:'x (M)',ylabel:'log₁₀ Q',color:T.ink});
+      ctx.save();clip(ctx,Pn);ctx.strokeStyle=T.ca;ctx.lineWidth=2.6;ctx.beginPath();let st=false;for(let i=1;i<=300;i++){const x=xm*i/301,q=icQ(r,c0(),x);const y=clamp(Math.log10(q),lo-1,hi+1);st?ctx.lineTo(Pn.X(x),Pn.Y(y)):ctx.moveTo(Pn.X(x),Pn.Y(y));st=true;}ctx.stroke();ctx.restore();
+      line(ctx,Pn,0,Math.log10(k),xm,Math.log10(k),T.ink,2,[6,4]);label(ctx,'log K',Pn.X(xm)-4,Pn.Y(Math.log10(k))-6,T.ink,'right','bottom',MONO);
+      const xs=icSolve(r,c0(),k);dot(ctx,Pn.X(xs),Pn.Y(Math.log10(k)),6,T.cv);label(ctx,'x = '+fmt(xs,4),Pn.X(xs),Pn.Y(Math.log10(k))+12,T.cv,'center','top',MONO);
+      const x=X(),q=icQ(r,c0(),x);if(x>0)dot(ctx,Pn.X(x),Pn.Y(clamp(Math.log10(q),lo,hi)),7,T.ink,'#fff');}});
+  function upd(){const k=K(),x=X(),q=icQ(r,c0(),x),xs=icSolve(r,c0(),k),xa=icApprox(r,c0(),k),ratio=x>0?q/k:0;setText('ic-k-out',kfmt(k));setText('ic-c0-out',fmt(c0(),2)+' M');setText('ic-x-out',fmt(x,4)+' M');
+    setText('ic-Q',x>0?kfmt(q):'0');setText('ic-kv',kfmt(k));const ve=Math.abs(Math.log(ratio||1e-9))<.02;setText('ic-v',x===0?'Slide x to the right':ve?'Q = K: this is equilibrium!':ratio<1?'Q < K: x too small':'Q > K: x too big');
+    setText('ic-pct',fmt(xs/c0()*100,1)+'% at equilibrium');
+    const ok=xs/c0()<.05;$('#ic-approx').innerHTML=`Exact x = ${fmt(xs,4)} M (${fmt(xs/c0()*100,1)}% of the start). Shortcut x ≈ ${fmt(xa,4)} M. ${ok?'<b>5% rule passes</b>: the shortcut is fine.':'<b>5% rule fails</b>: the shortcut is off by '+fmt(Math.abs(xa-xs)/xs*100,0)+'%; solve the full equation.'}`;
+    const rows=[...r.R.map(([n,c])=>({n,c,s:-1,i:c0()})),...r.P.map(([n,c])=>({n,c,s:1,i:0}))];
+    $('#ic-tab').innerHTML=`<thead><tr><th></th>${rows.map(s=>`<th>${s.n}</th>`).join('')}</tr></thead><tbody><tr><td><b>I</b></td>${rows.map(s=>`<td>${fmt(s.i,3)}</td>`).join('')}</tr><tr><td><b>C</b></td>${rows.map(s=>`<td>${s.s<0?'−':'+'}${s.c>1?s.c:''}x</td>`).join('')}</tr><tr><td><b>E</b></td>${rows.map(s=>`<td>${fmt(s.i+s.s*s.c*x,3)}</td>`).join('')}</tr></tbody>`;
+    bars.render();gs.render();}
+  function load(){r=ICR[+rs.value];kS.value=Math.log10(r.K).toFixed(2);cS.value=r.c0;xS.value=0;anim=false;upd();}
+  rs.addEventListener('change',load);bindRange('ic-k',()=>'',()=>{xS.value=0;upd();},false);bindRange('ic-c0',()=>'',()=>{xS.value=0;upd();},false);bindRange('ic-x',()=>'',()=>{anim=false;upd();},false);
+  $('#ic-solve').addEventListener('click',()=>{target=icSolve(r,c0(),K());anim=true;bars.render();});$('#ic-lab').addEventListener('labreset',load);load();drawers.icecalc=upd;
+  TIPS['ic-rx']='Different stoichiometries change the equation for Q, and how big x gets.';
+  TIPS['ic-k']='A small K means very little reacts; a big K means it goes nearly to completion.';
+  TIPS['ic-c0']='Higher starting amounts mean the shortcut gets worse for reactions that make more moles.';
+  TIPS['ic-x']='Slide x. Q climbs as x grows; stop where Q = K.';
+  KEYS['ic-bars']=['Slide x, or press Solve for me.',[['#3E7BDC','reactants'],['#2FA36B','products']]];
+  GLOSS['ICE table']='A table of Initial, Change and Equilibrium concentrations used to solve equilibrium problems.';
+  GLOSS['5% rule']='The shortcut is acceptable if x is less than 5% of the starting concentration.';
+  TT.icecalc='Have students guess x first from the bar chart, then check it. Many errors come from forgetting to multiply x by the coefficient.';
+})();
+(function(){
+  PROBS.push({id:'ice-x',topic:'icecalc',title:'ICE: x is small',gen(){const c0=pick([.50,.80,1.0,1.5]),K=pick([1.8e-6,4.0e-7,6.0e-8,2.5e-6]),ra=pick(['A ⇌ B + C','A ⇌ 2B']);const two=ra==='A ⇌ 2B',x=two?Math.sqrt(K*c0/4):Math.sqrt(K*c0),ok=x/c0<.05;
+    return {q:`For ${ra}, K = ${sci(K,2)}. Starting with ${fmt(c0,2)} M A and no products, find [${two?'B':'B'}] at equilibrium. (Use the 5% rule to justify any approximation.)`,ans:two?2*x:x,unit:'M',tol:.03,hint:`Set up: A = ${fmt(c0,2)} − x, ${two?'B = 2x':'B = C = x'}. Since K is tiny, start with ${fmt(c0,2)} − x ≈ ${fmt(c0,2)}.`,sol:`K = ${two?'(2x)²':'x²'}/${fmt(c0,2)} so x = ${sci(x,3)} M (${fmt(x/c0*100,3)}% of start: the approximation is valid). [B] = <b>${sci(two?2*x:x,3)} M</b>.`};}});
+  PROBS.push({id:'ice-quad',topic:'icecalc',title:'ICE: quadratic',gen(){const c0=pick([.10,.20,.50,1.0]),K=pick([.042,.36,.15,.80]),rx=pick(['PCl₅ ⇌ PCl₃ + Cl₂','A ⇌ B + C']);const x=(-K+Math.sqrt(K*K+4*K*c0))/2;
+    return {q:`For ${rx}, K = ${fmt(K,3)}. Starting with ${fmt(c0,2)} M of the reactant and none of the products, what is the equilibrium concentration of each product?`,ans:x,unit:'M',tol:.03,hint:'x²/(c0 − x) = K. Check the 5% rule; if it fails, rearrange to x² + Kx − Kc0 = 0 and use the quadratic formula.',sol:`x² + ${fmt(K,3)}x − ${fmt(K*c0,4)} = 0, so x = [−${fmt(K,3)} + √(${fmt(K*K+4*K*c0,4)})]/2 = <b>${fmt(x,4)} M</b> (${fmt(x/c0*100,0)}% of the start: the shortcut would have failed).`};}});
+  PROBS.push({id:'ice-K',topic:'icecalc',title:'K from one equilibrium measurement',gen(){const c0=pick([.50,1.0,2.0]),f=pick([.2,.4,.6]),x=f*c0,Kd=2*x,rx='A + B ⇌ 2C'; /* A=B=c0, measure C */const Cm=2*x,A=c0-x,K=(Cm*Cm)/(A*A);
+    return {q:`A + B ⇌ 2C. A flask starts with ${fmt(c0,2)} M A, ${fmt(c0,2)} M B and no C. At equilibrium [C] = ${fmt(Cm,3)} M. Find K<sub>c</sub>.`,ans:K,unit:'',tol:.02,hint:'Because C = 2x, find x from the measured [C], then [A] = [B] = start − x.',sol:`2x = ${fmt(Cm,3)} so x = ${fmt(x,3)}; [A] = [B] = ${fmt(A,3)} M. K = (${fmt(Cm,3)})² / (${fmt(A,3)})² = <b>${fmt(K,2)}</b>.`};}});
+  PROBS.push({id:'ice-pct',topic:'icecalc',title:'Is the shortcut valid?',gen(){const c0=pick([.10,.25,.50,1.0]),x=c0*pick([.01,.03,.04,.06,.08,.12]),ok=x/c0<.05;
+    return {q:`An ICE-table shortcut gives x = ${sci(x,2)} M for a reaction that started at ${fmt(c0,2)} M. Is the approximation acceptable?`,choices:['Yes: x is less than 5% of the start','No: x is 5% or more of the start'],ans:ok?0:1,hint:'Compute x ÷ start × 100 and compare with 5%.',sol:`x/start = ${sci(x,2)}/${fmt(c0,2)} = ${fmt(x/c0*100,1)}%, which is ${ok?'below':'above'} 5%: <b>${ok?'acceptable':'not acceptable'}</b>.`};}});
+})();
+
+/* ===== modules/lechatelier.js ===== */
+
+/* ---------------- Le Châtelier ---------------- */
+const LCR=[{t:'N₂O₄ ⇌ 2NO₂  (endothermic)',sp:[{n:'N₂O₄',nu:-1,col:'#9FB6CC',g:true},{n:'NO₂',nu:2,col:'#B5651D',g:true}],dH:57.2,K1:4.6e-3,T1:298,n0:[.5,0],T:350,V:2,solution:false,tint:[1,'#B5651D']},
+ {t:'N₂ + 3H₂ ⇌ 2NH₃  (exothermic)',sp:[{n:'N₂',nu:-1,col:'#3E7BDC',g:true},{n:'H₂',nu:-3,col:'#C8D2DE',g:true},{n:'NH₃',nu:2,col:'#2FA36B',g:true}],dH:-92.2,K1:3.5e8,T1:298,n0:[1,3,0],T:500,V:2,solution:false},
+ {t:'Fe³⁺ + SCN⁻ ⇌ FeSCN²⁺  (in water)',sp:[{n:'Fe³⁺',nu:-1,col:'#E0A82E'},{n:'SCN⁻',nu:-1,col:'#8B5CF6'},{n:'FeSCN²⁺',nu:1,col:'#D6303A'}],dH:0,K1:300,T1:298,n0:[.02,.02,0],T:298,V:2,solution:true,tint:[2,'#D6303A']}];
+function lcK(r,T){return r.solution?r.K1:r.K1*Math.exp(-r.dH*1000/8.314*(1/T-1/r.T1));}
+function lcQ(r,n,V){let q=1;r.sp.forEach((s,i)=>{q*=Math.pow(Math.max(n[i],1e-12)/V,s.nu);});return q;}
+function lcXi(r,n,V,K){let lo=-Infinity,hi=Infinity;r.sp.forEach((s,i)=>{if(s.nu>0)lo=Math.max(lo,-n[i]/s.nu);else hi=Math.min(hi,n[i]/-s.nu);});lo+=1e-12;hi-=1e-12;if(lo>hi)return 0;
+  for(let i=0;i<200;i++){const m=(lo+hi)/2,nn=n.map((v,j)=>v+r.sp[j].nu*m);lcQ(r,nn,V)<K?lo=m:hi=m;}return (lo+hi)/2;}
+(function lechatelier(){
+  const cv=$('#lc-canvas');if(!cv)return;const rs=$('#lc-rx'),tS=$('#lc-t'),vS=$('#lc-v'),ss=$('#lc-sp');rs.innerHTML=LCR.map((r,i)=>`<option value="${i}">${r.t}</option>`).join('');
+  let r=LCR[0],n=[],hist=[],marks=[],tm=0,P=[],scale=20,V=2,lastQ=0;const H=270,TAU=1.2,HM=36;
+  const cur=()=>({K:lcK(r,+tS.value),V:+vS.value});
+  function load(){r=LCR[+rs.value];ss.innerHTML=r.sp.map((s,i)=>`<option value="${i}">${s.n}</option>`).join('');tS.value=r.T;vS.value=r.V;tS.disabled=r.solution;vS.min=r.solution?1:.5;
+    V=r.V;n=r.n0.slice();let K=lcK(r,r.T);const xi=lcXi(r,n,V,K);n=n.map((v,i)=>Math.max(v+r.sp[i].nu*xi,0));scale=34/(n.reduce((a,b)=>a+b,0)||1);hist=[];marks=[];tm=0;P=[];sync();upd();}
+  function sync(){const w=cv.clientWidth||300;r.sp.forEach((s,i)=>{const want=Math.min(110,Math.round(n[i]*scale));P=P.filter(p=>p.i!==i||true);let have=P.filter(p=>p.i===i);while(have.length<want){const a=Math.random()*6.28;P.push({i,x:12+Math.random()*(w-24),y:12+Math.random()*(H-24),vx:Math.cos(a)*90,vy:Math.sin(a)*90});have=P.filter(p=>p.i===i);}
+      while(have.length>want){const k=P.indexOf(have.pop());P.splice(k,1);}});}
+  const conc=()=>n.map(v=>v/V);
+  const sim=sim2d(cv,{h:()=>H,step(dt){const K=lcK(r,+tS.value);V+=(+vS.value-V)*Math.min(1,dt*6);
+      const xi=lcXi(r,n,V,K),f=1-Math.exp(-dt/TAU);n=n.map((v,i)=>Math.max(v+r.sp[i].nu*xi*f,0));tm+=dt;if(!hist.length||tm-hist[hist.length-1].t>.1)hist.push({t:tm,c:conc(),Q:lcQ(r,n,V),K});
+      if(hist.length>HM*10)hist.shift();sync();const w=cv.clientWidth,top=H*(1-(V/4)*.9+.1*0)-0;
+      const ht=clamp(V/4,.2,1)*H;P.forEach(p=>{p.x+=p.vx*dt*Math.sqrt(+tS.value/300);p.y+=p.vy*dt*Math.sqrt(+tS.value/300);if(p.x<8||p.x>w-8)p.vx*=-1;const lim=H-ht;if(p.y<lim+8){p.y=lim+8;p.vy=Math.abs(p.vy);}if(p.y>H-8){p.y=H-8;p.vy=-Math.abs(p.vy);}p.x=clamp(p.x,8,w-8);});upd(true);},
+    draw(ctx,w,h){const ht=clamp(V/4,.2,1)*H,y0=H-ht,c=conc();
+      if(r.tint){const cc=c[r.tint[0]],a=clamp(cc/(r.solution?.012:.35),0,1)*.55;ctx.fillStyle=alpha(r.tint[1],a);ctx.fillRect(0,y0,w,ht);}else{ctx.fillStyle=alpha('#3E7BDC',.05);ctx.fillRect(0,y0,w,ht);}
+      ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,y0,w-2,ht-1);
+      ctx.fillStyle=T.muted;ctx.fillRect(2,y0-8,w-4,8);ctx.fillRect(w/2-3,0,6,y0-8);
+      P.forEach(p=>ball2(ctx,p.x,p.y,6,r.sp[p.i].col,'rgba(0,0,0,.25)'));
+      r.sp.forEach((s,i)=>{ctx.fillStyle=s.col;ctx.beginPath();ctx.arc(14+i*70,H+12,5,0,7);ctx.fill();label(ctx,s.n,24+i*70,H+12,T.ink,'left','middle',MONO);});}});
+  const g=$('#lc-graph'),gs=sim2d(g,{h:()=>H+24,draw(ctx,w,h){const hh=h-70;let mx=0;hist.forEach(q=>q.c.forEach(v=>mx=Math.max(mx,v)));mx=mx*1.15||1;const t1=hist.length?hist[hist.length-1].t:HM,t0=Math.max(0,t1-HM);
+      const Pn=panel(ctx,{x:50,y:10,w:w-64,h:hh-14},[t0,t0+HM],[0,mx],{xn:4,yn:3,xlabel:'time (s)',ylabel:'concentration (M)',color:T.ink});
+      r.sp.forEach((s,i)=>{ctx.save();clip(ctx,Pn);ctx.strokeStyle=s.col==='#C8D2DE'?'#7E94AD':s.col;ctx.lineWidth=2.4;ctx.beginPath();hist.forEach((q,j)=>{const px=Pn.X(q.t),py=Pn.Y(q.c[i]);j?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();ctx.restore();});
+      marks.forEach(m=>{if(m.t>=t0){line(ctx,Pn,m.t,0,m.t,mx,T.hot,1.5,[4,3]);label(ctx,m.s,Pn.X(m.t)+3,Pn.box.y+10+((marks.indexOf(m))%3)*12,T.hot,'left','middle',MONO);}});
+      /* Q vs K gauge */
+      const K=lcK(r,+tS.value),Q=lcQ(r,n,V),gy=h-26,lg=v=>Math.log10(Math.max(v,1e-30)),c0=lg(K),X=v=>50+(w-64)*(clamp(lg(v)-c0,-2,2)+2)/4;ctx.strokeStyle=T.muted;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(50,gy);ctx.lineTo(w-14,gy);ctx.stroke();
+      dot(ctx,X(K),gy,7,T.ink);label(ctx,'K',X(K),gy-12,T.ink,'center','bottom',MONO);dot(ctx,X(Q),gy,6,T.ca);label(ctx,'Q',X(Q),gy+14,T.ca,'center','top',MONO);label(ctx,'Q < K: → right',50,gy+14,T.muted,'left','top',MONO);label(ctx,'Q > K: ← left',w-14,gy+14,T.muted,'right','top',MONO);}});
+  function upd(fromStep){const K=lcK(r,+tS.value),Q=lcQ(r,n,V);setText('lc-t-out',tS.value+' K');setText('lc-v-out',fmt(+vS.value,1)+' L');setText('lc-K',kfmt(K));setText('lc-Q',kfmt(Q));
+    const d=Math.log(Q/K);setText('lc-st',Math.abs(d)<.02?'At equilibrium':d<0?'Q < K: shifting right':'Q > K: shifting left');setText('lc-sh',Math.abs(d)<.02?'none':d<0?'toward products':'toward reactants');if(!fromStep){sim.render();}gs.render();}
+  const mark=s=>marks.push({t:tm,s});
+  tS.addEventListener('input',()=>{mark(`T → ${tS.value} K`);upd();});vS.addEventListener('input',()=>{marks.length&&marks[marks.length-1].s.startsWith('V')&&tm-marks[marks.length-1].t<.8?marks[marks.length-1].s=`V → ${fmt(+vS.value,1)} L`:mark(`V → ${fmt(+vS.value,1)} L`);upd();});
+  $('#lc-add').addEventListener('click',()=>{const i=+ss.value;n[i]+=r.solution?.01:.5*Math.max(1,r.n0[0]);mark('+'+r.sp[i].n);sync();upd();});
+  $('#lc-rem').addEventListener('click',()=>{const i=+ss.value;n[i]*=.5;mark('−'+r.sp[i].n);sync();upd();});
+  $('#lc-cat').addEventListener('click',()=>{mark('catalyst: no shift');$('#lc-sh').textContent='none (K and Q unchanged)';});
+  rs.addEventListener('change',load);$('#lc-lab').addEventListener('labreset',load);
+  bindRange('lc-t',()=>'',()=>{},false);bindRange('lc-v',()=>'',()=>{},false);load();drawers.lechatelier=()=>{sync();upd();};
+  TIPS['lc-rx']='Each system has its own K(T), its own ΔH and its own number of moles on each side.';
+  TIPS['lc-t']='Temperature changes K itself, not just Q.';
+  TIPS['lc-v']='Changing the volume changes every concentration, so Q changes, but K does not.';
+  TIPS['lc-sp']='Pick which substance the Add and Remove buttons act on.';
+  KEYS['lc-canvas']=['Make a change and watch the graph react.',[['#3E7BDC','reactants'],['#2FA36B','products']]];
+  GLOSS['Le Châtelier\'s principle']='If a system at equilibrium is disturbed, it shifts in the direction that partly offsets the disturbance.';
+  GLOSS['shift']='A net reaction in one direction that brings Q back to K.';
+  TT.lechatelier='Have students write Q vs K for every stress. It avoids rote rules and explains why catalysts, inert gases and K behave the way they do.';
+})();
+(function(){
+  const RX=[['N₂(g) + 3H₂(g) ⇌ 2NH₃(g)',-92,-2],['N₂O₄(g) ⇌ 2NO₂(g)',57,1],['H₂(g) + I₂(g) ⇌ 2HI(g)',-9.6,0],['2SO₂(g) + O₂(g) ⇌ 2SO₃(g)',-198,-1],['CaCO₃(s) ⇌ CaO(s) + CO₂(g)',178,1],['PCl₅(g) ⇌ PCl₃(g) + Cl₂(g)',88,1],['N₂(g) + O₂(g) ⇌ 2NO(g)',180,0]];
+  PROBS.push({id:'le-shift',topic:'lechatelier',title:'Which way does it shift?',gen(){const [eq,dH,dn]=pick(RX),sp=eq.split('⇌').map(s=>s.trim()),first=eq.split('⇌')[0].trim().split(' + ')[0].replace(/^\d+/,''),last=eq.split('⇌')[1].trim().split(' + ')[0].replace(/^\d+/,'');
+    const solF=/\(s\)/.test(first),solL=/\(s\)/.test(last);const S=[['an additional amount of '+first.replace(/\(.*\)/,'')+(solF?' (a pure solid)':'')+' is added',()=>solF?2:0,solF?'a pure solid is not in the Q expression, so its amount doesn\'t matter':'adding a reactant lowers Q below K'],['some '+last.replace(/\(.*\)/,'')+(solL?' (a pure solid)':'')+' is removed',()=>solL?2:0,solL?'a pure solid is not in the Q expression, so removing some changes nothing':'removing a product lowers Q below K'],['the temperature is raised',()=>dH>0?0:1,dH>0?'endothermic: heat acts as a reactant, so more heat favors products':'exothermic: heat acts as a product, so more heat favors reactants'],['the temperature is lowered',()=>dH>0?1:0,dH>0?'endothermic: removing heat favors reactants':'exothermic: removing heat favors products'],['the volume of the container is decreased (pressure increases)',()=>dn<0?0:dn>0?1:2,dn<0?'fewer moles of gas on the product side':dn>0?'fewer moles of gas on the reactant side':'equal moles of gas on both sides, so no shift'],['the volume of the container is increased',()=>dn<0?1:dn>0?0:2,dn<0?'more moles of gas on the reactant side':dn>0?'more moles of gas on the product side':'equal moles of gas on both sides, so no shift'],['a catalyst is added',()=>2,'a catalyst speeds both directions equally'],['argon gas is added at constant volume',()=>2,'no concentration changes, so Q still equals K']];
+    let [txt,fn,why]=pick(S);const a=fn(),ch=['Shifts toward products (right)','Shifts toward reactants (left)','No shift'];
+    if((txt.includes('volume')||txt.includes('Ar')||txt.includes('argon'))&&false){}
+    return {q:`For ${eq} (ΔH = ${dH>0?'+':''}${dH} kJ), what happens to the equilibrium when ${txt}?`,choices:ch,ans:a,hint:'Compare Q with K, or ask which direction would partly undo the stress.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+  PROBS.push({id:'le-K',topic:'lechatelier',title:'What changes K?',gen(){const S=['Adding more reactant','Decreasing the volume','Adding a catalyst','Raising the temperature of an endothermic reaction','Removing a product','Adding an inert gas'],ch=S.slice();const i=ch.indexOf('Raising the temperature of an endothermic reaction');
+    return {q:'Which change alters the numerical value of the equilibrium constant K?',choices:ch,ans:i,hint:'K depends only on temperature.',sol:'Only a change in temperature changes K (it <b>increases</b> for an endothermic reaction). Concentration, volume, inert gas and catalyst changes don\'t.'};}});
+  PROBS.push({id:'le-vh',topic:'lechatelier',title:'K at a new temperature',gen(){const dH=pick([-92,-58,45,57,-198,88]),T1=pick([298,350,400,500]),T2=T1+pick([50,100,150,-50]),K1=pick([.015,0.36,4.5,25,150]),K2=K1*Math.exp(-dH*1000/8.314*(1/T2-1/T1));
+    return {q:`A reaction has ΔH = ${dH>0?'+':''}${dH} kJ/mol and K = ${fmt(K1,K1<.1?3:2)} at ${T1} K. Estimate K at ${T2} K. (R = 8.314 J/mol·K; assume ΔH is constant.)`,ans:K2,unit:'',tol:.03,hint:'ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁), with ΔH in joules.',sol:`ln(K₂/K₁) = −(${dH*1000}/8.314)(1/${T2} − 1/${T1}) = ${fmt(Math.log(K2/K1),3)}; K₂ = <b>${sci(K2,3)}</b> (K ${K2>K1?'increased':'decreased'}: ${dH>0?'endothermic':'exothermic'} reaction, T ${T2>T1?'raised':'lowered'}).`};}});
+})();
+
+/* ===== modules/ksp.js ===== */
+
+/* ---------------- Solubility equilibria ---------------- */
+const KSP=[{f:'AgCl',c:'Ag⁺',an:'Cl⁻',a:1,b:1,K:1.8e-10,M:143.32},{f:'BaSO₄',c:'Ba²⁺',an:'SO₄²⁻',a:1,b:1,K:1.1e-10,M:233.39},{f:'CaF₂',c:'Ca²⁺',an:'F⁻',a:1,b:2,K:3.9e-11,M:78.07},{f:'PbI₂',c:'Pb²⁺',an:'I⁻',a:1,b:2,K:9.8e-9,M:461.0},{f:'Mg(OH)₂',c:'Mg²⁺',an:'OH⁻',a:1,b:2,K:5.6e-12,M:58.32},{f:'Ag₂CrO₄',c:'Ag⁺',an:'CrO₄²⁻',a:2,b:1,K:1.1e-12,M:331.73},{f:'CaCO₃',c:'Ca²⁺',an:'CO₃²⁻',a:1,b:1,K:3.4e-9,M:100.09},{f:'AgBr',c:'Ag⁺',an:'Br⁻',a:1,b:1,K:5.4e-13,M:187.77}];
+function kspS(r,cc,ca){/* solubility with common ion concentrations cc (cation) and ca (anion) */let lo=0,hi=1;const f=s=>Math.pow(r.a*s+cc,r.a)*Math.pow(r.b*s+ca,r.b);for(let i=0;i<300;i++){const m=(lo+hi)/2;f(m)<r.K?lo=m:hi=m;}return (lo+hi)/2;}
+const kspPure=r=>kspS(r,0,0);
+(function ksp(){
+  const cv=$('#ks-canvas');if(!cv)return;const ss=$('#ks-salt'),cS=$('#ks-c'),wS=$('#ks-which');ss.innerHTML=KSP.map((r,i)=>`<option value="${i}">${r.f}   (Ksp = ${sci(r.K,1)})</option>`).join('');
+  const H=260;let ions=[],t=0,run=false,prog=0;const cur=()=>{const r=KSP[+ss.value],c=+cS.value,w=wS.value,s=kspS(r,w==='cat'?c:0,w==='an'?c:0);return {r,c,s,cat:r.a*s+(w==='cat'?c:0),an:r.b*s+(w==='an'?c:0)};};
+  const cnt=s=>clamp(Math.round(2+5*(Math.log10(Math.max(s,1e-12))+8)),0,44);
+  const sim=sim2d(cv,{h:()=>H,step(dt){const w=cv.clientWidth;if(run){prog=Math.min(1,prog+dt*.35);if(prog>=1)run=false;}const {s}=cur(),want=Math.round(cnt(s)*prog),wantTot=Math.max(0,want);
+      while(ions.length<wantTot*2){const a=Math.random()*6.28;ions.push({x:w/2+(Math.random()-.5)*60,y:H-40,vx:Math.cos(a)*60,vy:Math.sin(a)*60-20,k:ions.length%2});}while(ions.length>wantTot*2)ions.pop();
+      ions.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx+=(Math.random()-.5)*200*dt;p.vy+=(Math.random()-.5)*200*dt;const sp=Math.hypot(p.vx,p.vy)||1;if(sp>80){p.vx*=80/sp;p.vy*=80/sp;}if(p.x<8||p.x>w-8)p.vx*=-1;if(p.y<40||p.y>H-10)p.vy*=-1;p.x=clamp(p.x,8,w-8);p.y=clamp(p.y,40,H-10);});},
+    draw(ctx,w,h){ctx.fillStyle=alpha('#3E7BDC',.09);ctx.fillRect(0,40,w,H-40);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(1,20);ctx.lineTo(1,H);ctx.lineTo(w-1,H);ctx.lineTo(w-1,20);ctx.stroke();
+      const sz=run||prog>0?28*(1-.04*prog):28;ctx.fillStyle='#EEF1F5';ctx.strokeStyle=T.ink;ctx.lineWidth=1.5;ctx.fillRect(w/2-sz/2,H-sz-2,sz,sz);ctx.strokeRect(w/2-sz/2,H-sz-2,sz,sz);label(ctx,cur().r.f,w/2,H-sz/2-2,T.ink,'center','middle','600 11px "IBM Plex Mono",monospace');
+      ions.forEach(p=>ball2(ctx,p.x,p.y,5.5,p.k?'#8B5CF6':'#3E7BDC'));
+      label(ctx,'cations (blue)  anions (violet)',8,12,T.muted,'left','middle',MONO);}});
+  const g=$('#ks-graph'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const {r,c}=cur(),w2=wS.value,lo=-11,hi=0,P=panel(ctx,{x:50,y:12,w:w-64,h:h-46},[0,.2],[lo,hi],{xn:4,yn:4,xlabel:'common ion (M)',ylabel:'log₁₀ s',color:T.ink});
+      curve(ctx,P,x=>Math.log10(kspS(r,w2==='cat'?x:0,w2==='an'?x:0)),0,.2,T.cx,2.6,160);const s=cur().s;dot(ctx,P.X(c),P.Y(Math.log10(s)),6,T.ink);label(ctx,'s = '+sci(s,2)+' M',P.X(c)+8,P.Y(Math.log10(s))-10,T.ink,'left','bottom',MONO);}});
+  function upd(){const {r,c,s,cat,an}=cur();setText('ks-c-out',fmt(c,3)+' M');setText('ks-ksp',sci(r.K,2));setText('ks-s',sci(s,2)+' M');setText('ks-cat',sci(cat,2)+' M');setText('ks-an',sci(an,2)+' M');setText('ks-gl',sci(s*r.M,2)+' g/L');sim.render();gs.render();}
+  ss.addEventListener('change',()=>{prog=0;run=false;ions=[];upd();});wS.addEventListener('change',()=>{upd();});bindRange('ks-c',()=>'',upd,false);
+  $('#ks-go').addEventListener('click',()=>{prog=0;ions=[];run=true;sim.render();});$('#ks-lab').addEventListener('labreset',()=>{prog=0;run=false;ions=[];upd();});upd();
+  /* mixing */
+  const ms=$('#mx-salt');ms.innerHTML=KSP.map((r,i)=>`<option value="${i}">${r.f}  (Ksp = ${sci(r.K,1)})</option>`).join('');
+  const mc=$('#mx-canvas');let pour=0,mrun=false,gr=[];
+  const mx=()=>{const r=KSP[+ms.value],V=+$('#mx-v').value,c1=Math.pow(10,+$('#mx-c1').value),c2=Math.pow(10,+$('#mx-c2').value),ca=c1/2,an=c2/2,Q=Math.pow(ca,r.a)*Math.pow(an,r.b);return {r,V,ca,an,Q,yes:Q>r.K};};
+  const msim=sim2d(mc,{h:()=>250,step(dt){if(mrun){pour=Math.min(1,pour+dt*.5);if(pour>=1)mrun=false;}const {yes,Q,r}=mx(),w=mc.clientWidth;const want=pour>=1&&yes?clamp(Math.round(6*Math.log10(Q/r.K)),3,40):0;while(gr.length<want)gr.push({x:w/2-60+Math.random()*120,y:60,vy:0,done:false});while(gr.length>want)gr.pop();gr.forEach(p=>{if(!p.done){p.vy+=240*dt;p.y+=p.vy*dt;if(p.y>200-p.k||p.y>200){p.y=200-Math.random()*14;p.done=true;}}});},
+    draw(ctx,w,h){const {r,ca,an,yes}=mx(),bx=w/2-90,by=40,bw=180,bh=170;
+      ctx.fillStyle=alpha('#3E7BDC',.09);const lv=40+(170*(1-clamp(pour*.7+.3*0,0,1)*.55));ctx.fillRect(bx,by+bh*.25,bw,bh*.75);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx,by+bh);ctx.lineTo(bx+bw,by+bh);ctx.lineTo(bx+bw,by);ctx.stroke();
+      const nIon=p=>clamp(Math.round(2+4*(Math.log10(p)+6)),0,22);const nc=nIon(ca),na=nIon(an);const seed=i=>{const v=Math.sin(i*12.9898+78.233)*43758.5453;return v-Math.floor(v);};
+      for(let i=0;i<nc;i++)ball2(ctx,bx+10+seed(i)*(bw-20),by+bh*.25+10+seed(i+50)*(bh*.75-20)+Math.sin(sim.t*2+i)*3,5,'#3E7BDC');for(let i=0;i<na;i++)ball2(ctx,bx+10+seed(i+100)*(bw-20),by+bh*.25+10+seed(i+150)*(bh*.75-20)+Math.cos(sim.t*2+i)*3,5,'#8B5CF6');
+      gr.forEach(p=>{ctx.fillStyle='#EEF1F5';ctx.strokeStyle=T.ink;ctx.lineWidth=1;ctx.fillRect(p.x-4,p.y-4,8,8);ctx.strokeRect(p.x-4,p.y-4,8,8);});
+      label(ctx,'after mixing: '+r.c+' (blue), '+r.an+' (violet)',w/2,16,T.muted,'center','middle',MONO);if(pour>=1)label(ctx,yes?'precipitate '+r.f+'!':'no precipitate',w/2,h-12,yes?T.hot:T.cv,'center','middle','600 14px "IBM Plex Mono",monospace');}});
+  const stop=()=>{pour=0;mrun=false;gr=[];};
+  function mupd(){const m=mx();setText('mx-c1-out',sci(Math.pow(10,+$('#mx-c1').value),1)+' M');setText('mx-c2-out',sci(Math.pow(10,+$('#mx-c2').value),1)+' M');setText('mx-v-out',m.V+' mL');setText('mx-ca',sci(m.ca,2)+' M');setText('mx-an',sci(m.an,2)+' M');setText('mx-q',sci(m.Q,2));setText('mx-k',sci(m.r.K,2));setText('mx-r',m.yes?'Q > Ksp: precipitate forms':'Q < Ksp: stays dissolved');msim.render();}
+  ms.addEventListener('change',()=>{stop();mupd();});['mx-c1','mx-c2','mx-v'].forEach(id=>bindRange(id,()=>'',()=>{stop();mupd();},false));$('#mx-go').addEventListener('click',()=>{pour=0;gr=[];mrun=true;msim.render();});$('#mx-lab').addEventListener('labreset',()=>{stop();mupd();});mupd();
+  drawers.ksp=()=>{upd();mupd();};
+  TIPS['ks-salt']='A salt with a smaller Ksp dissolves less, as long as you compare salts with the same formula type.';
+  TIPS['ks-c']='More of an ion that is already part of the salt shifts the equilibrium left.';
+  TIPS['ks-which']='Choose which ion you are adding from outside (for example NaCl supplies Cl⁻).';
+  TIPS['mx-salt']='Pick which combination of ions you might get.';
+  TIPS['mx-c1']='Concentration of the cation in its own solution, before mixing (log scale).';
+  TIPS['mx-c2']='Concentration of the anion in its own solution, before mixing (log scale).';
+  TIPS['mx-v']='Equal volumes are mixed, so each concentration is halved.';
+  KEYS['ks-canvas']=['Press Add the crystal and watch the ions leave it.',[['#3E7BDC','cations'],['#8B5CF6','anions']]];
+  GLOSS['solubility product']='Ksp: the equilibrium constant for a salt dissolving; it contains the ion concentrations only.';
+  GLOSS['molar solubility']='The number of moles of a salt that dissolve per liter of solution.';
+  GLOSS['common ion']='An ion already present in the solution that is also released by a dissolving salt; it lowers the salt\'s solubility.';
+  GLOSS['saturated']='A solution holding the maximum dissolved solute at equilibrium (Q = Ksp).';
+  TT.ksp='Do the common-ion case on the board with the same salt twice. Seeing the number fall by four orders of magnitude makes the Le Châtelier link stick.';
+})();
+(function(){
+  const SS=KSP;const sF=r=>{const fm=(n,m)=>m>1?`${n}<sub>${m}</sub>`:n;return r.f;};
+  const rK=(r)=>r.K;
+  PROBS.push({id:'ksp-s',topic:'ksp',title:'Molar solubility from Ksp',gen(){const r=pick(SS),s=kspPure(r);
+    return {q:`The K<sub>sp</sub> of ${r.f} is ${sci(r.K,2)}. What is its molar solubility in pure water?`,ans:s,unit:'mol/L',tol:.03,hint:`Write K<sub>sp</sub> = [${r.c}]${r.a>1?'<sup>'+r.a+'</sup>':''}[${r.an}]${r.b>1?'<sup>'+r.b+'</sup>':''} in terms of s: [${r.c}] = ${r.a>1?r.a+'s':'s'}, [${r.an}] = ${r.b>1?r.b+'s':'s'}.`,sol:`K<sub>sp</sub> = ${r.a>1?'('+r.a+'s)<sup>'+r.a+'</sup>':'s'}${r.b>1?'('+r.b+'s)<sup>'+r.b+'</sup>':'·s'} = ${fmt(Math.pow(r.a,r.a)*Math.pow(r.b,r.b),0)}s<sup>${r.a+r.b}</sup>, so s = <b>${sci(s,3)} M</b>.`};}});
+  PROBS.push({id:'ksp-K',topic:'ksp',title:'Ksp from solubility',gen(){const r=pick(SS),s0=kspPure(r),gl=+(s0*r.M).toPrecision(2),s=gl/r.M,K=Math.pow(r.a*s,r.a)*Math.pow(r.b*s,r.b);
+    return {q:`${r.f} (molar mass ${r.M} g/mol) dissolves to the extent of ${sci(gl,2)} g per liter of saturated solution at 25 °C. Calculate K<sub>sp</sub>.`,ans:K,unit:'',tol:.03,hint:'Convert g/L to mol/L to get s, then [ions] from the formula, then K_sp.',sol:`s = ${sci(gl,2)}/${r.M} = ${sci(s,3)} M; [${r.c}] = ${r.a>1?r.a+'s':'s'}, [${r.an}] = ${r.b>1?r.b+'s':'s'}; K<sub>sp</sub> = <b>${sci(K,2)}</b>.`};}});
+  PROBS.push({id:'ksp-common',topic:'ksp',title:'Solubility with a common ion',gen(){const r=pick(SS.filter(x=>x.f!=='Mg(OH)₂'&&x.f!=='CaCO₃')),c=pick([.010,.050,.10,.20]),useCat=Math.random()<.5,s=kspS(r,useCat?c:0,useCat?0:c),src=useCat?(r.c==='Ag⁺'?'AgNO₃':r.c==='Ba²⁺'?'Ba(NO₃)₂':r.c==='Ca²⁺'?'CaCl₂':r.c==='Pb²⁺'?'Pb(NO₃)₂':'Mg(NO₃)₂'):(r.an==='Cl⁻'?'NaCl':r.an==='Br⁻'?'NaBr':r.an==='I⁻'?'NaI':r.an==='F⁻'?'NaF':r.an==='SO₄²⁻'?'Na₂SO₄':'Na₂CrO₄');
+    return {q:`What is the molar solubility of ${r.f} (K<sub>sp</sub> = ${sci(r.K,2)}) in ${fmt(c,3)} M of the ${useCat?r.c:r.an} ion, supplied by ${src}?`,ans:s,unit:'mol/L',tol:.04,hint:'Add the common ion\'s starting concentration to the total, then assume s is small compared with it.',sol:`${useCat?`K<sub>sp</sub> = (${r.a>1?r.a+'s + ':'s + '}${fmt(c,3)})${r.a>1?'<sup>'+r.a+'</sup>':''}`:`[${r.c}] = ${r.a>1?r.a+'s':'s'}`}… solving gives s = <b>${sci(s,3)} M</b> (smaller than in pure water, ${sci(kspPure(r),2)} M).`};}});
+  PROBS.push({id:'ksp-precip',topic:'ksp',title:'Will a precipitate form?',gen(){let r,V1,V2,f,c1,Vt,c2,n=0;do{r=pick(SS.filter(x=>x.a===1&&x.b===1));V1=pick([25,50,75,100]);V2=pick([25,50,100]);f=pick([.1,.3,3,10,30]);c1=Math.pow(10,-pick([2,3,4,5]));Vt=V1+V2;c2=+(r.K*f*Vt*Vt/(c1*V1*V2)).toPrecision(2);}while((c2<1e-6||c2>.5)&&++n<60);const Q=(c1*V1/Vt)*(c2*V2/Vt),yes=Q>r.K;
+    return {q:`${V1} mL of ${sci(c1,1)} M ${r.c} solution is mixed with ${V2} mL of ${sci(c2,2)} M ${r.an} solution. K<sub>sp</sub> of ${r.f} is ${sci(r.K,2)}. Does a precipitate form?`,choices:['Yes, a precipitate forms','No precipitate forms'],ans:yes?0:1,hint:'Find each ion\'s concentration after mixing (dilution!), compute Q, and compare it with K_sp.',sol:`[${r.c}] = ${sci(c1,1)}×${V1}/${Vt} = ${sci(c1*V1/Vt,2)}; [${r.an}] = ${sci(c2*V2/Vt,2)}; Q = ${sci(Q,2)}, which is ${yes?'greater':'less'} than K<sub>sp</sub> = ${sci(r.K,2)}: <b>${yes?'precipitate forms':'no precipitate'}</b>.`};}});
+  PROBS.push({id:'ksp-pH',topic:'ksp',title:'pH of a saturated hydroxide',gen(){const K=pick([5.6e-12,1.8e-11,2.0e-13]),nm={5.6e-12:'Mg(OH)₂',1.8e-11:'Mn(OH)₂',2.0e-13:'Fe(OH)₂'}[K],s=Math.cbrt(K/4),pH=14+Math.log10(2*s);
+    return {q:`${nm} has K<sub>sp</sub> = ${sci(K,2)}. What is the pH of a saturated solution in pure water at 25 °C?`,ans:pH,unit:'',abs:.05,hint:'K_sp = s(2s)² = 4s³. [OH⁻] = 2s, then pOH and pH.',sol:`s = (K<sub>sp</sub>/4)<sup>1/3</sup> = ${sci(s,3)} M; [OH⁻] = 2s = ${sci(2*s,3)} M; pOH = ${fmt(-Math.log10(2*s),2)}; pH = <b>${fmt(pH,2)}</b>.`};}});
 })();
 
 /* ===== overview.js ===== */

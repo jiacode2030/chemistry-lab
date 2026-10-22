@@ -1,0 +1,63 @@
+  <section class="view" id="v-ksp" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>Solubility equilibria &amp; K<sub>sp</sub></h1>
+        <p class="lede">"Insoluble" salts still dissolve a tiny bit. K<sub>sp</sub> measures how much, and tells you when a precipitate will appear.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Drop a crystal of silver chloride in water. A few Ag⁺ and Cl⁻ ions break away; others stick back onto the crystal. Soon the rates match: a <b>saturated solution</b>, which is just an equilibrium, AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq). Since the solid's concentration is constant, we leave it out: <b>K<sub>sp</sub> = [Ag⁺][Cl⁻]</b>. The smaller the K<sub>sp</sub>, the less dissolves.</p>
+        <p>For a salt M<sub>a</sub>X<sub>b</sub>, K<sub>sp</sub> = [M]<sup>a</sup>[X]<sup>b</sup>. The <b>molar solubility</b> s is how many moles dissolve per liter: [M] = a·s and [X] = b·s. If you already have one of the ions in the solution (a <b>common ion</b>), Le Châtelier pushes the equilibrium left and the salt dissolves <i>less</i>. And if you mix solutions so that <b>Q &gt; K<sub>sp</sub></b>, a precipitate forms until Q falls back to K<sub>sp</sub>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, "soluble" or "insoluble" from the solubility rules was a yes or no. Now we put numbers on it: insoluble salts have a small but nonzero solubility, and we can predict exactly when a precipitate forms.</div>
+      <div class="lab" id="ks-lab">
+        <div class="labbar"><span class="title">Dissolve a salt until saturated</span><div class="row"><button type="button" class="btn primary" id="ks-go">Add the crystal</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ks-salt"><span>Salt</span></label><select id="ks-salt"></select></div>
+          <div class="ctl"><label for="ks-c"><span>Common ion already in the water</span> <output id="ks-c-out"></output></label><input type="range" id="ks-c" min="0" max="0.2" step="0.005" value="0"></div>
+          <div class="ctl"><label for="ks-which"><span>The common ion is the</span></label><select id="ks-which"><option value="cat">cation</option><option value="an">anion</option></select></div>
+        </div>
+        <div class="split"><div><canvas id="ks-canvas" aria-label="A crystal dissolving in water until the solution is saturated"></canvas></div><div><canvas id="ks-graph" aria-label="Molar solubility against the amount of common ion already present"></canvas></div></div>
+        <div class="readout"><div><span>K<sub>sp</sub></span><strong id="ks-ksp">—</strong></div><div><span>Molar solubility s</span><strong class="x" id="ks-s">—</strong></div><div><span>[cation]</span><strong id="ks-cat">—</strong></div><div><span>[anion]</span><strong id="ks-an">—</strong></div><div><span>Mass dissolving</span><strong id="ks-gl">—</strong></div></div>
+        <p class="small" style="margin:0">The number of ions drawn is scaled so you can see the trend; real solutions at this level have far fewer ions than particles drawn.</p>
+      </div>
+      <div class="lab" id="mx-lab">
+        <div class="labbar"><span class="title">Mix two solutions: will it precipitate?</span><div class="row"><button type="button" class="btn primary" id="mx-go">Pour together</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="mx-salt"><span>Salt that could form</span></label><select id="mx-salt"></select></div>
+          <div class="ctl"><label for="mx-c1"><span>[cation] in solution 1 (before mixing)</span> <output id="mx-c1-out"></output></label><input type="range" id="mx-c1" min="-6" max="-1" step="0.1" value="-3"></div>
+          <div class="ctl"><label for="mx-c2"><span>[anion] in solution 2 (before mixing)</span> <output id="mx-c2-out"></output></label><input type="range" id="mx-c2" min="-6" max="-1" step="0.1" value="-3"></div>
+          <div class="ctl"><label for="mx-v"><span>Volume of each solution</span> <output id="mx-v-out"></output></label><input type="range" id="mx-v" min="10" max="200" step="5" value="50"></div>
+        </div>
+        <canvas id="mx-canvas" aria-label="Two solutions poured into one beaker; a precipitate forms if Q exceeds Ksp"></canvas>
+        <div class="readout"><div><span>[cation] after mixing</span><strong id="mx-ca">—</strong></div><div><span>[anion] after mixing</span><strong id="mx-an">—</strong></div><div><span>Q</span><strong class="a" id="mx-q">—</strong></div><div><span>K<sub>sp</sub></span><strong id="mx-k">—</strong></div><div><span>Result</span><strong class="x" id="mx-r" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then use the labs.</p><ol>
+        <li><p>Add 0.10 M of the common chloride ion to AgCl. How does the solubility change? <button type="button" class="btn link" data-show='[["#ks-salt","0"],["#ks-which","an"],["#ks-c","0.1"],["click","#ks-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>It drops by about four orders of magnitude, from 1.3×10⁻⁵ M to 1.8×10⁻⁹ M. Extra Cl⁻ pushes AgCl(s) ⇌ Ag⁺ + Cl⁻ to the left, so less dissolves.</p></details></li>
+        <li><p>Compare Ag₂CrO₄ (K<sub>sp</sub> 1.1×10⁻¹²) with AgCl (1.8×10⁻¹⁰). Which has the lower solubility? <button type="button" class="btn link" data-show='[["#ks-salt","5"],["click","#ks-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Surprise: Ag₂CrO₄ is <i>more</i> soluble (6.5×10⁻⁵ M vs 1.3×10⁻⁵ M) despite its smaller K<sub>sp</sub>, because it has a different formula type. You can compare K<sub>sp</sub> values directly only for salts with the same number of ions.</p></details></li>
+        <li><p>Mix 0.001 M Ag⁺ and 0.001 M Cl⁻ in equal volumes. Precipitate? <button type="button" class="btn link" data-show='[["#mx-salt","0"],["#mx-c1","-3"],["#mx-c2","-3"],["click","#mx-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>After mixing, each ion is 5×10⁻⁴ M, so Q = 2.5×10⁻⁷, which is much larger than K<sub>sp</sub> (1.8×10⁻¹⁰): a precipitate forms.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">K<sub>sp</sub> of PbI₂ is 9.8×10⁻⁹. (a) Find its molar solubility in pure water. (b) Find its solubility in 0.050 M KI.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Equilibrium and expression.</b> PbI₂(s) ⇌ Pb²⁺ + 2I⁻, K<sub>sp</sub> = [Pb²⁺][I⁻]².</li>
+          <li hidden><b>(a) Use s.</b> [Pb²⁺] = s, [I⁻] = 2s. K<sub>sp</sub> = s(2s)² = 4s³ = 9.8×10⁻⁹, so s = (2.45×10⁻⁹)<sup>1/3</sup> = <b>1.35×10⁻³ M</b>.</li>
+          <li hidden><b>(b) Add the common ion.</b> [I⁻] = 0.050 + 2s ≈ 0.050 (s is tiny). K<sub>sp</sub> = s(0.050)² so s = 9.8×10⁻⁹ / 2.5×10⁻³ = <b>3.9×10⁻⁶ M</b>.</li>
+          <li hidden><b>Check.</b> 2s = 7.8×10⁻⁶ ≪ 0.050 ✓ (far under 5%). The common ion cut the solubility by a factor of about 350.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting that [X] = b·s: for PbI₂ the iodide concentration is 2s, and it is squared in K<sub>sp</sub>.</li>
+        <li>Comparing K<sub>sp</sub> values to rank solubilities when the salts have different formulas (like AgCl and Ag₂CrO₄).</li>
+        <li>Forgetting dilution when two solutions are mixed: concentrations drop before you compute Q.</li>
+        <li>Including the solid in the K<sub>sp</sub> expression.</li>
+        <li>Calling Q &gt; K<sub>sp</sub> "saturated". Q = K<sub>sp</sub> is saturated; Q &gt; K<sub>sp</sub> is supersaturated and a precipitate forms.</li>
+      </ul></div>
+      <div class="prose"><h2>Other ways to change solubility</h2>
+        <p>Adding acid dissolves salts whose anion is a base (CaCO₃, Mg(OH)₂, many fluorides and sulfides): H⁺ removes the anion, pulling the equilibrium right. Complex-ion formation (like Ag⁺ with NH₃) works the same way. Temperature changes K<sub>sp</sub> itself, as with any K.</p></div>
+      <div class="quiz" data-correct="0" data-explain="Extra chloride from the NaCl shifts AgCl(s) ⇌ Ag⁺ + Cl⁻ to the left, so less AgCl dissolves. This is the common-ion effect.">
+        <p class="q">Check yourself: AgCl is dissolved in 0.10 M NaCl instead of pure water. Its solubility is…</p>
+        <div class="opts"><button type="button">Lower</button><button type="button">Higher</button><button type="button">The same</button><button type="button">Zero</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

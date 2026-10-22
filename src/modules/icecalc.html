@@ -1,0 +1,54 @@
+  <section class="view" id="v-icecalc" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>ICE tables &amp; calculating equilibrium amounts</h1>
+        <p class="lede">Given K and a starting mixture, how much of each substance is there at equilibrium? An ICE table keeps the bookkeeping straight.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of a tug-of-war that begins with a lopsided rope. <b>I</b>nitial: where the rope starts. <b>C</b>hange: how far the reaction pulls to get to balance, expressed with one unknown, <b>x</b>, times each coefficient. <b>E</b>quilibrium: initial plus change. Plug the E row into K and solve for x.</p>
+        <p>Below, you play the solver: slide x until Q reaches K. Q rises as the reaction moves forward, so there is exactly one x where Q = K. The graph shows this crossing. When K is small, x turns out small compared with the starting amount, and we may use the shortcut of dropping x from the subtraction, but only after checking the <b>5% rule</b>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed "x is small" without testing it. Now we check: if x is more than 5% of the starting concentration, the shortcut fails and we must solve the full equation (often a quadratic).</div>
+      <div class="lab" id="ic-lab">
+        <div class="labbar"><span class="title">Slide x until Q = K</span><div class="row"><button type="button" class="btn primary" id="ic-solve">Solve for me</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ic-rx"><span>Reaction</span></label><select id="ic-rx"></select></div>
+          <div class="ctl"><label for="ic-k"><span>Equilibrium constant K</span> <output id="ic-k-out"></output></label><input type="range" id="ic-k" min="-5" max="2" step="0.01" value="-0.44"></div>
+          <div class="ctl"><label for="ic-c0"><span>Starting concentration</span> <output id="ic-c0-out"></output></label><input type="range" id="ic-c0" min="0.05" max="1" step="0.05" value="0.1"></div>
+          <div class="ctl"><label for="ic-x"><span>Your guess for x</span> <output id="ic-x-out"></output></label><input type="range" id="ic-x" min="0" max="1000" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="ic-bars" aria-label="Bars for each species: starting amounts as outlines and current amounts filled"></canvas></div><div><canvas id="ic-graph" aria-label="Q against x with the K line; the solution is where they cross"></canvas></div></div>
+        <div class="tablewrap" style="min-width:0"><table class="data" id="ic-tab"></table></div>
+        <div class="readout"><div><span>Q at your x</span><strong class="a" id="ic-Q">—</strong></div><div><span>K</span><strong id="ic-kv">—</strong></div><div><span>Verdict</span><strong class="x" id="ic-v" style="font-size:15px;white-space:normal">—</strong></div><div><span>x ÷ start (5% rule)</span><strong id="ic-pct">—</strong></div></div>
+        <p class="small" id="ic-approx" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict x before you slide it.</p><ol>
+        <li><p>Make K very small and press Solve. How big is x compared with the starting amount? <button type="button" class="btn link" data-show='[["#ic-k","-4"],["click","#ic-solve"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is tiny (well under 5%), so ignoring x in the "start − x" term barely changes the answer: the shortcut and the exact answer agree.</p></details></li>
+        <li><p>Now use K near 1 and see if the shortcut still works. <button type="button" class="btn link" data-show='[["#ic-k","-0.4"],["click","#ic-solve"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>x is a big fraction of the start, and the shortcut estimate is noticeably off. The 5% rule flags it: solve the full quadratic.</p></details></li>
+        <li><p>Double the starting concentration with the same K. Does the <i>percent</i> that reacts stay the same? <button type="button" class="btn link" data-show='[["#ic-rx","0"],["#ic-c0","0.2"],["click","#ic-solve"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>For N₂O₄ ⇌ 2NO₂ no: when one reactant makes two products, higher starting concentration means a smaller fraction reacts (Le Châtelier: more crowded favors fewer particles).</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">N₂O₄(g) ⇌ 2NO₂(g), K<sub>c</sub> = 0.36 at 100 °C. Starting from 0.100 M N₂O₄ with no NO₂, find the equilibrium concentrations.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Set up the table.</b> I: [N₂O₄] = 0.100, [NO₂] = 0. C: −x and +2x. E: 0.100 − x and 2x.</li>
+          <li hidden><b>Write K.</b> 0.36 = (2x)² / (0.100 − x) = 4x² / (0.100 − x).</li>
+          <li hidden><b>Try the shortcut and check it.</b> Drop x in the denominator: 4x² = 0.036, x ≈ 0.095, which is 95% of 0.100. Far above 5%, so the shortcut <b>fails</b>. Solve the quadratic.</li>
+          <li hidden><b>Quadratic.</b> 4x² + 0.36x − 0.036 = 0. x = [−0.36 + √(0.36² + 4·4·0.036)] / 8 = [−0.36 + √0.7056] / 8 = (−0.36 + 0.84) / 8 = 0.060. So [NO₂] = 2x = <b>0.120 M</b> and [N₂O₄] = 0.100 − 0.060 = <b>0.040 M</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to multiply x by the coefficient (the table's change row is +2x, not +x).</li>
+        <li>Using the shortcut without checking: always test x ÷ start against 5%.</li>
+        <li>Reporting x as the answer. x is the <i>change</i>; the question usually wants the equilibrium concentrations (E row).</li>
+        <li>Putting the starting amounts of products into the table as zero when they aren't, or adding x to the wrong side.</li>
+        <li>Keeping a root that makes a concentration negative. Only one root is physically possible.</li>
+      </ul></div>
+      <div class="prose"><h2>The 5% rule in one line</h2>
+        <p>If K is small and the start is not tiny, then x ≪ start and you may write (start − x) ≈ start. Rule of thumb: the shortcut is acceptable when x/start &lt; 5%. As a quick guide, that usually needs start/K to be about 400 or more.</p></div>
+      <div class="quiz" data-correct="1" data-explain="x/start = 0.012/0.20 = 6%, which is above 5%, so the approximation is not valid and the full quadratic should be solved.">
+        <p class="q">Check yourself: starting at 0.20 M, the shortcut gives x = 0.012 M. Is the shortcut acceptable?</p>
+        <div class="opts"><button type="button">Yes, x is small</button><button type="button">No: 0.012/0.20 = 6% is above 5%</button><button type="button">Yes, because K is small</button><button type="button">No: x must be zero</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

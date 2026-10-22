@@ -1,0 +1,53 @@
+  <section class="view" id="v-lechatelier" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 7</span></div>
+        <h1>Le Châtelier's principle</h1>
+        <p class="lede">Disturb a system at equilibrium and it fights back, shifting to partly undo the disturbance. Q and K tell you exactly why.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine a seesaw perfectly balanced. Add a kid to one end and it tips; the other kids shuffle until the balance returns. A system at equilibrium does the same: <b>add</b> a substance and it shifts away from it; <b>remove</b> one and it shifts toward replacing it. <b>Squeeze</b> a gas mixture (smaller volume, higher pressure) and it shifts toward the side with <i>fewer gas particles</i>. <b>Heat</b> an endothermic reaction (treat heat as a reactant) and it shifts toward products; heat an exothermic reaction (heat is a product) and it shifts toward reactants.</p>
+        <p>Underneath it all is a simple rule: a stress changes <b>Q</b> (or, for temperature, changes <b>K</b>). If Q ≠ K the reaction shifts until Q = K again. Changing concentrations or volume changes Q <i>but not K</i>. Only temperature changes K. A catalyst changes neither: it only gets you to equilibrium sooner.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we described equilibrium as fixed once reached. Now we see it is a balance that can be disturbed, and the shift follows from comparing Q with K, not from memorized rules alone.</div>
+      <div class="lab" id="lc-lab">
+        <div class="labbar"><span class="title">Disturb the equilibrium</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="lc-rx"><span>System</span></label><select id="lc-rx"></select></div>
+          <div class="ctl"><label for="lc-t"><span>Temperature</span> <output id="lc-t-out"></output></label><input type="range" id="lc-t" min="280" max="700" step="5" value="350"></div>
+          <div class="ctl"><label for="lc-v"><span>Volume</span> <output id="lc-v-out"></output></label><input type="range" id="lc-v" min="0.5" max="4" step="0.1" value="2"></div>
+          <div class="ctl"><label for="lc-sp"><span>Species to add or remove</span></label><select id="lc-sp"></select></div>
+        </div>
+        <div class="row"><button type="button" class="btn" id="lc-add">Add some</button><button type="button" class="btn" id="lc-rem">Remove half</button><button type="button" class="btn" id="lc-cat">Add a catalyst</button></div>
+        <div class="split"><div><canvas id="lc-canvas" aria-label="A gas or solution mixture at equilibrium with particles of each species"></canvas></div><div><canvas id="lc-graph" aria-label="Concentrations of each species over time, with stresses marked, and a Q against K gauge"></canvas></div></div>
+        <div class="readout"><div><span>K now</span><strong id="lc-K">—</strong></div><div><span>Q now</span><strong class="a" id="lc-Q">—</strong></div><div><span>Status</span><strong class="x" id="lc-st" style="font-size:15px;white-space:normal">—</strong></div><div><span>Predicted shift</span><strong id="lc-sh" style="font-size:15px;white-space:normal">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the shift first. The graph and the Q-vs-K bar will show you.</p><ol>
+        <li><p>N₂O₄ ⇌ 2NO₂ is endothermic. Heat it. Which way does it shift, and what happens to K? <button type="button" class="btn link" data-show='[["#lc-rx","0"],["#lc-t","500"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Toward products (more brown NO₂). K <i>increases</i>: temperature is the one stress that changes K itself.</p></details></li>
+        <li><p>Squeeze the same gas mixture (reduce the volume). Which way does it go? <button type="button" class="btn link" data-show='[["#lc-rx","0"],["#lc-t","350"],["#lc-v","0.8"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Toward N₂O₄, the side with fewer gas particles (1 vs 2). Concentrations jump at first because the volume dropped, then the shift partly relieves the pressure. K doesn't change.</p></details></li>
+        <li><p>Haber process: remove ammonia as it forms. <button type="button" class="btn link" data-show='[["#lc-rx","1"],["#lc-sp","2"],["click","#lc-rem"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Q drops below K, so the reaction shifts right to make more NH₃. Industry removes NH₃ continuously for this reason.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">N₂(g) + 3H₂(g) ⇌ 2NH₃(g), ΔH = −92 kJ. For each stress, predict the shift: (a) add N₂, (b) raise the temperature, (c) decrease the volume.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Add N₂ (a reactant).</b> Q = [NH₃]²/([N₂][H₂]³) falls below K. The reaction shifts <b>right</b> (toward NH₃), using up some of the added N₂.</li>
+          <li hidden><b>Raise T.</b> The reaction is exothermic, so heat is like a product. Adding heat is like adding product: shift <b>left</b>. Here K itself <i>decreases</i>.</li>
+          <li hidden><b>Decrease the volume.</b> Gas concentrations increase. Reactants: 4 mol of gas; products: 2 mol. The system shifts toward the side with fewer moles: <b>right</b>. K is unchanged.</li>
+          <li hidden><b>Summary.</b> (a) right, (b) left (and K gets smaller), (c) right. Only (b) changed the value of K.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying a concentration change or a volume change changes K. Only temperature does.</li>
+        <li>Thinking a catalyst shifts the equilibrium. It speeds up both directions equally and only helps reach equilibrium sooner.</li>
+        <li>Applying the "fewer moles" rule when the number of gas moles is equal on both sides (no shift), or when the pressure is raised by adding an inert gas at constant volume (no shift: the concentrations don't change).</li>
+        <li>Forgetting that pure solids and liquids don't count in the mole comparison.</li>
+        <li>Thinking the shift fully cancels the stress. It only <i>partly</i> offsets it.</li>
+      </ul></div>
+      <div class="prose"><h2>Temperature and K</h2>
+        <p>Raising T favors the endothermic direction, so K increases for an endothermic reaction (ΔH &gt; 0) and decreases for an exothermic one. The van't Hoff relation makes this quantitative: ln(K₂/K₁) = −(ΔH/R)(1/T₂ − 1/T₁).</p></div>
+      <div class="quiz" data-correct="2" data-explain="Adding an inert gas at constant volume does not change any concentration, so Q still equals K and nothing shifts.">
+        <p class="q">Check yourself: an inert gas is added to an equilibrium mixture in a rigid container. What happens?</p>
+        <div class="opts"><button type="button">It shifts toward fewer moles</button><button type="button">It shifts toward more moles</button><button type="button">No shift: the concentrations are unchanged</button><button type="button">K increases</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

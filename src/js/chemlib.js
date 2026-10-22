@@ -74,11 +74,11 @@ const lpWeight=n=>n<=3?1.07:n===4?LP_WEIGHT:1;
 /* ---------------- sim2d: one animation loop per canvas ----------------
    o.h(w) height, o.step(dt,t) physics, o.draw(ctx,w,h,t) drawing. Runs only while the canvas is on screen and its module is open;
    with reduced motion it draws once and again whenever the module calls .render() after a control changes. */
-function sim2d(cv,o){let seen=true,last=0,t=0,raf=0;
+function sim2d(cv,o){let seen=true,last=0,t=0,raf=0,inF=false;
   const live=()=>seen&&!document.hidden&&cv.offsetParent!==null;
   function render(){const w=cv.clientWidth;if(!w)return;const h=o.h?o.h(w):clamp(w*.5,240,380);const c=prep(cv,h);if(!c)return;o.draw(c.ctx,w,h,t);}
-  function frame(ts){raf=0;if(!live()){last=0;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;t+=dt;if(o.step&&!(o.paused&&o.paused()))o.step(dt,t);render();raf=requestAnimationFrame(frame);}
-  function kick(){if(REDUCE){render();return;}if(!raf&&live())raf=requestAnimationFrame(frame);}
+  function frame(ts){raf=0;if(!live()){last=0;return;}inF=true;const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;t+=dt;try{if(o.step&&!(o.paused&&o.paused()))o.step(dt,t);render();}finally{inF=false;}raf=requestAnimationFrame(frame);}
+  function kick(){if(REDUCE){render();return;}if(!raf&&!inF&&live())raf=requestAnimationFrame(frame);}
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[es.length-1].isIntersecting;if(seen)kick();}).observe(cv);
   document.addEventListener('visibilitychange',kick);window.addEventListener('hashchange',()=>setTimeout(kick,50));
   if(o.drag){cv.classList.add('drag');cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);o.drag('down',e,cv);kick();});cv.addEventListener('pointermove',e=>{o.drag('move',e,cv);if(REDUCE)render();});
