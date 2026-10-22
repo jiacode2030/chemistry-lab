@@ -1,0 +1,51 @@
+  <section class="view" id="v-equations" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Balancing equations</h1>
+        <p class="lede">A chemical reaction rearranges atoms; it never makes or destroys them. Balancing an equation is just making sure every atom you start with shows up in the products.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of building models from a pile of identical bricks. If you take apart two toy cars and build one airplane, every brick must end up somewhere. A balanced equation is the parts list: the same number of each kind of atom on both sides.</p>
+        <p>You balance by changing the <b>coefficients</b> (the numbers in front of formulas), never the subscripts. Changing a subscript changes the substance: H₂O₂ is hydrogen peroxide, not water. A coefficient only changes <i>how many</i> of that molecule take part.</p>
+      </div>
+      <div class="lab" id="eq-lab" data-reset="own">
+        <div class="labbar"><span class="title">Balance it, then react</span><div class="row"><button type="button" class="btn primary" id="eq-go">React!</button><button type="button" class="btn" id="eq-reset">Reset</button></div></div>
+        <div class="controls"><div class="ctl"><label for="eq-sel"><span>Reaction</span></label><select id="eq-sel"></select></div></div>
+        <div class="eq-steppers" id="eq-steppers"></div>
+        <p class="eq-line" id="eq-line" aria-live="polite"></p>
+        <canvas id="eq-canvas" aria-label="Particle diagram of the reactants and products with the chosen coefficients"></canvas>
+        <div class="tablewrap"><table id="eq-tally" style="min-width:300px"></table></div>
+        <p class="fb" id="eq-fb" aria-live="polite" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Balance hydrogen burning in oxygen: H₂ + O₂ → H₂O. Start by counting oxygen atoms. <button type="button" class="btn link" data-show='[["#eq-sel","0"],["click","#eq-reset"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>With 1 O₂ there are two O atoms on the left but only one in a single H₂O. Put a 2 in front of H₂O to fix the oxygen, which makes four H on the right; then a 2 in front of H₂. Result: 2H₂ + O₂ → 2H₂O.</p></details></li>
+        <li><p>Try to "balance" by changing a subscript. What does the particle picture say? <button type="button" class="btn link" data-show='[["#eq-sel","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>You can only change coefficients here, and for good reason: H₂O₂ would be a different molecule. Subscripts are part of a substance's identity.</p></details></li>
+        <li><p>Balance the combustion of ethene, C₂H₄ + O₂ → CO₂ + H₂O. Balance C and H first, oxygen last. <button type="button" class="btn link" data-show='[["#eq-sel","6"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>2 CO₂ for the 2 carbons, 2 H₂O for the 4 hydrogens: that makes 4 + 2 = 6 oxygen atoms on the right, so 3 O₂ on the left. C₂H₄ + 3O₂ → 2CO₂ + 2H₂O.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Balance: C₃H₈ + O₂ → CO₂ + H₂O.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>List the atoms.</b> Left: 3 C, 8 H, 2 O. Right: 1 C, 2 H, 3 O.</li>
+          <li hidden><b>Balance the carbon.</b> Three carbons on the left, so 3 CO₂ on the right.</li>
+          <li hidden><b>Balance the hydrogen.</b> Eight H on the left, so 4 H₂O on the right (4 × 2 = 8).</li>
+          <li hidden><b>Balance the oxygen last.</b> Right side: 3 × 2 + 4 = 10 O atoms. O₂ comes in pairs, so 5 O₂ on the left.</li>
+          <li hidden><b>Check.</b> C₃H₈ + 5O₂ → 3CO₂ + 4H₂O: C 3 = 3, H 8 = 8, O 10 = 10. ✓ The coefficients 1, 5, 3, 4 have no common factor, so this is the simplest whole-number set.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Changing subscripts instead of coefficients. That changes the substance.</li>
+        <li>Forgetting to multiply a coefficient through a whole formula, including atoms inside parentheses: 3Ca(OH)₂ has 3 Ca, 6 O and 6 H.</li>
+        <li>Balancing oxygen first in a combustion. It appears in two products; do it last.</li>
+        <li>Leaving fractions or non-simplest coefficients. Multiply through to clear a fraction; divide out common factors.</li>
+        <li>Thinking the equation shows how fast or whether a reaction happens. It only keeps the atom book.</li>
+      </ul></div>
+      <div class="prose"><h2>Strategy</h2>
+        <p>Balance the atoms that appear in the fewest formulas first, and leave elements that appear alone (like O₂ or H₂) until the end, because you can change their coefficient without disturbing anything else. If you hit a snag with an odd number on one side, double everything you've done and try again. Check at the end by counting each atom on both sides, and for ionic equations, by also checking that the total charge is the same on both sides.</p>
+        <p>The coefficients are also mole ratios: in 2H₂ + O₂ → 2H₂O, 2 mol of H₂ react with 1 mol of O₂ to make 2 mol of water. That is the first step of every stoichiometry problem.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Count the atoms on the right: 2 Al₂O₃ is 4 Al and 6 O. So the left needs 4 Al and 6 O, which is 3 O₂: 4Al + 3O₂ → 2Al₂O₃.">
+        <p class="q">Check yourself: in the balanced equation __Al + __O₂ → __Al₂O₃, what is the coefficient of O₂?</p>
+        <div class="opts"><button type="button">2</button><button type="button">3</button><button type="button">4</button><button type="button">6</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

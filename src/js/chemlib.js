@@ -120,3 +120,19 @@ function orbitalModel(nl,ang,rmax){
     let x,y,z,f;for(let k=0;k<200;k++){const u=Math.random()*2-1,ph=Math.random()*6.2832,s=Math.sqrt(1-u*u);x=s*Math.cos(ph);y=s*Math.sin(ph);z=u;f=Y.f(x,y,z);if(Math.random()<f*f/Y.m)break;}
     const sign=(R(r)<0?-1:1)*(Y.f(x,y,z)<0?-1:1);out.push({p:[x*r,y*r,z*r],r,sign});}return out;}
   return {peak,r90:at(.9),nodes,sample,tot};}
+
+/* ---------------- 2D particle diagrams of formulas (for reaction pictures) ---------------- */
+const MOL2={};
+function molAtoms(f){/* relative positions in bond lengths, plus bonds; cached per formula string */
+  if(MOL2[f])return MOL2[f];const {count}=molarMass(f),els=Object.keys(count);let list=[];els.forEach(e=>{for(let i=0;i<count[e];i++)list.push(e);});
+  const cen=els.find(e=>count[e]===1&&e!=='H'&&list.length>2),atoms=[],bonds=[];
+  if(list.length===1)atoms.push({e:list[0],x:0,y:0});
+  else if(list.length===2){atoms.push({e:list[0],x:-.5,y:0},{e:list[1],x:.5,y:0});bonds.push([0,1]);}
+  else if(cen){atoms.push({e:cen,x:0,y:0});const oth=list.filter((e,i)=>!(e===cen&&list.indexOf(cen)===i)),n=oth.length,hy=oth.every(e=>e==='H')&&n===2;
+    oth.forEach((e,i)=>{const a=n===2?(hy?(i?1:-1)*52.25*D2R+Math.PI/2*0:(i?Math.PI:0)):i/n*Math.PI*2+(n===4?Math.PI/4:Math.PI/2);const ang=n===2&&hy?(Math.PI/2+(i?1:-1)*52.25*D2R):a;atoms.push({e,x:Math.cos(ang),y:-Math.sin(ang)});bonds.push([0,atoms.length-1]);});}
+  else{const n=list.length;list.forEach((e,i)=>{const a=i/n*Math.PI*2;atoms.push({e,x:Math.cos(a)*.75*(n>3?1:.8),y:Math.sin(a)*.75*(n>3?1:.8)});});for(let i=0;i<n;i++)if(n>2&&i<n-1)bonds.push([i,i+1]);if(n>3)bonds.push([n-1,0]);}
+  return MOL2[f]={atoms,bonds};}
+const e2col=e=>e==='H'?'#EEF1F5':e==='Fe'?'#B7541E':e==='Al'?'#B8A9A3':e==='Zn'?'#7C8FA6':e==='Cu'?'#C77A3B':e==='Ag'?'#C0C6CF':e==='Pb'?'#6B7280':e==='Ba'?'#3DAA6D':e==='Ca'?'#3DAA6D':ATOM[e]?atomCol(e):'#999';
+function drawMol2D(ctx,f,cx,cy,u,o={}){const m=molAtoms(f),al=o.alpha??1;ctx.save();ctx.globalAlpha=al;
+  ctx.strokeStyle=T.ink;ctx.lineWidth=Math.max(1.5,u*.12);ctx.lineCap='round';m.bonds.forEach(([i,j])=>{ctx.beginPath();ctx.moveTo(cx+m.atoms[i].x*u,cy+m.atoms[i].y*u);ctx.lineTo(cx+m.atoms[j].x*u,cy+m.atoms[j].y*u);ctx.stroke();});
+  m.atoms.forEach(a=>{const r=u*(a.e==='H'?.3:.45);ball2(ctx,cx+a.x*u,cy+a.y*u,r,e2col(a.e),a.e==='H'?'rgba(0,0,0,.45)':null);});ctx.restore();return m;}

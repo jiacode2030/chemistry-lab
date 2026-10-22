@@ -1,0 +1,50 @@
+  <section class="view" id="v-precip" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Net ionic equations &amp; precipitation</h1>
+        <p class="lede">Mix two clear solutions and sometimes a solid appears. The solid forms because two particular ions find each other and lock together; every other ion just watches.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Ionic compounds that dissolve in water exist as separate, moving ions. When two such solutions are mixed, every positive ion meets every negative ion. Most of these partners prefer to stay dissolved (they are soluble). But if one cation–anion pair forms an <b>insoluble</b> compound, the pair clumps into a solid that falls out of the solution: a <b>precipitate</b>.</p>
+        <p>The ions that never take part, floating along unchanged, are <b>spectator ions</b>. A <b>net ionic equation</b> deletes the spectators and shows only what actually happens. To predict whether a precipitate forms, swap the partners and check the solubility rules for each new compound.</p>
+      </div>
+      <div class="lab" id="pr-lab">
+        <div class="labbar"><span class="title">Mix two solutions</span><div class="row"><button type="button" class="btn primary" id="pr-mix">Mix them</button></div></div>
+        <div class="controls"><div class="ctl"><label for="pr-sel"><span>Solutions to mix</span></label><select id="pr-sel"></select></div></div>
+        <canvas id="pr-canvas" aria-label="Two solutions of ions that mix; ions that form an insoluble compound stick together and sink as a solid"></canvas>
+        <div class="eq-block" id="pr-eqs"></div>
+        <div class="readout"><div><span>Precipitate</span><strong class="x" id="pr-p" style="white-space:normal;font-size:15px">—</strong></div><div><span>Spectator ions</span><strong id="pr-s" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">Spectator ions are crossed out in the complete ionic equation. Solubility rules are on the Reference sheet (Solubility &amp; ions tab). <button type="button" class="btn link" data-ref="sol" style="padding:0">Open it</button></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Mix silver nitrate with sodium chloride. Which ions clump? <button type="button" class="btn link" data-show='[["#pr-sel","0"],["click","#pr-mix"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Ag⁺ and Cl⁻ stick together as white AgCl and sink. Na⁺ and NO₃⁻ stay dissolved: they are the spectators. Net ionic equation: Ag⁺(aq) + Cl⁻(aq) → AgCl(s).</p></details></li>
+        <li><p>Now mix sodium chloride with potassium nitrate. <button type="button" class="btn link" data-show='[["#pr-sel","6"],["click","#pr-mix"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Nothing happens: every possible pair (NaNO₃, KCl) is soluble, so all four ions are spectators and there is no net ionic equation. Mixing is not the same as reacting.</p></details></li>
+        <li><p>Mix lead(II) nitrate with potassium iodide. Why is the net equation different in form? <button type="button" class="btn link" data-show='[["#pr-sel","1"],["click","#pr-mix"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The yellow solid PbI₂ needs two iodide ions per lead ion: Pb²⁺ + 2I⁻ → PbI₂(s). The charges of the ions set the formula, and the subscript becomes the coefficient in the net ionic equation.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Write the net ionic equation for mixing aqueous BaCl₂ and Na₂SO₄.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Dissociate.</b> BaCl₂ → Ba²⁺ + 2Cl⁻. Na₂SO₄ → 2Na⁺ + SO₄²⁻.</li>
+          <li hidden><b>Swap partners.</b> Possible products: BaSO₄ and NaCl.</li>
+          <li hidden><b>Check solubility.</b> NaCl is soluble (all Na⁺ salts are). BaSO₄ is insoluble (sulfates are soluble except with Ba²⁺, Sr²⁺, Pb²⁺).</li>
+          <li hidden><b>Complete ionic equation.</b> Ba²⁺ + 2Cl⁻ + 2Na⁺ + SO₄²⁻ → BaSO₄(s) + 2Na⁺ + 2Cl⁻.</li>
+          <li hidden><b>Cancel spectators</b> (Na⁺ and Cl⁻): <b>Ba²⁺(aq) + SO₄²⁻(aq) → BaSO₄(s)</b>. Check: charge 0 on both sides. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Writing a precipitate as separate ions. A solid is written as the whole formula, with (s).</li>
+        <li>Splitting a solid, a gas or a weak electrolyte into ions in the complete ionic equation. Only soluble ionic compounds (aq) are split.</li>
+        <li>Forgetting to check <i>both</i> new compounds. Only one needs to be insoluble for a reaction, but you must check both.</li>
+        <li>Forgetting that the net ionic equation must balance in charge as well as in atoms.</li>
+        <li>Saying a spectator ion "does nothing". It still carries charge and keeps the solution neutral, but it is not changed.</li>
+      </ul></div>
+      <div class="prose"><h2>Three kinds of equation</h2>
+        <p>The <b>molecular equation</b> writes every compound as a whole formula: AgNO₃(aq) + NaCl(aq) → AgCl(s) + NaNO₃(aq). The <b>complete ionic equation</b> splits every soluble ionic compound into its ions and leaves solids whole. The <b>net ionic equation</b> removes the spectators. All three are balanced, but the net ionic equation tells the real chemical story, and it is the one used for stoichiometry: the amount of precipitate depends only on the amount of the limiting ion.</p>
+        <p>Precipitation is used to remove ions from water (for example, hydroxide or sulfide precipitates remove heavy metals) and to detect them (a white precipitate with silver nitrate indicates chloride).</p></div>
+      <div class="quiz" data-correct="3" data-explain="Chlorides are soluble except with Ag⁺, Pb²⁺ and Hg₂²⁺, and sodium salts are always soluble. Swapping partners gives PbCl₂ (insoluble) and NaNO₃ (soluble). So Pb²⁺ + 2Cl⁻ → PbCl₂(s), and the spectators are Na⁺ and NO₃⁻.">
+        <p class="q">Check yourself: Pb(NO₃)₂(aq) is mixed with NaCl(aq). What is the net ionic equation?</p>
+        <div class="opts"><button type="button">No reaction</button><button type="button">Na⁺ + NO₃⁻ → NaNO₃(s)</button><button type="button">Pb(NO₃)₂ + 2NaCl → PbCl₂ + 2NaNO₃</button><button type="button">Pb²⁺(aq) + 2Cl⁻(aq) → PbCl₂(s)</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

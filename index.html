@@ -738,6 +738,23 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
 .colmath .lim{outline:2px solid var(--cv);outline-offset:1px;border-radius:3px}
 .colmath .sep{display:block;border-top:2px solid var(--ink);margin:3px 0}
 
+/* ---- equation steppers ---- */
+.eq-steppers{display:flex;flex-wrap:wrap;gap:10px 6px;align-items:center}
+.stp{display:inline-flex;align-items:center;gap:6px}
+.stp .arr{font:600 22px var(--f-math);color:var(--muted);padding:0 6px}
+.stp-b{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.stp-b button{border:0;background:transparent;width:36px;height:40px;font:600 20px var(--f-body);cursor:pointer;color:var(--ink)}
+.stp-b button:hover{background:var(--sunk)}
+.stp-b output{min-width:28px;text-align:center;font:700 17px var(--f-mono)}
+.stp-f{font:600 19px var(--f-math)}
+.eq-line{margin:0;font:500 22px/1.4 var(--f-math);overflow-x:auto;white-space:nowrap}
+
+.eq-block{display:flex;flex-direction:column;gap:6px;font:500 17px/1.5 var(--f-math);overflow-x:auto}
+.eq-block .lbl{font:500 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block}
+.eq-block .ln{white-space:nowrap}
+.eq-block .sp{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
+.eq-block .net{color:var(--good);font-weight:600}
+
 </style>
 
 <div class="fs-scrim" id="fs-scrim" aria-hidden="true"></div>
@@ -2045,6 +2062,220 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
     </div>
   </section>
 
+  <section class="view" id="v-equations" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Balancing equations</h1>
+        <p class="lede">A chemical reaction rearranges atoms; it never makes or destroys them. Balancing an equation is just making sure every atom you start with shows up in the products.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of building models from a pile of identical bricks. If you take apart two toy cars and build one airplane, every brick must end up somewhere. A balanced equation is the parts list: the same number of each kind of atom on both sides.</p>
+        <p>You balance by changing the <b>coefficients</b> (the numbers in front of formulas), never the subscripts. Changing a subscript changes the substance: H₂O₂ is hydrogen peroxide, not water. A coefficient only changes <i>how many</i> of that molecule take part.</p>
+      </div>
+      <div class="lab" id="eq-lab" data-reset="own">
+        <div class="labbar"><span class="title">Balance it, then react</span><div class="row"><button type="button" class="btn primary" id="eq-go">React!</button><button type="button" class="btn" id="eq-reset">Reset</button></div></div>
+        <div class="controls"><div class="ctl"><label for="eq-sel"><span>Reaction</span></label><select id="eq-sel"></select></div></div>
+        <div class="eq-steppers" id="eq-steppers"></div>
+        <p class="eq-line" id="eq-line" aria-live="polite"></p>
+        <canvas id="eq-canvas" aria-label="Particle diagram of the reactants and products with the chosen coefficients"></canvas>
+        <div class="tablewrap"><table id="eq-tally" style="min-width:300px"></table></div>
+        <p class="fb" id="eq-fb" aria-live="polite" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Balance hydrogen burning in oxygen: H₂ + O₂ → H₂O. Start by counting oxygen atoms. <button type="button" class="btn link" data-show='[["#eq-sel","0"],["click","#eq-reset"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>With 1 O₂ there are two O atoms on the left but only one in a single H₂O. Put a 2 in front of H₂O to fix the oxygen, which makes four H on the right; then a 2 in front of H₂. Result: 2H₂ + O₂ → 2H₂O.</p></details></li>
+        <li><p>Try to "balance" by changing a subscript. What does the particle picture say? <button type="button" class="btn link" data-show='[["#eq-sel","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>You can only change coefficients here, and for good reason: H₂O₂ would be a different molecule. Subscripts are part of a substance's identity.</p></details></li>
+        <li><p>Balance the combustion of ethene, C₂H₄ + O₂ → CO₂ + H₂O. Balance C and H first, oxygen last. <button type="button" class="btn link" data-show='[["#eq-sel","6"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>2 CO₂ for the 2 carbons, 2 H₂O for the 4 hydrogens: that makes 4 + 2 = 6 oxygen atoms on the right, so 3 O₂ on the left. C₂H₄ + 3O₂ → 2CO₂ + 2H₂O.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Balance: C₃H₈ + O₂ → CO₂ + H₂O.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>List the atoms.</b> Left: 3 C, 8 H, 2 O. Right: 1 C, 2 H, 3 O.</li>
+          <li hidden><b>Balance the carbon.</b> Three carbons on the left, so 3 CO₂ on the right.</li>
+          <li hidden><b>Balance the hydrogen.</b> Eight H on the left, so 4 H₂O on the right (4 × 2 = 8).</li>
+          <li hidden><b>Balance the oxygen last.</b> Right side: 3 × 2 + 4 = 10 O atoms. O₂ comes in pairs, so 5 O₂ on the left.</li>
+          <li hidden><b>Check.</b> C₃H₈ + 5O₂ → 3CO₂ + 4H₂O: C 3 = 3, H 8 = 8, O 10 = 10. ✓ The coefficients 1, 5, 3, 4 have no common factor, so this is the simplest whole-number set.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Changing subscripts instead of coefficients. That changes the substance.</li>
+        <li>Forgetting to multiply a coefficient through a whole formula, including atoms inside parentheses: 3Ca(OH)₂ has 3 Ca, 6 O and 6 H.</li>
+        <li>Balancing oxygen first in a combustion. It appears in two products; do it last.</li>
+        <li>Leaving fractions or non-simplest coefficients. Multiply through to clear a fraction; divide out common factors.</li>
+        <li>Thinking the equation shows how fast or whether a reaction happens. It only keeps the atom book.</li>
+      </ul></div>
+      <div class="prose"><h2>Strategy</h2>
+        <p>Balance the atoms that appear in the fewest formulas first, and leave elements that appear alone (like O₂ or H₂) until the end, because you can change their coefficient without disturbing anything else. If you hit a snag with an odd number on one side, double everything you've done and try again. Check at the end by counting each atom on both sides, and for ionic equations, by also checking that the total charge is the same on both sides.</p>
+        <p>The coefficients are also mole ratios: in 2H₂ + O₂ → 2H₂O, 2 mol of H₂ react with 1 mol of O₂ to make 2 mol of water. That is the first step of every stoichiometry problem.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Count the atoms on the right: 2 Al₂O₃ is 4 Al and 6 O. So the left needs 4 Al and 6 O, which is 3 O₂: 4Al + 3O₂ → 2Al₂O₃.">
+        <p class="q">Check yourself: in the balanced equation __Al + __O₂ → __Al₂O₃, what is the coefficient of O₂?</p>
+        <div class="opts"><button type="button">2</button><button type="button">3</button><button type="button">4</button><button type="button">6</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-stoich" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Stoichiometry &amp; limiting reagent</h1>
+        <p class="lede">A balanced equation is a recipe. Stoichiometry scales the recipe to the amounts you actually have, and tells you what runs out first.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>To make a sandwich you need 2 slices of bread and 1 slice of cheese. With 10 slices of bread and 3 slices of cheese you can make only 3 sandwiches: the cheese runs out first. Bread is left over. In a reaction the same thing happens: the <b>limiting reagent</b> is used up first and decides how much product forms. The other reactant is in <b>excess</b> and some is left over.</p>
+        <p>The recipe is the balanced equation, and its coefficients are mole ratios. You can't compare grams directly (a gram of H₂ is a lot more molecules than a gram of O₂), so every stoichiometry problem passes through moles.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we assumed 100% yield and exactly the right amount of each reactant</dd><dt>So we didn't need</dt><dd>to ask which reactant runs out, or how much product we really get</dd><dt>Now</dt><dd>real reactions use uneven amounts and lose some product</dd><dt>So we need</dt><dd>the limiting reagent (it sets the theoretical yield) and the percent yield</dd></dl></div>
+      <div class="eqgrid"><div class="eqn"><span>grams → moles → mole ratio → moles → grams</span><small>the stoichiometry road</small></div><div class="eqn"><span>% yield = actual / theoretical × 100</span><small>real versus ideal</small></div></div>
+      <div class="lab" id="st-lab">
+        <div class="labbar"><span class="title">Run the reaction</span><div class="row"><button type="button" class="btn primary" id="st-go">Run</button><button type="button" class="btn" id="st-reset">Reset</button></div></div>
+        <div class="controls"><div class="ctl"><label for="st-sel"><span>Reaction</span></label><select id="st-sel"></select></div>
+          <div class="ctl"><label for="st-a"><span id="st-al">Reactant 1</span> <output id="st-a-out"></output></label><input type="range" id="st-a" min="0" max="12" step="1" value="4"></div>
+          <div class="ctl"><label for="st-b"><span id="st-bl">Reactant 2</span> <output id="st-b-out"></output></label><input type="range" id="st-b" min="0" max="24" step="1" value="6"></div>
+          <div class="ctl"><label for="st-y"><span>Percent yield (real world)</span> <output id="st-y-out"></output></label><input type="range" id="st-y" min="50" max="100" step="5" value="100"></div></div>
+        <canvas id="st-canvas" aria-label="Particles of two reactants combining into products until one runs out"></canvas>
+        <div class="tablewrap"><table id="st-table" style="min-width:620px"></table></div>
+        <div class="readout"><div><span>Limiting reagent</span><strong class="x" id="st-lim" style="white-space:normal;font-size:15px">—</strong></div><div><span>Left over</span><strong id="st-left" style="white-space:normal;font-size:15px">—</strong></div><div><span>Theoretical yield</span><strong class="v" id="st-th">—</strong></div><div><span>Actual yield</span><strong class="hot" id="st-ac">—</strong></div></div>
+        <p class="small" style="margin:0">Each particle in the picture stands for 0.5 mol, so the table can show real masses.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Make ammonia with 4 N₂ and 6 H₂. Which runs out? <button type="button" class="btn link" data-show='[["#st-sel","0"],["#st-a",4],["#st-b",6],["#st-y",100],["click","#st-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The recipe needs 3 H₂ for every N₂. Six H₂ can only handle 2 N₂, so H₂ is limiting: it makes 4 NH₃, and 2 N₂ are left over.</p></details></li>
+        <li><p>Give exactly the recipe amounts: 4 N₂ and 12 H₂. <button type="button" class="btn link" data-show='[["#st-sel","0"],["#st-a",4],["#st-b",12],["click","#st-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Both run out at the same time: a stoichiometric mixture, with nothing left over and 8 NH₃ made.</p></details></li>
+        <li><p>Now lose some product: set the percent yield to 75%. <button type="button" class="btn link" data-show='[["#st-a",4],["#st-b",12],["#st-y",75],["click","#st-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The theoretical yield is still 8 NH₃ (all the limiting reagent reacts on paper), but only 6 appear: the actual yield is 75% of the theoretical.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">10.0 g of N₂ reacts with 3.00 g of H₂ in N₂ + 3H₂ → 2NH₃. Find the limiting reagent, the theoretical yield of NH₃, and the mass of excess reactant left over.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Convert to moles.</b> N₂: 10.0 g ÷ 28.02 g/mol = 0.357 mol. H₂: 3.00 g ÷ 2.016 g/mol = 1.49 mol.</li>
+          <li hidden><b>Find the limiting reagent.</b> N₂ needs 3 mol H₂ per mol: 0.357 × 3 = 1.07 mol H₂ is needed, and 1.49 mol is available, so H₂ is in excess and <b>N₂ is limiting</b>.</li>
+          <li hidden><b>Theoretical yield.</b> 0.357 mol N₂ × (2 mol NH₃ / 1 mol N₂) = 0.714 mol NH₃; × 17.03 g/mol = <b>12.2 g NH₃</b>.</li>
+          <li hidden><b>Excess left over.</b> H₂ used = 1.07 mol; left = 1.49 − 1.07 = 0.42 mol × 2.016 g/mol = <b>0.85 g H₂</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Comparing grams of reactants to choose the limiting reagent. Convert to moles and use the coefficients.</li>
+        <li>Using the coefficients on grams instead of moles.</li>
+        <li>Basing the yield on the excess reactant. The limiting reagent controls how much can form.</li>
+        <li>Calling the actual yield the "theoretical yield". Theoretical is the calculated maximum; actual is what you measured.</li>
+        <li>Forgetting to use the balanced equation (e.g. using 1:1 when the ratio is 1:3).</li>
+      </ul></div>
+      <div class="prose"><h2>Two ways to find the limiting reagent</h2>
+        <p><b>Compare moles to coefficients:</b> divide each reactant's moles by its coefficient; the smaller number belongs to the limiting reagent. For 0.357 mol N₂ (coefficient 1) and 1.49 mol H₂ (coefficient 3): 0.357 against 0.497, so N₂ is limiting. <b>Compare yields:</b> calculate how much product each reactant could make; the smaller amount is the real theoretical yield.</p>
+        <p>Percent yield compares what you got to what the limiting reagent could have given. It is always at most 100% in a clean experiment; a value above 100% usually means the product still contains water or another impurity.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Moles: 4.0 mol Al ÷ 4 = 1.0; 4.0 mol O₂ ÷ 3 = 1.33. The smaller value belongs to Al, so Al is the limiting reagent and O₂ is in excess.">
+        <p class="q">Check yourself: 4Al + 3O₂ → 2Al₂O₃. You mix 4.0 mol Al with 4.0 mol O₂. Which is limiting?</p>
+        <div class="opts"><button type="button">O₂</button><button type="button">Neither: they run out together</button><button type="button">Al</button><button type="button">Cannot tell without masses</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-precip" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Net ionic equations &amp; precipitation</h1>
+        <p class="lede">Mix two clear solutions and sometimes a solid appears. The solid forms because two particular ions find each other and lock together; every other ion just watches.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Ionic compounds that dissolve in water exist as separate, moving ions. When two such solutions are mixed, every positive ion meets every negative ion. Most of these partners prefer to stay dissolved (they are soluble). But if one cation–anion pair forms an <b>insoluble</b> compound, the pair clumps into a solid that falls out of the solution: a <b>precipitate</b>.</p>
+        <p>The ions that never take part, floating along unchanged, are <b>spectator ions</b>. A <b>net ionic equation</b> deletes the spectators and shows only what actually happens. To predict whether a precipitate forms, swap the partners and check the solubility rules for each new compound.</p>
+      </div>
+      <div class="lab" id="pr-lab">
+        <div class="labbar"><span class="title">Mix two solutions</span><div class="row"><button type="button" class="btn primary" id="pr-mix">Mix them</button></div></div>
+        <div class="controls"><div class="ctl"><label for="pr-sel"><span>Solutions to mix</span></label><select id="pr-sel"></select></div></div>
+        <canvas id="pr-canvas" aria-label="Two solutions of ions that mix; ions that form an insoluble compound stick together and sink as a solid"></canvas>
+        <div class="eq-block" id="pr-eqs"></div>
+        <div class="readout"><div><span>Precipitate</span><strong class="x" id="pr-p" style="white-space:normal;font-size:15px">—</strong></div><div><span>Spectator ions</span><strong id="pr-s" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">Spectator ions are crossed out in the complete ionic equation. Solubility rules are on the Reference sheet (Solubility &amp; ions tab). <button type="button" class="btn link" data-ref="sol" style="padding:0">Open it</button></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Mix silver nitrate with sodium chloride. Which ions clump? <button type="button" class="btn link" data-show='[["#pr-sel","0"],["click","#pr-mix"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Ag⁺ and Cl⁻ stick together as white AgCl and sink. Na⁺ and NO₃⁻ stay dissolved: they are the spectators. Net ionic equation: Ag⁺(aq) + Cl⁻(aq) → AgCl(s).</p></details></li>
+        <li><p>Now mix sodium chloride with potassium nitrate. <button type="button" class="btn link" data-show='[["#pr-sel","6"],["click","#pr-mix"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Nothing happens: every possible pair (NaNO₃, KCl) is soluble, so all four ions are spectators and there is no net ionic equation. Mixing is not the same as reacting.</p></details></li>
+        <li><p>Mix lead(II) nitrate with potassium iodide. Why is the net equation different in form? <button type="button" class="btn link" data-show='[["#pr-sel","1"],["click","#pr-mix"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The yellow solid PbI₂ needs two iodide ions per lead ion: Pb²⁺ + 2I⁻ → PbI₂(s). The charges of the ions set the formula, and the subscript becomes the coefficient in the net ionic equation.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Write the net ionic equation for mixing aqueous BaCl₂ and Na₂SO₄.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Dissociate.</b> BaCl₂ → Ba²⁺ + 2Cl⁻. Na₂SO₄ → 2Na⁺ + SO₄²⁻.</li>
+          <li hidden><b>Swap partners.</b> Possible products: BaSO₄ and NaCl.</li>
+          <li hidden><b>Check solubility.</b> NaCl is soluble (all Na⁺ salts are). BaSO₄ is insoluble (sulfates are soluble except with Ba²⁺, Sr²⁺, Pb²⁺).</li>
+          <li hidden><b>Complete ionic equation.</b> Ba²⁺ + 2Cl⁻ + 2Na⁺ + SO₄²⁻ → BaSO₄(s) + 2Na⁺ + 2Cl⁻.</li>
+          <li hidden><b>Cancel spectators</b> (Na⁺ and Cl⁻): <b>Ba²⁺(aq) + SO₄²⁻(aq) → BaSO₄(s)</b>. Check: charge 0 on both sides. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Writing a precipitate as separate ions. A solid is written as the whole formula, with (s).</li>
+        <li>Splitting a solid, a gas or a weak electrolyte into ions in the complete ionic equation. Only soluble ionic compounds (aq) are split.</li>
+        <li>Forgetting to check <i>both</i> new compounds. Only one needs to be insoluble for a reaction, but you must check both.</li>
+        <li>Forgetting that the net ionic equation must balance in charge as well as in atoms.</li>
+        <li>Saying a spectator ion "does nothing". It still carries charge and keeps the solution neutral, but it is not changed.</li>
+      </ul></div>
+      <div class="prose"><h2>Three kinds of equation</h2>
+        <p>The <b>molecular equation</b> writes every compound as a whole formula: AgNO₃(aq) + NaCl(aq) → AgCl(s) + NaNO₃(aq). The <b>complete ionic equation</b> splits every soluble ionic compound into its ions and leaves solids whole. The <b>net ionic equation</b> removes the spectators. All three are balanced, but the net ionic equation tells the real chemical story, and it is the one used for stoichiometry: the amount of precipitate depends only on the amount of the limiting ion.</p>
+        <p>Precipitation is used to remove ions from water (for example, hydroxide or sulfide precipitates remove heavy metals) and to detect them (a white precipitate with silver nitrate indicates chloride).</p></div>
+      <div class="quiz" data-correct="3" data-explain="Chlorides are soluble except with Ag⁺, Pb²⁺ and Hg₂²⁺, and sodium salts are always soluble. Swapping partners gives PbCl₂ (insoluble) and NaNO₃ (soluble). So Pb²⁺ + 2Cl⁻ → PbCl₂(s), and the spectators are Na⁺ and NO₃⁻.">
+        <p class="q">Check yourself: Pb(NO₃)₂(aq) is mixed with NaCl(aq). What is the net ionic equation?</p>
+        <div class="opts"><button type="button">No reaction</button><button type="button">Na⁺ + NO₃⁻ → NaNO₃(s)</button><button type="button">Pb(NO₃)₂ + 2NaCl → PbCl₂ + 2NaNO₃</button><button type="button">Pb²⁺(aq) + 2Cl⁻(aq) → PbCl₂(s)</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-redox" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Oxidation states &amp; redox</h1>
+        <p class="lede">In a redox reaction, electrons move from one species to another. Oxidation numbers are the bookkeeping that tells you who gave and who took.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Drop a strip of zinc into blue copper(II) sulfate solution. The zinc dissolves and a red-brown crust of copper appears on it, and the blue fades. Zinc atoms are handing electrons to copper ions. The one that <i>loses</i> electrons is <b>oxidized</b>; the one that <i>gains</i> electrons is <b>reduced</b>. The mnemonic: <b>OIL RIG</b>, Oxidation Is Loss, Reduction Is Gain (of electrons).</p>
+        <p>Oxidation and reduction always go together, because electrons can't vanish. The substance that gets oxidized is the <b>reducing agent</b> (it reduces the other one); the substance that gets reduced is the <b>oxidizing agent</b>. To follow electrons in molecules, where nothing is cleanly lost or gained, we assign <b>oxidation numbers</b>, the charge an atom would have if every bond were completely ionic.</p>
+      </div>
+      <div class="lab" id="rd-lab">
+        <div class="labbar"><span class="title">Watch the electrons move</span><div class="row"><button type="button" class="btn primary" id="rd-go">Dip the metal in</button></div></div>
+        <div class="controls"><div class="ctl"><label for="rd-sel"><span>Reaction</span></label><select id="rd-sel"></select></div></div>
+        <canvas id="rd-canvas" aria-label="A metal strip dissolving as ions, with electrons flowing through it to ions that become atoms on its surface"></canvas>
+        <div class="readout"><div><span>Oxidized (loses e⁻)</span><strong class="x" id="rd-ox" style="white-space:normal;font-size:15px">—</strong></div><div><span>Reduced (gains e⁻)</span><strong class="a" id="rd-re" style="white-space:normal;font-size:15px">—</strong></div><div><span>Reducing agent</span><strong id="rd-ra" style="white-space:normal;font-size:15px">—</strong></div><div><span>Oxidizing agent</span><strong id="rd-oa" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <div class="eq-block" id="rd-eq"></div>
+      </div>
+      <div class="lab" id="on-lab" data-reset="own">
+        <div class="labbar"><span class="title">Find the oxidation number</span><div class="row"><button type="button" class="btn" id="on-back">Back</button><button type="button" class="btn primary" id="on-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="on-sel"><span>Species</span></label><select id="on-sel"></select></div></div>
+        <div class="chips" id="on-chips" aria-live="polite"></div>
+        <p class="eq-line" id="on-eq" style="font-size:19px;white-space:normal"></p>
+        <p class="small" id="on-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Zinc in copper(II) solution. Which loses electrons? <button type="button" class="btn link" data-show='[["#rd-sel","0"],["click","#rd-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Zn goes from 0 to +2: oxidized (it is the reducing agent). Cu²⁺ goes from +2 to 0: reduced (the oxidizing agent). Each zinc atom releases 2 electrons that one Cu²⁺ ion picks up.</p></details></li>
+        <li><p>Copper in silver nitrate: why two silver ions for each copper atom? <button type="button" class="btn link" data-show='[["#rd-sel","2"],["click","#rd-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Each Cu atom gives up 2 electrons, but each Ag⁺ can accept only 1. So two Ag⁺ are reduced for each Cu oxidized: electrons lost must equal electrons gained.</p></details></li>
+        <li><p>Find the oxidation number of manganese in KMnO₄. <button type="button" class="btn link" data-show='[["#on-sel","kmno4"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>K is +1 (group 1) and O is −2 (4 oxygens: −8). The compound is neutral, so +1 + x − 8 = 0 and Mn is +7. That unusually high number is why permanganate is such a strong oxidizing agent.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">In the reaction 2Al + 3Cl₂ → 2AlCl₃, identify what is oxidized and reduced, the oxidizing and reducing agents, and the number of electrons transferred.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Assign oxidation numbers.</b> Elements on their own are 0: Al = 0 and Cl₂ = 0. In AlCl₃, Cl is −1 (it is more electronegative), so Al is +3.</li>
+          <li hidden><b>See what changed.</b> Al: 0 → +3 (increase: oxidized). Cl: 0 → −1 (decrease: reduced).</li>
+          <li hidden><b>Name the agents.</b> The oxidized species, Al, is the <b>reducing agent</b>. The reduced species, Cl₂, is the <b>oxidizing agent</b>.</li>
+          <li hidden><b>Count the electrons.</b> 2 Al atoms lose 3 e⁻ each: 6 e⁻. 3 Cl₂ is 6 Cl atoms, each gaining 1: 6 e⁻. They match. <b>6 electrons are transferred.</b></li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Mixing up which is which: the substance that is oxidized is the <i>reducing</i> agent, not the oxidizing agent.</li>
+        <li>Treating oxidation numbers as real charges in covalent compounds. In CO₂ carbon is +4 by convention, not a C⁴⁺ ion.</li>
+        <li>Forgetting the exceptions: H is −1 in metal hydrides (NaH), O is −1 in peroxides (H₂O₂).</li>
+        <li>Forgetting that the oxidation numbers in a polyatomic ion sum to its charge, not to zero.</li>
+        <li>Thinking only reactions with oxygen are oxidations. Oxidation is loss of electrons, with or without oxygen.</li>
+      </ul></div>
+      <div class="prose"><h2>Rules for assigning oxidation numbers</h2>
+        <p>(1) An atom in a pure element is 0. (2) A monatomic ion has its charge. (3) The numbers in a neutral compound add to 0; in an ion they add to its charge. (4) Group 1 metals are +1, group 2 metals +2. (5) Fluorine is −1. (6) Hydrogen is +1 (−1 with metals); oxygen is −2 (−1 in peroxides). (7) Other halogens are −1 unless combined with oxygen or fluorine. Use the rules in this order of priority; the one unknown atom gets whatever makes the sum right.</p>
+        <p>A reaction is a redox reaction if any oxidation number changes. Combustion, corrosion, batteries, respiration and bleaching are all redox processes.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Chlorine goes from 0 in Cl₂ to −1 in Cl⁻: it gains electrons, so it is reduced. A species that is reduced is the oxidizing agent: it takes electrons from the other substance.">
+        <p class="q">Check yourself: in 2Na + Cl₂ → 2NaCl, what is the oxidizing agent?</p>
+        <div class="opts"><button type="button">Na</button><button type="button">Cl₂</button><button type="button">NaCl</button><button type="button">Both Na and Cl₂</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -2283,8 +2514,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -2434,6 +2665,22 @@ function orbitalModel(nl,ang,rmax){
     let x,y,z,f;for(let k=0;k<200;k++){const u=Math.random()*2-1,ph=Math.random()*6.2832,s=Math.sqrt(1-u*u);x=s*Math.cos(ph);y=s*Math.sin(ph);z=u;f=Y.f(x,y,z);if(Math.random()<f*f/Y.m)break;}
     const sign=(R(r)<0?-1:1)*(Y.f(x,y,z)<0?-1:1);out.push({p:[x*r,y*r,z*r],r,sign});}return out;}
   return {peak,r90:at(.9),nodes,sample,tot};}
+
+/* ---------------- 2D particle diagrams of formulas (for reaction pictures) ---------------- */
+const MOL2={};
+function molAtoms(f){/* relative positions in bond lengths, plus bonds; cached per formula string */
+  if(MOL2[f])return MOL2[f];const {count}=molarMass(f),els=Object.keys(count);let list=[];els.forEach(e=>{for(let i=0;i<count[e];i++)list.push(e);});
+  const cen=els.find(e=>count[e]===1&&e!=='H'&&list.length>2),atoms=[],bonds=[];
+  if(list.length===1)atoms.push({e:list[0],x:0,y:0});
+  else if(list.length===2){atoms.push({e:list[0],x:-.5,y:0},{e:list[1],x:.5,y:0});bonds.push([0,1]);}
+  else if(cen){atoms.push({e:cen,x:0,y:0});const oth=list.filter((e,i)=>!(e===cen&&list.indexOf(cen)===i)),n=oth.length,hy=oth.every(e=>e==='H')&&n===2;
+    oth.forEach((e,i)=>{const a=n===2?(hy?(i?1:-1)*52.25*D2R+Math.PI/2*0:(i?Math.PI:0)):i/n*Math.PI*2+(n===4?Math.PI/4:Math.PI/2);const ang=n===2&&hy?(Math.PI/2+(i?1:-1)*52.25*D2R):a;atoms.push({e,x:Math.cos(ang),y:-Math.sin(ang)});bonds.push([0,atoms.length-1]);});}
+  else{const n=list.length;list.forEach((e,i)=>{const a=i/n*Math.PI*2;atoms.push({e,x:Math.cos(a)*.75*(n>3?1:.8),y:Math.sin(a)*.75*(n>3?1:.8)});});for(let i=0;i<n;i++)if(n>2&&i<n-1)bonds.push([i,i+1]);if(n>3)bonds.push([n-1,0]);}
+  return MOL2[f]={atoms,bonds};}
+const e2col=e=>e==='H'?'#EEF1F5':e==='Fe'?'#B7541E':e==='Al'?'#B8A9A3':e==='Zn'?'#7C8FA6':e==='Cu'?'#C77A3B':e==='Ag'?'#C0C6CF':e==='Pb'?'#6B7280':e==='Ba'?'#3DAA6D':e==='Ca'?'#3DAA6D':ATOM[e]?atomCol(e):'#999';
+function drawMol2D(ctx,f,cx,cy,u,o={}){const m=molAtoms(f),al=o.alpha??1;ctx.save();ctx.globalAlpha=al;
+  ctx.strokeStyle=T.ink;ctx.lineWidth=Math.max(1.5,u*.12);ctx.lineCap='round';m.bonds.forEach(([i,j])=>{ctx.beginPath();ctx.moveTo(cx+m.atoms[i].x*u,cy+m.atoms[i].y*u);ctx.lineTo(cx+m.atoms[j].x*u,cy+m.atoms[j].y*u);ctx.stroke();});
+  m.atoms.forEach(a=>{const r=u*(a.e==='H'?.3:.45);ball2(ctx,cx+a.x*u,cy+a.y*u,r,e2col(a.e),a.e==='H'?'rgba(0,0,0,.45)':null);});ctx.restore();return m;}
 
 /* ===== data/elements.js ===== */
 
@@ -4103,6 +4350,292 @@ function wlRGB(nm){let r=0,g=0,b=0;if(nm>=380&&nm<440){r=-(nm-440)/60;b=1;}else 
     return {q:`Which method is best to separate ${d}?`,choices:ch,ans:ch.indexOf(m),hint:'Match the property that differs: particle size, volatility, or attraction to a surface.',sol:`<b>${m}</b>: ${m==='filtration'?'an insoluble solid is much larger than the liquid\'s particles':m==='distillation'?'the liquids differ in boiling point':m==='chromatography'?'the components differ in attraction to the stationary phase':'the solvent is volatile and the solid is not'}.`};}});
   PROBS.push({id:'sp-distill',topic:'separation',title:'What distills first?',gen(){const L=[['ethanol (bp 78 °C)','water (bp 100 °C)'],['acetone (bp 56 °C)','water (bp 100 °C)'],['hexane (bp 69 °C)','octane (bp 126 °C)'],['water (bp 100 °C)','glycerol (bp 290 °C)']],[a,b]=pick(L),sw=Math.random()<.5,x=sw?b:a,y=sw?a:b;
     return {q:`A mixture of ${x} and ${y} is slowly heated in a distillation apparatus. Which liquid is enriched in the first drops of distillate?`,choices:[x,y],ans:x===a?0:1,hint:'The more volatile liquid has the lower boiling point (weaker intermolecular forces), so more of it is in the vapor.',sol:`The lower boiling point means weaker attractions and more vapor: <b>${a}</b>.`};}});
+})();
+
+/* ===== modules/equations.js ===== */
+
+/* ---------------- Balancing equations ---------------- */
+const EQ_RX=[
+  {r:['H2','O2'],p:['H2O'],c:[2,1,2]},{r:['N2','H2'],p:['NH3'],c:[1,3,2]},{r:['CH4','O2'],p:['CO2','H2O'],c:[1,2,1,2]},{r:['Fe','O2'],p:['Fe2O3'],c:[4,3,2]},
+  {r:['Na','Cl2'],p:['NaCl'],c:[2,1,2]},{r:['KClO3'],p:['KCl','O2'],c:[2,2,3]},{r:['C2H4','O2'],p:['CO2','H2O'],c:[1,3,2,2]},{r:['Al','O2'],p:['Al2O3'],c:[4,3,2]},
+  {r:['H2O2'],p:['H2O','O2'],c:[2,2,1]},{r:['Zn','HCl'],p:['ZnCl2','H2'],c:[1,2,1,1]}];
+const eqSide=(fs,cs)=>fs.map((f,i)=>(cs[i]>1?cs[i]:'')+fsub(f)).join(' + ');
+function eqCounts(fs,cs){const t={};fs.forEach((f,i)=>{const {count}=molarMass(f);Object.keys(count).forEach(e=>t[e]=(t[e]||0)+count[e]*cs[i]);});return t;}
+(function equations(){
+  const cv=$('#eq-canvas');if(!cv)return;
+  const sel=$('#eq-sel');sel.innerHTML=EQ_RX.map((x,i)=>`<option value="${i}">${eqSide(x.r,x.r.map(()=>1))} → ${eqSide(x.p,x.p.map(()=>1))}</option>`).join('');
+  let X=EQ_RX[0],co=[],anim=0,moving=false,pairs=[];
+  const sp=()=>X.r.concat(X.p),nR=()=>X.r.length;
+  function load(){X=EQ_RX[+sel.value];co=sp().map(()=>1);anim=0;moving=false;steppers();upd();}
+  function steppers(){$('#eq-steppers').innerHTML=sp().map((f,i)=>`<span class="stp">${i===nR()?'<b class="arr">→</b>':i?'<b class="arr">+</b>':''}<span class="stp-b"><button type="button" data-i="${i}" data-d="-1" aria-label="Fewer ${fsub(f)}">−</button><output id="eq-c${i}">1</output><button type="button" data-i="${i}" data-d="1" aria-label="More ${fsub(f)}">+</button></span><span class="stp-f">${fsub(f)}</span></span>`).join('');}
+  $('#eq-steppers').addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const i=+b.dataset.i;co[i]=clamp(co[i]+ +b.dataset.d,0,8);anim=0;moving=false;upd();});
+  const state=()=>{const L=eqCounts(X.r,co.slice(0,nR())),R=eqCounts(X.p,co.slice(nR())),els=[...new Set([...Object.keys(L),...Object.keys(R)])];const bal=els.every(e=>(L[e]||0)===(R[e]||0))&&co.every(c=>c>0);const g=co.reduce((a,c)=>gcd(a,c),0);return {L,R,els,bal,simplest:g<=1};};
+  function upd(){const s=state();sp().forEach((f,i)=>{const o=$('#eq-c'+i);if(o)o.textContent=co[i];});
+    $('#eq-line').innerHTML=`${eqSide(X.r,co.slice(0,nR()).map(c=>c||0))} → ${eqSide(X.p,co.slice(nR()).map(c=>c||0))}`;
+    $('#eq-tally').innerHTML='<thead><tr><th>Atom</th><th>Reactants</th><th>Products</th><th></th></tr></thead><tbody>'+s.els.map(e=>{const a=s.L[e]||0,b=s.R[e]||0;return `<tr><td><b>${e}</b></td><td>${a}</td><td>${b}</td><td style="color:var(--${a===b?'good':'bad'});font-weight:600">${a===b?'✓ equal':'✗ '+(a>b?'too many on the left':'too many on the right')}</td></tr>`;}).join('')+'</tbody>';
+    const fb=$('#eq-fb');if(co.some(c=>c===0)){fb.className='fb no';fb.textContent='A coefficient of 0 removes that substance. Use at least 1.';}else if(s.bal&&s.simplest){fb.className='fb ok';fb.textContent='Balanced, with the simplest whole numbers. Press React! to watch the atoms regroup.';}else if(s.bal){fb.className='fb no';fb.textContent='Balanced, but not in simplest terms: divide all the coefficients by their common factor.';}else{fb.className='fb no';fb.textContent='Not balanced yet: compare the atom counts in the table.';}
+    $('#eq-go').disabled=!s.bal;sim.render();}
+  /* layout: molecules on a grid per panel */
+  function grid(list,x0,y0,w,h){const n=list.length;if(!n)return {pos:[],u:12};const cols=Math.max(1,Math.ceil(Math.sqrt(n*w/h))),rows=Math.ceil(n/cols),cell=Math.min(w/cols,h/rows),u=clamp(cell/3,6,26);
+    return {u,pos:list.map((f,i)=>[x0+(i%cols+.5)*w/cols,y0+(Math.floor(i/cols)+.5)*h/rows,f])};}
+  const sim=sim2d(cv,{h:w=>clamp(w*.5,260,340),step(dt){if(moving){anim=Math.min(1,anim+dt/1.6);if(anim>=1)moving=false;}},
+    draw(ctx,w,h){const s=state(),pw=w/2-26,ph=h-40,Ls=[],Rs=[];X.r.forEach((f,i)=>{for(let k=0;k<co[i];k++)Ls.push(f);});X.p.forEach((f,i)=>{for(let k=0;k<co[nR()+i];k++)Rs.push(f);});
+      const gl=grid(Ls,10,28,pw,ph),gr=grid(Rs,w/2+16,28,pw,ph),u=Math.min(gl.u,gr.u);
+      label(ctx,'reactants',10+pw/2,10,T.cx,'center','middle','600 12px "IBM Plex Mono",monospace');label(ctx,'products',w/2+16+pw/2,10,T.cv,'center','middle','600 12px "IBM Plex Mono",monospace');
+      arrow(ctx,w/2-16,h/2,w/2+10,h/2,T.ink,3);
+      ctx.strokeStyle=T.line;ctx.setLineDash([4,4]);ctx.strokeRect(10,28,pw,ph);ctx.strokeRect(w/2+16,28,pw,ph);ctx.setLineDash([]);
+      if(anim<=0||!s.bal){gl.pos.forEach(([x,y,f])=>drawMol2D(ctx,f,x,y,u));gr.pos.forEach(([x,y,f])=>drawMol2D(ctx,f,x,y,u,{alpha:anim>0?1:(s.bal?.35:1)}));}
+      else{/* atoms travel from reactant molecules to product molecules */
+        const from={},to={};gl.pos.forEach(([x,y,f])=>molAtoms(f).atoms.forEach(a=>{(from[a.e]=from[a.e]||[]).push([x+a.x*u,y+a.y*u]);}));
+        gr.pos.forEach(([x,y,f])=>molAtoms(f).atoms.forEach(a=>{(to[a.e]=to[a.e]||[]).push([x+a.x*u,y+a.y*u]);}));
+        const k=anim<.5?2*anim*anim:1-2*(1-anim)*(1-anim);
+        if(anim>=1)gr.pos.forEach(([x,y,f])=>drawMol2D(ctx,f,x,y,u));
+        else Object.keys(from).forEach(e=>from[e].forEach((p,i)=>{const q=(to[e]||[])[i]||p;const x=p[0]+(q[0]-p[0])*k,y=p[1]+(q[1]-p[1])*k-Math.sin(k*3.14)*18;ball2(ctx,x,y,u*(e==='H'?.3:.45),e2col(e),e==='H'?'rgba(0,0,0,.45)':null);}));}
+    }});
+  $('#eq-go').addEventListener('click',()=>{if(!state().bal)return;anim=REDUCE?1:.001;moving=!REDUCE;sim.render();if(anim>=1)burst($('#eq-go'),16);else setTimeout(()=>burst($('#eq-go'),22),1700);});
+  $('#eq-reset').addEventListener('click',load);sel.addEventListener('change',load);
+  load();drawers.equations=()=>sim.render();
+  TIPS['eq-sel']='Count the atoms of each element on both sides before changing anything.';
+  KEYS['eq-canvas']=['Use the + and − buttons to set the coefficients, then press React!.',[['cx','reactant side'],['cv','product side']]];
+  GLOSS['coefficient']='The number in front of a formula in an equation. It says how many of that molecule or formula unit take part.';
+  GLOSS['balanced']='Having the same number of each kind of atom on both sides of the equation.';
+  TT.equations='Insist that students count atoms in a table instead of "by eye". A quick routine: balance elements that appear in only one reactant and one product first; leave O₂ and H₂ until the end.';
+})();
+const eqSame=(a,b)=>{const k=[...new Set([...Object.keys(a),...Object.keys(b)])];return k.every(e=>(a[e]||0)===(b[e]||0));};
+(function(){
+  const BAL=[['C3H8','O2','CO2','H2O',[1,5,3,4]],['C2H6','O2','CO2','H2O',[2,7,4,6]],['C4H10','O2','CO2','H2O',[2,13,8,10]],['Fe2O3','CO','Fe','CO2',[1,3,2,3]],['Al','HCl','AlCl3','H2',[2,6,2,3]],['NH3','O2','NO','H2O',[4,5,4,6]],['C6H12O6','O2','CO2','H2O',[1,6,6,6]],['Ca(OH)2','H3PO4','Ca3(PO4)2','H2O',[3,2,1,6]],['Mg','O2','MgO','',[2,1,2]],['Fe','O2','Fe2O3','',[4,3,2]],['Al','O2','Al2O3','',[4,3,2]],['Na','H2O','NaOH','H2',[2,2,2,1]],['KClO3','','KCl','O2',[2,2,3]],['Pb(NO3)2','KI','PbI2','KNO3',[1,2,1,2]]];
+  PROBS.push({id:'eq-coef',topic:'equations',title:'Balance and read a coefficient',gen(){const [a,b,c,d,co]=pick(BAL),fs=[a,b,c,d].filter(x=>x),k=ri(0,fs.length-1),nr=b?(a&&b?2:1):1;
+    const reac=[a,b].filter(x=>x),prod=[c,d].filter(x=>x);
+    if(!eqSame(eqCounts(reac,co.slice(0,reac.length)),eqCounts(prod,co.slice(reac.length))))throw new Error('unbalanced bank entry '+reac+' '+prod);
+    return {q:`Balance ${reac.map(fsub).join(' + ')} → ${prod.map(fsub).join(' + ')} using the smallest whole-number coefficients. What is the coefficient of ${fsub(fs[k])}?`,ans:co[k],unit:'',abs:.01,hint:'Balance the elements that appear in only one substance on each side first, and leave elements that appear alone (like O₂) for last.',
+      sol:`Balanced: ${eqSide(reac,co.slice(0,reac.length))} → ${eqSide(prod,co.slice(reac.length))}. The coefficient of ${fsub(fs[k])} is <b>${co[k]}</b>.`};}});
+  PROBS.push({id:'eq-count',topic:'equations',title:'Count the atoms',gen(){const f=pick(['Ca(OH)2','Al2(SO4)3','Mg3(PO4)2','Fe(NO3)3','(NH4)2SO4','C6H12O6','Na2CO3']),k=ri(2,5),{count}=molarMass(f),e=pick(Object.keys(count)),ans=k*count[e];
+    return {q:`How many ${e} atoms are represented by ${k}${fsub(f)}?`,ans,unit:'atoms',abs:.01,hint:'Multiply the subscript of the atom (and any number outside parentheses) by the coefficient.',sol:`Each ${fsub(f)} has ${count[e]} ${e}; ${k} × ${count[e]} = <b>${ans}</b>.`};}});
+  PROBS.push({id:'eq-check',topic:'equations',title:'Is it balanced?',gen(){const [a,b,c,d,co]=pick(BAL.filter(x=>x[1]&&x[3]));const bad=co.slice();const brk=Math.random()<.5;if(brk){const i=ri(0,3);bad[i]=bad[i]+1;}
+    const reac=[a,b],prod=[c,d],okk=eqSame(eqCounts(reac,bad.slice(0,2)),eqCounts(prod,bad.slice(2))),ch=['balanced','not balanced'];
+    return {q:`Is this equation balanced? ${eqSide(reac,bad.slice(0,2))} → ${eqSide(prod,bad.slice(2))}`,choices:ch,ans:okk?0:1,hint:'Count each kind of atom on both sides.',sol:`${okk?'Every atom count matches':'The atom counts do not match'}: <b>${okk?'balanced':'not balanced'}</b>.`};}});
+})();
+
+/* ===== modules/stoich.js ===== */
+
+/* ---------------- Stoichiometry & limiting reagent ---------------- */
+const ST_RX=[{r:['N2','H2'],p:['NH3'],c:[1,3,2]},{r:['H2','O2'],p:['H2O'],c:[2,1,2]},{r:['Na','Cl2'],p:['NaCl'],c:[2,1,2]},{r:['CH4','O2'],p:['CO2','H2O'],c:[1,2,1,2]},{r:['Mg','O2'],p:['MgO'],c:[2,1,2]},{r:['Fe','O2'],p:['Fe2O3'],c:[4,3,2]}];
+const MM_=f=>molarMass(f).M;
+(function stoich(){
+  const cv=$('#st-canvas');if(!cv)return;
+  const sel=$('#st-sel');sel.innerHTML=ST_RX.slice(0,4).map((x,i)=>`<option value="${i}">${eqSide(x.r,x.c.slice(0,x.r.length))} → ${eqSide(x.p,x.c.slice(x.r.length))}</option>`).join('');
+  let X=ST_RX[0],n=[4,6],step=0,flight=null,running=false,fT=0;const MOLP=.5;
+  const co=x=>x.c;const nr=()=>X.r.length;
+  const ext=()=>Math.floor(Math.min(n[0]/X.c[0],n[1]/X.c[1])+1e-9);
+  const yieldP=()=>+$('#st-y').value/100;
+  const theory=j=>ext()*X.c[nr()+j];
+  const actual=j=>Math.round(theory(j)*yieldP());
+  function load(){X=ST_RX[+sel.value];const A=$('#st-a'),B=$('#st-b');A.max=12;B.max=24;n=[+A.value,+B.value];$('#st-al').innerHTML=fsub(X.r[0])+' (particles)';$('#st-bl').innerHTML=fsub(X.r[1])+' (particles)';reset();}
+  function reset(){step=0;flight=null;running=false;n=[+$('#st-a').value,+$('#st-b').value];$('#st-a-out').textContent=n[0];$('#st-b-out').textContent=n[1];$('#st-y-out').textContent=$('#st-y').value+' %';table();sim.render();}
+  /* fixed slots so molecules do not re-layout while reacting */
+  function slots(){const w=cv.clientWidth,h=cv.clientHeight||300,pw=w/2-26,ph=h-36;const L=[];X.r.forEach((f,i)=>{for(let k=0;k<n[i];k++)L.push({f,s:i,k});});const P=[];X.p.forEach((f,j)=>{for(let k=0;k<theory(j);k++)P.push({f,s:j,k});});
+    const mk=(list,x0)=>{const m=list.length||1,cols=Math.max(1,Math.ceil(Math.sqrt(m*pw/ph))),rows=Math.ceil(m/cols),cell=Math.min(pw/cols,ph/rows);list.forEach((o,i)=>{o.x=x0+(i%cols+.5)*pw/cols;o.y=26+(Math.floor(i/cols)+.5)*ph/rows;o.u=clamp(cell/3,6,22);});};
+    mk(L,10);mk(P,w/2+16);const u=Math.min(...[...L,...P].map(o=>o.u),22);L.forEach(o=>o.u=u);P.forEach(o=>o.u=u);return {L,P,w,h,pw,ph};}
+  const sim=sim2d(cv,{h:w=>clamp(w*.5,260,330),step(dt){if(!running)return;if(flight===null){if(step>=ext()){running=false;table();return;}flight=0;}else{flight+=dt/.55;if(flight>=1){flight=null;step++;table();}}},
+    draw(ctx,w,h){const S=slots(),u=S.L.length+S.P.length?Math.min(S.L[0]?.u||22,S.P[0]?.u||22):16;label(ctx,'reactants',10+S.pw/2,10,T.cx,'center','middle','600 12px "IBM Plex Mono",monospace');label(ctx,'products',w/2+16+S.pw/2,10,T.cv,'center','middle','600 12px "IBM Plex Mono",monospace');
+      ctx.strokeStyle=T.line;ctx.setLineDash([4,4]);ctx.strokeRect(10,26,S.pw,S.ph);ctx.strokeRect(w/2+16,26,S.pw,S.ph);ctx.setLineDash([]);arrow(ctx,w/2-16,h/2,w/2+10,h/2,T.ink,3);
+      const used=[0,0];X.r.forEach((f,i)=>{used[i]=step*X.c[i];});const fl=flight!=null;const usedNext=[0,0];if(fl)X.r.forEach((f,i)=>{usedNext[i]=(step+1)*X.c[i];});
+      const flyFrom={};S.L.forEach(o=>{const left=n[o.s]-used[o.s];const idx=o.k;const gone=idx>=left;if(!gone){const goingNow=fl&&idx>=n[o.s]-usedNext[o.s];if(goingNow){molAtoms(o.f).atoms.forEach(a=>{(flyFrom[a.e]=flyFrom[a.e]||[]).push([o.x+a.x*o.u,o.y+a.y*o.u]);});}else drawMol2D(ctx,o.f,o.x,o.y,o.u);}});
+      const made=X.p.map((f,j)=>Math.min(step*X.c[nr()+j],yieldP()<1?actual(j):1e9));const newSlots=[];
+      S.P.forEach(o=>{const sh=o.k<made[o.s];if(sh)drawMol2D(ctx,o.f,o.x,o.y,o.u);else if(fl&&o.k<(step+1)*X.c[nr()+o.s]&&(yieldP()>=1||o.k<actual(o.s)))newSlots.push(o);else if(o.k<theory(o.s)&&step>=ext()&&ext()>0&&yieldP()<1)drawMol2D(ctx,o.f,o.x,o.y,o.u,{alpha:.12});});
+      if(fl){const to={};newSlots.forEach(o=>molAtoms(o.f).atoms.forEach(a=>{(to[a.e]=to[a.e]||[]).push([o.x+a.x*o.u,o.y+a.y*o.u]);}));const k=flight<.5?2*flight*flight:1-2*(1-flight)*(1-flight);
+        Object.keys(flyFrom).forEach(e=>flyFrom[e].forEach((p,i)=>{const q=(to[e]||[])[i]||p;ball2(ctx,p[0]+(q[0]-p[0])*k,p[1]+(q[1]-p[1])*k-Math.sin(k*3.14)*16,u*(e==='H'?.3:.45),e2col(e),e==='H'?'rgba(0,0,0,.45)':null);}));}}});
+  function table(){const e=ext(),done=step>=e&&e>=0&&!running,all=X.r.concat(X.p),cs=X.c,rows=[];
+    all.forEach((f,i)=>{const isR=i<nr(),M=MM_(f),start=isR?n[i]:0,molS=start*MOLP,usedM=isR?e*cs[i]*MOLP:0,madeM=isR?0:e*cs[i]*MOLP;rows.push([fsub(f),M.toFixed(2),isR?start:'—',isR?fmt(molS,2):'—',isR?fmt(molS*M,1):'—',isR?fmt(usedM,2):'—',isR?fmt(molS-usedM,2):'—',isR?fmt((molS-usedM)*M,1):fmt(madeM*M,1)]);});
+    $('#st-table').innerHTML='<thead><tr><th>Species</th><th>M (g/mol)</th><th>Start (particles)</th><th>Start (mol)</th><th>Start (g)</th><th>Used (mol)</th><th>Left (mol)</th><th>Left / made (g)</th></tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody>';
+    const ra=n[0]/cs[0],rb=n[1]/cs[1];const lim=ra===rb?'both (exact ratio)':ra<rb?fsub(X.r[0]):fsub(X.r[1]);setHTML('st-lim',n[0]===0||n[1]===0?(n[0]===0?fsub(X.r[0]):fsub(X.r[1])):lim);
+    const left=X.r.map((f,i)=>({f,l:n[i]-e*cs[i]})).filter(o=>o.l>0);setHTML('st-left',left.length?left.map(o=>`${o.l} ${fsub(o.f)}`).join(', '):'nothing');
+    const f0=X.p[0],th=e*cs[nr()]*MOLP*MM_(f0),ac=th*yieldP();setHTML('st-th',`${fmt(th,1)} g ${fsub(f0)}`);setHTML('st-ac',`${fmt(ac,1)} g (${Math.round(yieldP()*100)}%)`);}
+  $('#st-go').addEventListener('click',()=>{if(ext()<1){setHTML('st-lim','not enough of one reactant');return;}step=0;flight=null;running=!REDUCE;if(REDUCE){step=ext();table();}sim.render();});
+  $('#st-reset').addEventListener('click',reset);sel.addEventListener('change',load);
+  ['st-a','st-b','st-y'].forEach(id=>$('#'+id).addEventListener('input',reset));
+  load();drawers.stoich=()=>sim.render();
+  TIPS['st-sel']='Read the coefficients as particle ratios.';
+  TIPS['st-a']=TIPS['st-b']='Change how many of each reactant you start with. The one that runs out first is limiting.';
+  TIPS['st-y']='Real reactions lose some product. The theoretical yield stays the same; the actual yield falls.';
+  KEYS['st-canvas']=['Choose amounts and press Run.',[['cx','reactants'],['cv','products']]];
+  GLOSS['limiting reagent']='The reactant that is used up first, which limits how much product can form.';
+  GLOSS['theoretical yield']='The maximum amount of product that could form, calculated from the limiting reagent.';
+  GLOSS['percent yield']='Actual yield divided by theoretical yield, times 100.';
+  TT.stoich='Start with the sandwich analogy, then replace sandwiches with particles before introducing grams. The sequence "particles → moles → grams" is how to scaffold a mass problem.';
+})();
+(function(){
+  const pickR=()=>pick(ST_RX);
+  function setup(){const X=pickR(),a=ri(30,400)/10,b=ri(30,400)/10,Ma=MM_(X.r[0]),Mb=MM_(X.r[1]),na=a/Ma,nb=b/Mb,ra=na/X.c[0],rb=nb/X.c[1],limI=ra<rb?0:1,xi=Math.min(ra,rb);return {X,a,b,Ma,Mb,na,nb,limI,xi};}
+  const eq=X=>`${eqSide(X.r,X.c.slice(0,X.r.length))} → ${eqSide(X.p,X.c.slice(X.r.length))}`;
+  PROBS.push({id:'st-limiting',topic:'stoich',title:'Which is the limiting reagent?',gen(){const s=setup(),X=s.X;
+    return {q:`${eq(X)}. A mixture contains ${s.a.toFixed(1)} g of ${fsub(X.r[0])} and ${s.b.toFixed(1)} g of ${fsub(X.r[1])}. Which is the limiting reagent? (Use molar masses from the periodic table.)`,choices:X.r.map(fsub),ans:s.limI,hint:'Convert both masses to moles, divide each by its coefficient, and compare: the smaller number is limiting.',
+      sol:`${fsub(X.r[0])}: ${s.a.toFixed(1)} ÷ ${s.Ma.toFixed(2)} = ${s.na.toFixed(3)} mol ÷ ${X.c[0]} = ${(s.na/X.c[0]).toFixed(3)}; ${fsub(X.r[1])}: ${s.b.toFixed(1)} ÷ ${s.Mb.toFixed(2)} = ${s.nb.toFixed(3)} mol ÷ ${X.c[1]} = ${(s.nb/X.c[1]).toFixed(3)}. The smaller is <b>${fsub(X.r[s.limI])}</b>.`};}});
+  PROBS.push({id:'st-theory',topic:'stoich',title:'Theoretical yield',gen(){const s=setup(),X=s.X,Mp=MM_(X.p[0]),ans=s.xi*X.c[X.r.length]*Mp;
+    return {q:`${eq(X)}. ${s.a.toFixed(1)} g of ${fsub(X.r[0])} reacts with ${s.b.toFixed(1)} g of ${fsub(X.r[1])}. What is the theoretical yield of ${fsub(X.p[0])}, in grams?`,ans,unit:'g',tol:.02,hint:'Find the limiting reagent first, then use its moles and the mole ratio to get moles of product, then grams.',
+      sol:`Limiting reagent: ${fsub(X.r[s.limI])}. Moles of ${fsub(X.p[0])} = ${s.xi.toFixed(4)} × ${X.c[X.r.length]} = ${(s.xi*X.c[X.r.length]).toFixed(4)} mol; × ${Mp.toFixed(2)} g/mol = <b>${fmt(ans,2)} g</b>.`};}});
+  PROBS.push({id:'st-excess',topic:'stoich',title:'Excess reactant left over',gen(){const s=setup(),X=s.X,ex=1-s.limI,used=s.xi*X.c[ex]*(ex?MM_(X.r[1]):MM_(X.r[0])),have=ex?s.b:s.a,ans=have-used;
+    return {q:`${eq(X)}. ${s.a.toFixed(1)} g of ${fsub(X.r[0])} reacts with ${s.b.toFixed(1)} g of ${fsub(X.r[1])}. How many grams of the excess reactant remain after the reaction is complete?`,ans,unit:'g',abs:Math.max(.05,Math.abs(have)*.02),hint:'Find the moles of excess reactant that the limiting reagent uses, convert to grams, and subtract from what you started with.',
+      sol:`${fsub(X.r[s.limI])} is limiting. The reaction uses ${s.xi.toFixed(4)} × ${X.c[ex]} = ${(s.xi*X.c[ex]).toFixed(4)} mol of ${fsub(X.r[ex])}, which is ${used.toFixed(2)} g. Left: ${have.toFixed(1)} − ${used.toFixed(2)} = <b>${fmt(ans,2)} g</b>.`};}});
+  PROBS.push({id:'st-percent',topic:'stoich',title:'Percent yield',gen(){const s=setup(),X=s.X,Mp=MM_(X.p[0]),th=s.xi*X.c[X.r.length]*Mp,pct=ri(55,96),act=th*pct/100;
+    return {q:`${eq(X)}. From ${s.a.toFixed(1)} g of ${fsub(X.r[0])} and ${s.b.toFixed(1)} g of ${fsub(X.r[1])}, a student collects ${act.toFixed(2)} g of ${fsub(X.p[0])}. What is the percent yield?`,ans:pct,unit:'%',tol:.025,hint:'Percent yield = actual ÷ theoretical × 100. Find the theoretical yield from the limiting reagent.',
+      sol:`Theoretical yield = ${th.toFixed(2)} g (from the limiting reagent ${fsub(X.r[s.limI])}). Percent yield = ${act.toFixed(2)} / ${th.toFixed(2)} × 100 = <b>${pct}%</b>.`};}});
+})();
+
+/* ===== modules/precip.js ===== */
+
+/* ---------------- Net ionic equations & precipitation ---------------- */
+const PR_CAT={Ag:[1,'Ag','Ag⁺'],Na:[1,'Na','Na⁺'],K:[1,'K','K⁺'],Pb:[2,'Pb','Pb²⁺'],Ba:[2,'Ba','Ba²⁺'],Ca:[2,'Ca','Ca²⁺'],Cu:[2,'Cu','Cu²⁺'],Mg:[2,'Mg','Mg²⁺'],Fe:[3,'Fe','Fe³⁺']};
+const PR_AN={Cl:[-1,'Cl','Cl⁻',false],NO3:[-1,'NO₃','NO₃⁻',true],I:[-1,'I','I⁻',false],SO4:[-2,'SO₄','SO₄²⁻',true],OH:[-1,'OH','OH⁻',true],CO3:[-2,'CO₃','CO₃²⁻',true]};
+function prSoluble(c,a){if(['Na','K'].includes(c))return true;if(a==='NO3')return true;if(a==='Cl'||a==='I')return !['Ag','Pb'].includes(c);if(a==='SO4')return !['Ba','Pb'].includes(c);return false;}
+function prFormula(c,a){const q=PR_CAT[c][0],z=-PR_AN[a][0],g=gcd(q,z),nc=z/g,na=q/g,A=PR_AN[a];const an=na===1?A[1]:(A[3]?`(${A[1]})${na}`:A[1]+na);return PR_CAT[c][1]+(nc>1?nc:'')+an;}
+const prFsub=f=>f.replace(/(\d+)/g,d=>[...d].map(c=>'₀₁₂₃₄₅₆₇₈₉'[c]).join(''));
+const PR_COL={AgCl:'#E9ECF1',PbI2:'#F2D12E',BaSO4:'#E9ECF1',CuOH2:'#5B9BE8',CaCO3:'#E9ECF1',FeOH3:'#B35A2B',PbCl2:'#E9ECF1'};
+function prReaction(a,b){/* a=[cat,an] of salt 1, b=[cat,an] of salt 2 */
+  const S1=prFormula(a[0],a[1]),S2=prFormula(b[0],b[1]),P1=prFormula(a[0],b[1]),P2=prFormula(b[0],a[1]),s1=prSoluble(a[0],b[1]),s2=prSoluble(b[0],a[1]);
+  /* coefficients from ion balance, by search */
+  const n=(c,an)=>[-PR_AN[an][0]/gcd(PR_CAT[c][0],-PR_AN[an][0]),PR_CAT[c][0]/gcd(PR_CAT[c][0],-PR_AN[an][0])];
+  const n1=n(a[0],a[1]),n2=n(b[0],b[1]),p1=n(a[0],b[1]),p2=n(b[0],a[1]);let co=null;
+  for(let c1=1;c1<=6&&!co;c1++)for(let c2=1;c2<=6&&!co;c2++)for(let q1=1;q1<=6&&!co;q1++)for(let q2=1;q2<=6&&!co;q2++){
+    if(c1*n1[0]===q1*p1[0]&&c2*n2[1]===q1*p1[1]&&c2*n2[0]===q2*p2[0]&&c1*n1[1]===q2*p2[1])co=[c1,c2,q1,q2];}
+  if(!co)co=[1,1,1,1];
+  const ion=(c,an,k)=>[[k*(c==='x'?0:0),''],];
+  const species=[];/* complete ionic: left ions */
+  const ions=(c,an,k)=>{const [nc,na]=n(c,an);return [[k*nc,PR_CAT[c][2],'c:'+c],[k*na,PR_AN[an][2],'a:'+an]];};
+  const left=[...ions(a[0],a[1],co[0]),...ions(b[0],b[1],co[1])];
+  const right=[];if(s1)right.push(...ions(a[0],b[1],co[2]));else right.push([co[2],prFsub(P1)+'(s)','s:1']);if(s2)right.push(...ions(b[0],a[1],co[3]));else right.push([co[3],prFsub(P2)+'(s)','s:2']);
+  /* merge duplicate ions on each side */
+  const merge=L=>{const m=new Map();L.forEach(([k,t,id])=>m.set(id,(m.get(id)||[0,t,id]).map((v,i)=>i===0?v+k:v)));return [...m.values()];};
+  const Lm=merge(left),Rm=merge(right),spect=Lm.filter(l=>Rm.some(r=>r[2]===l[2]&&!r[2].startsWith('s')));
+  const rxn=s1&&s2?null:1;
+  return {S1,S2,P1,P2,s1,s2,co,Lm,Rm,spect,reacts:!(s1&&s2),
+    mol:`${co[0]>1?co[0]:''}${prFsub(S1)}(aq) + ${co[1]>1?co[1]:''}${prFsub(S2)}(aq) → ${co[2]>1?co[2]:''}${prFsub(P1)}(${s1?'aq':'s'}) + ${co[3]>1?co[3]:''}${prFsub(P2)}(${s2?'aq':'s'})`};}
+function prNet(rx){/* net ionic: ions on the left that end up in a solid */
+  if(!rx.reacts)return null;const left=[],R=rx.Rm.filter(r=>r[2].startsWith('s'));
+  rx.Lm.forEach(l=>{if(!rx.spect.some(s=>s[2]===l[2]))left.push(l);});
+  const sol=R.map(r=>({k:r[0],t:r[1]}));const g=[...left.map(l=>l[0]),...sol.map(s=>s.k)].reduce((a,b)=>gcd(a,b));
+  const fmtIon=(k,t)=>`${k/g>1?k/g:''}${t.includes('(s)')?t:t+'(aq)'}`;
+  return `${left.map(l=>fmtIon(l[0],l[1])).join(' + ')} → ${sol.map(s=>fmtIon(s.k,s.t)).join(' + ')}`;}
+(function precip(){
+  const cv=$('#pr-canvas');if(!cv)return;
+  const RX=[[['Ag','NO3'],['Na','Cl']],[['Pb','NO3'],['K','I']],[['Ba','Cl'],['Na','SO4']],[['Cu','SO4'],['Na','OH']],[['Ca','Cl'],['Na','CO3']],[['Fe','Cl'],['Na','OH']],[['Na','Cl'],['K','NO3']],[['Pb','NO3'],['Na','Cl']]];
+  const sel=$('#pr-sel');sel.innerHTML=RX.map((r,i)=>`<option value="${i}">${prFsub(prFormula(r[0][0],r[0][1]))}(aq) + ${prFsub(prFormula(r[1][0],r[1][1]))}(aq)</option>`).join('');
+  const CC={Ag:'#B4BBC6',Na:'#9B72F5',K:'#8A5CE0',Pb:'#7A8494',Ba:'#3DAA6D',Ca:'#4DB87A',Cu:'#3E7BDC',Mg:'#46B96B',Fe:'#C0662B'},AC={Cl:'#2FB55A',NO3:'#4FB9E3',I:'#7B2FA6',SO4:'#E8C42A',OH:'#E5484D',CO3:'#6B7280'};
+  let rx=null,pairs=[],ions=[],mixed=false,heights=[],t0=0;
+  function build(){const r=RX[+sel.value];rx=prReaction(r[0],r[1]);const w=cv.clientWidth||500,h=Math.round(clamp(w*.55,280,360));ions=[];heights=Array(Math.ceil(w/11)).fill(0);mixed=false;
+    [[r[0],0],[r[1],1]].forEach(([s,side])=>{const [nc,na]=[-PR_AN[s[1]][0]/gcd(PR_CAT[s[0]][0],-PR_AN[s[1]][0]),PR_CAT[s[0]][0]/gcd(PR_CAT[s[0]][0],-PR_AN[s[1]][0])];
+      for(let k=0;k<5;k++){for(let i=0;i<nc;i++)ions.push(mk('c',s[0],side,w,h));for(let i=0;i<na;i++)ions.push(mk('a',s[1],side,w,h));}});
+    t0=0;eqs();}
+  const mk=(kind,id,side,w,h)=>({kind,id,x:side*w/2+12+Math.random()*(w/2-24),y:h*.3+Math.random()*h*.55,vx:(Math.random()-.5)*60,vy:(Math.random()-.5)*60,solid:false,rest:false,side});
+  function eqs(){const nt=prNet(rx);const L=rx.Lm.map(l=>`${l[0]>1?l[0]:''}${l[1].includes('(s)')?l[1]:l[1]+'(aq)'}`);
+    const sp=new Set(rx.spect.map(s=>s[2])),fm=(arr)=>arr.map(l=>{const t=`${l[0]>1?l[0]:''}${l[1].includes('(s)')?l[1]:l[1]+'(aq)'}`;return sp.has(l[2])?`<span class="sp">${t}</span>`:t;}).join(' + ');
+    $('#pr-eqs').innerHTML=`<span class="ln"><span class="lbl">Molecular equation</span>${rx.mol}${rx.reacts?'':'  (no reaction: all products soluble)'}</span><span class="ln"><span class="lbl">Complete ionic equation</span>${fm(rx.Lm)} → ${fm(rx.Rm)}</span><span class="ln"><span class="lbl">Net ionic equation</span><span class="net">${nt?nt.replace(/\b([A-Za-z]+\d?)\(s\)/g,'$&'):'no reaction (every ion is a spectator)'}</span></span>`;
+    const solid=[!rx.s1&&prFsub(rx.P1),!rx.s2&&prFsub(rx.P2)].filter(Boolean);setText('pr-p',solid.length?solid.join(' and ')+' (solid)':'none');setText('pr-s',rx.spect.length?rx.spect.map(s=>s[1]).filter((v,i,a)=>a.indexOf(v)===i).join(', '):'all ions are spectators');}
+  const sim=sim2d(cv,{h:w=>Math.round(clamp(w*.55,280,360)),step(dt){const w=cv.clientWidth,h=Math.round(clamp(w*.55,280,360)),floor=h-8;t0+=dt;
+      ions.forEach(a=>{if(a.rest)return;if(a.solid){a.vy+=420*dt;a.vx*=.96;a.vy*=.985;a.x+=a.vx*dt;a.y+=a.vy*dt;const col=clamp(Math.floor(a.x/11),0,heights.length-1);const stop=floor-heights[col]*10;if(a.y>=stop){a.y=stop;a.rest=true;heights[col]++;}return;}
+        a.vx+=(Math.random()-.5)*3200*dt;a.vy+=(Math.random()-.5)*3200*dt;a.vx*=.93;a.vy*=.93;a.x+=a.vx*dt;a.y+=a.vy*dt;
+        if(!mixed){const lo=a.side?w/2+3:6,hi=a.side?w-6:w/2-3;if(a.x<lo){a.x=lo;a.vx=Math.abs(a.vx);}if(a.x>hi){a.x=hi;a.vx=-Math.abs(a.vx);}}else{if(a.x<6){a.x=6;a.vx=Math.abs(a.vx);}if(a.x>w-6){a.x=w-6;a.vx=-Math.abs(a.vx);}}
+        if(a.y<h*.25){a.y=h*.25;a.vy=Math.abs(a.vy);}if(a.y>h*.9){a.y=h*.9;a.vy=-Math.abs(a.vy);}});
+      if(mixed)for(let i=0;i<ions.length;i++){const a=ions[i];if(a.solid||a.kind!=='c')continue;for(let j=0;j<ions.length;j++){const b=ions[j];if(b.solid||b.kind!=='a')continue;const dd=Math.hypot(a.x-b.x,a.y-b.y)||1;if(dd<110&&!prSoluble(a.id,b.id)){const f=1500*dt/Math.max(dd/40,1);a.vx+=(b.x-a.x)/dd*f;a.vy+=(b.y-a.y)/dd*f;b.vx-=(b.x-a.x)/dd*f;b.vy-=(b.y-a.y)/dd*f;}if(dd<17&&!prSoluble(a.id,b.id)){a.solid=b.solid=true;a.key=b.key=prFormula(a.id,b.id).replace(/[()]/g,'');a.vx=b.vx=0;break;}}}},
+    draw(ctx,w,h){ctx.fillStyle=alpha(T.cx,.07);ctx.fillRect(0,h*.25,w,h*.75);ctx.strokeStyle=T.cx;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,h*.25);ctx.lineTo(w,h*.25);ctx.stroke();
+      if(!mixed){ctx.strokeStyle=T.ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(w/2,h*.15);ctx.lineTo(w/2,h);ctx.stroke();const r=RX[+sel.value];label(ctx,prFsub(rx.S1)+'(aq)',w*.25,h*.12,T.ink,'center','middle','600 13px "IBM Plex Mono",monospace');label(ctx,prFsub(rx.S2)+'(aq)',w*.75,h*.12,T.ink,'center','middle','600 13px "IBM Plex Mono",monospace');}
+      ions.forEach(a=>{const col=a.solid?(PR_COL[a.key]||'#E9ECF1'):a.kind==='c'?CC[a.id]:AC[a.id],r=a.kind==='c'?6.5:8.5;ball2(ctx,a.x,a.y,a.solid?7.5:r,col,a.solid&&(PR_COL[a.key]||'#E9ECF1')==='#E9ECF1'?'rgba(0,0,0,.35)':null);
+        if(!a.solid)label(ctx,a.kind==='c'?'+':'−',a.x,a.y,'#fff','center','middle','700 10px "IBM Plex Mono",monospace');});
+      const legend=[...new Set(ions.filter(a=>!a.solid).map(a=>a.kind+a.id))];label(ctx,'ions: small = cations (+), large = anions (−); grains = solid precipitate',8,h-4,T.muted,'left','bottom',MONO);}});
+  $('#pr-mix').addEventListener('click',()=>{mixed=true;sim.render();});sel.addEventListener('change',()=>{build();sim.render();});
+  build();drawers.precip=()=>sim.render();
+  TIPS['pr-sel']='Swap the partners and check each new compound against the solubility rules.';
+  KEYS['pr-canvas']=['Pick a pair of solutions and press Mix them.',[['cx','water'],['good','net ionic equation (below)']]];
+  GLOSS['precipitate']='An insoluble solid that forms when two solutions are mixed.';
+  GLOSS['spectator ion']='An ion that is present but does not take part in the reaction; it appears unchanged on both sides.';
+  GLOSS['net ionic equation']='An equation showing only the particles that actually change, with spectator ions removed.';
+  TT.precip='Have students predict precipitates with the Reference sheet open and no hints, then verify with the animation. Ask for the number of each ion in the beaker before and after.';
+})();
+(function(){
+  const RX=[[['Ag','NO3'],['Na','Cl']],[['Pb','NO3'],['K','I']],[['Ba','Cl'],['Na','SO4']],[['Cu','SO4'],['Na','OH']],[['Ca','Cl'],['Na','CO3']],[['Fe','Cl'],['Na','OH']],[['Na','Cl'],['K','NO3']],[['Pb','NO3'],['Na','Cl']],[['Mg','Cl'],['K','NO3']],[['Ba','NO3'],['K','SO4']],[['Na','OH'],['K','Cl']],[['Ca','Cl'],['Ba','NO3']]];
+  const nm=(c,a)=>prFsub(prFormula(c,a));
+  PROBS.push({id:'pr-form',topic:'precip',title:'Will a precipitate form?',gen(){const r=pick(RX),rx=prReaction(r[0],r[1]),ch=['yes','no'];
+    return {q:`Aqueous ${nm(...r[0])} is mixed with aqueous ${nm(...r[1])}. Does a precipitate form?`,choices:ch,ans:rx.reacts?0:1,hint:'Swap the partners to get the two possible products, then check each against the solubility rules.',sol:`Possible products: ${prFsub(rx.P1)} (${rx.s1?'soluble':'insoluble'}) and ${prFsub(rx.P2)} (${rx.s2?'soluble':'insoluble'}). <b>${rx.reacts?'Yes':'No'}</b>.`};}});
+  PROBS.push({id:'pr-which',topic:'precip',title:'Identify the precipitate',gen(){const rs=RX.filter(r=>prReaction(r[0],r[1]).reacts),r=pick(rs),rx=prReaction(r[0],r[1]),solid=rx.s1?rx.P2:rx.P1,others=['AgCl','PbI2','BaSO4','Cu(OH)2','CaCO3','Fe(OH)3','NaCl','KNO3','NaNO3'].filter(x=>x!==solid),ch=[solid,...others.sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);
+    return {q:`Aqueous ${nm(...r[0])} is mixed with aqueous ${nm(...r[1])}. Which compound precipitates?`,choices:ch.map(prFsub),ans:ch.indexOf(solid),hint:'Swap the cations and anions, then check which new compound is insoluble.',sol:`The precipitate is <b>${prFsub(solid)}</b>. Net ionic equation: ${prNet(rx)}.`};}});
+  PROBS.push({id:'pr-mass',topic:'precip',title:'Mass of precipitate',gen(){const rs=[[['Ag','NO3'],['Na','Cl'],'AgCl',1],[['Ba','Cl'],['Na','SO4'],'BaSO4',1],[['Pb','NO3'],['K','I'],'PbI2',1],[['Ca','Cl'],['Na','CO3'],'CaCO3',1]],[a,b,f]=pick(rs),M=ri(2,9)/20,V=ri(20,80),mm=MM_(f==='PbI2'?'PbI2':f),n=M*V/1000;
+    /* first reactant's cation is limiting; second is in large excess; 1:1 in the cation for these */
+    const mol=a[0][0]+'';const ans=n*mm;
+    return {q:`${V.toFixed(0)} mL of ${M.toFixed(2)} M ${nm(...a)} is mixed with an excess of aqueous ${nm(...b)}. What mass of ${prFsub(f)} precipitates? (Atomic masses: Ag 107.87, Ba 137.33, Pb 207.2, Ca 40.08, Cl 35.45, S 32.07, O 16.00, I 126.90, C 12.01.)`,ans,unit:'g',tol:.02,hint:'The cation of the first salt is limiting. Moles of cation = M × V (L); the net ionic equation shows the ratio to the precipitate; then convert to grams.',
+      sol:`n = ${M.toFixed(2)} × ${(V/1000).toFixed(3)} = ${n.toFixed(5)} mol of cation, which gives ${n.toFixed(5)} mol ${prFsub(f)} (1:1 with the cation); mass = ${n.toFixed(5)} × ${mm.toFixed(2)} = <b>${fmt(ans,3)} g</b>.`};}});
+})();
+
+/* ===== modules/redox.js ===== */
+
+/* ---------------- Oxidation states & redox ---------------- */
+const RD_RX=[{m:'Zn',nM:2,ion:'Cu²⁺',q:2,prod:'Cu',mcol:'#7C8FA6',icol:'#3E7BDC',pcol:'#C77A3B',eq:'Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s)',ox:'Zn: 0 → +2',re:'Cu²⁺: +2 → 0',ra:'Zn',oa:'Cu²⁺',half:['Zn → Zn²⁺ + 2e⁻','Cu²⁺ + 2e⁻ → Cu']},
+  {m:'Mg',nM:2,ion:'H⁺',q:1,prod:'H₂',mcol:'#8FD1A2',icol:'#E5484D',pcol:'#EEF1F5',gas:true,eq:'Mg(s) + 2H⁺(aq) → Mg²⁺(aq) + H₂(g)',ox:'Mg: 0 → +2',re:'H⁺: +1 → 0',ra:'Mg',oa:'H⁺',half:['Mg → Mg²⁺ + 2e⁻','2H⁺ + 2e⁻ → H₂']},
+  {m:'Cu',nM:2,ion:'Ag⁺',q:1,prod:'Ag',mcol:'#C77A3B',icol:'#B4BBC6',pcol:'#C0C6CF',eq:'Cu(s) + 2Ag⁺(aq) → Cu²⁺(aq) + 2Ag(s)',ox:'Cu: 0 → +2',re:'Ag⁺: +1 → 0',ra:'Cu',oa:'Ag⁺',half:['Cu → Cu²⁺ + 2e⁻','Ag⁺ + e⁻ → Ag (×2)']},
+  {m:'Fe',nM:2,ion:'Cu²⁺',q:2,prod:'Cu',mcol:'#9B8F85',icol:'#3E7BDC',pcol:'#C77A3B',eq:'Fe(s) + Cu²⁺(aq) → Fe²⁺(aq) + Cu(s)',ox:'Fe: 0 → +2',re:'Cu²⁺: +2 → 0',ra:'Fe',oa:'Cu²⁺',half:['Fe → Fe²⁺ + 2e⁻','Cu²⁺ + 2e⁻ → Cu']}];
+const ON=[ // species, atoms [element, count, known ox or null], charge
+  ['h2o','H₂O',[['H',2,1],['O',1,-2]],0],['co2','CO₂',[['C',1,null],['O',2,-2]],0],['kmno4','KMnO₄',[['K',1,1],['Mn',1,null],['O',4,-2]],0],['h2so4','H₂SO₄',[['H',2,1],['S',1,null],['O',4,-2]],0],
+  ['nh3','NH₃',[['N',1,null],['H',3,1]],0],['h2o2','H₂O₂',[['H',2,1],['O',2,-1]],0],['fe2o3','Fe₂O₃',[['Fe',2,null],['O',3,-2]],0],['cr2o7','Cr₂O₇²⁻',[['Cr',2,null],['O',7,-2]],-2],
+  ['no3','NO₃⁻',[['N',1,null],['O',3,-2]],-1],['so4','SO₄²⁻',[['S',1,null],['O',4,-2]],-2],['mno2','MnO₂',[['Mn',1,null],['O',2,-2]],0],['ch4','CH₄',[['C',1,null],['H',4,1]],0],
+  ['nah','NaH',[['Na',1,1],['H',1,-1]],0],['clo3','ClO₃⁻',[['Cl',1,null],['O',3,-2]],-1],['ch3oh','CH₃OH',[['C',1,null],['H',4,1],['O',1,-2]],0]];
+const onSolve=sp=>{const k=sp[2].find(a=>a[2]===null),known=sp[2].reduce((s,a)=>s+(a[2]!==null?a[1]*a[2]:0),0);return k?(sp[3]-known)/k[1]:null;};
+const onFmt=n=>n>0?'+'+n:n<0?'−'+Math.abs(n):'0';
+(function redox(){
+  const cv=$('#rd-canvas');if(!cv)return;
+  const sel=$('#rd-sel');sel.innerHTML=RD_RX.map((r,i)=>`<option value="${i}">${r.eq}</option>`).join('');
+  let W0=0,X=RD_RX[0],run=false,atoms=[],ions=[],es=[],dep=[],bub=[],tAcc=0,done=0,total=0;
+  function reset(){X=RD_RX[+sel.value];run=false;const w=cv.clientWidth||500;W0=w;atoms=[];for(let i=0;i<5;i++)for(let j=0;j<8;j++)atoms.push({x:w*.2+i*14,y:70+j*18,gone:false});
+    ions=[];total=6;for(let i=0;i<6;i++)ions.push({x:w*.4+Math.random()*(w*.55),y:100+Math.random()*180,vx:0,vy:0,used:false});es=[];dep=[];bub=[];tAcc=0;done=0;
+    setText('rd-ox','—');setText('rd-re','—');setText('rd-ra','—');setText('rd-oa','—');$('#rd-eq').innerHTML='';sim.render();}
+  const fixW=w=>{if(w!==W0){const k=w/W0;atoms.forEach(a=>a.x+=(w-W0)*.2);ions.forEach(i=>i.x*=k);dep.forEach(d=>d.x+=(w-W0)*.2);W0=w;}};
+  const sim=sim2d(cv,{h:w=>clamp(w*.55,300,380),step(dt){const w=cv.clientWidth;fixW(w);if(!run)return;tAcc+=dt;
+      if(tAcc>1.1&&done<total){tAcc=0;const surf=atoms.filter(a=>!a.gone&&a.x>w*.2+4*14-1);const pool=surf.length?surf:atoms.filter(a=>!a.gone);const a=pool[Math.floor(Math.random()*pool.length)];
+        if(a){a.gone=true;const nI=X.nM/X.q;const sup=ions.filter(i=>!i.used);const take=sup.slice(0,nI);if(!take.length)return;
+          for(let k=0;k<X.nM;k++)es.push({x:a.x,y:a.y,tx:take[Math.min(k,take.length-1)],life:0,k});take.forEach(i=>i.used=true);
+          ions.push({x:a.x+14,y:a.y,vx:20,vy:(Math.random()-.5)*30,used:false,prod:true});done+=take.length;}}
+      es.forEach(e=>{e.life+=dt;const ti=e.tx;const px=w*.2+5*14+4,tx=ti.x,ty=ti.y;const u=Math.min(1,e.life/1.1);e.x+=((e.life<.5?w*.2+14*2:tx)-e.x)*Math.min(1,dt*3);e.y+=((e.life<.5?e.y:ty)-e.y)*Math.min(1,dt*3);
+        if(e.life>1.1&&!e.done){e.done=true;if(!ti.landed){ti.landed=true;ti.used=true;if(X.gas)bub.push({x:ti.x,y:ti.y,r:5,v:30+Math.random()*30});else dep.push({x:w*.2+5*14+6+(dep.length%3)*9,y:70+Math.floor(dep.length/3)*14%140+Math.random()*4});}}});
+      es=es.filter(e=>!e.done);ions.forEach(i=>{if(i.landed)return;i.vx+=(Math.random()-.5)*300*dt;i.vy+=(Math.random()-.5)*300*dt;i.vx*=.95;i.vy*=.95;i.x+=i.vx*dt;i.y+=i.vy*dt;if(i.x<w*.2+80)i.x=w*.2+80;if(i.x>w-12)i.vx=-Math.abs(i.vx);if(i.y<90)i.vy=Math.abs(i.vy);if(i.y>h0()-14)i.vy=-Math.abs(i.vy);});
+      ions=ions.filter(i=>!i.landed);bub.forEach(b=>{b.y-=b.v*dt;});bub=bub.filter(b=>b.y>40);
+      if(done>=total&&!es.length){run=false;$('#rd-eq').innerHTML=`<span class="ln"><span class="lbl">Oxidation half-reaction</span>${X.half[0]}</span><span class="ln"><span class="lbl">Reduction half-reaction</span>${X.half[1]}</span><span class="ln"><span class="lbl">Net equation</span><span class="net">${X.eq}</span></span>`;}
+      if(done>0){setText('rd-ox',X.ox);setText('rd-re',X.re);setText('rd-ra',X.ra+' (oxidized)');setText('rd-oa',X.oa+' (reduced)');}},
+    draw(ctx,w,h,t){fixW(w);ctx.fillStyle=alpha(X.icol==='#3E7BDC'?T.cx:T.hot,.09);ctx.fillRect(0,60,w,h-60);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,60,w-2,h-62);label(ctx,'solution',w-8,66,T.muted,'right','top',MONO);
+      ctx.fillStyle=alpha(X.mcol,.22);ctx.fillRect(w*.2-8,20,5*14+14,h-24-20);ctx.strokeStyle=X.mcol;ctx.lineWidth=1.5;ctx.strokeRect(w*.2-8,20,5*14+14,h-44);label(ctx,X.m+' strip',w*.2+28,12,T.ink,'center','middle',MONO);
+      atoms.forEach(a=>{if(a.gone)return;ball2(ctx,a.x+(a.y>60?Math.sin(t*3+a.y)*.6:0),a.y,6,X.mcol);});dep.forEach(d=>ball2(ctx,d.x,d.y,5.5,X.pcol,'rgba(0,0,0,.3)'));
+      ions.forEach(i=>{if(i.prod){ball2(ctx,i.x,i.y,6.5,X.mcol);label(ctx,'+',i.x,i.y,'#fff','center','middle','700 10px "IBM Plex Mono",monospace');}else{ball2(ctx,i.x,i.y,6.5,X.icol);label(ctx,'+',i.x,i.y,'#fff','center','middle','700 10px "IBM Plex Mono",monospace');}});
+      es.forEach(e=>{dot(ctx,e.x,e.y,3.6,T.ce);});bub.forEach(b=>{ctx.strokeStyle=T.muted;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,7);ctx.stroke();});
+      label(ctx,'gold dots: electrons',8,h-6,T.ce,'left','bottom',MONO);label(ctx,X.ion+(X.q===1&&X.ion!=='H⁺'?'':'')+' in solution',w-8,h-6,T.muted,'right','bottom',MONO);}});
+  const h0=()=>cv.clientHeight||320;
+  $('#rd-go').addEventListener('click',()=>{if(done>=total)reset();run=true;sim.render();});sel.addEventListener('change',reset);
+  reset();drawers.redox=()=>sim.render();
+  /* ---- oxidation numbers ---- */
+  const os=$('#on-sel');os.innerHTML=ON.map(s=>`<option value="${s[0]}">${s[1]}</option>`).join('');os.value='kmno4';let ostep=0;
+  function ond(){const sp=ON.find(s=>s[0]===os.value),x=onSolve(sp);
+    const chips=sp[2].map(a=>{const ox=a[2]!==null?a[2]:x;const show=ostep>=1&&a[2]!==null||ostep>=2;return `<span class="chip-d ${a[2]===null?'amb':'sig'}"><b>${a[0]}${a[1]>1?'<sub>'+a[1]+'</sub>':''}</b><small>${show?onFmt(ox)+' each':(a[2]===null?'unknown':'?')}</small></span>`;}).join('');
+    $('#on-chips').innerHTML=chips+(sp[3]?`<span class="chip-x">charge ${sp[3]>0?'+':'−'}${Math.abs(sp[3])}</span>`:'');
+    const terms=sp[2].map(a=>`${a[1]>1?a[1]+'(':'('}${a[2]!==null?onFmt(a[2]):'x'})`).join(' + ');
+    $('#on-eq').innerHTML=ostep>=1?`${terms} = ${sp[3]}${ostep>=2?`<br>so x = <b>${onFmt(x)}</b>`:''}`:'';
+    $('#on-note').textContent=ostep===0?'Step 1: use the rules for the atoms that are always the same (O is −2, H is +1, group 1 is +1). The sum must equal the overall charge.':ostep===1?'Step 2: write the sum with x for the unknown atom. Each atom\'s number is multiplied by how many there are.':`Step 3: solve for x. ${sp[0]==='h2o2'||sp[0]==='nah'?'This is an exception: '+(sp[0]==='nah'?'hydrogen is −1 in a metal hydride.':'oxygen is −1 in a peroxide.'):''}`;
+    $('#on-back').disabled=ostep===0;$('#on-next').textContent=ostep===2?'Start over':'Next step';}
+  os.addEventListener('change',()=>{ostep=0;ond();});$('#on-next').addEventListener('click',()=>{ostep=ostep===2?0:ostep+1;ond();});$('#on-back').addEventListener('click',()=>{ostep=Math.max(0,ostep-1);ond();});ond();
+  TIPS['rd-sel']='Compare how many electrons each metal atom gives up with how many each ion can accept.';
+  TIPS['on-sel']='Use the fixed rules first, then solve for the one unknown atom.';
+  KEYS['rd-canvas']=['Press Dip the metal in and follow the gold electrons.',[['ce','electrons']]];
+  GLOSS['oxidation']='Loss of electrons: the oxidation number increases.';
+  GLOSS['reduction']='Gain of electrons: the oxidation number decreases.';
+  GLOSS['oxidizing agent']='The species that is reduced; it takes electrons from another substance.';
+  GLOSS['reducing agent']='The species that is oxidized; it gives electrons to another substance.';
+  GLOSS['oxidation number']='The charge an atom would have if all its bonds were completely ionic.';
+  TT.redox='Keep two columns on the board, "who loses electrons" and "who gains", and make students label each agent. OIL RIG is worth repeating, and so is the check that electrons lost equal electrons gained.';
+})();
+(function(){
+  PROBS.push({id:'rd-number',topic:'redox',title:'Oxidation number of an element',gen(){const sp=pick(ON.filter(s=>s[2].some(a=>a[2]===null))),x=onSolve(sp),el=sp[2].find(a=>a[2]===null)[0];
+    return {q:`What is the oxidation number of ${el} in ${sp[1]}?`,ans:x,unit:'',abs:.01,hint:'Assign the fixed ones first (O −2, H +1, group 1 +1), then make the total equal the overall charge.',sol:`${sp[2].map(a=>`${a[1]>1?a[1]+'(':'('}${a[2]!==null?onFmt(a[2]):'x'})`).join(' + ')} = ${sp[3]}, so ${el} is <b>${onFmt(x)}</b>.`};}});
+  const AG=[['Zn + Cu²⁺ → Zn²⁺ + Cu','Cu²⁺','Zn'],['Mg + 2H⁺ → Mg²⁺ + H₂','H⁺','Mg'],['Cu + 2Ag⁺ → Cu²⁺ + 2Ag','Ag⁺','Cu'],['2Na + Cl₂ → 2NaCl','Cl₂','Na'],['2H₂ + O₂ → 2H₂O','O₂','H₂'],['Fe + 2Fe³⁺ → 3Fe²⁺','Fe³⁺','Fe'],['Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂','Cl₂','Br⁻'],['2Al + 3Cl₂ → 2AlCl₃','Cl₂','Al']];
+  PROBS.push({id:'rd-agent',topic:'redox',title:'Oxidizing or reducing agent',gen(){const [eq,oa,ra]=pick(AG),which=pick(['oxidizing','reducing']),cand=eq.replace(/→/,'+').split('+').map(s=>s.trim().replace(/^\d+/,'')).filter(x=>x),ch=[...new Set(cand)].slice(0,4);const ans=which==='oxidizing'?oa:ra;
+    return {q:`In the reaction ${eq}, which species is the ${which} agent?`,choices:ch,ans:ch.indexOf(ans),hint:'The oxidizing agent is reduced (gains electrons); the reducing agent is oxidized (loses electrons). Find which oxidation numbers go down and up.',sol:`The ${which} agent is <b>${ans}</b>.`};}});
+  const HR=[['Al → Al³⁺',3],['Fe²⁺ → Fe³⁺',1],['Cl₂ → 2Cl⁻',2],['Zn → Zn²⁺',2],['MnO₄⁻ → Mn²⁺ (acidic)',5],['Cr₂O₇²⁻ → 2Cr³⁺ (acidic)',6],['NO₃⁻ → NO (acidic)',3],['Cu²⁺ → Cu⁺',1],['2Br⁻ → Br₂',2],['Sn²⁺ → Sn⁴⁺',2]];
+  PROBS.push({id:'rd-electrons',topic:'redox',title:'Electrons in a half-reaction',gen(){const [h,e]=pick(HR);
+    return {q:`How many electrons appear in the balanced half-reaction ${h}?`,ans:e,unit:'electrons',abs:.01,hint:'Find the change in oxidation number per atom and multiply by the number of atoms that change.',sol:`The change in oxidation number, times the number of atoms, is <b>${e}</b> electron${e>1?'s':''}.`};}});
 })();
 
 /* ===== overview.js ===== */

@@ -1,0 +1,54 @@
+  <section class="view" id="v-stoich" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Stoichiometry &amp; limiting reagent</h1>
+        <p class="lede">A balanced equation is a recipe. Stoichiometry scales the recipe to the amounts you actually have, and tells you what runs out first.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>To make a sandwich you need 2 slices of bread and 1 slice of cheese. With 10 slices of bread and 3 slices of cheese you can make only 3 sandwiches: the cheese runs out first. Bread is left over. In a reaction the same thing happens: the <b>limiting reagent</b> is used up first and decides how much product forms. The other reactant is in <b>excess</b> and some is left over.</p>
+        <p>The recipe is the balanced equation, and its coefficients are mole ratios. You can't compare grams directly (a gram of H₂ is a lot more molecules than a gram of O₂), so every stoichiometry problem passes through moles.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>we assumed 100% yield and exactly the right amount of each reactant</dd><dt>So we didn't need</dt><dd>to ask which reactant runs out, or how much product we really get</dd><dt>Now</dt><dd>real reactions use uneven amounts and lose some product</dd><dt>So we need</dt><dd>the limiting reagent (it sets the theoretical yield) and the percent yield</dd></dl></div>
+      <div class="eqgrid"><div class="eqn"><span>grams → moles → mole ratio → moles → grams</span><small>the stoichiometry road</small></div><div class="eqn"><span>% yield = actual / theoretical × 100</span><small>real versus ideal</small></div></div>
+      <div class="lab" id="st-lab">
+        <div class="labbar"><span class="title">Run the reaction</span><div class="row"><button type="button" class="btn primary" id="st-go">Run</button><button type="button" class="btn" id="st-reset">Reset</button></div></div>
+        <div class="controls"><div class="ctl"><label for="st-sel"><span>Reaction</span></label><select id="st-sel"></select></div>
+          <div class="ctl"><label for="st-a"><span id="st-al">Reactant 1</span> <output id="st-a-out"></output></label><input type="range" id="st-a" min="0" max="12" step="1" value="4"></div>
+          <div class="ctl"><label for="st-b"><span id="st-bl">Reactant 2</span> <output id="st-b-out"></output></label><input type="range" id="st-b" min="0" max="24" step="1" value="6"></div>
+          <div class="ctl"><label for="st-y"><span>Percent yield (real world)</span> <output id="st-y-out"></output></label><input type="range" id="st-y" min="50" max="100" step="5" value="100"></div></div>
+        <canvas id="st-canvas" aria-label="Particles of two reactants combining into products until one runs out"></canvas>
+        <div class="tablewrap"><table id="st-table" style="min-width:620px"></table></div>
+        <div class="readout"><div><span>Limiting reagent</span><strong class="x" id="st-lim" style="white-space:normal;font-size:15px">—</strong></div><div><span>Left over</span><strong id="st-left" style="white-space:normal;font-size:15px">—</strong></div><div><span>Theoretical yield</span><strong class="v" id="st-th">—</strong></div><div><span>Actual yield</span><strong class="hot" id="st-ac">—</strong></div></div>
+        <p class="small" style="margin:0">Each particle in the picture stands for 0.5 mol, so the table can show real masses.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Make ammonia with 4 N₂ and 6 H₂. Which runs out? <button type="button" class="btn link" data-show='[["#st-sel","0"],["#st-a",4],["#st-b",6],["#st-y",100],["click","#st-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The recipe needs 3 H₂ for every N₂. Six H₂ can only handle 2 N₂, so H₂ is limiting: it makes 4 NH₃, and 2 N₂ are left over.</p></details></li>
+        <li><p>Give exactly the recipe amounts: 4 N₂ and 12 H₂. <button type="button" class="btn link" data-show='[["#st-sel","0"],["#st-a",4],["#st-b",12],["click","#st-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Both run out at the same time: a stoichiometric mixture, with nothing left over and 8 NH₃ made.</p></details></li>
+        <li><p>Now lose some product: set the percent yield to 75%. <button type="button" class="btn link" data-show='[["#st-a",4],["#st-b",12],["#st-y",75],["click","#st-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The theoretical yield is still 8 NH₃ (all the limiting reagent reacts on paper), but only 6 appear: the actual yield is 75% of the theoretical.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">10.0 g of N₂ reacts with 3.00 g of H₂ in N₂ + 3H₂ → 2NH₃. Find the limiting reagent, the theoretical yield of NH₃, and the mass of excess reactant left over.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Convert to moles.</b> N₂: 10.0 g ÷ 28.02 g/mol = 0.357 mol. H₂: 3.00 g ÷ 2.016 g/mol = 1.49 mol.</li>
+          <li hidden><b>Find the limiting reagent.</b> N₂ needs 3 mol H₂ per mol: 0.357 × 3 = 1.07 mol H₂ is needed, and 1.49 mol is available, so H₂ is in excess and <b>N₂ is limiting</b>.</li>
+          <li hidden><b>Theoretical yield.</b> 0.357 mol N₂ × (2 mol NH₃ / 1 mol N₂) = 0.714 mol NH₃; × 17.03 g/mol = <b>12.2 g NH₃</b>.</li>
+          <li hidden><b>Excess left over.</b> H₂ used = 1.07 mol; left = 1.49 − 1.07 = 0.42 mol × 2.016 g/mol = <b>0.85 g H₂</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Comparing grams of reactants to choose the limiting reagent. Convert to moles and use the coefficients.</li>
+        <li>Using the coefficients on grams instead of moles.</li>
+        <li>Basing the yield on the excess reactant. The limiting reagent controls how much can form.</li>
+        <li>Calling the actual yield the "theoretical yield". Theoretical is the calculated maximum; actual is what you measured.</li>
+        <li>Forgetting to use the balanced equation (e.g. using 1:1 when the ratio is 1:3).</li>
+      </ul></div>
+      <div class="prose"><h2>Two ways to find the limiting reagent</h2>
+        <p><b>Compare moles to coefficients:</b> divide each reactant's moles by its coefficient; the smaller number belongs to the limiting reagent. For 0.357 mol N₂ (coefficient 1) and 1.49 mol H₂ (coefficient 3): 0.357 against 0.497, so N₂ is limiting. <b>Compare yields:</b> calculate how much product each reactant could make; the smaller amount is the real theoretical yield.</p>
+        <p>Percent yield compares what you got to what the limiting reagent could have given. It is always at most 100% in a clean experiment; a value above 100% usually means the product still contains water or another impurity.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Moles: 4.0 mol Al ÷ 4 = 1.0; 4.0 mol O₂ ÷ 3 = 1.33. The smaller value belongs to Al, so Al is the limiting reagent and O₂ is in excess.">
+        <p class="q">Check yourself: 4Al + 3O₂ → 2Al₂O₃. You mix 4.0 mol Al with 4.0 mol O₂. Which is limiting?</p>
+        <div class="opts"><button type="button">O₂</button><button type="button">Neither: they run out together</button><button type="button">Al</button><button type="button">Cannot tell without masses</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

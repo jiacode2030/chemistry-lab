@@ -34,12 +34,12 @@ const shots = path.join(__dirname, 'shots'); fs.mkdirSync(shots, { recursive: tr
         if (isBlank) blank.push(id);
       }
       if (blank.length) say('BLANK', w, v, blank);
-      const bad = await p.evaluate(() => (document.querySelector('.view:not([hidden])').innerText.match(/NaN|undefined|Infinity|\[object/g) || []).length);
+      const bad = await p.evaluate(() => (document.querySelector('.view:not([hidden])').innerText.match(/\bNaN\b|undefined|\bInfinity\b|\[object/g) || []).length);
       if (bad) say('BADTEXT', w, v);
       const n = await p.evaluate(() => document.querySelectorAll('.view:not([hidden]) [data-show]').length);
       for (let i = 0; i < n; i++) {
         await p.evaluate(i => document.querySelectorAll('.view:not([hidden]) [data-show]')[i].click(), i); await p.waitForTimeout(160);
-        if (await p.evaluate(() => (document.querySelector('.view:not([hidden])').innerText.match(/NaN|undefined|Infinity/g) || []).length)) say('SHOWBAD', w, v, i);
+        if (await p.evaluate(() => (document.querySelector('.view:not([hidden])').innerText.match(/\bNaN\b|undefined|\bInfinity\b/g) || []).length)) say('SHOWBAD', w, v, i);
       }
       if (only.length || v === 'overview') { await p.evaluate(() => scrollTo(0, 0)); await p.screenshot({ path: path.join(shots, `${v}-${w}.png`), fullPage: false }); }
     }

@@ -88,3 +88,20 @@
 .colmath .unc{color:var(--hot);background:color-mix(in srgb,var(--hot) 14%,transparent);border-radius:3px}
 .colmath .lim{outline:2px solid var(--cv);outline-offset:1px;border-radius:3px}
 .colmath .sep{display:block;border-top:2px solid var(--ink);margin:3px 0}
+
+/* ---- equation steppers ---- */
+.eq-steppers{display:flex;flex-wrap:wrap;gap:10px 6px;align-items:center}
+.stp{display:inline-flex;align-items:center;gap:6px}
+.stp .arr{font:600 22px var(--f-math);color:var(--muted);padding:0 6px}
+.stp-b{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.stp-b button{border:0;background:transparent;width:36px;height:40px;font:600 20px var(--f-body);cursor:pointer;color:var(--ink)}
+.stp-b button:hover{background:var(--sunk)}
+.stp-b output{min-width:28px;text-align:center;font:700 17px var(--f-mono)}
+.stp-f{font:600 19px var(--f-math)}
+.eq-line{margin:0;font:500 22px/1.4 var(--f-math);overflow-x:auto;white-space:nowrap}
+
+.eq-block{display:flex;flex-direction:column;gap:6px;font:500 17px/1.5 var(--f-math);overflow-x:auto}
+.eq-block .lbl{font:500 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block}
+.eq-block .ln{white-space:nowrap}
+.eq-block .sp{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
+.eq-block .net{color:var(--good);font-weight:600}

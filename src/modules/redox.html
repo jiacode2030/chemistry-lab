@@ -1,0 +1,55 @@
+  <section class="view" id="v-redox" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 4</span></div>
+        <h1>Oxidation states &amp; redox</h1>
+        <p class="lede">In a redox reaction, electrons move from one species to another. Oxidation numbers are the bookkeeping that tells you who gave and who took.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Drop a strip of zinc into blue copper(II) sulfate solution. The zinc dissolves and a red-brown crust of copper appears on it, and the blue fades. Zinc atoms are handing electrons to copper ions. The one that <i>loses</i> electrons is <b>oxidized</b>; the one that <i>gains</i> electrons is <b>reduced</b>. The mnemonic: <b>OIL RIG</b>, Oxidation Is Loss, Reduction Is Gain (of electrons).</p>
+        <p>Oxidation and reduction always go together, because electrons can't vanish. The substance that gets oxidized is the <b>reducing agent</b> (it reduces the other one); the substance that gets reduced is the <b>oxidizing agent</b>. To follow electrons in molecules, where nothing is cleanly lost or gained, we assign <b>oxidation numbers</b>, the charge an atom would have if every bond were completely ionic.</p>
+      </div>
+      <div class="lab" id="rd-lab">
+        <div class="labbar"><span class="title">Watch the electrons move</span><div class="row"><button type="button" class="btn primary" id="rd-go">Dip the metal in</button></div></div>
+        <div class="controls"><div class="ctl"><label for="rd-sel"><span>Reaction</span></label><select id="rd-sel"></select></div></div>
+        <canvas id="rd-canvas" aria-label="A metal strip dissolving as ions, with electrons flowing through it to ions that become atoms on its surface"></canvas>
+        <div class="readout"><div><span>Oxidized (loses e⁻)</span><strong class="x" id="rd-ox" style="white-space:normal;font-size:15px">—</strong></div><div><span>Reduced (gains e⁻)</span><strong class="a" id="rd-re" style="white-space:normal;font-size:15px">—</strong></div><div><span>Reducing agent</span><strong id="rd-ra" style="white-space:normal;font-size:15px">—</strong></div><div><span>Oxidizing agent</span><strong id="rd-oa" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <div class="eq-block" id="rd-eq"></div>
+      </div>
+      <div class="lab" id="on-lab" data-reset="own">
+        <div class="labbar"><span class="title">Find the oxidation number</span><div class="row"><button type="button" class="btn" id="on-back">Back</button><button type="button" class="btn primary" id="on-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="on-sel"><span>Species</span></label><select id="on-sel"></select></div></div>
+        <div class="chips" id="on-chips" aria-live="polite"></div>
+        <p class="eq-line" id="on-eq" style="font-size:19px;white-space:normal"></p>
+        <p class="small" id="on-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Zinc in copper(II) solution. Which loses electrons? <button type="button" class="btn link" data-show='[["#rd-sel","0"],["click","#rd-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Zn goes from 0 to +2: oxidized (it is the reducing agent). Cu²⁺ goes from +2 to 0: reduced (the oxidizing agent). Each zinc atom releases 2 electrons that one Cu²⁺ ion picks up.</p></details></li>
+        <li><p>Copper in silver nitrate: why two silver ions for each copper atom? <button type="button" class="btn link" data-show='[["#rd-sel","2"],["click","#rd-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Each Cu atom gives up 2 electrons, but each Ag⁺ can accept only 1. So two Ag⁺ are reduced for each Cu oxidized: electrons lost must equal electrons gained.</p></details></li>
+        <li><p>Find the oxidation number of manganese in KMnO₄. <button type="button" class="btn link" data-show='[["#on-sel","kmno4"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>K is +1 (group 1) and O is −2 (4 oxygens: −8). The compound is neutral, so +1 + x − 8 = 0 and Mn is +7. That unusually high number is why permanganate is such a strong oxidizing agent.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">In the reaction 2Al + 3Cl₂ → 2AlCl₃, identify what is oxidized and reduced, the oxidizing and reducing agents, and the number of electrons transferred.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Assign oxidation numbers.</b> Elements on their own are 0: Al = 0 and Cl₂ = 0. In AlCl₃, Cl is −1 (it is more electronegative), so Al is +3.</li>
+          <li hidden><b>See what changed.</b> Al: 0 → +3 (increase: oxidized). Cl: 0 → −1 (decrease: reduced).</li>
+          <li hidden><b>Name the agents.</b> The oxidized species, Al, is the <b>reducing agent</b>. The reduced species, Cl₂, is the <b>oxidizing agent</b>.</li>
+          <li hidden><b>Count the electrons.</b> 2 Al atoms lose 3 e⁻ each: 6 e⁻. 3 Cl₂ is 6 Cl atoms, each gaining 1: 6 e⁻. They match. <b>6 electrons are transferred.</b></li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Mixing up which is which: the substance that is oxidized is the <i>reducing</i> agent, not the oxidizing agent.</li>
+        <li>Treating oxidation numbers as real charges in covalent compounds. In CO₂ carbon is +4 by convention, not a C⁴⁺ ion.</li>
+        <li>Forgetting the exceptions: H is −1 in metal hydrides (NaH), O is −1 in peroxides (H₂O₂).</li>
+        <li>Forgetting that the oxidation numbers in a polyatomic ion sum to its charge, not to zero.</li>
+        <li>Thinking only reactions with oxygen are oxidations. Oxidation is loss of electrons, with or without oxygen.</li>
+      </ul></div>
+      <div class="prose"><h2>Rules for assigning oxidation numbers</h2>
+        <p>(1) An atom in a pure element is 0. (2) A monatomic ion has its charge. (3) The numbers in a neutral compound add to 0; in an ion they add to its charge. (4) Group 1 metals are +1, group 2 metals +2. (5) Fluorine is −1. (6) Hydrogen is +1 (−1 with metals); oxygen is −2 (−1 in peroxides). (7) Other halogens are −1 unless combined with oxygen or fluorine. Use the rules in this order of priority; the one unknown atom gets whatever makes the sum right.</p>
+        <p>A reaction is a redox reaction if any oxidation number changes. Combustion, corrosion, batteries, respiration and bleaching are all redox processes.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Chlorine goes from 0 in Cl₂ to −1 in Cl⁻: it gains electrons, so it is reduced. A species that is reduced is the oxidizing agent: it takes electrons from the other substance.">
+        <p class="q">Check yourself: in 2Na + Cl₂ → 2NaCl, what is the oxidizing agent?</p>
+        <div class="opts"><button type="button">Na</button><button type="button">Cl₂</button><button type="button">NaCl</button><button type="button">Both Na and Cl₂</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
