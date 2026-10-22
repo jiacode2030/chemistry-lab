@@ -27,6 +27,8 @@ tests/
   check.js     visits every view at desktop and phone width (light/dark): overflow, blank canvases, NaN text, Set-it-up buttons
   flow.js      end-to-end flows: practice, mistakes queue, exam builder, quiz, search, periodic table, report dialog
   probdump.js  prints generated samples of every practice problem so the answers can be checked by hand
+  audit.js     stress-tests every generator (400 samples each) for NaN text, bad choices, impossible values
+  design.js    contrast, touch-target and reduced-motion checks
 ```
 
 A module is "built" when both `src/modules/<id>.html` and `<id>.js` exist; modules listed in `groups.json` without files show as "Coming soon" on the overview.
