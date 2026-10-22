@@ -1,0 +1,53 @@
+  <section class="view" id="v-titration" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Titration curves &amp; indicators</h1>
+        <p class="lede">Add base drop by drop to an acid and watch the pH. The curve tells you the concentration, the strength of the acid, and which indicator to use.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>In a titration you add a solution of known concentration (the <b>titrant</b>) from a burette until the reaction is exactly complete, the <b>equivalence point</b>: moles of base added equal moles of acid originally present. From the volume you can work out the unknown concentration. An <b>indicator</b> changes color near the pH of the equivalence point to signal the <b>endpoint</b>.</p>
+        <p>The shape of the curve depends on the acid. <b>Strong acid + strong base</b>: the pH stays low, shoots up through 7 at the equivalence point, and levels off. <b>Weak acid + strong base</b>: the start is higher, a gentle <b>buffer region</b> follows (the pH barely moves because HA and A⁻ are both present), and the equivalence point is above 7 because A⁻ is a weak base. At <b>half-equivalence</b> exactly half the HA has become A⁻, so [HA] = [A⁻] and <b>pH = pK<sub>a</sub></b>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, the equivalence point was always at pH 7 (strong acid and strong base). Now we know it depends on what is left in the flask: a weak acid's conjugate base makes the equivalence point basic, and a weak base's conjugate acid makes it acidic. We need an indicator that changes color near that pH.</div>
+      <div class="lab" id="tt-lab">
+        <div class="labbar"><span class="title">Titrate it</span><div class="row"><button type="button" class="btn primary" id="tt-drip">Drip</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="tt-an"><span>What's in the flask (25.0 mL)</span></label><select id="tt-an"></select></div>
+          <div class="ctl"><label for="tt-ca"><span>Flask concentration</span> <output id="tt-ca-out"></output></label><input type="range" id="tt-ca" min="0.05" max="0.2" step="0.01" value="0.1"></div>
+          <div class="ctl"><label for="tt-cb"><span>Burette concentration</span> <output id="tt-cb-out"></output></label><input type="range" id="tt-cb" min="0.05" max="0.2" step="0.01" value="0.1"></div>
+          <div class="ctl"><label for="tt-ind"><span>Indicator</span></label><select id="tt-ind"></select></div>
+          <div class="ctl"><label for="tt-v"><span>Volume added</span> <output id="tt-v-out"></output></label><input type="range" id="tt-v" min="0" max="50" step="0.05" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="tt-canvas" aria-label="A burette above a flask whose particles and color change as titrant is added"></canvas></div><div><canvas id="tt-graph" aria-label="Titration curve of pH against volume added, with the equivalence point and indicator range marked"></canvas></div></div>
+        <div class="readout"><div><span>pH</span><strong class="x" id="tt-ph">—</strong></div><div><span>Where we are</span><strong id="tt-where" style="font-size:15px;white-space:normal">—</strong></div><div><span>Equivalence at</span><strong class="a" id="tt-ve">—</strong></div><div><span>pH at equivalence</span><strong id="tt-pe">—</strong></div><div><span>Half-equivalence pH</span><strong id="tt-ph2">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the curve, then drip.</p><ol>
+        <li><p>Titrate acetic acid and look at the half-equivalence point. What is the pH there? <button type="button" class="btn link" data-show='[["#tt-an","1"],["#tt-v","12.5"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>pH = 4.74 = pK<sub>a</sub> of acetic acid (K<sub>a</sub> = 1.8×10⁻⁵). Half the acid has turned into acetate, so [HA] = [A⁻] and the ratio in Henderson–Hasselbalch is 1.</p></details></li>
+        <li><p>Titrate HCl with NaOH, then pick the wrong indicator for acetic acid (methyl orange). <button type="button" class="btn link" data-show='[["#tt-an","1"],["#tt-ind","0"],["#tt-v","25"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The equivalence point of acetic acid is near pH 8.7, but methyl orange has already changed color around pH 3 to 4.4, long before. You'd stop far too early. Phenolphthalein (8.2–10) is the right choice.</p></details></li>
+        <li><p>Titrate HCN (K<sub>a</sub> = 4.9×10⁻¹⁰). Is there a sharp jump? <button type="button" class="btn link" data-show='[["#tt-an","2"],["#tt-v","25"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Hardly any: a very weak acid gives only a small, rounded rise at equivalence, so no ordinary indicator marks it well. Titrations work best when K<sub>a</sub> is not too small.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">25.00 mL of 0.100 M acetic acid (K<sub>a</sub> = 1.8×10⁻⁵) is titrated with 0.100 M NaOH. Find (a) the volume at equivalence, (b) the pH after adding 10.00 mL, and (c) the pH at equivalence.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>(a) Equivalence.</b> n(HA) = 0.02500 × 0.100 = 2.50 mmol. The base is 1:1, so V = 2.50 mmol / 0.100 M = <b>25.00 mL</b>.</li>
+          <li hidden><b>(b) Before equivalence: a buffer.</b> OH⁻ added = 10.00 × 0.100 = 1.00 mmol, which converts 1.00 mmol HA into A⁻: HA = 1.50 mmol, A⁻ = 1.00 mmol. pH = pK<sub>a</sub> + log(A⁻/HA) = 4.74 + log(1.00/1.50) = 4.74 − 0.18 = <b>4.56</b>.</li>
+          <li hidden><b>(c) At equivalence: only A⁻.</b> [A⁻] = 2.50 mmol / 50.0 mL = 0.0500 M. K<sub>b</sub> = 1.0×10⁻¹⁴ / 1.8×10⁻⁵ = 5.6×10⁻¹⁰, so [OH⁻] = √(5.6×10⁻¹⁰ × 0.0500) = 5.3×10⁻⁶ M.</li>
+          <li hidden><b>Convert.</b> pOH = 5.28, so pH = 14 − 5.28 = <b>8.72</b>. Above 7, as expected for a weak acid; phenolphthalein is a good indicator.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Assuming the equivalence point is always pH 7. Only strong-acid/strong-base titrations are neutral there.</li>
+        <li>Using Henderson–Hasselbalch at the equivalence point or after it. It applies only in the buffer region, where both HA and A⁻ are present in comparable amounts.</li>
+        <li>Forgetting that the total volume increases as titrant is added when you compute concentrations.</li>
+        <li>Using volumes where moles are needed. Always compute moles (mmol works well), then divide by total volume.</li>
+        <li>Mixing up the equivalence point (moles equal) and the endpoint (indicator color change). A good indicator makes them very close.</li>
+      </ul></div>
+      <div class="prose"><h2>Four regions of a weak-acid curve</h2>
+        <p>(1) <b>Start</b>: only HA; pH from K<sub>a</sub>. (2) <b>Buffer region</b>: HA and A⁻; use Henderson–Hasselbalch with moles. At half-equivalence pH = pK<sub>a</sub>. (3) <b>Equivalence</b>: only A⁻; pH from K<sub>b</sub> of A⁻. (4) <b>Past equivalence</b>: excess OH⁻ controls the pH, and the weak base contributes almost nothing.</p></div>
+      <div class="quiz" data-correct="2" data-explain="At the half-equivalence point exactly half of the weak acid has been converted to its conjugate base, so [HA] = [A⁻], the log term is 0, and pH = pKa.">
+        <p class="q">Check yourself: at the half-equivalence point of a weak acid titration, pH equals…</p>
+        <div class="opts"><button type="button">7</button><button type="button">14 − pK<sub>a</sub></button><button type="button">pK<sub>a</sub></button><button type="button">the pH at equivalence</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

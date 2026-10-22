@@ -1,0 +1,59 @@
+  <section class="view" id="v-buffers" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Buffers</h1>
+        <p class="lede">Your blood stays near pH 7.4 even though you eat acidic food all day. A buffer is a chemical shock absorber.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A buffer holds <b>both</b> a weak acid (HA) and its conjugate base (A⁻) in comparable amounts. Add a strong acid and the A⁻ soaks it up (A⁻ + H₃O⁺ → HA). Add a strong base and the HA neutralizes it (HA + OH⁻ → A⁻ + H₂O). Either way the dangerous H₃O⁺ or OH⁻ is converted into the weak partner, so the pH barely moves. Think of two sponges, one for acid and one for base.</p>
+        <p>The pH of a buffer comes from the <b>Henderson–Hasselbalch equation</b>: <b>pH = pK<sub>a</sub> + log([A⁻]/[HA])</b>. If the two are equal the pH equals the pK<sub>a</sub>. The ratio, not the absolute amounts, sets the pH; the absolute amounts set the <b>capacity</b>: how much strong acid or base the buffer can take before one component runs out. A buffer works best when the pH is within one unit of its pK<sub>a</sub>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, adding a strong acid always meant a big pH drop. Now we know a solution containing both HA and A⁻ converts the added acid or base into the weak partner, and the pH changes only through the small change in the ratio.</div>
+      <div class="lab" id="bf-lab">
+        <div class="labbar"><span class="title">Stress a buffer</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="bf-pair"><span>Buffer pair</span></label><select id="bf-pair"></select></div>
+          <div class="ctl"><label for="bf-ct"><span>Total buffer concentration</span> <output id="bf-ct-out"></output></label><input type="range" id="bf-ct" min="-2" max="0" step="0.05" value="-0.7"></div>
+          <div class="ctl"><label for="bf-r"><span>Ratio [A⁻]/[HA]</span> <output id="bf-r-out"></output></label><input type="range" id="bf-r" min="-1.2" max="1.2" step="0.05" value="0"></div>
+          <div class="ctl"><label for="bf-add"><span>Add strong acid (←) or base (→)</span> <output id="bf-add-out"></output></label><input type="range" id="bf-add" min="-100" max="100" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="bf-canvas" aria-label="Two beakers: a buffer and plain water, both receiving the same strong acid or base"></canvas></div><div><canvas id="bf-graph" aria-label="pH against moles of strong acid or base added for the buffer and for plain water"></canvas></div></div>
+        <div class="readout"><div><span>Buffer pH</span><strong class="x" id="bf-ph">—</strong></div><div><span>Plain water pH</span><strong class="a" id="bf-pw">—</strong></div><div><span>Buffer pH change</span><strong id="bf-d">—</strong></div><div><span>HA / A⁻ left (mmol)</span><strong id="bf-left" style="font-size:15px">—</strong></div></div>
+        <p class="small" id="bf-note" style="margin:0"></p>
+      </div>
+      <div class="lab" id="pb-lab" data-reset="own">
+        <div class="labbar"><span class="title">Pick a buffer for a target pH</span></div>
+        <div class="controls"><div class="ctl"><label for="pb-ph"><span>Target pH</span> <output id="pb-ph-out"></output></label><input type="range" id="pb-ph" min="2" max="12" step="0.1" value="7.4"></div></div>
+        <canvas id="pb-canvas" aria-label="Number line of pH with the useful range of each buffer pair highlighted"></canvas>
+        <p class="small" id="pb-note" aria-live="polite" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then slide.</p><ol>
+        <li><p>Add a bit of strong acid to the buffer, then to plain water. Compare the pH change. <button type="button" class="btn link" data-show='[["#bf-pair","0"],["#bf-ct","-0.7"],["#bf-r","0"],["#bf-add","-50"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The buffer pH moves by only a few hundredths, while plain water falls about 5 pH units (from 7 to roughly 2). The added H₃O⁺ is converted to HA.</p></details></li>
+        <li><p>Make the buffer 10 times more dilute. What happens to its pH and to its resistance? <button type="button" class="btn link" data-show='[["#bf-ct","-1.7"],["#bf-add","-20"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The starting pH doesn't change (only the ratio matters), but the buffer's capacity shrinks tenfold, so the same amount of acid makes a much larger change. If it overloads, the pH plunges.</p></details></li>
+        <li><p>Choose a ratio of 10:1 and then of 1:10. How far from the pK<sub>a</sub> is the pH? <button type="button" class="btn link" data-show='[["#bf-r","1"],["#bf-add","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Exactly 1 pH unit above the pK<sub>a</sub> for 10:1 and 1 unit below for 1:10. Beyond that, the buffer is too one-sided to resist both acid and base well.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A buffer contains 0.20 M acetic acid and 0.30 M acetate (pK<sub>a</sub> = 4.74), 1.00 L in total. (a) Find the pH. (b) Find the pH after adding 0.050 mol of HCl.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>(a) Henderson–Hasselbalch.</b> pH = 4.74 + log(0.30 / 0.20) = 4.74 + 0.18 = <b>4.92</b>.</li>
+          <li hidden><b>(b) Do the stoichiometry first.</b> H₃O⁺ reacts completely with acetate: A⁻ + H₃O⁺ → HA. Moles: A⁻ = 0.30 − 0.050 = 0.25; HA = 0.20 + 0.050 = 0.25.</li>
+          <li hidden><b>Then equilibrium (H–H).</b> pH = 4.74 + log(0.25 / 0.25) = <b>4.74</b>.</li>
+          <li hidden><b>Compare.</b> The pH fell by only 0.18, whereas 0.050 mol HCl in 1.00 L of plain water would give pH 1.30, a drop of nearly 6 units.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Skipping the stoichiometry step: when you add strong acid or base, first let it react completely, then use Henderson–Hasselbalch with the new moles.</li>
+        <li>Using a mixture of a strong acid and its conjugate base (HCl + NaCl) and calling it a buffer. The acid must be weak.</li>
+        <li>Mixing up which way the ratio goes: it is [conjugate base]/[acid]. More base means a higher pH.</li>
+        <li>Thinking dilution changes a buffer's pH. It changes capacity, not the ratio (to a good approximation).</li>
+        <li>Adding more strong acid than there is A⁻. Past that, the buffer is exhausted and the pH crashes.</li>
+      </ul></div>
+      <div class="prose"><h2>Making a buffer</h2>
+        <p>Three routes give the same result: mix the weak acid with a salt of its conjugate base; mix the weak base with a salt of its conjugate acid; or start with the weak acid and add <i>less than enough</i> strong base to neutralize it (that makes A⁻ in place). Choose a pair with a pK<sub>a</sub> within about one unit of the target pH, then set the ratio [A⁻]/[HA] = 10<sup>(pH − pK<sub>a</sub>)</sup>.</p></div>
+      <div class="quiz" data-correct="2" data-explain="A buffer needs a weak acid and its conjugate base (or a weak base and its conjugate acid). HCl is strong, so HCl + NaCl doesn't resist pH changes; CH₃COOH + NaCH₃COO does.">
+        <p class="q">Check yourself: which mixture is a buffer?</p>
+        <div class="opts"><button type="button">HCl and NaCl</button><button type="button">NaOH and NaCl</button><button type="button">CH₃COOH and NaCH₃COO</button><button type="button">HNO₃ and NaNO₃</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

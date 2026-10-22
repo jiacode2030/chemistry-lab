@@ -2942,6 +2942,231 @@ table.data{min-width:0}
     </div>
   </section>
 
+  <section class="view" id="v-ph" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Acids, bases, pH &amp; strong acids</h1>
+        <p class="lede">Acid-base chemistry is proton hopping. Water itself takes part, and pH is just a convenient way to count the hydronium ions.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A <b>Brønsted–Lowry acid</b> is a proton (H⁺) donor; a <b>base</b> is a proton acceptor. Every acid-base reaction is a proton hand-off, and each side has a <b>conjugate</b> partner: the acid becomes its conjugate base, the base becomes its conjugate acid. In water, a free H⁺ doesn't exist alone: it sticks to a water molecule, making hydronium, H₃O⁺.</p>
+        <p>Even pure water does this a tiny bit: two H₂O molecules swap a proton (<b>autoionization</b>), giving K<sub>w</sub> = [H₃O⁺][OH⁻] = 1.0×10⁻¹⁴ at 25 °C. <b>pH = −log[H₃O⁺]</b>, and pOH = −log[OH⁻], with pH + pOH = 14 at 25 °C. A <b>strong acid</b> (HCl, HBr, HI, HNO₃, HClO₄, H₂SO₄ for its first proton) gives up its proton completely, so [H₃O⁺] equals the acid's concentration. Strong bases (hydroxides of group 1, and Ca, Sr, Ba) dissociate completely too.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, pH = −log(c) for a strong acid. Now we notice water supplies 10⁻⁷ M of H₃O⁺ too. At normal concentrations that doesn't matter, but for a very dilute acid (10⁻⁸ M) it does: the pH of 10⁻⁸ M HCl is about 6.98, not 8, because an acid can't make the solution basic.</div>
+      <div class="lab" id="pt-lab">
+        <div class="labbar"><span class="title">Proton hand-off</span><div class="row"><button type="button" class="btn primary" id="pt-play">Play</button></div></div>
+        <div class="controls"><div class="ctl"><label for="pt-rx"><span>Reaction</span></label><select id="pt-rx"></select></div><div class="ctl"><label for="pt-p"><span>Progress</span> <output id="pt-p-out"></output></label><input type="range" id="pt-p" min="0" max="100" step="1" value="0"></div></div>
+        <canvas id="pt-canvas" aria-label="Two molecules collide and a proton moves from the acid to the base"></canvas>
+        <div class="readout"><div><span>Acid (gives H⁺)</span><strong class="a" id="pt-acid">—</strong></div><div><span>Base (takes H⁺)</span><strong class="x" id="pt-base">—</strong></div><div><span>Conjugate base</span><strong id="pt-cb">—</strong></div><div><span>Conjugate acid</span><strong id="pt-ca">—</strong></div></div>
+      </div>
+      <div class="lab" id="sa-lab">
+        <div class="labbar"><span class="title">The pH of a strong acid or base</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="sa-kind"><span>Solution</span></label><select id="sa-kind"><option value="acid">strong acid (like HCl)</option><option value="base">strong base (like NaOH)</option></select></div>
+          <div class="ctl"><label for="sa-c"><span>Concentration</span> <output id="sa-c-out"></output></label><input type="range" id="sa-c" min="-9" max="0" step="0.05" value="-2"></div>
+          <div class="ctl"><label for="sa-T"><span>Temperature (sets K<sub>w</sub>)</span></label><select id="sa-T"></select></div>
+        </div>
+        <div class="split"><div><canvas id="sa-canvas" aria-label="Bars for hydronium and hydroxide concentrations on a log scale"></canvas></div><div><canvas id="sa-graph" aria-label="pH against the negative log of concentration, with the simple formula dashed"></canvas></div></div>
+        <div class="readout"><div><span>[H₃O⁺]</span><strong class="x" id="sa-h">—</strong></div><div><span>[OH⁻]</span><strong class="a" id="sa-oh">—</strong></div><div><span>pH</span><strong id="sa-ph">—</strong></div><div><span>pOH</span><strong id="sa-poh">—</strong></div><div><span>Simple formula gives</span><strong id="sa-naive">—</strong></div></div>
+        <p class="small" id="sa-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict, then slide the controls.</p><ol>
+        <li><p>Dilute a strong acid by a factor of 10. How much does the pH change? <button type="button" class="btn link" data-show='[["#sa-kind","acid"],["#sa-c","-2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Going from 10⁻² M to 10⁻³ M raises the pH by exactly 1 (from 2 to 3): each factor of 10 in concentration is one pH unit. Check by sliding.</p></details></li>
+        <li><p>Dilute HCl all the way to 10⁻⁸ M. Does the pH go above 7? <button type="button" class="btn link" data-show='[["#sa-kind","acid"],["#sa-c","-8"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>No: about 6.98. Water contributes 10⁻⁷ M of H₃O⁺ and the acid adds to that; an acid can never make the pH basic.</p></details></li>
+        <li><p>Hot water: set the temperature to 50 °C and look at a neutral solution. <button type="button" class="btn link" data-show='[["#sa-kind","acid"],["#sa-c","-9"],["#sa-T","50"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Neutral pH is about 6.63 at 50 °C, not 7, because K<sub>w</sub> grows with temperature. Neutral means [H₃O⁺] = [OH⁻], not "pH = 7".</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">What is the pH of 0.025 M Ba(OH)₂ at 25 °C?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Strong base: dissociates completely.</b> Ba(OH)₂ → Ba²⁺ + 2OH⁻.</li>
+          <li hidden><b>Count hydroxide.</b> Each formula unit gives 2 OH⁻, so [OH⁻] = 2 × 0.025 = 0.050 M.</li>
+          <li hidden><b>pOH.</b> pOH = −log(0.050) = 1.30.</li>
+          <li hidden><b>pH.</b> pH = 14.00 − 1.30 = <b>12.70</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to count the number of OH⁻ per formula unit (Ba(OH)₂ and Ca(OH)₂ give 2).</li>
+        <li>Giving a pH above 7 for a very dilute acid (or below 7 for a very dilute base).</li>
+        <li>Using pH + pOH = 14 at temperatures other than 25 °C: it equals −log K<sub>w</sub>.</li>
+        <li>Saying H⁺ "floats free" in water. It's H₃O⁺, but H⁺ and H₃O⁺ are interchangeable on the AP exam.</li>
+        <li>Mixing up acid and conjugate: an acid's conjugate is a <i>base</i> (it has one fewer H⁺).</li>
+      </ul></div>
+      <div class="prose"><h2>Strong acids and bases to know</h2>
+        <p>Strong acids: HCl, HBr, HI, HNO₃, HClO₄, and H₂SO₄ (first proton only). Strong bases: LiOH, NaOH, KOH, RbOH, CsOH, Ca(OH)₂, Sr(OH)₂, Ba(OH)₂. For a strong acid, [H₃O⁺] = c; for a strong base, [OH⁻] = (number of OH) × c. Everything else is weak. A conjugate pair differs by exactly one H⁺: strong acids have negligible conjugate bases; weak acids have weak conjugate bases.</p></div>
+      <div class="quiz" data-correct="1" data-explain="A strong acid ionizes completely, so [H₃O⁺] = 0.0010 M and pH = 3.00. (If it were weak the pH would be higher.)">
+        <p class="q">Check yourself: what is the pH of 1.0×10⁻³ M HNO₃?</p>
+        <div class="opts"><button type="button">1.00</button><button type="button">3.00</button><button type="button">11.00</button><button type="button">Cannot tell</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-weak" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Weak acids &amp; bases, K<sub>a</sub> and K<sub>b</sub></h1>
+        <p class="lede">Most acids don't give up all their protons. A weak acid is a small chemical tug-of-war, and K<sub>a</sub> says who is winning.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A strong acid is like a person who throws every ball they're holding. A weak acid holds on tight: only a few molecules per thousand hand over their proton. Acetic acid in vinegar is the classic example: in 0.10 M vinegar only about 1.3% of the molecules ionize, so almost all the acid is still sitting there as CH₃COOH.</p>
+        <p>The equilibrium HA + H₂O ⇌ H₃O⁺ + A⁻ has K<sub>a</sub> = [H₃O⁺][A⁻]/[HA]. A bigger K<sub>a</sub> means a stronger acid. Weak bases work the same way with K<sub>b</sub>: B + H₂O ⇌ BH⁺ + OH⁻. An acid and its conjugate base are linked by <b>K<sub>a</sub> × K<sub>b</sub> = K<sub>w</sub></b>: the stronger the acid, the weaker its conjugate base. Interestingly, the <i>fraction</i> that ionizes goes <b>up</b> when you dilute: more room for the ions to spread out.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed acids were strong, so [H₃O⁺] equalled the acid concentration. Now an acid can be weak, and [H₃O⁺] must come from an equilibrium (K<sub>a</sub>) and an ICE table, with the "x is small" check.</div>
+      <div class="lab" id="wk-lab">
+        <div class="labbar"><span class="title">How many molecules actually ionize?</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="wk-sp"><span>Species</span></label><select id="wk-sp"></select></div>
+          <div class="ctl"><label for="wk-c"><span>Concentration</span> <output id="wk-c-out"></output></label><input type="range" id="wk-c" min="-4" max="0" step="0.05" value="-1"></div>
+        </div>
+        <div class="split"><div><canvas id="wk-canvas" aria-label="Two beakers: the weak acid with few ions and a strong acid with all molecules ionized"></canvas></div><div><canvas id="wk-graph" aria-label="Percent ionization against concentration for the chosen weak acid"></canvas></div></div>
+        <div class="readout"><div><span>pH</span><strong class="x" id="wk-ph">—</strong></div><div><span>% ionized</span><strong class="a" id="wk-pct">—</strong></div><div><span>K<sub>a</sub> or K<sub>b</sub></span><strong id="wk-k">—</strong></div><div><span>K of the conjugate (Kb or Ka)</span><strong id="wk-kc">—</strong></div><div><span>1 in every…</span><strong id="wk-one">—</strong></div></div>
+        <p class="small" id="wk-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then compare the two beakers.</p><ol>
+        <li><p>Look at 0.10 M acetic acid. How many molecules ionize? <button type="button" class="btn link" data-show='[["#wk-sp","CH₃COOH"],["#wk-c","-1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>About 1 in 75 (1.3%). The pH is about 2.88, far higher than the pH 1.00 of 0.10 M HCl, because most acetic acid stays whole.</p></details></li>
+        <li><p>Dilute acetic acid tenfold, then tenfold again. What happens to the percent ionized? <button type="button" class="btn link" data-show='[["#wk-sp","CH₃COOH"],["#wk-c","-3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>It rises (about 4% at 0.001 M): dilution favors the side with more particles, so a larger fraction of the molecules ionize. (The pH rises less than a strong acid's would.)</p></details></li>
+        <li><p>Compare HF with HCN at the same concentration. <button type="button" class="btn link" data-show='[["#wk-sp","HCN"],["#wk-c","-1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>HCN (K<sub>a</sub> = 4.9×10⁻¹⁰) barely ionizes at all: about 1 molecule in 45 000. Its pH is near 5.2, just above that of water plus a trace of acid.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Find the pH and percent ionization of 0.10 M acetic acid. K<sub>a</sub> = 1.8×10⁻⁵.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>ICE.</b> CH₃COOH ⇌ H⁺ + CH₃COO⁻. I: 0.10, 0, 0. C: −x, +x, +x. E: 0.10 − x, x, x.</li>
+          <li hidden><b>Write K<sub>a</sub>.</b> 1.8×10⁻⁵ = x² / (0.10 − x).</li>
+          <li hidden><b>Try the shortcut.</b> 0.10 − x ≈ 0.10, so x² = 1.8×10⁻⁶ and x = 1.34×10⁻³ M. Check: 1.34×10⁻³ / 0.10 = 1.3%, which is under 5%. ✓</li>
+          <li hidden><b>Answer.</b> pH = −log(1.34×10⁻³) = <b>2.87</b> and percent ionization = <b>1.3%</b>. (A quadratic gives 2.88; the shortcut is fine.)</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using [H₃O⁺] = c for a weak acid. That is only for strong acids.</li>
+        <li>Skipping the 5% check, especially for fairly strong weak acids (HF, HNO₂) at low concentration.</li>
+        <li>Reporting x as the pH instead of −log x.</li>
+        <li>Mixing up K<sub>a</sub> and K<sub>b</sub>: a weak <i>base</i> gives OH⁻, so x is [OH⁻] and you get pOH first.</li>
+        <li>Calling a weak acid "dilute" and a strong acid "concentrated". Strength (how much ionizes) is not the same as concentration (how much is there).</li>
+      </ul></div>
+      <div class="prose"><h2>Why are some acids stronger than others?</h2>
+        <p><b>Down a group</b> (HF &lt; HCl &lt; HBr &lt; HI) bond strength dominates: the longer, weaker H–X bond lets go of its proton more easily. <b>Across a period</b> (CH₄ &lt; NH₃ &lt; H₂O &lt; HF) electronegativity dominates. For <b>oxyacids</b> (HClO &lt; HClO₂ &lt; HClO₃ &lt; HClO₄), more oxygen atoms (or more electronegative substituents) pull electron density away from the O–H bond and stabilize the conjugate base. In carboxylic acids, a chlorine on the carbon increases acidity.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Ka × Kb = Kw, so Kb = 1.0×10⁻¹⁴ / 6.8×10⁻⁴ = 1.5×10⁻¹¹: a very weak base, because HF is a fairly strong weak acid.">
+        <p class="q">Check yourself: HF has K<sub>a</sub> = 6.8×10⁻⁴. What is K<sub>b</sub> of F⁻?</p>
+        <div class="opts"><button type="button">6.8×10⁻⁴</button><button type="button">1.5×10⁻¹¹</button><button type="button">6.8×10⁻¹⁸</button><button type="button">1.0×10⁻¹⁴</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-titration" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Titration curves &amp; indicators</h1>
+        <p class="lede">Add base drop by drop to an acid and watch the pH. The curve tells you the concentration, the strength of the acid, and which indicator to use.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>In a titration you add a solution of known concentration (the <b>titrant</b>) from a burette until the reaction is exactly complete, the <b>equivalence point</b>: moles of base added equal moles of acid originally present. From the volume you can work out the unknown concentration. An <b>indicator</b> changes color near the pH of the equivalence point to signal the <b>endpoint</b>.</p>
+        <p>The shape of the curve depends on the acid. <b>Strong acid + strong base</b>: the pH stays low, shoots up through 7 at the equivalence point, and levels off. <b>Weak acid + strong base</b>: the start is higher, a gentle <b>buffer region</b> follows (the pH barely moves because HA and A⁻ are both present), and the equivalence point is above 7 because A⁻ is a weak base. At <b>half-equivalence</b> exactly half the HA has become A⁻, so [HA] = [A⁻] and <b>pH = pK<sub>a</sub></b>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, the equivalence point was always at pH 7 (strong acid and strong base). Now we know it depends on what is left in the flask: a weak acid's conjugate base makes the equivalence point basic, and a weak base's conjugate acid makes it acidic. We need an indicator that changes color near that pH.</div>
+      <div class="lab" id="tt-lab">
+        <div class="labbar"><span class="title">Titrate it</span><div class="row"><button type="button" class="btn primary" id="tt-drip">Drip</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="tt-an"><span>What's in the flask (25.0 mL)</span></label><select id="tt-an"></select></div>
+          <div class="ctl"><label for="tt-ca"><span>Flask concentration</span> <output id="tt-ca-out"></output></label><input type="range" id="tt-ca" min="0.05" max="0.2" step="0.01" value="0.1"></div>
+          <div class="ctl"><label for="tt-cb"><span>Burette concentration</span> <output id="tt-cb-out"></output></label><input type="range" id="tt-cb" min="0.05" max="0.2" step="0.01" value="0.1"></div>
+          <div class="ctl"><label for="tt-ind"><span>Indicator</span></label><select id="tt-ind"></select></div>
+          <div class="ctl"><label for="tt-v"><span>Volume added</span> <output id="tt-v-out"></output></label><input type="range" id="tt-v" min="0" max="50" step="0.05" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="tt-canvas" aria-label="A burette above a flask whose particles and color change as titrant is added"></canvas></div><div><canvas id="tt-graph" aria-label="Titration curve of pH against volume added, with the equivalence point and indicator range marked"></canvas></div></div>
+        <div class="readout"><div><span>pH</span><strong class="x" id="tt-ph">—</strong></div><div><span>Where we are</span><strong id="tt-where" style="font-size:15px;white-space:normal">—</strong></div><div><span>Equivalence at</span><strong class="a" id="tt-ve">—</strong></div><div><span>pH at equivalence</span><strong id="tt-pe">—</strong></div><div><span>Half-equivalence pH</span><strong id="tt-ph2">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the curve, then drip.</p><ol>
+        <li><p>Titrate acetic acid and look at the half-equivalence point. What is the pH there? <button type="button" class="btn link" data-show='[["#tt-an","1"],["#tt-v","12.5"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>pH = 4.74 = pK<sub>a</sub> of acetic acid (K<sub>a</sub> = 1.8×10⁻⁵). Half the acid has turned into acetate, so [HA] = [A⁻] and the ratio in Henderson–Hasselbalch is 1.</p></details></li>
+        <li><p>Titrate HCl with NaOH, then pick the wrong indicator for acetic acid (methyl orange). <button type="button" class="btn link" data-show='[["#tt-an","1"],["#tt-ind","0"],["#tt-v","25"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The equivalence point of acetic acid is near pH 8.7, but methyl orange has already changed color around pH 3 to 4.4, long before. You'd stop far too early. Phenolphthalein (8.2–10) is the right choice.</p></details></li>
+        <li><p>Titrate HCN (K<sub>a</sub> = 4.9×10⁻¹⁰). Is there a sharp jump? <button type="button" class="btn link" data-show='[["#tt-an","2"],["#tt-v","25"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Hardly any: a very weak acid gives only a small, rounded rise at equivalence, so no ordinary indicator marks it well. Titrations work best when K<sub>a</sub> is not too small.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">25.00 mL of 0.100 M acetic acid (K<sub>a</sub> = 1.8×10⁻⁵) is titrated with 0.100 M NaOH. Find (a) the volume at equivalence, (b) the pH after adding 10.00 mL, and (c) the pH at equivalence.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>(a) Equivalence.</b> n(HA) = 0.02500 × 0.100 = 2.50 mmol. The base is 1:1, so V = 2.50 mmol / 0.100 M = <b>25.00 mL</b>.</li>
+          <li hidden><b>(b) Before equivalence: a buffer.</b> OH⁻ added = 10.00 × 0.100 = 1.00 mmol, which converts 1.00 mmol HA into A⁻: HA = 1.50 mmol, A⁻ = 1.00 mmol. pH = pK<sub>a</sub> + log(A⁻/HA) = 4.74 + log(1.00/1.50) = 4.74 − 0.18 = <b>4.56</b>.</li>
+          <li hidden><b>(c) At equivalence: only A⁻.</b> [A⁻] = 2.50 mmol / 50.0 mL = 0.0500 M. K<sub>b</sub> = 1.0×10⁻¹⁴ / 1.8×10⁻⁵ = 5.6×10⁻¹⁰, so [OH⁻] = √(5.6×10⁻¹⁰ × 0.0500) = 5.3×10⁻⁶ M.</li>
+          <li hidden><b>Convert.</b> pOH = 5.28, so pH = 14 − 5.28 = <b>8.72</b>. Above 7, as expected for a weak acid; phenolphthalein is a good indicator.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Assuming the equivalence point is always pH 7. Only strong-acid/strong-base titrations are neutral there.</li>
+        <li>Using Henderson–Hasselbalch at the equivalence point or after it. It applies only in the buffer region, where both HA and A⁻ are present in comparable amounts.</li>
+        <li>Forgetting that the total volume increases as titrant is added when you compute concentrations.</li>
+        <li>Using volumes where moles are needed. Always compute moles (mmol works well), then divide by total volume.</li>
+        <li>Mixing up the equivalence point (moles equal) and the endpoint (indicator color change). A good indicator makes them very close.</li>
+      </ul></div>
+      <div class="prose"><h2>Four regions of a weak-acid curve</h2>
+        <p>(1) <b>Start</b>: only HA; pH from K<sub>a</sub>. (2) <b>Buffer region</b>: HA and A⁻; use Henderson–Hasselbalch with moles. At half-equivalence pH = pK<sub>a</sub>. (3) <b>Equivalence</b>: only A⁻; pH from K<sub>b</sub> of A⁻. (4) <b>Past equivalence</b>: excess OH⁻ controls the pH, and the weak base contributes almost nothing.</p></div>
+      <div class="quiz" data-correct="2" data-explain="At the half-equivalence point exactly half of the weak acid has been converted to its conjugate base, so [HA] = [A⁻], the log term is 0, and pH = pKa.">
+        <p class="q">Check yourself: at the half-equivalence point of a weak acid titration, pH equals…</p>
+        <div class="opts"><button type="button">7</button><button type="button">14 − pK<sub>a</sub></button><button type="button">pK<sub>a</sub></button><button type="button">the pH at equivalence</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-buffers" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Buffers</h1>
+        <p class="lede">Your blood stays near pH 7.4 even though you eat acidic food all day. A buffer is a chemical shock absorber.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A buffer holds <b>both</b> a weak acid (HA) and its conjugate base (A⁻) in comparable amounts. Add a strong acid and the A⁻ soaks it up (A⁻ + H₃O⁺ → HA). Add a strong base and the HA neutralizes it (HA + OH⁻ → A⁻ + H₂O). Either way the dangerous H₃O⁺ or OH⁻ is converted into the weak partner, so the pH barely moves. Think of two sponges, one for acid and one for base.</p>
+        <p>The pH of a buffer comes from the <b>Henderson–Hasselbalch equation</b>: <b>pH = pK<sub>a</sub> + log([A⁻]/[HA])</b>. If the two are equal the pH equals the pK<sub>a</sub>. The ratio, not the absolute amounts, sets the pH; the absolute amounts set the <b>capacity</b>: how much strong acid or base the buffer can take before one component runs out. A buffer works best when the pH is within one unit of its pK<sub>a</sub>.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, adding a strong acid always meant a big pH drop. Now we know a solution containing both HA and A⁻ converts the added acid or base into the weak partner, and the pH changes only through the small change in the ratio.</div>
+      <div class="lab" id="bf-lab">
+        <div class="labbar"><span class="title">Stress a buffer</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="bf-pair"><span>Buffer pair</span></label><select id="bf-pair"></select></div>
+          <div class="ctl"><label for="bf-ct"><span>Total buffer concentration</span> <output id="bf-ct-out"></output></label><input type="range" id="bf-ct" min="-2" max="0" step="0.05" value="-0.7"></div>
+          <div class="ctl"><label for="bf-r"><span>Ratio [A⁻]/[HA]</span> <output id="bf-r-out"></output></label><input type="range" id="bf-r" min="-1.2" max="1.2" step="0.05" value="0"></div>
+          <div class="ctl"><label for="bf-add"><span>Add strong acid (←) or base (→)</span> <output id="bf-add-out"></output></label><input type="range" id="bf-add" min="-100" max="100" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="bf-canvas" aria-label="Two beakers: a buffer and plain water, both receiving the same strong acid or base"></canvas></div><div><canvas id="bf-graph" aria-label="pH against moles of strong acid or base added for the buffer and for plain water"></canvas></div></div>
+        <div class="readout"><div><span>Buffer pH</span><strong class="x" id="bf-ph">—</strong></div><div><span>Plain water pH</span><strong class="a" id="bf-pw">—</strong></div><div><span>Buffer pH change</span><strong id="bf-d">—</strong></div><div><span>HA / A⁻ left (mmol)</span><strong id="bf-left" style="font-size:15px">—</strong></div></div>
+        <p class="small" id="bf-note" style="margin:0"></p>
+      </div>
+      <div class="lab" id="pb-lab" data-reset="own">
+        <div class="labbar"><span class="title">Pick a buffer for a target pH</span></div>
+        <div class="controls"><div class="ctl"><label for="pb-ph"><span>Target pH</span> <output id="pb-ph-out"></output></label><input type="range" id="pb-ph" min="2" max="12" step="0.1" value="7.4"></div></div>
+        <canvas id="pb-canvas" aria-label="Number line of pH with the useful range of each buffer pair highlighted"></canvas>
+        <p class="small" id="pb-note" aria-live="polite" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then slide.</p><ol>
+        <li><p>Add a bit of strong acid to the buffer, then to plain water. Compare the pH change. <button type="button" class="btn link" data-show='[["#bf-pair","0"],["#bf-ct","-0.7"],["#bf-r","0"],["#bf-add","-50"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The buffer pH moves by only a few hundredths, while plain water falls about 5 pH units (from 7 to roughly 2). The added H₃O⁺ is converted to HA.</p></details></li>
+        <li><p>Make the buffer 10 times more dilute. What happens to its pH and to its resistance? <button type="button" class="btn link" data-show='[["#bf-ct","-1.7"],["#bf-add","-20"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The starting pH doesn't change (only the ratio matters), but the buffer's capacity shrinks tenfold, so the same amount of acid makes a much larger change. If it overloads, the pH plunges.</p></details></li>
+        <li><p>Choose a ratio of 10:1 and then of 1:10. How far from the pK<sub>a</sub> is the pH? <button type="button" class="btn link" data-show='[["#bf-r","1"],["#bf-add","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Exactly 1 pH unit above the pK<sub>a</sub> for 10:1 and 1 unit below for 1:10. Beyond that, the buffer is too one-sided to resist both acid and base well.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A buffer contains 0.20 M acetic acid and 0.30 M acetate (pK<sub>a</sub> = 4.74), 1.00 L in total. (a) Find the pH. (b) Find the pH after adding 0.050 mol of HCl.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>(a) Henderson–Hasselbalch.</b> pH = 4.74 + log(0.30 / 0.20) = 4.74 + 0.18 = <b>4.92</b>.</li>
+          <li hidden><b>(b) Do the stoichiometry first.</b> H₃O⁺ reacts completely with acetate: A⁻ + H₃O⁺ → HA. Moles: A⁻ = 0.30 − 0.050 = 0.25; HA = 0.20 + 0.050 = 0.25.</li>
+          <li hidden><b>Then equilibrium (H–H).</b> pH = 4.74 + log(0.25 / 0.25) = <b>4.74</b>.</li>
+          <li hidden><b>Compare.</b> The pH fell by only 0.18, whereas 0.050 mol HCl in 1.00 L of plain water would give pH 1.30, a drop of nearly 6 units.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Skipping the stoichiometry step: when you add strong acid or base, first let it react completely, then use Henderson–Hasselbalch with the new moles.</li>
+        <li>Using a mixture of a strong acid and its conjugate base (HCl + NaCl) and calling it a buffer. The acid must be weak.</li>
+        <li>Mixing up which way the ratio goes: it is [conjugate base]/[acid]. More base means a higher pH.</li>
+        <li>Thinking dilution changes a buffer's pH. It changes capacity, not the ratio (to a good approximation).</li>
+        <li>Adding more strong acid than there is A⁻. Past that, the buffer is exhausted and the pH crashes.</li>
+      </ul></div>
+      <div class="prose"><h2>Making a buffer</h2>
+        <p>Three routes give the same result: mix the weak acid with a salt of its conjugate base; mix the weak base with a salt of its conjugate acid; or start with the weak acid and add <i>less than enough</i> strong base to neutralize it (that makes A⁻ in place). Choose a pair with a pK<sub>a</sub> within about one unit of the target pH, then set the ratio [A⁻]/[HA] = 10<sup>(pH − pK<sub>a</sub>)</sup>.</p></div>
+      <div class="quiz" data-correct="2" data-explain="A buffer needs a weak acid and its conjugate base (or a weak base and its conjugate acid). HCl is strong, so HCl + NaCl doesn't resist pH changes; CH₃COOH + NaCH₃COO does.">
+        <p class="q">Check yourself: which mixture is a buffer?</p>
+        <div class="opts"><button type="button">HCl and NaCl</button><button type="button">NaOH and NaCl</button><button type="button">CH₃COOH and NaCH₃COO</button><button type="button">HNO₃ and NaNO₃</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -3180,8 +3405,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"], "soon": []}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": ["ph", "weak", "titration", "buffers"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": ["equilibrium", "icecalc", "lechatelier", "ksp"], "soon": []}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": ["ph", "weak", "titration", "buffers"], "soon": []}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -6138,6 +6363,286 @@ const kspPure=r=>kspS(r,0,0);
     return {q:`${V1} mL of ${sci(c1,1)} M ${r.c} solution is mixed with ${V2} mL of ${sci(c2,2)} M ${r.an} solution. K<sub>sp</sub> of ${r.f} is ${sci(r.K,2)}. Does a precipitate form?`,choices:['Yes, a precipitate forms','No precipitate forms'],ans:yes?0:1,hint:'Find each ion\'s concentration after mixing (dilution!), compute Q, and compare it with K_sp.',sol:`[${r.c}] = ${sci(c1,1)}×${V1}/${Vt} = ${sci(c1*V1/Vt,2)}; [${r.an}] = ${sci(c2*V2/Vt,2)}; Q = ${sci(Q,2)}, which is ${yes?'greater':'less'} than K<sub>sp</sub> = ${sci(r.K,2)}: <b>${yes?'precipitate forms':'no precipitate'}</b>.`};}});
   PROBS.push({id:'ksp-pH',topic:'ksp',title:'pH of a saturated hydroxide',gen(){const K=pick([5.6e-12,1.8e-11,2.0e-13]),nm={5.6e-12:'Mg(OH)₂',1.8e-11:'Mn(OH)₂',2.0e-13:'Fe(OH)₂'}[K],s=Math.cbrt(K/4),pH=14+Math.log10(2*s);
     return {q:`${nm} has K<sub>sp</sub> = ${sci(K,2)}. What is the pH of a saturated solution in pure water at 25 °C?`,ans:pH,unit:'',abs:.05,hint:'K_sp = s(2s)² = 4s³. [OH⁻] = 2s, then pOH and pH.',sol:`s = (K<sub>sp</sub>/4)<sup>1/3</sup> = ${sci(s,3)} M; [OH⁻] = 2s = ${sci(2*s,3)} M; pOH = ${fmt(-Math.log10(2*s),2)}; pH = <b>${fmt(pH,2)}</b>.`};}});
+})();
+
+/* ===== modules/ph.js ===== */
+
+/* ---------------- Acids, bases, pH & strong acids ---------------- */
+const KW_T={0:1.14e-15,10:2.93e-15,25:1.0e-14,40:2.92e-14,50:5.47e-14,60:9.61e-14,100:5.13e-13};
+const phExact=(c,kind,Kw)=>{/* c in M of strong acid or base */const h=kind==='acid'?(c+Math.sqrt(c*c+4*Kw))/2:Kw/((c+Math.sqrt(c*c+4*Kw))/2);return h;};
+(function ph(){
+  const cv=$('#pt-canvas');if(!cv)return;
+  const PTR=[{t:'HCl + H₂O → H₃O⁺ + Cl⁻',A:'HCl',B:'H2O',CA:'H3O',CB:'Cl',an:'HCl',bn:'H₂O',can:'H₃O⁺',cbn:'Cl⁻',ch:[0,0,1,-1],weak:false},{t:'NH₃ + H₂O ⇌ NH₄⁺ + OH⁻',A:'H2O',B:'NH3',CA:'NH4',CB:'OH',an:'H₂O',bn:'NH₃',can:'NH₄⁺',cbn:'OH⁻',ch:[0,0,1,-1],weak:true},{t:'H₂O + H₂O ⇌ H₃O⁺ + OH⁻  (autoionization)',A:'H2O',B:'H2O',CA:'H3O',CB:'OH',an:'H₂O',bn:'H₂O',can:'H₃O⁺',cbn:'OH⁻',ch:[0,0,1,-1],weak:true},{t:'HF + H₂O ⇌ H₃O⁺ + F⁻',A:'HF',B:'H2O',CA:'H3O',CB:'F',an:'HF',bn:'H₂O',can:'H₃O⁺',cbn:'F⁻',ch:[0,0,1,-1],weak:true}];
+  const rs=$('#pt-rx'),pS=$('#pt-p'),H=250;rs.innerHTML=PTR.map((r,i)=>`<option value="${i}">${r.t}</option>`).join('');let play=false;
+  const lab=(ctx,t,x,y,c)=>label(ctx,t,x,y,c,'center','middle','700 12px "IBM Plex Mono",monospace');
+  /* find which atom in the acid is the donated H: the H atom of the acid pointing toward the base */
+  const sim=sim2d(cv,{h:()=>H,step(dt){if(!play)return;pS.value=Math.min(100,+pS.value+dt*22);if(+pS.value>=100){play=false;$('#pt-play').textContent='Play';}upd();},
+    draw(ctx,w,h){const r=PTR[+rs.value],p=+pS.value/100,u=Math.min(40,w/9),cy=H*.52,apr=clamp(p/.35,0,1),tr=clamp((p-.35)/.25,0,1),sep=clamp((p-.6)/.4,0,1);
+      const ease=v=>v*v*(3-2*v),a=ease(apr),t=ease(tr),s=ease(sep);
+      const ax=w*.2+(w*.17)*a-(w*.1)*s,bx=w*.8-(w*.17)*a+(w*.1)*s;
+      const ma=molAtoms(r.A),mb=molAtoms(r.B);
+      /* the acid's H nearest the base: pick H atom with the largest x (facing base) */
+      let hi=-1,bestx=-1e9;ma.atoms.forEach((q,i)=>{if(q.e==='H'&&q.x>bestx){bestx=q.x;hi=i;}});
+      const hx0=ax+ma.atoms[hi].x*u,hy0=cy+ma.atoms[hi].y*u;const baseAtom=mb.atoms.findIndex(q=>q.e!=='H')>=0?mb.atoms.findIndex(q=>q.e!=='H'):0;const tx=bx+mb.atoms[baseAtom].x*u-u*.6,ty=cy+mb.atoms[baseAtom].y*u;
+      if(p<.35+.25*0||t<1){ /* reactants: acid without its donated H, base */
+        ctx.save();ctx.globalAlpha=1;
+        /* acid minus donated H */
+        ctx.strokeStyle=T.ink;ctx.lineWidth=Math.max(1.5,u*.12);ctx.lineCap='round';ma.bonds.forEach(([i,j])=>{if(i===hi||j===hi)return;ctx.beginPath();ctx.moveTo(ax+ma.atoms[i].x*u,cy+ma.atoms[i].y*u);ctx.lineTo(ax+ma.atoms[j].x*u,cy+ma.atoms[j].y*u);ctx.stroke();});
+        ma.atoms.forEach((q,i)=>{if(i===hi)return;ball2(ctx,ax+q.x*u,cy+q.y*u,u*(q.e==='H'?.3:.45),e2col(q.e),q.e==='H'?'rgba(0,0,0,.45)':null);});
+        /* the donated H bond (fades once it leaves) */
+        const hpx=hx0+(tx-hx0)*t,hpy=hy0+(ty-hy0)*t;
+        if(t<.02){ctx.beginPath();ctx.moveTo(ax+ma.atoms[ma.bonds.find(b=>b.includes(hi)).find(k=>k!==hi)].x*u,cy+ma.atoms[ma.bonds.find(b=>b.includes(hi)).find(k=>k!==hi)].y*u);ctx.lineTo(hx0,hy0);ctx.stroke();}
+        /* base */
+        mb.bonds.forEach(([i,j])=>{ctx.beginPath();ctx.moveTo(bx+mb.atoms[i].x*u,cy+mb.atoms[i].y*u);ctx.lineTo(bx+mb.atoms[j].x*u,cy+mb.atoms[j].y*u);ctx.stroke();});
+        mb.atoms.forEach(q=>ball2(ctx,bx+q.x*u,cy+q.y*u,u*(q.e==='H'?.3:.45),e2col(q.e),q.e==='H'?'rgba(0,0,0,.45)':null));
+        ball2(ctx,hpx,hpy,u*.34,'#F5C34D','rgba(0,0,0,.4)');if(t>0&&t<1){ctx.strokeStyle=alpha(T.hot,.7);ctx.lineWidth=2;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(hx0,hy0);ctx.lineTo(hpx,hpy);ctx.stroke();ctx.setLineDash([]);}
+        ctx.restore();
+        lab(ctx,r.an,ax,cy+u*1.9,T.ca);lab(ctx,r.bn,bx,cy+u*1.9,T.cx);
+        if(t<.02)label(ctx,'acid',ax,cy-u*1.9,T.ca,'center','middle',MONO),label(ctx,'base',bx,cy-u*1.9,T.cx,'center','middle',MONO);
+      }
+      if(t>=1){ /* products */
+        drawMol2D(ctx,r.CB,ax,cy,u);drawMol2D(ctx,r.CA,bx,cy,u);lab(ctx,r.cbn,ax,cy+u*1.9,T.ca);lab(ctx,r.can,bx,cy+u*1.9,T.cx);label(ctx,'conjugate base',ax,cy-u*1.9,T.ca,'center','middle',MONO);label(ctx,'conjugate acid',bx,cy-u*1.9,T.cx,'center','middle',MONO);}
+      label(ctx,p<.35?'molecules collide':p<.6?'the H⁺ jumps (gold)':'new species drift apart',w/2,16,T.muted,'center','middle',MONO);}});
+  function upd(){const r=PTR[+rs.value];setText('pt-p-out',+pS.value<35?'approach':+pS.value<60?'transfer':'products');setText('pt-acid',r.an);setText('pt-base',r.bn);setText('pt-cb',r.cbn);setText('pt-ca',r.can);sim.render();}
+  rs.addEventListener('change',()=>{pS.value=0;play=false;$('#pt-play').textContent='Play';upd();});bindRange('pt-p',()=>'',()=>upd(),false);
+  $('#pt-play').addEventListener('click',()=>{if(+pS.value>=100)pS.value=0;play=!play;$('#pt-play').textContent=play?'Pause':'Play';upd();});$('#pt-lab').addEventListener('labreset',()=>{pS.value=0;play=false;$('#pt-play').textContent='Play';upd();});upd();
+  /* strong acid / base */
+  const kS=$('#sa-kind'),cS=$('#sa-c'),tS=$('#sa-T');tS.innerHTML=Object.keys(KW_T).map(k=>`<option value="${k}">${k} °C  (Kw = ${sci(KW_T[k],2)})</option>`).join('');tS.value='25';
+  const st=()=>{const c=Math.pow(10,+cS.value),kind=kS.value,Kw=KW_T[tS.value],h=phExact(c,kind,Kw),oh=Kw/h;return {c,kind,Kw,h,oh};};
+  const bc=$('#sa-canvas'),bsim=sim2d(bc,{h:()=>240,draw(ctx,w,h){const s=st(),lo=-15,hi=1,Y=v=>14+(h-60)*(1-(clamp(Math.log10(v),lo,hi)-lo)/(hi-lo));ctx.strokeStyle=T.muted;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(50,12);ctx.lineTo(50,h-44);ctx.lineTo(w-10,h-44);ctx.stroke();
+      for(let p=lo;p<=hi;p+=2){const y=Y(Math.pow(10,p));ctx.strokeStyle=T.grid;ctx.beginPath();ctx.moveTo(50,y);ctx.lineTo(w-10,y);ctx.stroke();label(ctx,'10'+(p<0?'⁻':'')+String(Math.abs(p)).split('').map(d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join(''),46,y,T.muted,'right','middle',MONO);}
+      [[s.h,'#3E7BDC','[H₃O⁺]',.28],[s.oh,'#8B5CF6','[OH⁻]',.62]].forEach(([v,c,n,fx])=>{const x0=50+(w-60)*fx-34,y=Y(v);ctx.fillStyle=c;ctx.fillRect(x0,y,68,h-44-y);label(ctx,n,x0+34,h-26,T.ink,'center','middle',MONO);label(ctx,sci(v,1),x0+34,y-8,T.ink,'center','bottom',MONO);});
+      const nh=Math.sqrt(s.Kw);ctx.strokeStyle=T.hot;ctx.lineWidth=1.5;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(50,Y(nh));ctx.lineTo(w-10,Y(nh));ctx.stroke();ctx.setLineDash([]);label(ctx,'neutral',w-12,Y(nh)-6,T.hot,'right','bottom',MONO);}});
+  const gc=$('#sa-graph'),gsim=sim2d(gc,{h:()=>240,draw(ctx,w,h){const s=st(),P=panel(ctx,{x:44,y:12,w:w-58,h:h-46},[0,9],[0,14],{xn:3,yn:4,xlabel:'−log c',ylabel:s.kind==='acid'?'pH':'pH',color:T.ink});
+      if(s.kind==='acid')line(ctx,P,0,0,9,9,T.muted,1.6,[6,4]);else line(ctx,P,0,14,9,5,T.muted,1.6,[6,4]);
+      curve(ctx,P,x=>{const c=Math.pow(10,-x),hh=phExact(c,s.kind,s.Kw);return -Math.log10(hh);},0,9,T.cx,2.6,200);
+      const x=-+cS.value,hh=s.h;dot(ctx,P.X(x),P.Y(-Math.log10(hh)),6,T.ink);label(ctx,'dashed: simple formula',P.box.x+P.box.w-4,P.box.y+10,T.muted,'right','middle',MONO);}});
+  function sup(n){return String(n).split('').map(d=>d==='-'?'⁻':'⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]).join('');}
+  function supd(){const s=st(),ph=-Math.log10(s.h),poh=-Math.log10(s.oh),naive=s.kind==='acid'?-Math.log10(s.c):-Math.log10(s.Kw)+Math.log10(s.c)*1;
+    setText('sa-c-out',sci(s.c,1)+' M');setText('sa-h',sci(s.h,2)+' M');setText('sa-oh',sci(s.oh,2)+' M');setText('sa-ph',fmt(ph,2));setText('sa-poh',fmt(poh,2));
+    const nv=s.kind==='acid'?-Math.log10(s.c):-Math.log10(s.Kw)+(-Math.log10(s.c))*-1;const naivePH=s.kind==='acid'?-Math.log10(s.c):-Math.log10(s.Kw)-(-Math.log10(s.c));setText('sa-naive',fmt(naivePH,2));
+    const neut=-Math.log10(s.Kw)/2,off=Math.abs(naivePH-ph);$('#sa-note').textContent=off>.05?`The simple formula is off by ${fmt(off,2)}: at this dilution water's own ions matter. The solution is still ${s.kind==='acid'?'acidic':'basic'} (neutral here is pH ${fmt(neut,2)}).`:`At this concentration the simple formula works (it differs by ${fmt(off,3)} from the exact value). Neutral at this temperature is pH ${fmt(neut,2)}.`;bsim.render();gsim.render();}
+  [kS,tS].forEach(e=>e.addEventListener('change',supd));bindRange('sa-c',()=>'',supd,false);supd();drawers.ph=()=>{upd();supd();};
+  TIPS['pt-rx']='Look for the H that jumps: it leaves the acid and attaches to the base.';
+  TIPS['pt-p']='Scrub through approach, transfer and separation.';
+  TIPS['sa-kind']='Strong acids set [H₃O⁺]; strong bases set [OH⁻].';
+  TIPS['sa-c']='Every factor of 10 in concentration is one pH unit, until water\'s own ions matter.';
+  TIPS['sa-T']='Kw rises with temperature, so neutral is not always pH 7.';
+  KEYS['pt-canvas']=['Press Play and follow the gold proton.',[['hot','proton transfer']]];
+  GLOSS['Brønsted–Lowry']='A model in which acids donate protons and bases accept them.';
+  GLOSS['conjugate']='The partner formed when an acid loses H⁺ (its conjugate base) or a base gains H⁺ (its conjugate acid).';
+  GLOSS['autoionization']='Water molecules transferring protons to each other: 2H₂O ⇌ H₃O⁺ + OH⁻.';
+  GLOSS['strong acid']='An acid that ionizes completely in water.';
+  GLOSS['Kw']='The ion-product constant of water, [H₃O⁺][OH⁻] = 1.0×10⁻¹⁴ at 25 °C.';
+  TT.ph='Have students say the conjugate pair out loud for each reaction. Introduce the neutral-is-not-7 point with the temperature select.';
+})();
+(function(){
+  const SA=[['HCl',1],['HNO₃',1],['HBr',1],['HClO₄',1]],SB=[['NaOH',1],['KOH',1],['Ba(OH)₂',2],['Ca(OH)₂',2],['LiOH',1]];
+  PROBS.push({id:'ph-strong',topic:'ph',title:'pH of a strong acid',gen(){const [a]=pick(SA),c=pick([.0010,.025,.15,.0045,.0080,.50,.0072]),ph=-Math.log10(c);
+    return {q:`What is the pH of ${sci(c,2)} M ${a}?`,ans:ph,unit:'',abs:.02,hint:'A strong acid ionizes completely: [H₃O⁺] = c. pH = −log[H₃O⁺].',sol:`[H₃O⁺] = ${sci(c,2)} M, so pH = −log(${sci(c,2)}) = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'ph-base',topic:'ph',title:'pH of a strong base',gen(){const [b,n]=pick(SB),c=pick([.0010,.025,.15,.0045,.020,.080]),oh=n*c,ph=14+Math.log10(oh);
+    return {q:`What is the pH of ${sci(c,2)} M ${b} at 25 °C?`,ans:ph,unit:'',abs:.02,hint:`Count the OH⁻ per formula unit (${b} gives ${n}), find pOH, then pH = 14 − pOH.`,sol:`[OH⁻] = ${n} × ${sci(c,2)} = ${sci(oh,2)} M; pOH = ${fmt(-Math.log10(oh),2)}; pH = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'ph-dil',topic:'ph',title:'pH after dilution',gen(){const c=pick([.10,.20,.50,1.0]),V1=pick([10.0,25.0,50.0]),V2=pick([250,500,1000]),c2=c*V1/V2,ph=-Math.log10(c2);
+    return {q:`${fmt(V1,1)} mL of ${fmt(c,2)} M HCl is diluted with water to a total volume of ${V2} mL. What is the pH of the diluted solution?`,ans:ph,unit:'',abs:.02,hint:'Use M₁V₁ = M₂V₂ to find the new concentration, then pH = −log c.',sol:`M₂ = ${fmt(c,2)} × ${fmt(V1,1)} / ${V2} = ${sci(c2,3)} M; pH = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'ph-mix',topic:'ph',title:'pH after mixing acid and base',gen(){let a,b,Va,Vb,ca,cb,na,nb,n=0;do{ca=pick([.10,.20,.050,.15]);cb=pick([.10,.20,.050,.15]);Va=pick([25,50,75,100]);Vb=pick([25,50,75,100]);na=ca*Va/1000;nb=cb*Vb/1000;n++;}while(Math.abs(na-nb)/(na+nb)<.06&&n<80);
+    const Vt=(Va+Vb)/1000,ex=na-nb,acid=ex>0,c=Math.abs(ex)/Vt,ph=acid?-Math.log10(c):14+Math.log10(c);
+    return {q:`${Va} mL of ${fmt(ca,3)} M HCl is mixed with ${Vb} mL of ${fmt(cb,3)} M NaOH. What is the pH of the mixture at 25 °C?`,ans:ph,unit:'',abs:.03,hint:'Moles of H⁺ and OH⁻ react 1:1. Find which is in excess, then divide the leftover moles by the total volume.',sol:`n(H⁺) = ${fmt(na,5)} mol, n(OH⁻) = ${fmt(nb,5)} mol. Excess ${acid?'H⁺':'OH⁻'} = ${fmt(Math.abs(ex),5)} mol in ${fmt(Vt*1000,0)} mL → ${sci(c,3)} M, so pH = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'ph-neutral',topic:'ph',title:'Neutral pH at another temperature',gen(){const T=pick([0,40,50,60,100]),K=KW_T[T],ph=-Math.log10(K)/2;
+    return {q:`At ${T} °C, K<sub>w</sub> = ${sci(K,2)}. What is the pH of pure water at this temperature?`,ans:ph,unit:'',abs:.03,hint:'In pure water [H₃O⁺] = [OH⁻], so [H₃O⁺] = √K_w.',sol:`[H₃O⁺] = √(${sci(K,2)}) = ${sci(Math.sqrt(K),3)} M; pH = <b>${fmt(ph,2)}</b>. Pure water is still neutral; neutral just isn't pH 7 here.`};}});
+  const CJ=[['NH₃','NH₄⁺','base'],['HCO₃⁻','CO₃²⁻','acid'],['H₂O','OH⁻','acid'],['CH₃COOH','CH₃COO⁻','acid'],['H₂PO₄⁻','HPO₄²⁻','acid'],['F⁻','HF','base'],['H₂O','H₃O⁺','base'],['HSO₄⁻','SO₄²⁻','acid'],['CO₃²⁻','HCO₃⁻','base']];
+  PROBS.push({id:'ph-conj',topic:'ph',title:'Conjugate acid or base',gen(){const [sp,cj,role]=pick(CJ),opts=[...new Set([cj,...CJ.map(x=>x[1]).sort(()=>Math.random()-.5)])].slice(0,4);if(!opts.includes(cj))opts[0]=cj;const ans=opts.indexOf(cj),i=Math.floor(Math.random()*4),arr=opts.filter(x=>x!==cj);arr.splice(i,0,cj);
+    return {q:`What is the conjugate ${role==='acid'?'base':'acid'} of ${sp}?`,choices:arr.slice(0,4),ans:i,hint:role==='acid'?'Remove one H⁺ (lower the charge by 1).':'Add one H⁺ (raise the charge by 1).',sol:`${role==='acid'?'Remove':'Add'} one H⁺ ${role==='acid'?'from':'to'} ${sp}: <b>${cj}</b>.`};}});
+})();
+
+/* ===== modules/weak.js ===== */
+
+/* ---------------- Weak acids & bases ---------------- */
+const WK=[{n:'HF',k:6.8e-4,t:'acid'},{n:'HNO₂',k:4.5e-4,t:'acid'},{n:'HCOOH',k:1.8e-4,t:'acid'},{n:'CH₃COOH',k:1.8e-5,t:'acid'},{n:'HClO',k:3.0e-8,t:'acid'},{n:'HCN',k:4.9e-10,t:'acid'},{n:'NH₃',k:1.8e-5,t:'base'},{n:'CH₃NH₂',k:4.4e-4,t:'base'},{n:'C₅H₅N (pyridine)',k:1.7e-9,t:'base'}];
+function wkSolve(K,c,type){/* returns x = [H3O+] (acid) or [OH-] (base) from charge balance */let lo=1e-16,hi=Math.max(c,1e-7)+1e-6;const f=h=>h-1e-14/h-c*K/(K+h);for(let i=0;i<200;i++){const m=Math.sqrt(lo*hi);f(m)<0?lo=m:hi=m;}return Math.sqrt(lo*hi);}
+function wkPH(K,c,type){const x=wkSolve(K,c,type);return type==='acid'?-Math.log10(x):14+Math.log10(x);}
+function wkIon(K,c,type){const x=wkSolve(K,c,type);const own=x-1e-14/x;return own/c;}
+(function weak(){
+  const cv=$('#wk-canvas');if(!cv)return;const sp=$('#wk-sp'),cS=$('#wk-c');sp.innerHTML=WK.map(w=>`<option value="${w.n}">${w.n}  (${w.t==='acid'?'Ka':'Kb'} = ${sci(w.k,1)})</option>`).join('');sp.value='CH₃COOH';
+  const H=260,N=60;let rng=[];for(let i=0;i<N;i++)rng.push(Math.random());let pos=[],pos2=[];
+  const cur=()=>{const w=WK.find(q=>q.n===sp.value),c=Math.pow(10,+cS.value),a=wkIon(w.k,c,w.t),x=wkSolve(w.k,c,w.t);return {w,c,a,x,ph:wkPH(w.k,c,w.t)};};
+  function layout(w){const mk=()=>({x:20+Math.random()*(w-40),y:20+Math.random()*(H-60),vx:(Math.random()-.5)*60,vy:(Math.random()-.5)*60,ph:Math.random()*6.28});pos=[];pos2=[];for(let i=0;i<N;i++){pos.push(mk());pos2.push(mk());}}
+  const sim=sim2d(cv,{h:()=>H+20,step(dt){const w=cv.clientWidth,hw=w/2-8;if(!pos.length)layout(hw);const mv=p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<14||p.x>hw-14)p.vx*=-1;if(p.y<14||p.y>H-14)p.vy*=-1;p.x=clamp(p.x,14,hw-14);p.y=clamp(p.y,14,H-14);};pos.forEach(mv);pos2.forEach(mv);},
+    draw(ctx,w,h){const s=cur(),hw=w/2-8,acid=s.w.t==='acid';[0,1].forEach(side=>{const ox=side?w/2+8:0;ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(ox+1,1,hw,H);label(ctx,side?(acid?'strong acid, same concentration':'strong base, same concentration'):s.w.n,ox+8,H+10,T.muted,'left','middle',MONO);});
+      const nIon=Math.min(N,Math.round(s.a*N)),P=pos;
+      /* weak: first nIon are ionized pairs (A⁻ + H₃O⁺), rest are intact molecules */
+      P.forEach((p,i)=>{const ox=0;if(i<nIon){ball2(ctx,ox+p.x-5,p.y,6.5,'#8B5CF6');ball2(ctx,ox+p.x+7,p.y+5,5,'#3E7BDC');}else{ball2(ctx,ox+p.x-4,p.y,7,'#9FB6CC');ball2(ctx,ox+p.x+6,p.y,4,'#EEF1F5','rgba(0,0,0,.4)');}});
+      pos2.forEach(p=>{const ox=w/2+8;ball2(ctx,ox+p.x-5,p.y,6.5,'#8B5CF6');ball2(ctx,ox+p.x+7,p.y+5,5,'#3E7BDC');});
+      label(ctx,`${nIon} of ${N} ionized${s.a*N<.5&&s.a>0?' (about '+fmt(s.a*N,2)+')':''}`,8,12,T.ink,'left','middle',MONO);label(ctx,`${N} of ${N} ionized`,w/2+16,12,T.ink,'left','middle',MONO);}});
+  const g=$('#wk-graph'),gs=sim2d(g,{h:()=>H+20,draw(ctx,w,h){const s=cur(),P=panel(ctx,{x:46,y:12,w:w-60,h:h-48},[-4,0],[0,100],{xn:4,yn:4,xlabel:'log c',ylabel:'% ionized',color:T.ink});
+      curve(ctx,P,x=>wkIon(s.w.k,Math.pow(10,x),s.w.t)*100,-4,0,T.cx,2.6,160);const a=s.a*100;dot(ctx,P.X(+cS.value),P.Y(a),6,T.ink);label(ctx,fmt(a,a<1?2:1)+'%',P.X(+cS.value)+8,P.Y(a)-8,T.ink,'left','bottom',MONO);}});
+  function upd(){const s=cur(),kc=1e-14/s.w.k;setText('wk-c-out',sci(s.c,1)+' M');setText('wk-ph',fmt(s.ph,2));setText('wk-pct',fmt(s.a*100,s.a<.01?3:2)+'%');setText('wk-k',sci(s.w.k,2));setText('wk-kc',sci(kc,2));setText('wk-one',s.a>0?fmt(1/s.a,0)+' molecules':'—');
+    $('#wk-note').textContent=s.a<.05?`x/c = ${fmt(s.a*100,2)}%: under 5%, so the "x is small" shortcut works here.`:`x/c = ${fmt(s.a*100,1)}%: over 5%, so the shortcut would fail; solve the quadratic.`;sim.render();gs.render();}
+  sp.addEventListener('change',upd);bindRange('wk-c',()=>'',upd,false);$('#wk-lab').addEventListener('labreset',upd);upd();drawers.weak=()=>{layout(cv.clientWidth/2-8);upd();};
+  TIPS['wk-sp']='Smaller K means fewer molecules ionize. Bases ionize by taking a proton from water.';
+  TIPS['wk-c']='Dilution raises the percent ionized, but the pH still moves toward neutral.';
+  KEYS['wk-canvas']=['Pick a species and compare the left beaker with the strong acid on the right.',[['#8B5CF6','anion (A⁻)'],['#3E7BDC','H₃O⁺'],['#9FB6CC','intact molecule']]];
+  GLOSS['weak acid']='An acid that only partly ionizes in water.';
+  GLOSS['Ka']='The equilibrium constant for a weak acid ionizing; a larger Ka means a stronger acid.';
+  GLOSS['Kb']='The equilibrium constant for a weak base reacting with water.';
+  GLOSS['percent ionization']='The fraction of acid molecules that have ionized, times 100.';
+  TT.weak='Ask: "What would you see in the left beaker for 0.001 M HCN?" Few ions at all. Then reveal the 1-in-45 000 figure.';
+})();
+(function(){
+  const AC=WK.filter(w=>w.t==='acid'&&w.n!=='HCN'),BS=WK.filter(w=>w.t==='base');
+  PROBS.push({id:'wk-pH',topic:'weak',title:'pH of a weak acid',gen(){const w=pick(AC),c=pick([.010,.050,.10,.20,.50,1.0]),x=wkSolve(w.k,c,'acid'),ph=-Math.log10(x);
+    return {q:`What is the pH of ${fmt(c,3)} M ${w.n}? (K<sub>a</sub> = ${sci(w.k,1)})`,ans:ph,unit:'',abs:.03,hint:'Set up an ICE table: Ka = x²/(c − x). Check the 5% rule; if it fails, use the quadratic formula.',sol:`x = [H₃O⁺] = ${sci(x,3)} M (${fmt(x/c*100,1)}% of ${fmt(c,3)} M${x/c<.05?'':'; the shortcut would fail, so use the quadratic'}). pH = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'wk-Ka',topic:'weak',title:'Ka from a measured pH',gen(){const w=pick(AC),c=pick([.050,.10,.20,.50]),ph=+wkPH(w.k,c,'acid').toFixed(2),x=Math.pow(10,-ph),Ka=x*x/(c-x);
+    return {q:`A ${fmt(c,2)} M solution of a weak monoprotic acid has pH ${fmt(ph,2)}. What is its K<sub>a</sub>?`,ans:Ka,unit:'',tol:.03,hint:'[H₃O⁺] = 10^(−pH) = [A⁻]. Then Ka = x²/(c − x).',sol:`x = 10<sup>−${fmt(ph,2)}</sup> = ${sci(x,3)} M. K<sub>a</sub> = (${sci(x,3)})² / (${fmt(c,2)} − ${sci(x,3)}) = <b>${sci(Ka,2)}</b>.`};}});
+  PROBS.push({id:'wk-pct',topic:'weak',title:'Percent ionization',gen(){const w=pick(AC),c=pick([.0010,.010,.10,.50]),a=wkIon(w.k,c,'acid');
+    return {q:`What percent of ${w.n} molecules are ionized in a ${sci(c,1)} M solution? (K<sub>a</sub> = ${sci(w.k,1)})`,ans:a*100,unit:'%',tol:.04,hint:'Find x (the equilibrium [H₃O⁺]), then % = x/c × 100. Use the quadratic if the 5% rule fails.',sol:`x = ${sci(wkSolve(w.k,c,'acid'),3)} M; % ionized = x/${sci(c,1)} × 100 = <b>${fmt(a*100,a*100<1?2:1)}%</b>.`};}});
+  PROBS.push({id:'wk-base',topic:'weak',title:'pH of a weak base',gen(){const w=pick(BS.filter(b=>b.k>1e-6)),c=pick([.010,.050,.10,.20,.50]),ph=wkPH(w.k,c,'base');
+    return {q:`What is the pH of ${fmt(c,3)} M ${w.n.split(' ')[0]}? (K<sub>b</sub> = ${sci(w.k,1)}; K<sub>w</sub> = 1.0×10⁻¹⁴)`,ans:ph,unit:'',abs:.03,hint:'B + H₂O ⇌ BH⁺ + OH⁻: Kb = x²/(c − x) with x = [OH⁻]. Find pOH, then pH = 14 − pOH.',sol:`[OH⁻] = x = ${sci(wkSolve(w.k,c,'base'),3)} M; pOH = ${fmt(14-ph,2)}; pH = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'wk-conj',topic:'weak',title:'K of the conjugate',gen(){const w=pick(WK),conj=1e-14/w.k;
+    return {q:`${w.t==='acid'?'The K<sub>a</sub> of '+w.n+' is '+sci(w.k,1)+'. What is the K<sub>b</sub> of its conjugate base?':'The K<sub>b</sub> of '+w.n.split(' ')[0]+' is '+sci(w.k,1)+'. What is the K<sub>a</sub> of its conjugate acid?'} (K<sub>w</sub> = 1.0×10⁻¹⁴)`,ans:conj,unit:'',tol:.03,hint:'Ka × Kb = Kw for a conjugate pair.',sol:`K = 1.0×10⁻¹⁴ / ${sci(w.k,1)} = <b>${sci(conj,2)}</b>.`};}});
+  const ST=[['HClO₃','HClO₂','HClO₃','it has more oxygen atoms, which pull electron density from the O–H bond and stabilize the conjugate base'],['HF','HCl','HCl','the H–Cl bond is longer and weaker than H–F, so it gives up H⁺ more easily'],['H₂S','H₂O','H₂S','the H–S bond is longer and weaker than H–O (down a group, bond strength dominates)'],['CH₃COOH','ClCH₂COOH','ClCH₂COOH','the electronegative chlorine pulls electron density away and stabilizes the anion'],['H₂SO₄','H₂SO₃','H₂SO₄','it has more oxygen atoms on the central atom'],['HBr','HF','HBr','the H–Br bond is much weaker than H–F'],['NH₃','H₂O','H₂O','oxygen is more electronegative than nitrogen (across a period electronegativity dominates)']];
+  PROBS.push({id:'wk-struct',topic:'weak',title:'Which acid is stronger?',gen(){const [a,b,s,why]=pick(ST),ch=Math.random()<.5?[a,b]:[b,a];
+    return {q:`Which is the stronger acid: ${ch[0]} or ${ch[1]}?`,choices:ch,ans:ch.indexOf(s),hint:'Think about bond strength (down a group), electronegativity (across a period), and the number of oxygens or electronegative substituents.',sol:`<b>${s}</b>: ${why}.`};}});
+})();
+
+/* ===== modules/titration.js ===== */
+
+/* ---------------- Titration curves & indicators ---------------- */
+const TT_AN=[{n:'HCl (strong acid) with NaOH',kind:'sa',Ka:1e9,pKa:null,tn:'NaOH'},{n:'CH₃COOH (Ka 1.8×10⁻⁵) with NaOH',kind:'wa',Ka:1.8e-5,tn:'NaOH'},{n:'HCN (Ka 4.9×10⁻¹⁰) with NaOH',kind:'wa',Ka:4.9e-10,tn:'NaOH'},{n:'NH₃ (Kb 1.8×10⁻⁵) with HCl',kind:'wb',Ka:1e-14/1.8e-5,tn:'HCl'},{n:'NaOH (strong base) with HCl',kind:'sb',Ka:1,tn:'HCl'}];
+const TT_IND=[{n:'methyl orange (3.1–4.4)',lo:3.1,hi:4.4,a:'#E5484D',b:'#F5C34D'},{n:'methyl red (4.4–6.2)',lo:4.4,hi:6.2,a:'#E5484D',b:'#F5C34D'},{n:'bromothymol blue (6.0–7.6)',lo:6.0,hi:7.6,a:'#F5C34D',b:'#3E7BDC'},{n:'phenolphthalein (8.2–10.0)',lo:8.2,hi:10.0,a:'rgba(255,255,255,0)',b:'#E0368A'}];
+function ttPH(an,Ca,Va,Cb,Vb){/* Va, Vb in mL; Ca analyte conc, Cb titrant conc */const Vt=Va+Vb,nA=Ca*Va/Vt,nT=Cb*Vb/Vt,Kw=1e-14;
+  let f;if(an.kind==='sa'||an.kind==='wa'){f=h=>nT+h-Kw/h-nA*an.Ka/(an.Ka+h);}else if(an.kind==='wb'){f=h=>h+nA*h/(h+an.Ka)-nT-Kw/h;}else{f=h=>nA*0+(nA)+h-nT-Kw/h;}
+  if(an.kind==='sb')f=h=>nA+h-nT-Kw/h;let lo=1e-15,hi=10;for(let i=0;i<200;i++){const m=Math.sqrt(lo*hi);f(m)<0?lo=m:hi=m;}return -Math.log10(Math.sqrt(lo*hi));}
+(function titration(){
+  const cv=$('#tt-canvas');if(!cv)return;const an=$('#tt-an'),caS=$('#tt-ca'),cbS=$('#tt-cb'),ind=$('#tt-ind'),vS=$('#tt-v');an.innerHTML=TT_AN.map((a,i)=>`<option value="${i}">${a.n}</option>`).join('');ind.innerHTML=TT_IND.map((a,i)=>`<option value="${i}">${a.n}</option>`).join('');ind.value=3;an.value=1;
+  const H=300,Va=25;let drip=false,drops=[],P=[],lastPH=0;const A=()=>TT_AN[+an.value],Ca=()=>+caS.value,Cb=()=>+cbS.value,Ve=()=>Ca()*Va/Cb(),ph=v=>ttPH(A(),Ca(),Va,Cb(),v);
+  const colOf=pH=>{const I=TT_IND[+ind.value],t=clamp((pH-I.lo)/(I.hi-I.lo),0,1);const c1=I.a,c2=I.b;const parse=c=>{if(c.startsWith('rgba'))return [255,255,255,0];const n=parseInt(c.slice(1),16);return [n>>16&255,n>>8&255,n&255,1];};const a=parse(c1),b=parse(c2);const m=a.map((v,i)=>v+(b[i]-v)*t);return `rgba(${Math.round(m[0])},${Math.round(m[1])},${Math.round(m[2])},${(.12+.5*m[3])})`;};
+  function fillP(w){P=[];for(let i=0;i<110;i++)P.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random(),k:i%5});}
+  const flask=(ctx,cx,top,w,h)=>{ctx.beginPath();ctx.moveTo(cx-14,top);ctx.lineTo(cx-14,top+h*.28);ctx.lineTo(cx-w/2,top+h);ctx.lineTo(cx+w/2,top+h);ctx.lineTo(cx+14,top+h*.28);ctx.lineTo(cx+14,top);};
+  const sim=sim2d(cv,{h:()=>H,step(dt){if(drip){vS.value=Math.min(50,+vS.value+dt*(Math.abs(+vS.value-Ve())<2?1.5:5));if(+vS.value>=50){drip=false;$('#tt-drip').textContent='Drip';}upd(true);}
+      if(!P.length)fillP(cv.clientWidth);P.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<0||p.x>1)p.vx*=-1;if(p.y<0||p.y>1)p.vy*=-1;p.x=clamp(p.x,0,1);p.y=clamp(p.y,0,1);});
+      if(drip&&Math.random()<dt*6)drops.push({y:40,v:0});drops.forEach(d=>{d.v+=500*dt;d.y+=d.v*dt;});drops=drops.filter(d=>d.y<150);},
+    draw(ctx,w,h){const v=+vS.value,a=A(),pH=ph(v),cx=w/2,fw=Math.min(180,w*.7),ft=140,fh=130;
+      /* burette */
+      const bx=cx,by=8,bh=120,fillH=bh*(1-v/50)*1;ctx.strokeStyle=T.ink;ctx.lineWidth=2;ctx.strokeRect(bx-7,by,14,bh);ctx.fillStyle=alpha('#E0A82E',.4);ctx.fillRect(bx-6,by+bh-fillH,12,fillH);for(let i=0;i<=5;i++){ctx.beginPath();ctx.moveTo(bx+7,by+i*bh/5);ctx.lineTo(bx+13,by+i*bh/5);ctx.stroke();}
+      ctx.fillStyle=T.ink;ctx.fillRect(bx-3,by+bh,6,8);label(ctx,a.tn,bx+18,by+8,T.muted,'left','middle',MONO);label(ctx,fmt(Cb(),2)+' M',bx+18,by+22,T.muted,'left','middle',MONO);
+      drops.forEach(d=>{ctx.fillStyle='#E0A82E';ctx.beginPath();ctx.arc(bx,by+bh+8+d.y*.2,3,0,7);ctx.fill();});
+      /* flask */
+      ctx.fillStyle=colOf(pH);ctx.beginPath();ctx.moveTo(cx-fw/2*.9,ft+fh*.6);ctx.lineTo(cx-fw/2,ft+fh);ctx.lineTo(cx+fw/2,ft+fh);ctx.lineTo(cx+fw/2*.9,ft+fh*.6);ctx.closePath();ctx.fill();flask(ctx,cx,ft,fw,fh);ctx.strokeStyle=T.ink;ctx.lineWidth=2.4;ctx.stroke();
+      /* particles */
+      const ve=Ve(),fr=clamp(v/ve,0,1),ex=Math.max(0,(v-ve)/ve),N=36,cnt={};
+      const spec=a.kind==='sa'?[['H₃O⁺',N*(1-fr),'#3E7BDC'],['Cl⁻',N,'#2FA36B'],['Na⁺',N*Math.min(v/ve,1.0)+N*ex,'#E0A82E'],['OH⁻',N*ex,'#E5484D']]:a.kind==='wa'?[['HA',N*(1-fr),'#9FB6CC'],['A⁻',N*fr,'#8B5CF6'],['Na⁺',N*fr+N*ex,'#E0A82E'],['OH⁻',N*ex,'#E5484D']]:a.kind==='wb'?[['B',N*(1-fr),'#9FB6CC'],['BH⁺',N*fr,'#3E7BDC'],['Cl⁻',N*fr+N*ex,'#2FA36B'],['H₃O⁺',N*ex,'#3E7BDC']]:[['OH⁻',N*(1-fr),'#E5484D'],['Na⁺',N,'#E0A82E'],['Cl⁻',N*fr+N*ex,'#2FA36B'],['H₃O⁺',N*ex,'#3E7BDC']];
+      const left=fw*.8,x0=cx-left/2*.9,y0=ft+fh*.66,hh=fh*.28;let idx=0;
+      spec.forEach(([n,c,col],si)=>{const k=Math.min(40,Math.round(c));for(let i=0;i<k;i++){const p=P[(si*23+i)%P.length];ball2(ctx,x0+p.x*left*.9,y0+p.y*hh,3.6,col);}});
+      ctx.save();ctx.font='11px "IBM Plex Mono",monospace';spec.forEach(([n,c,col],i)=>{if(Math.round(c)<1)return;ctx.fillStyle=col;ctx.beginPath();ctx.arc(10,ft+10+i*16,4,0,7);ctx.fill();ctx.fillStyle=T.ink;ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(n,19,ft+10+i*16);});ctx.restore();
+      label(ctx,'pH '+fmt(pH,2),cx,H-6,T.ink,'center','middle','600 14px "IBM Plex Mono",monospace');}});
+  const g=$('#tt-graph'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const a=A(),Pn=panel(ctx,{x:44,y:12,w:w-58,h:h-48},[0,50],[0,14],{xn:5,yn:7,xlabel:'volume added (mL)',ylabel:'pH',color:T.ink}),I=TT_IND[+ind.value];
+      ctx.fillStyle=alpha(T.hot,.14);ctx.fillRect(Pn.box.x,Pn.Y(I.hi),Pn.box.w,Pn.Y(I.lo)-Pn.Y(I.hi));label(ctx,'indicator range',Pn.box.x+Pn.box.w-4,Pn.Y(I.hi)+10,T.hot,'right','middle',MONO);
+      curve(ctx,Pn,x=>ph(Math.max(x,0)),0,50,T.cx,2.8,400);const ve=Ve();line(ctx,Pn,ve,0,ve,14,T.muted,1.5,[5,4]);label(ctx,'equivalence',Pn.X(ve)+4,Pn.box.y+22,T.muted,'left','middle',MONO);
+      if(a.kind==='wa'||a.kind==='wb'){line(ctx,Pn,ve/2,0,ve/2,14,T.ca,1.2,[3,3]);label(ctx,'½ eq',Pn.X(ve/2)+3,Pn.box.y+10,T.ca,'left','middle',MONO);}
+      const v=+vS.value;dot(ctx,Pn.X(v),Pn.Y(ph(v)),6.5,T.ink,'#fff');}});
+  function where(v){const ve=Ve(),a=A(),d=v-ve;if(v<.05)return 'start';if(Math.abs(d)<ve*.012)return 'equivalence point';if(d>0)return 'past equivalence (excess '+(a.tn==='NaOH'?'OH⁻':'H₃O⁺')+')';if(a.kind==='wa'||a.kind==='wb')return Math.abs(v-ve/2)<ve*.02?'half-equivalence: pH = pKa':'buffer region';return 'before equivalence';}
+  function upd(fromStep){const v=+vS.value,a=A(),ve=Ve(),pe=ph(ve);setText('tt-ca-out',fmt(Ca(),2)+' M');setText('tt-cb-out',fmt(Cb(),2)+' M');setText('tt-v-out',fmt(v,2)+' mL');setText('tt-ph',fmt(ph(v),2));setText('tt-where',where(v));setText('tt-ve',fmt(ve,2)+' mL');setText('tt-pe',fmt(pe,2));
+    setText('tt-ph2',a.kind==='wa'||a.kind==='wb'?fmt(ph(ve/2),2):'—');if(!fromStep)sim.render();gs.render();}
+  [an,ind].forEach(e=>e.addEventListener('change',()=>{vS.value=0;drip=false;$('#tt-drip').textContent='Drip';upd();}));['tt-ca','tt-cb'].forEach(id=>bindRange(id,()=>'',()=>{upd();},false));bindRange('tt-v',()=>'',()=>{drip=false;upd();},false);
+  $('#tt-drip').addEventListener('click',()=>{if(+vS.value>=50)vS.value=0;drip=!drip;$('#tt-drip').textContent=drip?'Pause':'Drip';upd(true);sim.render();});$('#tt-lab').addEventListener('labreset',()=>{vS.value=0;drip=false;$('#tt-drip').textContent='Drip';upd();});
+  fillP(cv.clientWidth||300);upd();drawers.titration=upd;
+  TIPS['tt-an']='A strong acid, a weak acid, a weak base and a strong base each give a different curve.';
+  TIPS['tt-ca']='More concentrated flask contents need more titrant, so equivalence moves right.';
+  TIPS['tt-cb']='A more concentrated titrant reaches equivalence sooner.';
+  TIPS['tt-ind']='A good indicator changes color across the steep part of the curve, where the pH jumps.';
+  TIPS['tt-v']='Drag the volume and watch the pH, the particles and the dot on the curve.';
+  KEYS['tt-canvas']=['Press Drip, or drag the volume slider.',[['hot','indicator range on the curve']]];
+  GLOSS['titration']='Adding a solution of known concentration to another until the reaction is exactly complete.';
+  GLOSS['equivalence point']='The point where moles of titrant added exactly equal the moles of analyte present.';
+  GLOSS['indicator']='A weak acid or base whose color changes over a narrow pH range.';
+  GLOSS['buffer region']='The part of a weak-acid titration where HA and A⁻ are both present and the pH changes slowly.';
+  GLOSS['half-equivalence']='The point where half of the weak acid has been neutralized: [HA] = [A⁻], so pH = pKa.';
+  TT.titration='Have students sketch the curve for each analyte before running it, then label the buffer region and half-equivalence point.';
+})();
+(function(){
+  const pKa=K=>-Math.log10(K);const AC=[['CH₃COOH',1.8e-5],['HF',6.8e-4],['HNO₂',4.5e-4],['HCOOH',1.8e-4],['HClO',3.0e-8]];
+  PROBS.push({id:'tit-V',topic:'titration',title:'Volume at equivalence',gen(){const k=pick([['HCl',1,'NaOH'],['CH₃COOH',1,'NaOH'],['H₂SO₄',2,'NaOH'],['HNO₃',1,'KOH'],['HCl',1,'Ba(OH)₂']]),Ca=pick([.100,.150,.250,.0800]),Va=pick([20.0,25.0,40.0,50.0]),Cb=pick([.100,.200,.125,.150]),nb=k[2]==='Ba(OH)₂'?2:1,V=Ca*Va*k[1]/(Cb*nb);
+    return {q:`What volume of ${fmt(Cb,3)} M ${k[2]} is needed to reach the equivalence point with ${fmt(Va,1)} mL of ${fmt(Ca,3)} M ${k[0]}?`,ans:V,unit:'mL',tol:.01,hint:'Moles of H⁺ supplied must equal moles of OH⁻ supplied. Watch for acids or bases that give 2 per formula unit.',sol:`n(H⁺) = ${fmt(Ca*Va,3)} mmol × ${k[1]} = ${fmt(Ca*Va*k[1],3)} mmol; V = ${fmt(Ca*Va*k[1],3)} / (${fmt(Cb,3)} × ${nb}) = <b>${fmt(V,2)} mL</b>.`};}});
+  PROBS.push({id:'tit-conc',topic:'titration',title:'Unknown concentration from a titration',gen(){const Va=pick([10.0,20.0,25.0]),Cb=pick([.100,.0500,.1500]),Ve=pick([12.4,18.6,22.3,27.8,33.1]),Ca=Cb*Ve/Va;
+    return {q:`A ${fmt(Va,1)} mL sample of HCl of unknown concentration requires ${fmt(Ve,1)} mL of ${fmt(Cb,4)} M NaOH to reach the endpoint. What is the concentration of the HCl?`,ans:Ca,unit:'M',tol:.01,hint:'n(base) = C × V at the endpoint. Acid and base react 1:1.',sol:`n(OH⁻) = ${fmt(Cb,4)} × ${fmt(Ve,1)} = ${fmt(Cb*Ve,3)} mmol = n(H⁺); C = ${fmt(Cb*Ve,3)}/${fmt(Va,1)} = <b>${fmt(Ca,4)} M</b>.`};}});
+  PROBS.push({id:'tit-strong',topic:'titration',title:'pH during a strong-strong titration',gen(){const Ca=pick([.100,.200]),Va=pick([25.0,50.0]),Cb=Ca,Ve=Va;let Vb;const pts=[.2,.5,.8,1.25,1.5];const f=pick(pts);Vb=Va*f;const nA=Ca*Va,nB=Cb*Vb,Vt=Va+Vb,ex=nA-nB,ph=ex>0?-Math.log10(ex/Vt):14+Math.log10(-ex/Vt);
+    return {q:`${fmt(Va,1)} mL of ${fmt(Ca,3)} M HCl is titrated with ${fmt(Cb,3)} M NaOH. What is the pH after ${fmt(Vb,1)} mL of NaOH has been added?`,ans:ph,unit:'',abs:.03,hint:'Find the moles of H⁺ and OH⁻; subtract; divide the leftover by the total volume; convert to pH.',sol:`n(H⁺) = ${fmt(nA,2)} mmol, n(OH⁻) = ${fmt(nB,2)} mmol. Excess ${ex>0?'H⁺':'OH⁻'} = ${fmt(Math.abs(ex),2)} mmol in ${fmt(Vt,1)} mL = ${sci(Math.abs(ex)/Vt,3)} M, so pH = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'tit-half',topic:'titration',title:'Half-equivalence point',gen(){const [n,K]=pick(AC);
+    return {q:`A solution of ${n} (K<sub>a</sub> = ${sci(K,2)}) is titrated with NaOH. What is the pH at the half-equivalence point?`,ans:pKa(K),unit:'',abs:.03,hint:'At half-equivalence [HA] = [A⁻], so the log term in Henderson–Hasselbalch is zero.',sol:`pH = pK<sub>a</sub> = −log(${sci(K,2)}) = <b>${fmt(pKa(K),2)}</b>.`};}});
+  PROBS.push({id:'tit-buffer',topic:'titration',title:'pH in the buffer region',gen(){const [n,K]=pick(AC),Ca=pick([.100,.200]),Va=pick([25.0,50.0]),f=pick([.2,.3,.4,.6,.7,.8]),Cb=Ca,Vb=Va*f,nHA=Ca*Va-Cb*Vb,nA=Cb*Vb,ph=pKa(K)+Math.log10(nA/nHA);
+    return {q:`${fmt(Va,1)} mL of ${fmt(Ca,3)} M ${n} (K<sub>a</sub> = ${sci(K,2)}) is titrated with ${fmt(Cb,3)} M NaOH. What is the pH after ${fmt(Vb,1)} mL of NaOH has been added?`,ans:ph,unit:'',abs:.03,hint:'Before equivalence the mixture is a buffer: find moles of HA left and A⁻ made, then use pH = pKa + log(A⁻/HA).',sol:`n(HA) left = ${fmt(Ca*Va,2)} − ${fmt(Cb*Vb,2)} = ${fmt(nHA,2)} mmol; n(A⁻) = ${fmt(nA,2)} mmol. pH = ${fmt(pKa(K),2)} + log(${fmt(nA,2)}/${fmt(nHA,2)}) = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'tit-eq',topic:'titration',title:'pH at the equivalence point',gen(){const [n,K]=pick(AC.filter(x=>x[1]<1e-3)),Ca=pick([.100,.200]),Va=pick([25.0,50.0]),Cb=Ca,Vt=Va+Va*Ca/Cb,cA=Ca*Va/Vt,Kb=1e-14/K,x=Math.sqrt(Kb*cA),ph=14+Math.log10(x);
+    return {q:`${fmt(Va,1)} mL of ${fmt(Ca,3)} M ${n} (K<sub>a</sub> = ${sci(K,2)}) is titrated to the equivalence point with ${fmt(Cb,3)} M NaOH. What is the pH at equivalence?`,ans:ph,unit:'',abs:.04,hint:'At equivalence only the conjugate base A⁻ remains. Find its concentration (total volume!), then Kb = Kw/Ka and [OH⁻] = √(Kb·c).',sol:`[A⁻] = ${fmt(Ca*Va,2)} mmol / ${fmt(Vt,1)} mL = ${fmt(cA,4)} M; K<sub>b</sub> = ${sci(Kb,2)}; [OH⁻] = √(${sci(Kb,2)} × ${fmt(cA,4)}) = ${sci(x,2)} M; pOH = ${fmt(-Math.log10(x),2)}, pH = <b>${fmt(ph,2)}</b>.`};}});
+  const IN=[['methyl orange',3.1,4.4],['methyl red',4.4,6.2],['bromothymol blue',6.0,7.6],['phenolphthalein',8.2,10.0]];
+  PROBS.push({id:'tit-ind',topic:'titration',title:'Choose an indicator',gen(){const opts=[['a strong acid with a strong base',7.0,2],['acetic acid with NaOH',8.7,3],['ammonia with HCl',5.3,1]],[nm,pe,ai]=pick(opts),ch=IN.map(i=>`${i[0]} (${i[1]}–${i[2]})`);
+    return {q:`The equivalence point of the titration of ${nm} has a pH of about ${pe}. Which indicator is the best choice?`,choices:ch,ans:ai,hint:'Choose the indicator whose color-change range includes the pH at equivalence.',sol:`The best choice is <b>${ch[ai]}</b>: its range contains pH ${pe}.`};}});
+})();
+
+/* ===== modules/buffers.js ===== */
+
+/* ---------------- Buffers ---------------- */
+const BFP=[{n:'CH₃COOH / CH₃COO⁻',pKa:-Math.log10(1.8e-5),Ka:1.8e-5,ha:'CH₃COOH',a:'CH₃COO⁻'},{n:'HF / F⁻',Ka:6.8e-4,pKa:-Math.log10(6.8e-4),ha:'HF',a:'F⁻'},{n:'HClO / ClO⁻',Ka:3.0e-8,pKa:-Math.log10(3.0e-8),ha:'HClO',a:'ClO⁻'},{n:'NH₄⁺ / NH₃',Ka:5.6e-10,pKa:-Math.log10(5.6e-10),ha:'NH₄⁺',a:'NH₃'},{n:'H₂PO₄⁻ / HPO₄²⁻',Ka:6.2e-8,pKa:-Math.log10(6.2e-8),ha:'H₂PO₄⁻',a:'HPO₄²⁻'}];
+function bfPH(Ka,nHA,nA,addMol,V){/* addMol>0 strong base, <0 strong acid (moles); V in L */const Ct=(nHA+nA)/V,Na=(nA+Math.max(addMol,0))/V,Cl=Math.max(-addMol,0)/V,Kw=1e-14;const f=h=>Na+h-Kw/h-Cl-Ct*Ka/(Ka+h);let lo=1e-15,hi=10;for(let i=0;i<200;i++){const m=Math.sqrt(lo*hi);f(m)<0?lo=m:hi=m;}return -Math.log10(Math.sqrt(lo*hi));}
+function bfWater(addMol,V){const c=Math.abs(addMol)/V;if(addMol===0)return 7;const h=phExact(c,addMol<0?'acid':'base',1e-14);return -Math.log10(h);}
+(function buffers(){
+  const cv=$('#bf-canvas');if(!cv)return;const pS=$('#bf-pair'),cS=$('#bf-ct'),rS=$('#bf-r'),aS=$('#bf-add');pS.innerHTML=BFP.map((p,i)=>`<option value="${i}">${p.n}  (pKa ${fmt(p.pKa,2)})</option>`).join('');
+  const H=260,V=1;let P=[],Q=[];const cur=()=>{const p=BFP[+pS.value],Ct=Math.pow(10,+cS.value),r=Math.pow(10,+rS.value),nHA=Ct/(1+r),nA=Ct-nHA,add=+aS.value/1000;return {p,Ct,r,nHA,nA,add,ph:bfPH(p.Ka,nHA,nA,add,V),ph0:bfPH(p.Ka,nHA,nA,0,V),pw:bfWater(add,V)};};
+  const mk=w=>({x:12+Math.random()*(w-24),y:20+Math.random()*(H-60),vx:(Math.random()-.5)*50,vy:(Math.random()-.5)*50});
+  const ensure=()=>{if(!P.length){const hw=(cv.clientWidth||300)/2-8;for(let i=0;i<50;i++){P.push(mk(hw));Q.push(mk(hw));}}};
+  const sim=sim2d(cv,{h:()=>H+20,step(dt){const hw=cv.clientWidth/2-8;ensure();[...P,...Q].forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<10||p.x>hw-10)p.vx*=-1;if(p.y<20||p.y>H-12)p.vy*=-1;p.x=clamp(p.x,10,hw-10);p.y=clamp(p.y,20,H-12);});},
+    draw(ctx,w,h){ensure();const s=cur(),hw=w/2-8,N=50;[0,1].forEach(k=>{const ox=k?w/2+8:0;ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(ox+1,1,hw,H);const ph=k?s.pw:s.ph;const t=clamp(ph/14,0,1);ctx.fillStyle=`rgba(${Math.round(230-190*t)},${Math.round(80+60*t)},${Math.round(80+160*t)},.14)`;ctx.fillRect(ox+2,2,hw-2,H-2);label(ctx,(k?'plain water':'buffer')+' · pH '+fmt(ph,2),ox+8,12,T.ink,'left','middle','600 12px "IBM Plex Mono",monospace');});
+      /* buffer particles: counts proportional to moles (relative to initial total) */
+      const tot=s.nHA+s.nA,nHA=s.nHA+Math.max(-s.add,0)-Math.max(s.add,0),nA=s.nA-Math.max(-s.add,0)+Math.max(s.add,0),sc=N/tot;
+      const cHA=clamp(Math.round(Math.max(nHA,0)*sc),0,N*2),cA=clamp(Math.round(Math.max(nA,0)*sc),0,N*2);let i=0;
+      for(let j=0;j<cHA;j++){const p=P[i++%P.length];ball2(ctx,p.x-3,p.y,6.5,'#9FB6CC');ball2(ctx,p.x+6,p.y,3.6,'#EEF1F5','rgba(0,0,0,.4)');}for(let j=0;j<cA;j++){const p=P[i++%P.length];ball2(ctx,p.x,p.y,6,'#8B5CF6');}
+      const exA=Math.max(-s.add-s.nA,0),exB=Math.max(s.add-s.nHA,0);
+      /* plain water: H3O+/OH- counts on log scale */
+      const hw0=Math.pow(10,-s.pw),ohw=Math.pow(10,s.pw-14),nH=clamp(Math.round(Math.log10(hw0*1e9+1)*5),0,40),nO=clamp(Math.round(Math.log10(ohw*1e9+1)*5),0,40);
+      for(let j=0;j<nH;j++){const p=Q[j%Q.length];ball2(ctx,w/2+8+p.x,p.y,5,'#3E7BDC');}for(let j=0;j<nO;j++){const p=Q[(j+25)%Q.length];ball2(ctx,w/2+8+p.x,p.y,5,'#E5484D');}
+      label(ctx,'HA (gray) · A⁻ (violet)',8,H+10,T.muted,'left','middle',MONO);label(ctx,'H₃O⁺ (blue) · OH⁻ (red)',w/2+16,H+10,T.muted,'left','middle',MONO);}});
+  const g=$('#bf-graph'),gs=sim2d(g,{h:()=>H+20,draw(ctx,w,h){const s=cur(),Pn=panel(ctx,{x:44,y:12,w:w-58,h:h-48},[-.1,.1],[0,14],{xn:4,yn:7,xlabel:'strong base added (mol); acid is negative',ylabel:'pH',color:T.ink});
+      curve(ctx,Pn,x=>bfWater(x,V),-.1,.1,T.hot,2.2,200,[6,4]);curve(ctx,Pn,x=>bfPH(s.p.Ka,s.nHA,s.nA,x,V),-.1,.1,T.cx,2.8,200);
+      dot(ctx,Pn.X(s.add),Pn.Y(s.ph),6,T.ink);dot(ctx,Pn.X(s.add),Pn.Y(s.pw),5,T.ca);label(ctx,'buffer',Pn.box.x+70,Pn.box.y+12,T.cx,'left','middle',MONO);label(ctx,'plain water (dashed)',Pn.box.x+70,Pn.box.y+26,T.hot,'left','middle',MONO);}});
+  function upd(){const s=cur(),d=s.ph-s.ph0;setText('bf-ct-out',fmt(s.Ct,3)+' M');setText('bf-r-out',fmt(s.r,2)+':1');setText('bf-add-out',(s.add>=0?'+':'−')+fmt(Math.abs(s.add),3)+' mol '+(s.add>=0?'base':s.add<0?'acid':''));
+    setText('bf-ph',fmt(s.ph,2));setText('bf-pw',fmt(s.pw,2));setText('bf-d',(d>=0?'+':'−')+fmt(Math.abs(d),2));
+    const hA=s.nHA+Math.max(-s.add,0)-Math.max(s.add,0),aA=s.nA-Math.max(-s.add,0)+Math.max(s.add,0);setText('bf-left',fmt(Math.max(hA,0)*1000,0)+' / '+fmt(Math.max(aA,0)*1000,0));
+    $('#bf-note').textContent=(s.add<0&&-s.add>s.nA)||(s.add>0&&s.add>s.nHA)?'The buffer is exhausted: one component has run out, so the pH now behaves like a strong acid or base.':`pH = pKa ${s.r>=1?'+':'−'} ... = ${fmt(s.p.pKa,2)} + log(${fmt(Math.max(aA,1e-9)*1000,0)}/${fmt(Math.max(hA,1e-9)*1000,0)}) = ${fmt(s.p.pKa+Math.log10(Math.max(aA,1e-9)/Math.max(hA,1e-9)),2)} (Henderson–Hasselbalch). It resists the change by converting the strong acid or base into its weak partner.`;sim.render();gs.render();}
+  pS.addEventListener('change',upd);['bf-ct','bf-r','bf-add'].forEach(id=>bindRange(id,()=>'',upd,false));$('#bf-lab').addEventListener('labreset',upd);upd();
+  /* pick a buffer */
+  const bc=$('#pb-canvas'),bph=$('#pb-ph');
+  const bsim=sim2d(bc,{h:()=>200,draw(ctx,w,h){const x0=30,x1=w-20,X=p=>x0+(x1-x0)*(p-0)/14,t=+bph.value;ctx.strokeStyle=T.muted;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,h-34);ctx.lineTo(x1,h-34);ctx.stroke();for(let p=0;p<=14;p+=2){label(ctx,String(p),X(p),h-18,T.muted,'center','middle',MONO);}
+      BFP.forEach((b,i)=>{const y=16+i*28,lo=b.pKa-1,hi=b.pKa+1;const ok=t>=lo&&t<=hi;ctx.fillStyle=alpha(ok?'#2FA36B':'#9FB6CC',ok?.7:.45);ctx.fillRect(X(lo),y,X(hi)-X(lo),18);dot(ctx,X(b.pKa),y+9,4,T.ink);label(ctx,b.n.split(' ')[0]+' (pKa '+fmt(b.pKa,2)+')',X(hi)+6<w-120?X(hi)+6:X(lo)-6,y+9,T.ink,X(hi)+6<w-120?'left':'right','middle',MONO);});
+      ctx.strokeStyle=T.hot;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(X(t),6);ctx.lineTo(X(t),h-34);ctx.stroke();label(ctx,'target '+fmt(t,1),X(t),h-4,T.hot,'center','middle',MONO);}});
+  function bupd(){const t=+bph.value;setText('pb-ph-out',fmt(t,1));const best=BFP.slice().sort((a,b)=>Math.abs(a.pKa-t)-Math.abs(b.pKa-t))[0],r=Math.pow(10,t-best.pKa);
+    $('#pb-note').innerHTML=Math.abs(best.pKa-t)<=1?`Best choice here: <b>${best.n}</b> (pK<sub>a</sub> ${fmt(best.pKa,2)}). Use [A⁻]/[HA] = 10<sup>${fmt(t,1)} − ${fmt(best.pKa,2)}</sup> = <b>${fmt(r,2)}</b>. (Closeness of pK<sub>a</sub> is the chemistry criterion; real buffers also depend on safety and compatibility. Phosphate is the usual choice near pH 7.4.)`:`None of these pairs is within one unit of pH ${fmt(t,1)}. Closest is ${best.n} (pK<sub>a</sub> ${fmt(best.pKa,2)}), but its ratio would be ${r>=1?fmt(r,0):'1:'+fmt(1/r,0)}: too lopsided to buffer well.`;bsim.render();}
+  bindRange('pb-ph',()=>'',bupd,false);bupd();drawers.buffers=()=>{upd();bupd();};
+  TIPS['bf-pair']='The pKa of the pair sets where the buffer works best.';
+  TIPS['bf-ct']='More concentrated buffer: more capacity, same pH.';
+  TIPS['bf-r']='The ratio of base to acid sets the pH, via Henderson–Hasselbalch.';
+  TIPS['bf-add']='Slide left to add strong acid, right to add strong base. Watch the two beakers.';
+  TIPS['pb-ph']='A buffer works within about one pH unit of its pKa.';
+  KEYS['bf-canvas']=['Slide the strong acid or base control and compare the two beakers.',[['#9FB6CC','HA'],['#8B5CF6','A⁻']]];
+  GLOSS['buffer']='A solution containing a weak acid and its conjugate base (or a weak base and its conjugate acid) that resists changes in pH.';
+  GLOSS['Henderson–Hasselbalch']='pH = pKa + log([A⁻]/[HA]), the buffer pH equation.';
+  GLOSS['buffer capacity']='How much strong acid or base a buffer can absorb before its pH changes sharply.';
+  TT.buffers='Do the stoichiometry-then-equilibrium sequence out loud: react, then Henderson–Hasselbalch. It is the most common source of lost points.';
+})();
+(function(){
+  const SALT={'CH₃COOH / CH₃COO⁻':['NaCH₃COO',82.03],'HF / F⁻':['NaF',41.99],'HClO / ClO⁻':['NaClO',74.44],'NH₄⁺ / NH₃':['NH₄Cl',53.49]};
+  PROBS.push({id:'buf-HH',topic:'buffers',title:'pH of a buffer',gen(){const p=pick(BFP.slice(0,4)),ha=pick([.10,.20,.30,.50]),a=pick([.10,.15,.25,.40,.60]),ph=p.pKa+Math.log10(a/ha);
+    return {q:`A buffer is made with ${fmt(ha,2)} M ${p.ha} and ${fmt(a,2)} M ${p.a} (K<sub>a</sub> of ${p.ha} = ${sci(p.Ka,2)}). What is its pH?`,ans:ph,unit:'',abs:.03,hint:'Henderson–Hasselbalch: pH = pKa + log([base]/[acid]).',sol:`pK<sub>a</sub> = ${fmt(p.pKa,2)}; pH = ${fmt(p.pKa,2)} + log(${fmt(a,2)}/${fmt(ha,2)}) = <b>${fmt(ph,2)}</b>.`};}});
+  PROBS.push({id:'buf-add',topic:'buffers',title:'pH after adding strong acid or base',gen(){const p=pick(BFP.slice(0,4)),V=pick([.500,1.00,.250]),ha=pick([.20,.30,.40]),a=pick([.20,.30,.40]),n=pick([.0050,.010,.020]),acid=Math.random()<.5,nHA=ha*V,nA=a*V;const nH2=acid?nHA+n:nHA-n,nA2=acid?nA-n:nA+n,ok=nH2>0&&nA2>0;
+    const ph=p.pKa+Math.log10(nA2/nH2);return ok?{q:`${fmt(V*1000,0)} mL of a buffer contains ${fmt(ha,2)} M ${p.ha} and ${fmt(a,2)} M ${p.a} (pK<sub>a</sub> = ${fmt(p.pKa,2)}). What is the pH after ${fmt(n,4)} mol of ${acid?'HCl':'NaOH'} is added? (Ignore the volume change.)`,ans:ph,unit:'',abs:.03,hint:`Strong ${acid?'acid':'base'} reacts completely with the ${acid?p.a:p.ha}: ${acid?'A⁻ → HA':'HA → A⁻'}. Update the moles, then use Henderson–Hasselbalch.`,sol:`Moles before: ${p.ha} ${fmt(nHA,4)}, ${p.a} ${fmt(nA,4)}. After: ${p.ha} ${fmt(nH2,4)}, ${p.a} ${fmt(nA2,4)}. pH = ${fmt(p.pKa,2)} + log(${fmt(nA2,4)}/${fmt(nH2,4)}) = <b>${fmt(ph,2)}</b>.`}:this.gen();}});
+  PROBS.push({id:'buf-ratio',topic:'buffers',title:'Ratio needed for a target pH',gen(){const p=pick(BFP.slice(0,4)),t=+(p.pKa+pick([-.8,-.5,-.3,.3,.5,.9])).toFixed(1),r=Math.pow(10,t-p.pKa);
+    return {q:`What ratio [${p.a}]/[${p.ha}] gives a buffer of pH ${fmt(t,1)}? (pK<sub>a</sub> of ${p.ha} = ${fmt(p.pKa,2)})`,ans:r,unit:'',tol:.03,hint:'Rearrange: [base]/[acid] = 10^(pH − pKa).',sol:`10<sup>${fmt(t,1)} − ${fmt(p.pKa,2)}</sup> = <b>${fmt(r,2)}</b>.`};}});
+  PROBS.push({id:'buf-which',topic:'buffers',title:'Best buffer for a pH',gen(){const t=pick([3.4,4.5,5.2,7.2,7.6,9.0,9.5]),sorted=BFP.slice().sort((a,b)=>Math.abs(a.pKa-t)-Math.abs(b.pKa-t)),best=sorted[0],ch=BFP.map(b=>`${b.n} (pKa ${fmt(b.pKa,2)})`);const names=BFP.slice(0,4).concat([BFP[4]]);
+    return {q:`Which conjugate pair is the best choice for preparing a buffer at pH ${fmt(t,1)}?`,choices:ch,ans:BFP.indexOf(best),hint:'Choose the pair whose pKa is closest to the target pH.',sol:`<b>${best.n}</b> has pK<sub>a</sub> ${fmt(best.pKa,2)}, the closest to ${fmt(t,1)}.`};}});
+  PROBS.push({id:'buf-prep',topic:'buffers',title:'Mass of salt to make a buffer',gen(){const k=pick(Object.keys(SALT)),p=BFP.find(b=>b.n===k),[sn,M]=SALT[k],V=pick([.250,.500,1.00]),c=pick([.20,.30,.50]),t=+(p.pKa+pick([-.3,.2,.4,.5])).toFixed(2),r=Math.pow(10,t-p.pKa);
+    const base=k.startsWith('NH₄');const nHA=c*V,nA=nHA*r,m=nA*M;
+    return base?{q:`How many grams of NH₄Cl (53.49 g/mol) must be added to ${fmt(V*1000,0)} mL of ${fmt(c,2)} M NH₃ to make a buffer of pH ${fmt(t,2)}? (pK<sub>a</sub> of NH₄⁺ = ${fmt(p.pKa,2)}; ignore volume change.)`,ans:(c*V*Math.pow(10,p.pKa-t))*53.49,unit:'g',tol:.03,hint:'For NH₃/NH₄⁺, [NH₄⁺]/[NH₃] = 10^(pKa − pH).',sol:`ratio [NH₄⁺]/[NH₃] = 10<sup>${fmt(p.pKa,2)} − ${fmt(t,2)}</sup> = ${fmt(Math.pow(10,p.pKa-t),3)}; n(NH₄⁺) = ${fmt(c*V*Math.pow(10,p.pKa-t),4)} mol; mass = <b>${fmt((c*V*Math.pow(10,p.pKa-t))*53.49,2)} g</b>.`}:{q:`How many grams of ${sn} (${M} g/mol) must be added to ${fmt(V*1000,0)} mL of ${fmt(c,2)} M ${p.ha} to make a buffer of pH ${fmt(t,2)}? (pK<sub>a</sub> = ${fmt(p.pKa,2)}; ignore volume change.)`,ans:m,unit:'g',tol:.03,hint:'[A⁻]/[HA] = 10^(pH − pKa). Then moles of A⁻ × molar mass.',sol:`ratio = 10<sup>${fmt(t,2)} − ${fmt(p.pKa,2)}</sup> = ${fmt(r,3)}; n(A⁻) = ${fmt(r,3)} × ${fmt(nHA,4)} = ${fmt(nA,4)} mol; mass = <b>${fmt(m,2)} g</b>.`};}});
+  const BQ=[['CH₃COOH and NaCH₃COO',true],['NH₃ and NH₄Cl',true],['HF and NaF',true],['HCl and NaCl',false],['NaOH and NaNO₃',false],['HNO₃ and KNO₃',false],['NaCl and NaOH',false],['H₂CO₃ and NaHCO₃',true]];
+  PROBS.push({id:'buf-concept',topic:'buffers',title:'Which mixture is a buffer?',gen(){const good=pick(BQ.filter(x=>x[1])),bad=BQ.filter(x=>!x[1]).sort(()=>Math.random()-.5).slice(0,3),i=Math.floor(Math.random()*4),arr=bad.map(x=>x[0]);arr.splice(i,0,good[0]);
+    return {q:'Which of these mixtures (equal volumes of equal concentrations) will act as a buffer?',choices:arr,ans:i,hint:'A buffer needs a weak acid and its conjugate base (or a weak base and its conjugate acid), both present.',sol:`<b>${good[0]}</b> contains a weak acid/base and its conjugate partner; the others contain a strong acid or base or lack a conjugate pair.`};}});
 })();
 
 /* ===== overview.js ===== */
