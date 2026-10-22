@@ -1,0 +1,4 @@
+function reviewGet(){return store('chem-review')||{};}
+function reviewMiss(id){const r=reviewGet();const e=r[id]||{n:0,streak:0};e.n++;e.streak=0;e.due=Date.now();r[id]=e;store('chem-review',r);reviewBadge();}
+function reviewHit(id){const r=reviewGet();const e=r[id];if(!e)return 'none';e.streak++;let res;if(e.streak>=3){delete r[id];res='mastered';}else{e.due=Date.now()+[1,3,7][e.streak-1]*864e5;r[id]=e;res=e.streak;}store('chem-review',r);reviewBadge();return res;}
+function reviewBadge(){const r=reviewGet(),now=Date.now(),due=Object.keys(r).filter(k=>r[k].due<=now&&PROBS.some(p=>p.id===k)).length;const a=$('#nav a[data-view=review]');if(a)a.textContent='Review my mistakes'+(due?` (${due} due)`:'');const o=$('#navsel option[value=review]');if(o)o.textContent=a?a.textContent:o.textContent;}

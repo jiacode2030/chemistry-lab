@@ -1,0 +1,109 @@
+  <section class="view" id="v-vsepr" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 2</span><span class="tag">3D</span></div>
+        <h1>VSEPR shapes &amp; polarity</h1>
+        <p class="lede">Electron clouds repel each other, so they spread out as far as they can in three dimensions. The shape of a molecule is the arrangement of the atoms sitting in that spread-out cloud.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Tie two balloons together by their knots and they point in opposite directions. Tie three and they make a flat triangle. Tie four and they form a pyramid with a triangular base, a <b>tetrahedron</b>. Nothing holds them in that shape except that each balloon pushes on the others.</p>
+        <p>Around a central atom, every <b>region of electron density</b> is a balloon: a bond (single, double or triple, they all count as one region) or a lone pair. Negative charges repel, so the regions spread out. Then you name the shape using only the atoms, because the lone pairs are invisible in the final shape but they still take up room.</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>a Lewis structure showed which atoms are joined, drawn flat on paper</dd><dt>So we didn't need</dt><dd>the third dimension, or any angles</dd><dt>Now</dt><dd>molecules are 3D, and their shape decides properties like polarity</dd><dt>So we need</dt><dd>to count regions of electron density around the central atom and spread them out in space</dd></dl></div>
+
+      <div class="lab" id="vb-lab">
+        <div class="labbar"><span class="title">Tie the balloons</span><div class="row"><button type="button" class="btn primary" id="vb-shake">Shake them up</button></div></div>
+        <canvas id="vb-canvas" aria-label="3D view of balloons tied together at a central knot, pushing apart. Drag to rotate."></canvas>
+        <div class="controls">
+          <div class="ctl"><label for="vb-n"><span>Number of balloons</span> <output id="vb-n-out"></output></label><input type="range" id="vb-n" min="2" max="6" step="1" value="4"></div>
+          <div class="toggles"><label class="check"><input type="checkbox" id="vb-angle" checked> Show the angle</label><label class="check"><input type="checkbox" id="vb-hull"> Show the outline</label></div>
+        </div>
+        <div class="readout">
+          <div><span>Balloons</span><strong id="vb-r-n">—</strong></div>
+          <div><span>Angle between neighbors</span><strong class="v" id="vb-r-ang" style="white-space:normal;font-size:15px">—</strong></div>
+          <div><span>Shape</span><strong id="vb-r-shape" style="white-space:normal;font-size:15px">—</strong></div>
+        </div>
+        <p class="small" style="margin:0">Each balloon pushes on every other balloon, harder when they are close (the push goes as 1/r²). The balloons slide over the surface of a sphere until the pushes balance. Five and six balloons go beyond what many courses ask; check yours.</p>
+      </div>
+
+      <div class="lab" id="vm-lab">
+        <div class="labbar"><span class="title">Build the molecule</span><div class="row"><button type="button" class="btn primary" id="vm-shake">Jiggle it</button></div></div>
+        <div class="ctl"><label for="vm-mol"><span>Pick a molecule or ion</span></label>
+          <select id="vm-mol" aria-label="Molecule"></select></div>
+        <p class="molname" id="vm-name"></p>
+        <canvas id="vm-canvas" aria-label="3D ball-and-stick model of the chosen molecule with its regions of electron density. Drag to rotate."></canvas>
+        <div class="atomkey" id="vm-key" aria-label="Atom colors"></div>
+        <div class="toggles">
+          <label class="check"><input type="checkbox" id="vm-dom" checked> Show regions of electron density</label>
+          <label class="check"><input type="checkbox" id="vm-ang"> Show a bond angle</label>
+          <label class="check"><input type="checkbox" id="vm-dip"> Show bond dipoles</label>
+          <label class="check"><input type="checkbox" id="vm-chg"> Show partial charges</label>
+          <button type="button" class="btn link" id="vm-next">Next angle</button>
+        </div>
+        <div class="readout">
+          <div><span>Regions (bonded + lone)</span><strong id="vm-r-axe" style="white-space:normal;font-size:15px">—</strong></div>
+          <div><span>Electron geometry</span><strong id="vm-r-eg" style="white-space:normal;font-size:15px">—</strong></div>
+          <div><span>Molecular shape</span><strong class="v" id="vm-r-shape" style="white-space:normal;font-size:15px">—</strong></div>
+          <div><span>Bond angle (measured)</span><strong id="vm-r-txt" style="white-space:normal;font-size:15px">—</strong></div>
+          <div><span>Angle in this model</span><strong id="vm-r-model">—</strong></div>
+          <div><span>Polarity</span><strong id="vm-r-pol" style="white-space:normal;font-size:15px">—</strong></div>
+        </div>
+        <p class="small" id="vm-info" style="margin:0"></p>
+      </div>
+
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Four balloons make a tetrahedron. What angle do you expect between neighbors? <button type="button" class="btn link" data-show='[["#vb-n",4],["#vb-angle",true],["click","#vb-shake"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>About 109.5°. The four balloons end up pointing to the corners of a tetrahedron, no matter how you shake them first.</p></details></li>
+        <li><p>Water has four regions of electron density, like methane, but two of them are lone pairs. Compare methane with water. <button type="button" class="btn link" data-show='[["#vm-mol","ch4"],["#vm-dom",true],["#vm-ang",true]]'>Show methane</button> <button type="button" class="btn link" data-show='[["#vm-mol","h2o"],["#vm-dom",true],["#vm-ang",true]]'>Show water</button></p><details><summary>What you should see</summary><p>Methane is tetrahedral, 109.5°. In water the two fatter gold lone-pair balloons push the two bonds closer: about 104.5°. The <i>electron geometry</i> is still tetrahedral, but the <i>molecular shape</i> (atoms only) is bent.</p></details></li>
+        <li><p>Carbon dioxide has polar bonds. Is the molecule polar? Turn on the bond dipoles. <button type="button" class="btn link" data-show='[["#vm-mol","co2"],["#vm-dip",true],["#vm-dom",false]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Each C=O bond dipole points toward oxygen, but the two arrows point in opposite directions and cancel. CO₂ is nonpolar. Now show SO₂ and compare: bent, so the dipoles do not cancel.</p></details></li>
+        <li><p>Is a symmetric molecule always nonpolar? Compare CCl₄ with CH₂Cl₂. <button type="button" class="btn link" data-show='[["#vm-mol","ccl4"],["#vm-dip",true]]'>Show CCl₄</button> <button type="button" class="btn link" data-show='[["#vm-mol","ch2cl2"],["#vm-dip",true]]'>Show CH₂Cl₂</button></p><details><summary>What you should see</summary><p>Both are tetrahedral. In CCl₄ all four dipoles are identical and cancel. In CH₂Cl₂ the two C–Cl dipoles are bigger than the two C–H dipoles, so there is a leftover net dipole: polar.</p></details></li>
+      </ol></div>
+
+      <div class="example"><h3>Worked example</h3><p class="prob">Predict the electron geometry, the molecular shape, the approximate bond angle and the polarity of SO₂.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exgrid"><div class="figs"><figure class="lewisfig" style="margin:0;background:var(--sunk);border-radius:10px;padding:8px">
+          <svg viewBox="0 0 260 150" role="img" aria-label="Lewis structure of sulfur dioxide: oxygen double bonded to sulfur, sulfur single bonded to the other oxygen, lone pair on sulfur" style="display:block;width:100%;max-width:260px;margin:0 auto">
+            <g style="font:700 24px 'IBM Plex Sans',system-ui,sans-serif;fill:var(--ink)" text-anchor="middle"><text x="130" y="92">S</text><text x="52" y="124">O</text><text x="208" y="124">O</text></g>
+            <g style="stroke:var(--ink);stroke-width:2.4;stroke-linecap:round"><line x1="70" y1="106" x2="112" y2="84"/><line x1="73" y1="113" x2="115" y2="91"/><line x1="148" y1="84" x2="190" y2="106"/></g>
+            <g style="fill:var(--ce)"><circle cx="124" cy="52" r="3.4"/><circle cx="136" cy="52" r="3.4"/><circle cx="26" cy="112" r="3.2"/><circle cx="26" cy="124" r="3.2"/><circle cx="40" cy="146" r="3.2"/><circle cx="52" cy="146" r="3.2"/><circle cx="228" cy="112" r="3.2"/><circle cx="228" cy="124" r="3.2"/><circle cx="208" cy="146" r="3.2"/><circle cx="220" cy="146" r="3.2"/><circle cx="208" cy="100" r="3.2"/><circle cx="220" cy="100" r="3.2"/></g>
+          </svg><figcaption class="small" style="padding:4px 4px 2px">One resonance form of SO₂. The gold dots are lone pairs. (The other form has the double bond on the other side. Here S has formal charge +1 and the single-bonded O has −1.)</figcaption></figure></div>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Valence electrons.</b> S has 6 and each O has 6: 6 + 2(6) = 18 electrons. Draw O–S–O with S in the middle and spread the rest as lone pairs to complete octets. Moving one lone pair from an O into a double bond with S gives every atom an octet; the structure has two resonance forms.</li>
+          <li hidden><b>Count regions of electron density around S.</b> One double bond, one single bond and one lone pair: a double bond is a single region, so there are <b>3 regions</b>.</li>
+          <li hidden><b>Electron geometry.</b> Three regions spread out to a flat triangle: <b>trigonal planar</b>, with ideal angles of 120°.</li>
+          <li hidden><b>Molecular shape.</b> Name the shape from the atoms only. Two O atoms and a lone pair: <b>bent</b>. The lone pair is a fatter balloon, so the O–S–O angle is a little less than 120°; it is about 119°.</li>
+          <li hidden><b>Polarity.</b> Oxygen (3.44) is more electronegative than sulfur (2.58), so each S–O bond dipole points toward O. In a bent shape the two dipoles do not point in opposite directions, so they do not cancel: SO₂ is <b>polar</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div></div>
+      </div>
+
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Counting only bonded atoms. Water has <i>four</i> regions around oxygen (two bonds, two lone pairs), not two.</li>
+        <li>Counting a double or triple bond as two or three regions. Any multiple bond is one region.</li>
+        <li>Naming the shape from the electron geometry. Water's electron geometry is tetrahedral; its shape is bent.</li>
+        <li>Thinking polar bonds always make a polar molecule. CO₂ and CCl₄ have polar bonds and are nonpolar, because the dipoles cancel.</li>
+        <li>Thinking a symmetric-looking shape guarantees nonpolar. The outer atoms must also be identical; CH₂Cl₂ is polar.</li>
+        <li>Forgetting that lone pairs squeeze bond angles: 109.5° → 107° (one lone pair) → 104.5° (two).</li>
+      </ul></div>
+
+      <div class="prose">
+        <h2>From the picture to the table</h2>
+        <p>The steps are always the same: draw the Lewis structure, count the regions of electron density around the central atom, spread them out (electron geometry), then name the shape using only the atoms (molecular geometry). A lone pair is held by one nucleus instead of two, so it spreads out more and pushes the bonded pairs closer together. That is why the angles shrink: lone pair–lone pair repulsion is stronger than lone pair–bond repulsion, which is stronger than bond–bond repulsion.</p>
+        <div class="tablewrap"><table><thead><tr><th>Regions</th><th>Lone pairs</th><th>Electron geometry</th><th>Molecular shape</th><th>Bond angle</th><th>Example</th></tr></thead><tbody>
+          <tr><td>2</td><td>0</td><td>linear</td><td>linear</td><td>180°</td><td>CO₂</td></tr>
+          <tr><td>3</td><td>0</td><td>trigonal planar</td><td>trigonal planar</td><td>120°</td><td>BF₃</td></tr>
+          <tr><td>3</td><td>1</td><td>trigonal planar</td><td>bent</td><td>a bit less than 120°</td><td>SO₂</td></tr>
+          <tr><td>4</td><td>0</td><td>tetrahedral</td><td>tetrahedral</td><td>109.5°</td><td>CH₄</td></tr>
+          <tr><td>4</td><td>1</td><td>tetrahedral</td><td>trigonal pyramidal</td><td>about 107°</td><td>NH₃</td></tr>
+          <tr><td>4</td><td>2</td><td>tetrahedral</td><td>bent</td><td>about 104.5°</td><td>H₂O</td></tr>
+          <tr><td colspan="6" class="small">Beyond the usual three-and-four-region shapes (check whether your course asks for them):</td></tr>
+          <tr><td>5</td><td>0 · 1 · 2 · 3</td><td>trigonal bipyramidal</td><td>trigonal bipyramidal · seesaw · T-shaped · linear</td><td>90° and 120°</td><td>PCl₅ · SF₄ · ClF₃ · XeF₂</td></tr>
+          <tr><td>6</td><td>0 · 1 · 2</td><td>octahedral</td><td>octahedral · square pyramidal · square planar</td><td>90°</td><td>SF₆ · BrF₅ · XeF₄</td></tr>
+        </tbody></table></div>
+        <p><b>Polarity</b> is a second question. Each bond between different atoms has a <b>dipole</b>: an arrow pointing toward the more <b>electronegative</b> atom. A molecule is polar only if the arrows add up to something that is not zero. Symmetric shapes with identical outer atoms cancel; bent and pyramidal shapes almost never do.</p>
+        <p>In the model above, the lone-pair "size" was chosen so that ammonia and water come out near their measured angles (107° and 104.5°). The model is a picture of the idea, not a calculation of real molecules, so the angle readout will differ a little from the measured value.</p>
+      </div>
+      <div class="quiz" data-correct="3" data-explain="Water has two lone pairs on oxygen. They are the fattest balloons, so they squeeze the O–H bonds the most: 104.5°, compared with 107° (NH₃, one lone pair) and 109.5° (CH₄, none). CO₂ is linear at 180°.">
+        <p class="q">Check yourself: which has the smallest bond angle?</p>
+        <div class="opts"><button type="button">CO₂</button><button type="button">CH₄</button><button type="button">NH₃</button><button type="button">H₂O</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

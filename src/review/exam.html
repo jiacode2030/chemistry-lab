@@ -1,0 +1,20 @@
+  <section class="view" id="v-exam" hidden>
+    <div class="wrap">
+      <div class="head"><div class="eyebrow">Review<span class="tag ap">AP Chemistry</span></div><h1>Exam review</h1><p class="lede">Build a mixed problem set from the units your exam covers. No hints during the set; everything is graded and explained when you submit.</p></div>
+      <div class="lab" id="ex-setup" data-reset="own">
+        <div class="ctl"><span class="lbl">Which units does your exam cover?</span><div class="seg" id="ex-weeks" role="group" aria-label="Units"></div><div class="row"><button type="button" class="btn link" id="ex-all">Select all</button><button type="button" class="btn link" id="ex-none">Clear</button></div></div>
+        <div class="controls">
+          <div class="ctl"><span class="lbl">Number of problems</span><div class="seg" id="ex-n" role="group"><button type="button" data-n="5" aria-pressed="false">5</button><button type="button" data-n="10" aria-pressed="true">10</button><button type="button" data-n="15" aria-pressed="false">15</button></div></div>
+          <div class="ctl"><span class="lbl">Timer</span><div class="seg" id="ex-t" role="group"><button type="button" data-t="off" aria-pressed="true">Off</button><button type="button" data-t="on" aria-pressed="false">90 s per problem</button></div></div>
+        </div>
+        <div class="row"><button type="button" class="btn primary" id="ex-start">Start the set</button></div>
+        <p class="err" id="ex-msg" aria-live="polite"></p>
+      </div>
+      <div id="ex-run" hidden style="display:flex;flex-direction:column;gap:14px">
+        <div class="scorebar"><strong id="ex-timer" style="font-family:var(--f-mono)"></strong></div>
+        <div class="probs" id="ex-list"></div>
+        <div class="row"><button type="button" class="btn primary" id="ex-submit">Submit and grade</button></div>
+        <div class="lab" id="ex-result" hidden></div>
+      </div>
+    </div>
+  </section>

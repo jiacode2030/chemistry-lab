@@ -1,0 +1,12 @@
+[
+ {"w":"Optional","name":"Math toolkit","tag":"Math","ids":["units","sigfigs","logs","icealg"]},
+ {"w":"Unit 1","name":"Atomic structure and properties","tag":"AP Unit 1","ids":["mole","massspec","composition","pes","orbitals","trends"]},
+ {"w":"Unit 2","name":"Compound structure and properties","tag":"AP Unit 2","ids":["bonding","lewis","vsepr","hybrid"]},
+ {"w":"Unit 3","name":"Properties of substances and mixtures","tag":"AP Unit 3","ids":["imf","solids","gases","solutions","light","separation"]},
+ {"w":"Unit 4","name":"Chemical reactions","tag":"AP Unit 4","ids":["equations","stoich","precip","redox"]},
+ {"w":"Unit 5","name":"Kinetics","tag":"AP Unit 5","ids":["rates","integrated","collision","mechanism"]},
+ {"w":"Unit 6","name":"Thermochemistry","tag":"AP Unit 6","ids":["heatflow","calorimetry","enthalpy"]},
+ {"w":"Unit 7","name":"Equilibrium","tag":"AP Unit 7","ids":["equilibrium","icecalc","lechatelier","ksp"]},
+ {"w":"Unit 8","name":"Acids and bases","tag":"AP Unit 8","ids":["ph","weak","titration","buffers"]},
+ {"w":"Unit 9","name":"Thermodynamics and electrochemistry","tag":"AP Unit 9","ids":["entropy","gibbs","galvanic","electrolysis"]}
+]
