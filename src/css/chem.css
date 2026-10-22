@@ -115,3 +115,7 @@ table.data{min-width:0}
 .stp em.slow{background:var(--hot);color:#fff}
 .stp em.fast{background:var(--surface-2,#eef1f5);border:1px solid var(--line)}
 .derive{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
+.hl-rows{display:grid;gap:8px}
+.hl-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.hl-eq{font:500 14px var(--f-mono)}.hl-eq small{color:var(--muted);margin-left:6px}
+.hl-row label{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}

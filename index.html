@@ -764,6 +764,10 @@ table.data{min-width:0}
 .stp em.slow{background:var(--hot);color:#fff}
 .stp em.fast{background:var(--surface-2,#eef1f5);border:1px solid var(--line)}
 .derive{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
+.hl-rows{display:grid;gap:8px}
+.hl-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.hl-eq{font:500 14px var(--f-mono)}.hl-eq small{color:var(--muted);margin-left:6px}
+.hl-row label{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
 
 </style>
 
@@ -2526,6 +2530,182 @@ table.data{min-width:0}
     </div>
   </section>
 
+  <section class="view" id="v-heatflow" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 6</span></div>
+        <h1>Heat, temperature &amp; phase changes</h1>
+        <p class="lede">Heat is energy moving because of a temperature difference. Temperature is how fast the particles are jiggling. They are not the same thing, and a heating curve shows why.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Pour hot soup into a cold bowl: energy flows from hot to cold until the temperatures match. That energy flow is <b>heat</b> (q). <b>Temperature</b> measures the <i>average kinetic energy</i> of the particles. When you add heat to a solid, the particles jiggle harder and the temperature rises: <b>q = mcΔT</b>, where c is the <b>specific heat capacity</b>, the energy needed to raise 1 g by 1 °C.</p>
+        <p>But watch the heating curve: while ice melts, you keep adding heat and the temperature <i>stays put</i> at 0 °C. The energy isn't making particles faster; it is pulling them apart from their neighbors (breaking attractions). That energy is the <b>enthalpy of fusion</b>; for boiling, the <b>enthalpy of vaporization</b>. A plateau means "energy going into potential energy, not kinetic".</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed that adding heat always raises the temperature. Now we know that during a phase change heat goes into overcoming attractions, so the temperature stays constant and we need q = mΔH instead of q = mcΔT.</div>
+      <div class="lab" id="hf-lab">
+        <div class="labbar"><span class="title">Heat some water</span><div class="row"><button type="button" class="btn primary" id="hf-play">Heater on</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="hf-m"><span>Mass of water</span> <output id="hf-m-out"></output></label><input type="range" id="hf-m" min="5" max="20" step="1" value="10"></div>
+          <div class="ctl"><label for="hf-q"><span>Heat added</span> <output id="hf-q-out"></output></label><input type="range" id="hf-q" min="0" max="1000" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="hf-canvas" aria-label="Water particles as a solid, liquid and gas as heat is added"></canvas></div><div><canvas id="hf-graph" aria-label="Heating curve: temperature against heat added, with plateaus at melting and boiling"></canvas></div></div>
+        <div class="readout"><div><span>Temperature</span><strong class="a" id="hf-T">—</strong></div><div><span>State</span><strong id="hf-ph">—</strong></div><div><span>Heat added</span><strong class="x" id="hf-heat">—</strong></div><div><span>Equation in use</span><strong id="hf-eq" style="font-size:15px">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then drag the heat slider.</p><ol>
+        <li><p>Sit on the first plateau. Does the temperature change while you add more heat? <button type="button" class="btn link" data-show='[["#hf-m","10"],["#hf-q","60"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The temperature stays at 0 °C while the ice melts: the particles leave their lattice sites one by one. The energy raises potential energy, not kinetic energy.</p></details></li>
+        <li><p>Compare the two plateaus. Why is the boiling plateau so much longer? <button type="button" class="btn link" data-show='[["#hf-q","600"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Boiling needs about 7 times as much energy per gram as melting (2260 J/g vs 334 J/g): the particles must be separated completely, not just loosened.</p></details></li>
+        <li><p>Double the mass. What changes on the graph? <button type="button" class="btn link" data-show='[["#hf-m","20"],["#hf-q","300"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The shape is the same but every segment is twice as long (twice as much energy for the same temperature change). The plateau temperatures don't change.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How much heat is needed to turn 25.0 g of ice at −10.0 °C into water at 20.0 °C? (c<sub>ice</sub> = 2.09 J/g·°C, c<sub>water</sub> = 4.184 J/g·°C, ΔH<sub>fus</sub> = 334 J/g)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Split the path.</b> Warm the ice to 0 °C, melt it at 0 °C, then warm the water to 20 °C. Three pieces; add them.</li>
+          <li hidden><b>Warm the ice.</b> q₁ = mcΔT = (25.0)(2.09)(10.0) = 522.5 J.</li>
+          <li hidden><b>Melt it.</b> No temperature change, so use q₂ = mΔH<sub>fus</sub> = (25.0)(334) = 8350 J.</li>
+          <li hidden><b>Warm the water.</b> q₃ = (25.0)(4.184)(20.0) = 2092 J. <b>Total</b> = 522.5 + 8350 + 2092 = 10 964.5 J ≈ <b>1.10×10⁴ J</b> (11.0 kJ). The melting step is by far the biggest share.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using q = mcΔT during a phase change. ΔT is zero there, but the heat isn't.</li>
+        <li>Forgetting a step: crossing several phases means several separate calculations, added up.</li>
+        <li>Mixing the specific heat of water with that of ice or steam. Each phase has its own c.</li>
+        <li>Using °C and K inconsistently. A change of 1 °C equals a change of 1 K, so ΔT is the same in both.</li>
+        <li>Saying "heat" and "temperature" mean the same. Heat is energy transferred; temperature is average kinetic energy.</li>
+      </ul></div>
+      <div class="prose"><h2>Why the plateau? A particle view</h2>
+        <p>Temperature tracks average kinetic energy. During melting the added energy loosens the lattice: the particles' potential energy rises while their kinetic energy (temperature) does not. Once every particle is free, further heat makes them move faster again. The attractions between particles are why ΔH<sub>vap</sub> is large for water: hydrogen bonds must be fully broken.</p></div>
+      <div class="quiz" data-correct="2" data-explain="During a phase change the added energy goes into overcoming attractions between particles (potential energy), not into speeding them up, so the temperature stays constant.">
+        <p class="q">Check yourself: ice at 0 °C is melting while heat is added. What happens to the temperature?</p>
+        <div class="opts"><button type="button">It rises steadily</button><button type="button">It falls</button><button type="button">It stays at 0 °C until all the ice has melted</button><button type="button">It jumps to 100 °C</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-calorimetry" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 6</span></div>
+        <h1>Calorimetry</h1>
+        <p class="lede">You can't see energy, but you can see a thermometer. Calorimetry measures heat by watching how much a known amount of water warms up or cools down.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Energy is never lost: whatever one object gives up, another gains. Drop a hot metal into cool water. The metal cools, the water warms, and they settle at one temperature. The heat the metal <i>loses</i> equals the heat the water <i>gains</i>: <b>q<sub>lost</sub> + q<sub>gained</sub> = 0</b>. Since q = mcΔT for each, you can solve for the final temperature, or for an unknown specific heat.</p>
+        <p>A reaction works the same way. If it releases heat, the solution around it warms up (<b>exothermic</b>, ΔH negative); if it absorbs heat, the solution gets cold (<b>endothermic</b>, ΔH positive). The water gained what the reaction lost, so <b>q<sub>rxn</sub> = −q<sub>solution</sub></b>. That is how a hot pack and a cold pack differ.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed all the heat stays between the two objects. A real cup absorbs and leaks some. We ignore the cup for now, but a bomb calorimeter's heat capacity C (kJ/°C) is exactly how we account for it.</div>
+      <div class="lab" id="ca-lab">
+        <div class="labbar"><span class="title">Hot metal into water</span><div class="row"><button type="button" class="btn primary" id="ca-go">Drop it in</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ca-metal"><span>Metal</span></label><select id="ca-metal"></select></div>
+          <div class="ctl"><label for="ca-mm"><span>Mass of metal</span> <output id="ca-mm-out"></output></label><input type="range" id="ca-mm" min="20" max="200" step="5" value="100"></div>
+          <div class="ctl"><label for="ca-mT"><span>Metal starts at</span> <output id="ca-mT-out"></output></label><input type="range" id="ca-mT" min="50" max="100" step="1" value="95"></div>
+          <div class="ctl"><label for="ca-wm"><span>Mass of water</span> <output id="ca-wm-out"></output></label><input type="range" id="ca-wm" min="50" max="250" step="5" value="100"></div>
+          <div class="ctl"><label for="ca-wT"><span>Water starts at</span> <output id="ca-wT-out"></output></label><input type="range" id="ca-wT" min="10" max="30" step="1" value="20"></div>
+        </div>
+        <div class="split"><div><canvas id="ca-canvas" aria-label="A hot metal sample in a cup of water with a thermometer"></canvas></div><div><canvas id="ca-graph" aria-label="Temperature of the metal and the water against time, meeting at a final temperature"></canvas></div></div>
+        <div class="readout"><div><span>Final temperature</span><strong class="x" id="ca-tf">—</strong></div><div><span>Heat lost by metal</span><strong class="a" id="ca-ql">—</strong></div><div><span>Heat gained by water</span><strong id="ca-qg">—</strong></div><div><span>Specific heat of metal</span><strong id="ca-c">—</strong></div></div>
+      </div>
+      <div class="lab" id="cb-lab">
+        <div class="labbar"><span class="title">Dissolve a salt</span><div class="row"><button type="button" class="btn primary" id="cb-go">Stir it in</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="cb-salt"><span>Substance</span></label><select id="cb-salt"></select></div>
+          <div class="ctl"><label for="cb-m"><span>Mass dissolved in 100 g water</span> <output id="cb-m-out"></output></label><input type="range" id="cb-m" min="2" max="20" step="0.5" value="10"></div>
+        </div>
+        <div class="split"><div><canvas id="cb-canvas" aria-label="A salt dissolving in a cup of water, with a thermometer"></canvas></div><div><canvas id="cb-graph" aria-label="Solution temperature against time"></canvas></div></div>
+        <div class="readout"><div><span>Temperature change</span><strong class="a" id="cb-dT">—</strong></div><div><span>Heat absorbed by solution</span><strong id="cb-q">—</strong></div><div><span>ΔH of dissolving</span><strong class="x" id="cb-dh">—</strong></div><div><span>Type (cold or hot pack)</span><strong id="cb-ty">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the final temperature, then drop the metal in.</p><ol>
+        <li><p>Lead versus aluminum at the same mass and temperature. Which warms the water more? <button type="button" class="btn link" data-show='[["#ca-metal","Pb"],["click","#ca-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Aluminum, because it has a much larger specific heat (0.897 vs 0.129 J/g·°C): each gram holds about seven times as much heat. Lead's temperature drops a lot but it carries little energy.</p></details></li>
+        <li><p>Use a lot more water. What happens to the final temperature? <button type="button" class="btn link" data-show='[["#ca-wm","250"],["click","#ca-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The final temperature ends closer to the water's starting temperature: a large mass of water changes temperature only a little for the same heat.</p></details></li>
+        <li><p>Dissolve ammonium nitrate. Is it a hot pack or a cold pack? <button type="button" class="btn link" data-show='[["#cb-salt","NH4NO3"],["click","#cb-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Cold. Dissolving NH₄NO₃ absorbs heat from the water (endothermic, ΔH positive). Instant cold packs use this.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A 50.0 g piece of metal at 99.0 °C is dropped into 100.0 g of water at 21.0 °C. The final temperature is 24.0 °C. What is the specific heat of the metal? (c<sub>water</sub> = 4.184 J/g·°C)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Heat gained by the water.</b> q = mcΔT = (100.0)(4.184)(24.0 − 21.0) = 1255 J.</li>
+          <li hidden><b>The metal lost the same amount.</b> q<sub>metal</sub> = −1255 J (negative because it lost heat).</li>
+          <li hidden><b>Solve for c.</b> −1255 = (50.0)(c)(24.0 − 99.0) = (50.0)(c)(−75.0), so c = 1255 / 3750 = <b>0.335 J/g·°C</b>.</li>
+          <li hidden><b>Check.</b> The metal's ΔT is large and the water's is small, so the metal's c should be much less than water's. 0.335 ≪ 4.184 ✓.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Getting the sign wrong: the water's q is positive when it warms, the metal's q is negative; they add to zero.</li>
+        <li>Using ΔT = T<sub>initial</sub> − T<sub>final</sub>. Always final minus initial.</li>
+        <li>Using the mass of the metal with the specific heat of water (or the reverse).</li>
+        <li>Forgetting that q<sub>rxn</sub> = −q<sub>solution</sub>, and that ΔH is per <i>mole</i>, so divide by moles.</li>
+        <li>Forgetting that the solution's mass includes the dissolved solid.</li>
+      </ul></div>
+      <div class="prose"><h2>Coffee-cup and bomb calorimeters</h2>
+        <p>A coffee-cup calorimeter is open to the air, so it measures heat at constant pressure: q = ΔH. A bomb calorimeter is a sealed steel container in a water bath, so it measures heat at constant volume, and it comes with a calibrated heat capacity C (in kJ/°C): q = CΔT. In both cases the heat absorbed by the surroundings has the opposite sign of the heat released by the reaction.</p></div>
+      <div class="quiz" data-correct="1" data-explain="The solution got colder, so it lost heat to the reaction: the reaction absorbed heat from its surroundings. That makes it endothermic, with a positive ΔH.">
+        <p class="q">Check yourself: the temperature of a solution falls when a salt dissolves. What can you conclude?</p>
+        <div class="opts"><button type="button">The dissolving is exothermic</button><button type="button">The dissolving is endothermic</button><button type="button">ΔH is zero</button><button type="button">No energy was exchanged</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-enthalpy" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 6</span></div>
+        <h1>Enthalpy, Hess's law &amp; bond energies</h1>
+        <p class="lede">Chemical bonds are energy stores. Breaking them costs energy, making them gives energy back, and the difference is the heat of the reaction.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of a reaction as taking apart a Lego build and making a new one. Pulling apart the old bonds takes work (energy <i>in</i>); snapping together new bonds gives energy back (energy <i>out</i>). If more energy comes out than went in, the reaction is <b>exothermic</b> and <b>ΔH is negative</b>. If more went in than came out, it's <b>endothermic</b> and ΔH is positive.</p>
+        <p><b>Enthalpy</b> (H) is a state function: ΔH depends only on where you start and finish, not the route. That gives <b>Hess's law</b>: if a reaction can be written as the sum of other reactions, its ΔH is the sum of theirs. You can flip a reaction (flip the sign) or multiply it (multiply ΔH), just like the coefficients. You can find the ΔH of a reaction you can't measure by adding ones you can.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we measured heat directly with a calorimeter. Now we can <i>calculate</i> ΔH without doing the experiment, using Hess's law, standard enthalpies of formation, or average bond energies. Bond energies are averages over many molecules, so they give only an estimate.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Formation enthalpies</span><b>ΔH° = ΣnΔH°f(products) − ΣnΔH°f(reactants)</b><small>ΔH°f of an element in its standard state = 0</small></div><div class="eqc"><span class="nm">Bond energies</span><b>ΔH ≈ Σ(bonds broken) − Σ(bonds formed)</b><small>energy in minus energy out</small></div></div>
+      <div class="lab" id="hl-lab" data-reset="own">
+        <div class="labbar"><span class="title">Build the reaction (Hess's law)</span><div class="row"><button type="button" class="btn" id="hl-new">Next puzzle</button></div></div>
+        <div class="controls"><div class="ctl"><label for="hl-set"><span>Target</span></label><select id="hl-set"></select></div></div>
+        <div id="hl-rows" class="hl-rows"></div>
+        <canvas id="hl-canvas" aria-label="Energy ladder: each chosen step moves the energy up or down"></canvas>
+        <div class="readout"><div><span>Net equation</span><strong id="hl-net" style="font-size:15px;white-space:normal">—</strong></div><div><span>Sum of ΔH</span><strong class="x" id="hl-sum">—</strong></div><div><span>Matches the target?</span><strong id="hl-ok">—</strong></div></div>
+      </div>
+      <div class="lab" id="be-lab" data-reset="own">
+        <div class="labbar"><span class="title">Break and make bonds</span><div class="row"><button type="button" class="btn primary" id="be-play">Play</button></div></div>
+        <div class="controls"><div class="ctl"><label for="be-sel"><span>Reaction</span></label><select id="be-sel"></select></div><div class="ctl"><label for="be-p"><span>Progress</span> <output id="be-p-out"></output></label><input type="range" id="be-p" min="0" max="200" step="1" value="0"></div></div>
+        <canvas id="be-canvas" aria-label="Molecules breaking into atoms and re-forming, with an energy ladder"></canvas>
+        <div class="tablewrap" style="min-width:0"><table class="data" id="be-tab"></table></div>
+        <div class="readout"><div><span>Energy in (break)</span><strong class="a" id="be-in">—</strong></div><div><span>Energy out (form)</span><strong class="x" id="be-out">—</strong></div><div><span>ΔH</span><strong id="be-dh">—</strong></div></div>
+      </div>
+      <div class="lab" id="fm-lab" data-reset="own">
+        <div class="labbar"><span class="title">Enthalpy of formation</span><div class="row"><button type="button" class="btn" id="fm-back">Back</button><button type="button" class="btn primary" id="fm-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="fm-sel"><span>Reaction</span></label><select id="fm-sel"></select></div></div>
+        <div class="eq-block" id="fm-out" aria-live="polite"></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then use the labs above.</p><ol>
+        <li><p>Do the first Hess puzzle. Which step did you have to flip? What happened to its sign? <button type="button" class="btn link" data-show='[["#hl-set","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The step with CO as a <i>reactant</i> must run backward, so it is flipped (×−1) and its ΔH changes sign: −283.0 becomes +283.0.</p></details></li>
+        <li><p>Watch the H₂ + Cl₂ reaction in the bond lab. Is the energy to break the bonds bigger or smaller than the energy released by forming them? <button type="button" class="btn link" data-show='[["#be-sel","0"],["#be-p","200"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Smaller: 679 kJ in (436 + 243) and 862 kJ out (2 × 431). The difference, −183 kJ, is released as heat, so the reaction is exothermic.</p></details></li>
+        <li><p>Step through the combustion of methane with enthalpies of formation. <button type="button" class="btn link" data-show='[["#fm-sel","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Products minus reactants: [−393.5 + 2(−285.8)] − [−74.8 + 0] = −890.3 kJ. O₂ is an element, so its ΔH°f is zero.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Find ΔH for C(s) + ½O₂(g) → CO(g) using: (1) C(s) + O₂(g) → CO₂(g), ΔH = −393.5 kJ; (2) CO(g) + ½O₂(g) → CO₂(g), ΔH = −283.0 kJ.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Place each species.</b> The target has C as a reactant, so keep equation (1) as written (C is on the left). The target has CO as a <i>product</i>, but in (2) CO is a reactant, so reverse (2).</li>
+          <li hidden><b>Reverse (2).</b> CO₂ → CO + ½O₂, and flip the sign: ΔH = +283.0 kJ.</li>
+          <li hidden><b>Add.</b> C + O₂ + CO₂ → CO₂ + CO + ½O₂. Cancel CO₂ on both sides and ½O₂ from the O₂: C + ½O₂ → CO. ✓</li>
+          <li hidden><b>Add the ΔH values.</b> (−393.5) + (+283.0) = <b>−110.5 kJ</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to change the sign when reversing a reaction, or forgetting to multiply ΔH when multiplying the equation.</li>
+        <li>Subtracting in the wrong order: it's products minus reactants for formation enthalpies, but <i>bonds broken minus bonds formed</i> for bond energies.</li>
+        <li>Forgetting to multiply each ΔH°f by its coefficient.</li>
+        <li>Using ΔH°f ≠ 0 for an element in its standard state (O₂, H₂, C(graphite), Fe(s)...). Those are all zero.</li>
+        <li>Confusing the state: H₂O(l) and H₂O(g) have different ΔH°f.</li>
+      </ul></div>
+      <div class="prose"><h2>Per mole of what?</h2>
+        <p>ΔH in a balanced equation is for the reaction <i>as written</i>. If you write 2CH₄ + 4O₂ → …, ΔH doubles. To find the heat for a specific amount, convert it to moles, divide by the coefficient, and multiply by ΔH. Bond energies are always positive numbers (breaking costs energy), but the energy of formation is released, so subtract it.</p></div>
+      <div class="quiz" data-correct="0" data-explain="More energy is released making the new bonds than was needed to break the old ones, so the net energy is released: the reaction is exothermic and ΔH is negative.">
+        <p class="q">Check yourself: bonds broken cost 800 kJ and bonds formed release 950 kJ. What is ΔH?</p>
+        <div class="opts"><button type="button">−150 kJ (exothermic)</button><button type="button">+150 kJ (endothermic)</button><button type="button">−1750 kJ</button><button type="button">+1750 kJ</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -2764,8 +2944,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": ["heatflow", "calorimetry", "enthalpy"], "soon": []}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -5191,6 +5371,249 @@ function mechCurve(E){const n=E.length;return x=>{x=clamp(x,0,1);const s=x*(n-1)
   const EL=[['A + B → products',2],['2A → products',2],['A → products',1],['2NO + Cl₂ → 2NOCl',3],['NO + O₃ → NO₂ + O₂',2],['2NO₂ → N₂O₄',2],['O₃ → O₂ + O',1],['A + 2B → products',3]];
   PROBS.push({id:'mech-elem',topic:'mechanism',title:'Overall order of an elementary step',gen(){const [eq,n]=pick(EL);
     return {q:`The reaction ${eq} is a single elementary step. What is the overall order of its rate law?`,ans:n,unit:'',abs:.01,hint:'For an elementary step, each reactant\'s order equals its coefficient. Add them.',sol:`The orders equal the reactant coefficients, which add to <b>${n}</b>.`};}});
+})();
+
+/* ===== modules/heatflow.js ===== */
+
+/* ---------------- Heat, temperature & phase changes ---------------- */
+const HC={ci:2.09,cw:4.184,cs:2.01,hf:334,hv:2260}; /* J/g·°C, J/g */
+function heatSegs(m){return [{n:'ice warms',eq:'q = mcΔT',q:m*HC.ci*20,T0:-20,T1:0},{n:'melting',eq:'q = mΔH_fus',q:m*HC.hf,T0:0,T1:0},{n:'water warms',eq:'q = mcΔT',q:m*HC.cw*100,T0:0,T1:100},{n:'boiling',eq:'q = mΔH_vap',q:m*HC.hv,T0:100,T1:100},{n:'steam warms',eq:'q = mcΔT',q:m*HC.cs*20,T0:100,T1:120}];}
+function heatAt(m,Q){const S=heatSegs(m);let acc=0;for(let i=0;i<S.length;i++){const s=S[i];if(Q<=acc+s.q||i===S.length-1){const f=clamp((Q-acc)/s.q,0,1);return {i,s,f,T:s.T0+(s.T1-s.T0)*f};}acc+=s.q;}}
+(function heatflow(){
+  const cv=$('#hf-canvas');if(!cv)return;const mS=$('#hf-m'),qS=$('#hf-q');let play=false,P=[];const N=36,H=250;
+  const mass=()=>+mS.value,Qtot=()=>heatSegs(mass()).reduce((a,s)=>a+s.q,0),Q=()=>qS.value/1000*Qtot();
+  function init(){const w=cv.clientWidth||300,sp=Math.min(30,(w-40)/6);P=[];for(let i=0;i<N;i++){const row=Math.floor((N-1-i)/6),col=(N-1-i)%6;P.push({sx:(w-6*sp)/2+sp/2+col*sp+(row%2?sp/2:0)*0.5,sy:H-18-row*sp*.9,x:0,y:0,vx:0,vy:0,ph:Math.random()*6.28,st:'s'});P[i].x=P[i].sx;P[i].y=P[i].sy;}}
+  function states(){const r=heatAt(mass(),Q()),i=r.i,f=r.f;let nS=N,nG=0;if(i===0)nS=N;else if(i===1)nS=Math.round(N*(1-f));else nS=0;if(i===3)nG=Math.round(N*f);else if(i===4)nG=N;return {r,nS,nG};}
+  const sim=sim2d(cv,{h:()=>H,step(dt,t){if(play){qS.value=Math.min(1000,+qS.value+dt*45);if(+qS.value>=1000){play=false;$('#hf-play').textContent='Heater on';}upd(true);}
+      const {r,nS,nG}=states(),w=cv.clientWidth,Tk=r.T+273,sp=Math.sqrt(Tk/273);
+      P.forEach((p,i)=>{const want=i<nG?'g':i>=N-nS?'s':'l';if(want!==p.st){p.st=want;if(want!=='s'){const a=Math.random()*6.28;p.vx=Math.cos(a)*60;p.vy=Math.sin(a)*60;}}
+        if(p.st==='s'){const amp=.6+(Tk-253)/273*2.4;p.x+=(p.sx+Math.sin(t*9+p.ph)*amp-p.x)*Math.min(1,dt*8);p.y+=(p.sy+Math.cos(t*8+p.ph*1.3)*amp-p.y)*Math.min(1,dt*8);}
+        else{const spd=p.st==='g'?150*sp:50*sp;const L=Math.hypot(p.vx,p.vy)||1;p.vx+=(p.vx/L*spd-p.vx)*Math.min(1,dt*2);p.vy+=(p.vy/L*spd-p.vy)*Math.min(1,dt*2);p.x+=p.vx*dt;p.y+=p.vy*dt;
+          const top=p.st==='l'?H*.52:6;if(p.st==='l'&&p.y<top)p.vy+=400*dt;if(p.x<8){p.x=8;p.vx=Math.abs(p.vx);}if(p.x>w-8){p.x=w-8;p.vx=-Math.abs(p.vx);}if(p.y<6){p.y=6;p.vy=Math.abs(p.vy);}if(p.y>H-8){p.y=H-8;p.vy=-Math.abs(p.vy);}}});},
+    draw(ctx,w,h){const {r}=states();ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,1,w-2,H-2);
+      const hot=clamp((r.T+20)/140,0,1);P.forEach(p=>{const c=p.st==='s'?'#6FA8DC':p.st==='l'?'#3E7BDC':'#8B5CF6';ball2(ctx,p.x,p.y,6.5,c);});
+      label(ctx,['solid ice','ice + liquid','liquid water','liquid + gas','steam'][r.i],10,12,T.muted,'left','middle',MONO);
+      const lx=w-24;ctx.fillStyle=alpha(T.hot,.15);ctx.fillRect(lx,10,12,H-20);ctx.fillStyle=T.hot;const th=(H-20)*clamp((r.T+30)/160,0,1);ctx.fillRect(lx,H-10-th,12,th);}});
+  const g=$('#hf-graph'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const m=mass(),S=heatSegs(m),tot=Qtot()/1000,q=Q()/1000;
+      const Pn=panel(ctx,{x:46,y:12,w:w-60,h:h-46},[0,tot],[-30,130],{xn:5,yn:4,xlabel:'heat added (kJ)',ylabel:'T (°C)',color:T.ink});
+      let acc=0;S.forEach((s,i)=>{const a=acc/1000,b=(acc+s.q)/1000;ctx.save();clip(ctx,Pn);ctx.strokeStyle=i%2?T.hot:T.cx;ctx.lineWidth=2.8;ctx.beginPath();ctx.moveTo(Pn.X(a),Pn.Y(s.T0));ctx.lineTo(Pn.X(b),Pn.Y(s.T1));ctx.stroke();ctx.restore();acc+=s.q;});
+      const r=heatAt(m,Q());dot(ctx,Pn.X(q),Pn.Y(r.T),6,T.ink,T.surface||'#fff');
+      label(ctx,'melting',Pn.X((S[0].q+S[1].q/2)/1000),Pn.Y(0)-8,T.hot,'center','bottom',MONO);label(ctx,'boiling',Pn.X((S[0].q+S[1].q+S[2].q+S[3].q/2)/1000),Pn.Y(100)-8,T.hot,'center','bottom',MONO);}});
+  function upd(fromPlay){const r=heatAt(mass(),Q());setText('hf-m-out',mass()+' g');setText('hf-q-out',fmt(Q()/1000,2)+' kJ');setText('hf-T',fmt(r.T,1)+' °C');setText('hf-heat',fmt(Q()/1000,2)+' kJ');
+    setText('hf-ph',['solid ice','ice + water','liquid water','water + steam','steam'][r.i]);setText('hf-eq',r.s.eq);if(!fromPlay){sim.render();}gs.render();}
+  bindRange('hf-m',()=>'',()=>upd(),false);bindRange('hf-q',()=>'',()=>upd(),false);
+  $('#hf-play').addEventListener('click',()=>{if(+qS.value>=1000)qS.value=0;play=!play;$('#hf-play').textContent=play?'Pause':'Heater on';upd();});
+  $('#hf-lab').addEventListener('labreset',()=>{play=false;$('#hf-play').textContent='Heater on';upd();});
+  init();upd();drawers.heatflow=()=>{init();upd();};
+  TIPS['hf-m']='More mass needs proportionally more heat, but the plateau temperatures stay the same.';
+  TIPS['hf-q']='Slide the heat and watch the temperature, the particles and the graph together.';
+  KEYS['hf-canvas']=['Press Heater on, or drag the heat slider.',[['#6FA8DC','solid'],['#3E7BDC','liquid'],['#8B5CF6','gas']]];
+  GLOSS['specific heat']='The heat needed to raise the temperature of 1 g of a substance by 1 °C.';
+  GLOSS['heat']='Energy transferred because of a temperature difference.';
+  GLOSS['enthalpy of fusion']='The heat needed to melt a substance at its melting point.';
+  GLOSS['enthalpy of vaporization']='The heat needed to vaporize a substance at its boiling point.';
+  TT.heatflow='Have students sketch the heating curve before the slider moves. Emphasize: slope segments use mcΔT; flat segments use mΔH.';
+})();
+(function(){
+  const m18=18.02;
+  PROBS.push({id:'hf-q',topic:'heatflow',title:'Heat to change temperature',gen(){const m=pick([25,50,75,120,200]),T1=pick([15,20,22,25]),T2=pick([55,65,80,90]),q=m*4.184*(T2-T1);
+    return {q:`How much heat is needed to warm ${m} g of liquid water from ${T1} °C to ${T2} °C? (c = 4.184 J/g·°C)`,ans:q/1000,unit:'kJ',tol:.02,hint:'q = mcΔT.',sol:`q = (${m})(4.184)(${T2-T1}) = ${fmt(q,0)} J = <b>${fmt(q/1000,2)} kJ</b>.`};}});
+  PROBS.push({id:'hf-melt',topic:'heatflow',title:'Heat to melt',gen(){const m=pick([18.0,36.0,54.0,90.0,12.0]),q=m/m18*6.01;
+    return {q:`How much heat is needed to melt ${m} g of ice at 0 °C? (ΔH<sub>fus</sub> = 6.01 kJ/mol; molar mass of H₂O = 18.02 g/mol)`,ans:q,unit:'kJ',tol:.02,hint:'Convert grams to moles first, then multiply by ΔH_fus.',sol:`n = ${m}/18.02 = ${fmt(m/m18,3)} mol; q = ${fmt(m/m18,3)} × 6.01 = <b>${fmt(q,2)} kJ</b>.`};}});
+  PROBS.push({id:'hf-vap',topic:'heatflow',title:'Heat to boil',gen(){const m=pick([9.0,27.0,45.0,72.0,100.0]),q=m/m18*40.7;
+    return {q:`How much heat is needed to vaporize ${m} g of water at 100 °C? (ΔH<sub>vap</sub> = 40.7 kJ/mol)`,ans:q,unit:'kJ',tol:.02,hint:'Moles first, then n × ΔH_vap.',sol:`n = ${m}/18.02 = ${fmt(m/m18,3)} mol; q = ${fmt(m/m18,3)} × 40.7 = <b>${fmt(q,1)} kJ</b>.`};}});
+  PROBS.push({id:'hf-multi',topic:'heatflow',title:'Ice to warm water',gen(){const m=pick([10,20,30,50]),T1=pick([5,10,15]),T2=pick([20,35,50,70]),q1=m*2.09*T1,q2=m*334,q3=m*4.184*T2,q=q1+q2+q3;
+    return {q:`How much heat is needed to turn ${m} g of ice at −${T1} °C into liquid water at ${T2} °C? (c<sub>ice</sub> = 2.09 J/g·°C, c<sub>water</sub> = 4.184 J/g·°C, ΔH<sub>fus</sub> = 334 J/g)`,ans:q/1000,unit:'kJ',tol:.02,hint:'Three pieces: warm the ice, melt it, warm the water.',sol:`q₁ = ${m}(2.09)(${T1}) = ${fmt(q1,0)} J; q₂ = ${m}(334) = ${fmt(q2,0)} J; q₃ = ${m}(4.184)(${T2}) = ${fmt(q3,0)} J. Total = <b>${fmt(q/1000,2)} kJ</b>.`};}});
+  PROBS.push({id:'hf-concept',topic:'heatflow',title:'Heating-curve concept',gen(){const Q=[['On a heating curve, why is the plateau at the boiling point so much longer than the one at the melting point?',['Boiling needs far more energy per gram, because the particles must be separated completely','Water is hotter when it boils','The heater works more slowly','Steam has a larger specific heat than ice'],0,'ΔH_vap (2260 J/g) is about seven times ΔH_fus (334 J/g): more attractions must be overcome.'],
+      ['During a phase change at constant pressure, the added heat goes into…',['Raising the average kinetic energy','Increasing the potential energy of the particles','Raising the temperature','Breaking covalent bonds inside each molecule'],1,'The particles move apart or leave the lattice, raising potential energy; the average kinetic energy (temperature) stays the same, and bonds inside the molecules aren\'t broken.'],
+      ['Two samples of the same liquid, one of mass 10 g and one of 20 g, absorb the same amount of heat. Which warms more?',['The 10 g sample','The 20 g sample','They warm the same','Cannot tell'],0,'ΔT = q/(mc): half the mass means twice the temperature change.']];
+    const [q,ch,a,why]=pick(Q);return {q,choices:ch,ans:a,hint:'Think about what the energy does to the particles at each stage.',sol:why};}});
+})();
+
+/* ===== modules/calorimetry.js ===== */
+
+/* ---------------- Calorimetry ---------------- */
+const CAL_METALS={Al:{n:'Aluminum',c:.897,col:'#B8B8C0'},Fe:{n:'Iron',c:.449,col:'#9B8F85'},Cu:{n:'Copper',c:.385,col:'#C77A3B'},Zn:{n:'Zinc',c:.388,col:'#7C8FA6'},Ag:{n:'Silver',c:.235,col:'#C0C6CF'},Pb:{n:'Lead',c:.129,col:'#6B7280'}};
+const CAL_SALTS={NH4NO3:{f:'NH₄NO₃',dh:25.7,M:80.04},NH4Cl:{f:'NH₄Cl',dh:14.8,M:53.49},KCl:{f:'KCl',dh:17.2,M:74.55},NaCl:{f:'NaCl',dh:3.9,M:58.44},NaOH:{f:'NaOH',dh:-44.5,M:40.00},CaCl2:{f:'CaCl₂',dh:-82.8,M:110.98},LiCl:{f:'LiCl',dh:-37.0,M:42.39}};
+function calCup(ctx,x,y,w,h,T,o={}){const t=clamp((T-10)/90,0,1),r=Math.round(60+195*t),b=Math.round(235-190*t);ctx.fillStyle=`rgba(${r},120,${b},.30)`;ctx.fillRect(x,y,w,h);ctx.strokeStyle=T_ink();ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x,y-26);ctx.lineTo(x,y+h);ctx.lineTo(x+w,y+h);ctx.lineTo(x+w,y-26);ctx.stroke();}
+const T_ink=()=>T.ink;
+function calTherm(ctx,x,y,h,T0,lo,hi,col){ctx.fillStyle=alpha(T.hot,.12);ctx.fillRect(x,y,12,h);const f=clamp((T0-lo)/(hi-lo),0,1);ctx.fillStyle=col||T.hot;ctx.fillRect(x,y+h*(1-f),12,h*f);ctx.strokeStyle=T.ink;ctx.lineWidth=1.5;ctx.strokeRect(x,y,12,h);label(ctx,fmt(T0,1)+' °C',x+6,y+h+12,T.ink,'center','top',MONO);}
+(function calorimetry(){
+  const cv=$('#ca-canvas');if(!cv)return;
+  const sel=$('#ca-metal');sel.innerHTML=Object.keys(CAL_METALS).map(k=>`<option value="${k}">${CAL_METALS[k].n} (c = ${CAL_METALS[k].c})</option>`).join('');sel.value='Cu';
+  const ids=['mm','mT','wm','wT'],V=()=>({mm:+$('#ca-mm').value,mT:+$('#ca-mT').value,wm:+$('#ca-wm').value,wT:+$('#ca-wT').value,c:CAL_METALS[sel.value].c});
+  const Tf=v=>(v.mm*v.c*v.mT+v.wm*4.184*v.wT)/(v.mm*v.c+v.wm*4.184);let t=0,run=false,heat=[];const TAU=5;
+  const Tm=(v,tt)=>{const f=Tf(v);return f+(v.mT-f)*Math.exp(-tt/TAU);},Tw=(v,tt)=>{const f=Tf(v);return f+(v.wT-f)*Math.exp(-tt/TAU);};
+  const sim=sim2d(cv,{h:()=>260,step(dt){const v=V();if(run){t+=dt;if(t>30)run=false;const rate=Math.max(0,Tm(v,t)-Tw(v,t));if(Math.random()<rate/60*dt*60)heat.push({x:0,y:0,u:0,r:Math.random()});}heat.forEach(p=>p.u+=dt*1.5);heat=heat.filter(p=>p.u<1);},
+    draw(ctx,w,h){const v=V(),tm=run||t>0?Tm(v,t):v.mT,tw=run||t>0?Tw(v,t):v.wT,cx=w*.18,cw=w*.64,cy=60,ch=h-90;calCup(ctx,cx,cy,cw,ch,tw);
+      const mw=44+v.mm*.22,mh=mw*.8,my=run||t>0?cy+ch-mh-4:cy-mh-14,mx=cx+cw/2-mw/2,hotf=clamp((tm-20)/80,0,1);
+      ctx.fillStyle=CAL_METALS[sel.value].col;ctx.fillRect(mx,my,mw,mh);ctx.fillStyle=`rgba(255,110,40,${hotf*.55})`;ctx.fillRect(mx,my,mw,mh);ctx.strokeStyle=T.ink;ctx.lineWidth=1.5;ctx.strokeRect(mx,my,mw,mh);label(ctx,sel.value,mx+mw/2,my+mh/2,'#fff','center','middle','700 13px "IBM Plex Mono",monospace');
+      for(let i=0;i<22;i++){const px=cx+10+((i*37+Math.sin(sim.t*(2+tw/25)+i)*5+cw*5)%(cw-20)),py=cy+10+((i*53+Math.cos(sim.t*(2+tw/25)+i*1.7)*5+400)%(ch-20));if(py>mh+my-2&&px>mx-4&&px<mx+mw+4&&py<my+mh+4)continue;dot(ctx,px,py,2.4,alpha('#3E7BDC',.55));}
+      heat.forEach(p=>{const a=p.r*6.28,sx=mx+mw/2+Math.cos(a)*mw*.45,sy=my+mh/2+Math.sin(a)*mh*.45,ex=sx+Math.cos(a)*60,ey=sy+Math.sin(a)*60;dot(ctx,sx+(ex-sx)*p.u,sy+(ey-sy)*p.u,3.3,alpha(T.hot,1-p.u));});
+      calTherm(ctx,cx+cw+10,cy-20,ch+10,tw,10,100);label(ctx,'water',cx+8,cy+ch-8,T.muted,'left','bottom',MONO);label(ctx,fmt(v.mm,0)+' g metal',cx,16,T.ink,'left','middle',MONO);label(ctx,fmt(v.wm,0)+' g water',cx,34,T.ink,'left','middle',MONO);}});
+  const g=$('#ca-graph'),gs=sim2d(g,{h:()=>260,draw(ctx,w,h){const v=V(),lo=Math.min(v.wT,Tf(v))-5,hi=v.mT+5;const Pn=panel(ctx,{x:44,y:12,w:w-58,h:h-46},[0,30],[lo,hi],{xn:5,yn:4,xlabel:'time (s)',ylabel:'T (°C)',color:T.ink});
+      curve(ctx,Pn,x=>Tm(v,x),0,Math.max(.01,Math.min(t,30)),T.hot,2.8,120);curve(ctx,Pn,x=>Tw(v,x),0,Math.max(.01,Math.min(t,30)),T.cx,2.8,120);
+      line(ctx,Pn,0,Tf(v),30,Tf(v),T.muted,1.2,[5,4]);label(ctx,'final '+fmt(Tf(v),1)+' °C',Pn.X(30)-4,Pn.Y(Tf(v))-6,T.muted,'right','bottom',MONO);
+      label(ctx,'metal',Pn.X(1),Pn.Y(v.mT)+10,T.hot,'left','top',MONO);label(ctx,'water',Pn.X(1),Pn.Y(v.wT)-8,T.cx,'left','bottom',MONO);}});
+  function upd(){const v=V(),f=Tf(v),q=v.wm*4.184*(f-v.wT);setText('ca-mm-out',v.mm+' g');setText('ca-mT-out',v.mT+' °C');setText('ca-wm-out',v.wm+' g');setText('ca-wT-out',v.wT+' °C');
+    setText('ca-tf',fmt(f,1)+' °C');setText('ca-ql','−'+fmt(q,0)+' J');setText('ca-qg','+'+fmt(q,0)+' J');setText('ca-c',v.c+' J/g·°C');sim.render();gs.render();}
+  ids.forEach(k=>bindRange('ca-'+k,()=>'',()=>{t=0;run=false;upd();},false));sel.addEventListener('change',()=>{t=0;run=false;upd();});
+  $('#ca-go').addEventListener('click',()=>{t=0;run=true;heat=[];sim.render();gs.render();const tick=()=>{gs.render();if(run)requestAnimationFrame(tick);};tick();});
+  $('#ca-lab').addEventListener('labreset',()=>{t=0;run=false;upd();});
+  upd();
+  /* dissolving */
+  const cb=$('#cb-canvas'),ss=$('#cb-salt');ss.innerHTML=Object.keys(CAL_SALTS).map(k=>`<option value="${k}">${CAL_SALTS[k].f}</option>`).join('');ss.value='NH4NO3';
+  let t2=0,run2=false,ions=[];const S=()=>{const s=CAL_SALTS[ss.value],m=+$('#cb-m').value,n=m/s.M,q=-s.dh*1000*n;const dT=q/((100+m)*4.184);return {s,m,n,q,dT};};
+  const T2=(d,tt)=>20+d.dT*(1-Math.exp(-tt/4));
+  const sim2=sim2d(cb,{h:()=>260,step(dt){if(run2){t2+=dt;if(t2>25)run2=false;const d=S(),frac=1-Math.exp(-t2/4);if(ions.length<(frac*40)&&Math.random()<.8)ions.push({x:0,y:0,vx:(Math.random()-.5)*50,vy:(Math.random()-.5)*50,c:Math.random()<.5});}
+      ions.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;});},
+    draw(ctx,w,h){const d=S(),Tn=run2||t2>0?T2(d,t2):20,cx=w*.18,cw=w*.64,cy=60,ch=h-90;calCup(ctx,cx,cy,cw,ch,Tn);const frac=run2||t2>0?1-Math.exp(-t2/4):0,cs=(1-frac)*(18+d.m*.9);
+      if(cs>.5){ctx.fillStyle='#EEF1F5';ctx.strokeStyle=T.ink;ctx.lineWidth=1.4;ctx.fillRect(cx+cw/2-cs/2,cy+ch-cs-4,cs,cs);ctx.strokeRect(cx+cw/2-cs/2,cy+ch-cs-4,cs,cs);}
+      ions.forEach(p=>{const bx=cx+cw/2,by=cy+ch-10;const x=clamp(bx+p.x,cx+8,cx+cw-8),y=clamp(by+p.y-(Math.min(t2,6))*8,cy+8,cy+ch-8);dot(ctx,x,y,3.8,p.c?'#3E7BDC':'#8B5CF6');});
+      calTherm(ctx,cx+cw+10,cy-20,ch+10,Tn,5,40,Tn>20.2?T.hot:Tn<19.8?'#4C8DF6':T.hot);label(ctx,d.s.f+', '+fmt(d.m,1)+' g in 100 g water',cx,16,T.ink,'left','middle',MONO);}});
+  const g2=$('#cb-graph'),gs2=sim2d(g2,{h:()=>260,draw(ctx,w,h){const d=S(),lo=Math.min(20,20+d.dT)-3,hi=Math.max(20,20+d.dT)+3;const Pn=panel(ctx,{x:44,y:12,w:w-58,h:h-46},[0,25],[lo,hi],{xn:5,yn:4,xlabel:'time (s)',ylabel:'T (°C)',color:T.ink});
+      curve(ctx,Pn,x=>T2(d,x),0,Math.max(.01,Math.min(t2,25)),d.dT>=0?T.hot:T.cx,2.8,120);line(ctx,Pn,0,20,25,20,T.muted,1.2,[5,4]);}});
+  function upd2(){const d=S();setText('cb-m-out',fmt(d.m,1)+' g');setText('cb-dT',(d.dT>=0?'+':'−')+fmt(Math.abs(d.dT),1)+' °C');setText('cb-q',(d.q>=0?'−':'+')+fmt(Math.abs(d.q),0)+' J');
+    setText('cb-dh',(d.s.dh>0?'+':'−')+fmt(Math.abs(d.s.dh),1)+' kJ/mol');setText('cb-ty',d.s.dh>0?'endothermic':'exothermic');sim2.render();gs2.render();}
+  bindRange('cb-m',()=>'',()=>{t2=0;run2=false;ions=[];upd2();},false);ss.addEventListener('change',()=>{t2=0;run2=false;ions=[];upd2();});
+  $('#cb-go').addEventListener('click',()=>{t2=0;run2=true;ions=[];const tick=()=>{gs2.render();if(run2)requestAnimationFrame(tick);};tick();});$('#cb-lab').addEventListener('labreset',()=>{t2=0;run2=false;ions=[];upd2();});
+  upd2();drawers.calorimetry=()=>{upd();upd2();};
+  TIPS['ca-metal']='A larger specific heat means the metal stores more energy per gram per degree.';
+  TIPS['ca-mm']='More metal means more stored heat, so the water ends hotter.';
+  TIPS['ca-mT']='A hotter metal brings more energy to share.';
+  TIPS['ca-wm']='More water means the same heat is spread over more mass, so its temperature changes less.';
+  TIPS['ca-wT']='The final temperature always lies between the two starting temperatures.';
+  TIPS['cb-salt']='Pick a substance; the sign of ΔH tells you whether the cup gets cold or hot.';
+  TIPS['cb-m']='More dissolved means more moles, so a larger temperature change.';
+  KEYS['ca-canvas']=['Press Drop it in and watch the orange heat dots leave the metal.',[['hot','heat flowing'],['cx','water (cooler)']]];
+  GLOSS['calorimeter']='An insulated container used to measure heat by the temperature change of water.';
+  GLOSS['exothermic']='A process that releases heat to its surroundings (ΔH is negative).';
+  GLOSS['endothermic']='A process that absorbs heat from its surroundings (ΔH is positive).';
+  GLOSS['specific heat']='The heat needed to raise the temperature of 1 g of a substance by 1 °C.';
+  TT.calorimetry='Have students predict the final temperature qualitatively (closer to which starting value?) before using the slider.';
+})();
+(function(){
+  PROBS.push({id:'cal-final',topic:'calorimetry',title:'Final temperature of a mixture',gen(){const k=pick(Object.keys(CAL_METALS)),M=CAL_METALS[k],mm=pick([40,60,80,100,150]),mT=pick([85,90,95,99]),wm=pick([80,100,150,200]),wT=pick([18,20,22,25]),f=(mm*M.c*mT+wm*4.184*wT)/(mm*M.c+wm*4.184);
+    return {q:`A ${mm} g sample of ${M.n.toLowerCase()} (c = ${M.c} J/g·°C) at ${mT} °C is dropped into ${wm} g of water at ${wT} °C in an insulated cup. What is the final temperature? (c<sub>water</sub> = 4.184 J/g·°C)`,ans:f,unit:'°C',tol:.01,hint:'Heat lost by the metal = heat gained by the water. Set mcΔT equal for both.',sol:`${mm}(${M.c})(${mT} − T) = ${wm}(4.184)(T − ${wT}); T = <b>${fmt(f,1)} °C</b>.`};}});
+  PROBS.push({id:'cal-c',topic:'calorimetry',title:'Specific heat of an unknown metal',gen(){const M=pick(Object.values(CAL_METALS)),mm=pick([40,50,60,75]),wm=pick([75,100,125]),mT=pick([95,98,99]),wT=pick([20,21,22]),f=+(((mm*M.c*mT+wm*4.184*wT)/(mm*M.c+wm*4.184))).toFixed(1),c=wm*4.184*(f-wT)/(mm*(mT-f));
+    return {q:`A ${mm} g piece of an unknown metal at ${mT} °C is added to ${wm} g of water at ${wT} °C. The final temperature is ${fmt(f,1)} °C. What is the specific heat of the metal? (c<sub>water</sub> = 4.184 J/g·°C)`,ans:c,unit:'J/g·°C',tol:.03,hint:'q for the water = −q for the metal. Solve −m c ΔT(metal) = m c ΔT(water) for c.',sol:`q<sub>water</sub> = ${wm}(4.184)(${fmt(f-wT,1)}) = ${fmt(wm*4.184*(f-wT),0)} J; c = ${fmt(wm*4.184*(f-wT),0)} ÷ (${mm} × ${fmt(mT-f,1)}) = <b>${fmt(c,3)} J/g·°C</b>.`};}});
+  PROBS.push({id:'cal-dh',topic:'calorimetry',title:'ΔH of dissolving',gen(){const k=pick(Object.keys(CAL_SALTS).filter(x=>Math.abs(CAL_SALTS[x].dh)>14)),s=CAL_SALTS[k],m=pick([4.0,5.0,8.0,10.0]),n=m/s.M,dT=+((-s.dh*1000*n)/((100+m)*4.184)).toFixed(1),q=(100+m)*4.184*dT,dh=-q/n/1000;
+    return {q:`${fmt(m,1)} g of ${s.f} (molar mass ${s.M} g/mol) is dissolved in 100.0 g of water in a coffee-cup calorimeter. The temperature ${dT>0?'rises':'falls'} by ${fmt(Math.abs(dT),1)} °C. Assume the solution (${fmt(100+m,1)} g) has c = 4.184 J/g·°C. What is ΔH for dissolving, in kJ per mole? (Include the sign.)`,ans:dh,unit:'kJ/mol',tol:.03,hint:'q(solution) = mcΔT. Then q(rxn) = −q(solution). Divide by moles.',sol:`q<sub>soln</sub> = ${fmt(100+m,1)}(4.184)(${dT>0?'+':'−'}${fmt(Math.abs(dT),1)}) = ${fmt(q,0)} J, so q<sub>rxn</sub> = ${fmt(-q,0)} J. n = ${fmt(n,4)} mol. ΔH = <b>${fmt(dh,1)} kJ/mol</b>.`};}});
+  PROBS.push({id:'cal-neut',topic:'calorimetry',title:'Neutralization calorimetry',gen(){const V=pick([50,75,100]),Mo=pick([.50,1.0,1.5,2.0]),n=V/1000*Mo,dT=+((55.8*n*1000)/(2*V*4.184)).toFixed(1),q=2*V*4.184*dT,dh=-q/n/1000;
+    return {q:`${V} mL of ${fmt(Mo,2)} M HCl is mixed with ${V} mL of ${fmt(Mo,2)} M NaOH in a coffee-cup calorimeter; the temperature rises by ${fmt(dT,1)} °C. Assume the solution has density 1.00 g/mL and c = 4.184 J/g·°C. What is ΔH for the reaction per mole of water formed?`,ans:dh,unit:'kJ/mol',tol:.03,hint:'Mass = total volume × 1.00 g/mL. q = mcΔT, then ΔH = −q ÷ moles.',sol:`q = ${2*V}(4.184)(${fmt(dT,1)}) = ${fmt(q,0)} J; moles H₂O = ${fmt(n,4)}; ΔH = −${fmt(q/1000,2)} kJ ÷ ${fmt(n,4)} mol = <b>${fmt(dh,1)} kJ/mol</b>.`};}});
+  const BC=[['glucose (C₆H₁₂O₆)',180.16,2803],['sucrose (C₁₂H₂₂O₁₁)',342.30,5640],['naphthalene (C₁₀H₈)',128.17,5157]];
+  PROBS.push({id:'cal-bomb',topic:'calorimetry',title:'Bomb calorimeter',gen(){const [nm,M,E]=pick(BC),C=pick([9.8,10.5,11.2,12.0]),m=pick([.50,.80,1.00,1.20]),n=m/M,dT=+(E*n/C).toFixed(2),q=C*dT,dE=-q/n;
+    return {q:`A bomb calorimeter has a heat capacity of ${fmt(C,1)} kJ/°C. Burning ${fmt(m,2)} g of ${nm}, molar mass ${M} g/mol, raises its temperature by ${fmt(dT,2)} °C. What is the heat of combustion, in kJ per mole? (Include the sign.)`,ans:dE,unit:'kJ/mol',tol:.03,hint:'q(calorimeter) = CΔT. The reaction released that heat, so q(rxn) is its negative; then divide by moles.',sol:`q = ${fmt(C,1)} × ${fmt(dT,2)} = ${fmt(q,2)} kJ; n = ${fmt(m,2)}/${M} = ${fmt(n,5)} mol; ΔE = −${fmt(q,2)} ÷ ${fmt(n,5)} = <b>${fmt(dE,0)} kJ/mol</b>.`};}});
+})();
+
+/* ===== modules/enthalpy.js ===== */
+
+/* ---------------- Enthalpy, Hess's law & bond energies ---------------- */
+const HSP={CO2:'CO₂',CO:'CO',O2:'O₂',C:'C',H2:'H₂',H2O:'H₂O',C2H2:'C₂H₂',N2:'N₂',NO:'NO',NO2:'NO₂',N2O4:'N₂O₄',CH4:'CH₄',H2O2:'H₂O₂'};
+const HSETS=[
+ {t:'C(s) + ½O₂(g) → CO(g)',tg:{C:-1,O2:-.5,CO:1},dh:-110.5,steps:[{r:{C:-1,O2:-1,CO2:1},dh:-393.5},{r:{CO:-1,O2:-.5,CO2:1},dh:-283.0}],ans:[1,-1]},
+ {t:'2C(s) + H₂(g) → C₂H₂(g)',tg:{C:-2,H2:-1,C2H2:1},dh:226.8,steps:[{r:{C:-1,O2:-1,CO2:1},dh:-393.5},{r:{H2:-1,O2:-.5,H2O:1},dh:-285.8},{r:{C2H2:-1,O2:-2.5,CO2:2,H2O:1},dh:-1299.6}],ans:[2,1,-1]},
+ {t:'N₂(g) + 2O₂(g) → 2NO₂(g)',tg:{N2:-1,O2:-2,NO2:2},dh:66.4,steps:[{r:{N2:-1,O2:-1,NO:2},dh:180.5},{r:{NO:-2,O2:-1,NO2:2},dh:-114.1}],ans:[1,1]},
+ {t:'2NO₂(g) → N₂O₄(g)',tg:{NO2:-2,N2O4:1},dh:-57.2,steps:[{r:{N2:-1,O2:-2,NO2:2},dh:66.4},{r:{N2:-1,O2:-2,N2O4:1},dh:9.2}],ans:[-1,1]}];
+const hsFmt=o=>{const L=[],R=[];Object.entries(o).forEach(([k,v])=>{const c=Math.abs(v),s=(c===1?'':c===.5?'½':c%1?c:c)+HSP[k];if(Math.abs(v)<1e-9)return;(v<0?L:R).push(s);});return (L.join(' + ')||'—')+' → '+(R.join(' + ')||'—');};
+const hsMul=[-2,-1,-.5,0,.5,1,2];
+(function enthalpy(){
+  const sel=$('#hl-set');if(!sel)return;sel.innerHTML=HSETS.map((s,i)=>`<option value="${i}">${s.t}</option>`).join('');
+  let S=HSETS[0],mult=[];const cv=$('#hl-canvas');
+  function build(){S=HSETS[+sel.value];mult=S.steps.map(()=>0);$('#hl-rows').innerHTML=S.steps.map((s,i)=>`<div class="hl-row"><span class="hl-eq">${hsFmt(s.r)} <small>ΔH = ${s.dh>0?'+':'−'}${Math.abs(s.dh)} kJ</small></span><label>× <select data-i="${i}" aria-label="multiplier for step ${i+1}">${hsMul.map(m=>`<option value="${m}"${m===0?' selected':''}>${m===.5?'½':m===-.5?'−½':m}</option>`).join('')}</select></label></div>`).join('');upd();}
+  function net(){const t={};S.steps.forEach((s,i)=>Object.entries(s.r).forEach(([k,v])=>t[k]=(t[k]||0)+v*mult[i]));Object.keys(t).forEach(k=>{if(Math.abs(t[k])<1e-9)delete t[k];});return t;}
+  const same=(a,b)=>{const ks=new Set([...Object.keys(a),...Object.keys(b)]);return [...ks].every(k=>Math.abs((a[k]||0)-(b[k]||0))<1e-9);};
+  function upd(){const n=net(),sum=S.steps.reduce((a,s,i)=>a+s.dh*mult[i],0),ok=Object.keys(n).length&&same(n,S.tg);setText('hl-net',Object.keys(n).length?hsFmt(n):'(choose multipliers)');setText('hl-sum',(sum>=0?'+':'−')+fmt(Math.abs(sum),1)+' kJ');
+    const o=$('#hl-ok');o.textContent=ok?'Yes! ΔH = '+(sum>=0?'+':'−')+fmt(Math.abs(sum),1)+' kJ':'Not yet';o.className=ok?'v':'';sim.render();}
+  $('#hl-rows').addEventListener('change',e=>{const i=e.target.dataset.i;if(i===undefined)return;mult[+i]=+e.target.value;upd();});
+  const sim=sim2d(cv,{h:()=>200,draw(ctx,w,h){const vals=[0];let acc=0;S.steps.forEach((s,i)=>{acc+=s.dh*mult[i];vals.push(acc);});const tg=S.dh,all=[...vals,0,tg],lo=Math.min(...all)-20,hi=Math.max(...all)+20;
+      const P=panel(ctx,{x:56,y:10,w:w-72,h:h-34},[0,S.steps.length+1],[lo,hi],{xn:1,yn:4,ylabel:'ΔH (kJ)',color:T.ink});
+      line(ctx,P,0,0,S.steps.length+1,0,T.muted,1,[4,4]);
+      for(let i=0;i<S.steps.length;i++){if(mult[i]===0)continue;const y0=vals[i],y1=vals[i+1];arrow(ctx,P.X(i+.5),P.Y(y0),P.X(i+.5),P.Y(y1),y1<y0?T.cv:T.hot,3);label(ctx,'step '+(i+1)+(mult[i]!==1?' ×'+(mult[i]===.5?'½':mult[i]===-.5?'−½':mult[i]):''),P.X(i+.5),P.Y((y0+y1)/2),T.ink,'left','middle',MONO);}
+      ctx.save();ctx.strokeStyle=T.ca;ctx.lineWidth=2;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(P.X(.1),P.Y(tg));ctx.lineTo(P.X(S.steps.length+.9),P.Y(tg));ctx.stroke();ctx.restore();label(ctx,'target ΔH = '+(tg>=0?'+':'−')+Math.abs(tg),P.X(S.steps.length+.9),P.Y(tg)-6,T.ca,'right','bottom',MONO);
+      dot(ctx,P.X(S.steps.length+.3),P.Y(vals[vals.length-1]),6,T.ink);label(ctx,'your total',P.X(S.steps.length+.3)-10,P.Y(vals[vals.length-1]),T.ink,'right','middle',MONO);}});
+  sel.addEventListener('change',build);$('#hl-new').addEventListener('click',()=>{sel.value=(+sel.value+1)%HSETS.length;build();});$('#hl-lab').addEventListener('labreset',build);build();
+  /* bond energies */
+  const BE={'H–H':436,'Cl–Cl':243,'H–Cl':431,'C–H':413,'O=O':498,'C=O':799,'O–H':467,'N≡N':945,'N–H':391};
+  const BR=[{t:'H₂ + Cl₂ → 2HCl',R:[['H2',1],['Cl2',1]],P:[['HCl',2]],br:[['H–H',1],['Cl–Cl',1]],fo:[['H–Cl',2]]},
+    {t:'CH₄ + 2O₂ → CO₂ + 2H₂O',R:[['CH4',1],['O2',2]],P:[['CO2',1],['H2O',2]],br:[['C–H',4],['O=O',2]],fo:[['C=O',2],['O–H',4]]},
+    {t:'N₂ + 3H₂ → 2NH₃',R:[['N2',1],['H2',3]],P:[['NH3',2]],br:[['N≡N',1],['H–H',3]],fo:[['N–H',6]]},
+    {t:'2H₂ + O₂ → 2H₂O',R:[['H2',2],['O2',1]],P:[['H2O',2]],br:[['H–H',2],['O=O',1]],fo:[['O–H',4]]}];
+  const bs=$('#be-sel'),bp=$('#be-p'),bc=$('#be-canvas');bs.innerHTML=BR.map((r,i)=>`<option value="${i}">${r.t}</option>`).join('');let play=false;
+  const tot=l=>l.reduce((a,[b,n])=>a+BE[b]*n,0);
+  const bsim=sim2d(bc,{h:()=>330,step(dt){if(!play)return;bp.value=Math.min(200,+bp.value+dt*30);if(+bp.value>=200){play=false;$('#be-play').textContent='Play';}bupd(true);},
+    draw(ctx,w,h){const r=BR[+bs.value],p=+bp.value/100,pb=clamp(p,0,1),pf=clamp(p-1,0,1),Bk=tot(r.br),Fm=tot(r.fo),top=h*.52,u=Math.min(34,w/22);
+      const spread=(list,cx0,sp)=>{const items=[];list.forEach(([f,n])=>{for(let i=0;i<n;i++)items.push(f);});const gap=u*3.1,x0=cx0-(items.length-1)*gap/2;return items.map((f,i)=>[f,x0+i*gap]);};
+      const reac=spread(r.R,w/2,0),prod=spread(r.P,w/2,0);
+      /* free atoms */
+      const atomsOf=list=>{const a=[];list.forEach(([f,x])=>{const m=molAtoms(f);m.atoms.forEach(at=>a.push({e:at.e,x:x+at.x*u*(1+pb*1.6)*1,y:top*.5+at.y*u*(1+pb*1.6)+Math.sin(sim.t*3+a.length)*pb*(1-pf)*3}));});return a;};
+      if(pb<1&&pf===0){reac.forEach(([f,x])=>{const a=1-pb*.9;drawMol2D(ctx,f,x,top*.5,u,{alpha:1-pb});});}
+      if(p>0&&pf<1){const A=atomsOf(reac);ctx.save();ctx.globalAlpha=Math.min(1,pb*4)*(1-pf);A.forEach(a=>ball2(ctx,a.x,a.y,u*(a.e==='H'?.3:.45),e2col(a.e),a.e==='H'?'rgba(0,0,0,.45)':null));ctx.restore();}
+      if(pf>0)prod.forEach(([f,x])=>drawMol2D(ctx,f,x,top*.5,u,{alpha:pf}));
+      label(ctx,p<1?(p<.02?'reactants':'breaking bonds: energy IN'):p<1.98?'forming bonds: energy OUT':'products',w/2,14,p<1?T.hot:T.cv,'center','middle','600 13px "IBM Plex Mono",monospace');
+      const H0=h*.58,box={x:70,y:H0,w:w-90,h:h-H0-14},lo=Math.min(0,Bk-Fm)-60,hi=Bk+80,Pn=panel(ctx,box,[0,3],[lo,hi],{xn:1,yn:3,ylabel:'energy (kJ)',color:T.ink});
+      const e=p<1?Bk*pb:Bk-Fm*pf*(p>=1?1:0)*(1)-0;const lv=p<=1?Bk*p:Bk-Fm*(p-1);
+      line(ctx,Pn,0,0,3,0,T.muted,1,[3,3]);
+      [['reactants',0,0,1,T.ink],['atoms',1,Bk,2,T.hot],['products',2,Bk-Fm,3,T.cv]].forEach(([n,i,y,x2,c])=>{line(ctx,Pn,i+.05,y,x2-.05,y,c,3);label(ctx,n,Pn.X(i+.5),Pn.Y(y)-8,c,'center','bottom',MONO);});
+      if(Bk>0){arrow(ctx,Pn.X(.95),Pn.Y(0),Pn.X(.95),Pn.Y(Bk),T.hot,2);label(ctx,'+'+Bk,Pn.X(.95)-5,Pn.Y(Bk/2),T.hot,'right','middle',MONO);}
+      arrow(ctx,Pn.X(1.95),Pn.Y(Bk),Pn.X(1.95),Pn.Y(Bk-Fm),T.cv,2);label(ctx,'−'+Fm,Pn.X(1.95)-5,Pn.Y(Bk-Fm/2),T.cv,'right','middle',MONO);
+      const dh=Bk-Fm;ctx.save();ctx.strokeStyle=T.ca;ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(Pn.X(2.4),Pn.Y(0));ctx.lineTo(Pn.X(2.4),Pn.Y(dh));ctx.stroke();ctx.restore();label(ctx,'ΔH = '+(dh>0?'+':'−')+Math.abs(dh),Pn.X(2.45),Pn.Y(dh/2),T.ca,'left','middle',MONO);
+      const bx=p<=1?.5+p*.5:1.5+(p-1)*1,by=p<=1?Bk*p:Bk-Fm*(p-1);dot(ctx,Pn.X(p<=1?p:p),Pn.Y(by),6,T.ink);}});
+  function bupd(fromPlay){const r=BR[+bs.value],Bk=tot(r.br),Fm=tot(r.fo);setText('be-p-out',+bp.value<5?'start':+bp.value<100?'breaking':+bp.value<195?'forming':'done');
+    $('#be-tab').innerHTML=`<thead><tr><th>Bond</th><th>Per mol</th><th>Count</th><th>Total (kJ)</th></tr></thead><tbody>${r.br.map(([b,n])=>`<tr><td>${b} <small>broken</small></td><td>${BE[b]}</td><td>${n}</td><td>+${BE[b]*n}</td></tr>`).join('')}${r.fo.map(([b,n])=>`<tr><td>${b} <small>formed</small></td><td>${BE[b]}</td><td>${n}</td><td>−${BE[b]*n}</td></tr>`).join('')}</tbody>`;
+    setText('be-in','+'+Bk+' kJ');setText('be-out','−'+Fm+' kJ');setText('be-dh',(Bk-Fm>0?'+':'−')+Math.abs(Bk-Fm)+' kJ ('+(Bk-Fm<0?'exothermic':'endothermic')+')');if(!fromPlay)bsim.render();else bsim.render();}
+  bs.addEventListener('change',()=>{bp.value=0;play=false;$('#be-play').textContent='Play';bupd();});bindRange('be-p',()=>'',()=>bupd(),false);
+  $('#be-play').addEventListener('click',()=>{if(+bp.value>=200)bp.value=0;play=!play;$('#be-play').textContent=play?'Pause':'Play';bupd(true);});$('#be-lab').addEventListener('labreset',()=>{bp.value=0;play=false;$('#be-play').textContent='Play';bupd();});
+  const bpOut=$('#be-p-out');bupd();
+  /* formation */
+  const HF={CH4:-74.8,O2:0,CO2:-393.5,H2O:-285.8,H2Og:-241.8,C2H6:-84.7,NH3:-45.9,NO:90.3,NO2:33.2,N2O4:9.2,Fe2O3:-824.2,Al:0,Al2O3:-1675.7,Fe:0,SO2:-296.8,SO3:-395.7};
+  const FN={CH4:'CH₄(g)',O2:'O₂(g)',CO2:'CO₂(g)',H2O:'H₂O(l)',H2Og:'H₂O(g)',C2H6:'C₂H₆(g)',NH3:'NH₃(g)',NO:'NO(g)',NO2:'NO₂(g)',N2O4:'N₂O₄(g)',Fe2O3:'Fe₂O₃(s)',Al:'Al(s)',Al2O3:'Al₂O₃(s)',Fe:'Fe(s)',SO2:'SO₂(g)',SO3:'SO₃(g)'};
+  const FR=[{R:[['CH4',1],['O2',2]],P:[['CO2',1],['H2O',2]]},{R:[['C2H6',2],['O2',7]],P:[['CO2',4],['H2O',6]]},{R:[['NH3',4],['O2',5]],P:[['NO',4],['H2Og',6]]},{R:[['NO2',2]],P:[['N2O4',1]]},{R:[['Fe2O3',1],['Al',2]],P:[['Al2O3',1],['Fe',2]]},{R:[['SO2',2],['O2',1]],P:[['SO3',2]]}];
+  const eqS=l=>l.map(([k,n])=>(n>1?n:'')+FN[k]).join(' + ');
+  const fs=$('#fm-sel');fs.innerHTML=FR.map((r,i)=>`<option value="${i}">${eqS(r.R)} → ${eqS(r.P)}</option>`).join('');let fst=0;
+  const sumL=l=>l.reduce((a,[k,n])=>a+HF[k]*n,0),terms=l=>l.map(([k,n])=>`${n>1?n+'(':'('}${fmt(HF[k],1)})`).join(' + ');
+  function fupd(){const r=FR[+fs.value],sp=sumL(r.P),sr=sumL(r.R),dh=sp-sr,L=[];
+    L.push(`<span class="ln"><span class="lbl">Reaction</span>${eqS(r.R)} → ${eqS(r.P)}</span>`);
+    if(fst>=1)L.push(`<span class="ln"><span class="lbl">ΣnΔH°f (products)</span>${terms(r.P)} = ${fmt(sp,1)} kJ</span>`);
+    if(fst>=2)L.push(`<span class="ln"><span class="lbl">ΣnΔH°f (reactants)</span>${terms(r.R)} = ${fmt(sr,1)} kJ${r.R.some(([k])=>HF[k]===0)?' <small>(elements are 0)</small>':''}</span>`);
+    if(fst>=3)L.push(`<span class="ln"><span class="lbl">ΔH°</span><span class="net">${fmt(sp,1)} − (${fmt(sr,1)}) = ${fmt(dh,1)} kJ (${dh<0?'exothermic':'endothermic'})</span></span>`);
+    $('#fm-out').innerHTML=L.join('');$('#fm-back').disabled=fst===0;$('#fm-next').textContent=fst>=3?'Start over':'Next step';}
+  fs.addEventListener('change',()=>{fst=0;fupd();});$('#fm-next').addEventListener('click',()=>{fst=fst>=3?0:fst+1;fupd();});$('#fm-back').addEventListener('click',()=>{fst=Math.max(0,fst-1);fupd();});$('#fm-lab').addEventListener('labreset',()=>{fst=0;fupd();});fupd();
+  drawers.enthalpy=()=>{sim.render();bsim.render();};
+  TIPS['hl-set']='Each puzzle gives known reactions; choose a multiplier for each to build the target.';
+  TIPS['be-sel']='Pick a reaction and scrub the progress slider to break, then make, bonds.';
+  TIPS['be-p']='First half: bonds break (energy in). Second half: new bonds form (energy out).';
+  TIPS['fm-sel']='Step through products minus reactants.';
+  KEYS['be-canvas']=['Press Play, or drag the progress slider.',[['hot','energy in'],['cv','energy out'],['ca','net ΔH']]];
+  GLOSS['enthalpy']='The heat content of a system at constant pressure; ΔH is the heat exchanged at constant pressure.';
+  GLOSS['hess\'s law']='If a reaction is the sum of other reactions, its ΔH is the sum of theirs.';
+  GLOSS['state function']='A quantity that depends only on the current state, not on the path taken.';
+  GLOSS['bond energy']='The energy needed to break one mole of a particular bond in the gas phase.';
+  TT.enthalpy='Draw the energy ladder on the board: up for breaking, down for forming. It explains the sign of ΔH more than any rule.';
+})();
+(function(){
+  const BEv={'H–H':436,'Cl–Cl':243,'H–Cl':431,'C–H':413,'O=O':498,'C=O':799,'O–H':467,'N≡N':945,'N–H':391};
+  PROBS.push({id:'en-hess',topic:'enthalpy',title:'Hess\'s law',gen(){const a=pick([-120,-85,-210,-310,45,90,150]),b=pick([-60,-140,-250,70,110,-95]),v=pick([0,1,2,3]);let q,ans,sol;
+    if(v===0){q=`Given A → B, ΔH = ${a} kJ and B → C, ΔH = ${b} kJ, what is ΔH for A → C?`;ans=a+b;sol=`Add: ${a} + (${b}) = <b>${ans} kJ</b>.`;}
+    else if(v===1){q=`Given A → B, ΔH = ${a} kJ and B → C, ΔH = ${b} kJ, what is ΔH for C → A?`;ans=-(a+b);sol=`A → C is ${a+b} kJ; reversing flips the sign: <b>${ans} kJ</b>.`;}
+    else if(v===2){q=`Given A → B, ΔH = ${a} kJ and B → C, ΔH = ${b} kJ, what is ΔH for 2A → 2C?`;ans=2*(a+b);sol=`A → C is ${a+b} kJ; doubling the equation doubles ΔH: <b>${ans} kJ</b>.`;}
+    else{q=`Given A → C, ΔH = ${a+b} kJ and B → C, ΔH = ${b} kJ, what is ΔH for A → B?`;ans=a;sol=`A → B equals (A → C) plus (C → B): ${a+b} + (${-b}) = <b>${ans} kJ</b>.`;}
+    return {q,ans,unit:'kJ',abs:.5,hint:'Reverse a step: flip the sign. Multiply a step: multiply ΔH. Then add.',sol};}});
+  const FO=[['CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)',[['CH₄',-74.8],['CO₂',-393.5],['H₂O(l)',-285.8]],-74.8*-1,-393.5+2*-285.8],
+    ['2NO₂(g) → N₂O₄(g)',[['NO₂',33.2],['N₂O₄',9.2]],0,9.2-2*33.2],
+    ['Fe₂O₃(s) + 2Al(s) → Al₂O₃(s) + 2Fe(s)',[['Fe₂O₃(s)',-824.2],['Al₂O₃(s)',-1675.7]],0,-1675.7+824.2],
+    ['2SO₂(g) + O₂(g) → 2SO₃(g)',[['SO₂',-296.8],['SO₃',-395.7]],0,2*-395.7-2*-296.8],
+    ['4NH₃(g) + 5O₂(g) → 4NO(g) + 6H₂O(g)',[['NH₃',-45.9],['NO',90.3],['H₂O(g)',-241.8]],0,4*90.3+6*-241.8-4*-45.9]];
+  PROBS.push({id:'en-formation',topic:'enthalpy',title:'ΔH from formation enthalpies',gen(){const [eq,d,,ans]=pick(FO);
+    return {q:`Use standard enthalpies of formation (kJ/mol): ${d.map(([n,v])=>`${n} ${v>0?'+':''}${v}`).join(', ')}; ΔH°f of every element in its standard state is 0. Find ΔH° for: ${eq}`,ans,unit:'kJ',tol:.01,hint:'ΔH° = Σ n·ΔH°f(products) − Σ n·ΔH°f(reactants). Multiply each by its coefficient.',sol:`ΔH° = <b>${fmt(ans,1)} kJ</b>.`};}});
+  const BRX=[['H₂ + Cl₂ → 2HCl',[['H–H',1],['Cl–Cl',1]],[['H–Cl',2]]],['N₂ + 3H₂ → 2NH₃',[['N≡N',1],['H–H',3]],[['N–H',6]]],['2H₂ + O₂ → 2H₂O',[['H–H',2],['O=O',1]],[['O–H',4]]],['CH₄ + 2O₂ → CO₂ + 2H₂O',[['C–H',4],['O=O',2]],[['C=O',2],['O–H',4]]]];
+  PROBS.push({id:'en-bond',topic:'enthalpy',title:'ΔH from bond energies',gen(){const [eq,br,fo]=pick(BRX),B=br.reduce((a,[b,n])=>a+BEv[b]*n,0),F=fo.reduce((a,[b,n])=>a+BEv[b]*n,0),used=[...br,...fo].map(([b])=>b).filter((b,i,a)=>a.indexOf(b)===i);
+    return {q:`Average bond energies (kJ/mol): ${used.map(b=>`${b} ${BEv[b]}`).join(', ')}. Estimate ΔH for ${eq}.`,ans:B-F,unit:'kJ',tol:.01,hint:'Add the energy to break every bond in the reactants, then subtract the energy released forming every bond in the products.',sol:`Broken: ${br.map(([b,n])=>`${n}×${BEv[b]}`).join(' + ')} = ${B} kJ. Formed: ${fo.map(([b,n])=>`${n}×${BEv[b]}`).join(' + ')} = ${F} kJ. ΔH = ${B} − ${F} = <b>${B-F} kJ</b>.`};}});
+  const HR=[['CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)',-890.3,16.04,'CH₄',1],['2C₂H₆(g) + 7O₂(g) → 4CO₂(g) + 6H₂O(l)',-3119.4,30.07,'C₂H₆',2],['C₃H₈(g) + 5O₂(g) → 3CO₂(g) + 4H₂O(l)',-2220,44.10,'C₃H₈',1],['2H₂(g) + O₂(g) → 2H₂O(l)',-571.6,2.016,'H₂',2]];
+  PROBS.push({id:'en-heat',topic:'enthalpy',title:'Heat from a given mass',gen(){const [eq,dh,M,nm,c]=pick(HR),m=pick([5.0,10.0,25.0,40.0]),q=m/M/c*Math.abs(dh);
+    return {q:`${eq}, ΔH = ${dh} kJ. How much heat is released when ${fmt(m,1)} g of ${nm} burns completely? (molar mass ${M} g/mol)`,ans:q,unit:'kJ',tol:.02,hint:'Grams → moles of fuel → divide by its coefficient (ΔH is per reaction as written) → multiply by |ΔH|.',sol:`n = ${fmt(m,1)}/${M} = ${fmt(m/M,3)} mol; reactions = ${fmt(m/M,3)} ÷ ${c} = ${fmt(m/M/c,3)}; q = <b>${fmt(q,0)} kJ</b> released.`};}});
+  PROBS.push({id:'en-concept',topic:'enthalpy',title:'Exothermic or endothermic?',gen(){const B=pick([600,800,950,1200]),F=B+pick([-250,-120,90,200,310]),dh=B-F;
+    return {q:`Breaking all the bonds in the reactants takes ${B} kJ, and forming all the bonds in the products releases ${F} kJ. What is ΔH?`,ans:dh,unit:'kJ',abs:.5,hint:'ΔH = energy in − energy out.',sol:`ΔH = ${B} − ${F} = <b>${dh} kJ</b> (${dh<0?'exothermic':'endothermic'}).`};}});
 })();
 
 /* ===== overview.js ===== */

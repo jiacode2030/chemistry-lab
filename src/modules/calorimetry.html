@@ -1,0 +1,62 @@
+  <section class="view" id="v-calorimetry" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 6</span></div>
+        <h1>Calorimetry</h1>
+        <p class="lede">You can't see energy, but you can see a thermometer. Calorimetry measures heat by watching how much a known amount of water warms up or cools down.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Energy is never lost: whatever one object gives up, another gains. Drop a hot metal into cool water. The metal cools, the water warms, and they settle at one temperature. The heat the metal <i>loses</i> equals the heat the water <i>gains</i>: <b>q<sub>lost</sub> + q<sub>gained</sub> = 0</b>. Since q = mcΔT for each, you can solve for the final temperature, or for an unknown specific heat.</p>
+        <p>A reaction works the same way. If it releases heat, the solution around it warms up (<b>exothermic</b>, ΔH negative); if it absorbs heat, the solution gets cold (<b>endothermic</b>, ΔH positive). The water gained what the reaction lost, so <b>q<sub>rxn</sub> = −q<sub>solution</sub></b>. That is how a hot pack and a cold pack differ.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed all the heat stays between the two objects. A real cup absorbs and leaks some. We ignore the cup for now, but a bomb calorimeter's heat capacity C (kJ/°C) is exactly how we account for it.</div>
+      <div class="lab" id="ca-lab">
+        <div class="labbar"><span class="title">Hot metal into water</span><div class="row"><button type="button" class="btn primary" id="ca-go">Drop it in</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ca-metal"><span>Metal</span></label><select id="ca-metal"></select></div>
+          <div class="ctl"><label for="ca-mm"><span>Mass of metal</span> <output id="ca-mm-out"></output></label><input type="range" id="ca-mm" min="20" max="200" step="5" value="100"></div>
+          <div class="ctl"><label for="ca-mT"><span>Metal starts at</span> <output id="ca-mT-out"></output></label><input type="range" id="ca-mT" min="50" max="100" step="1" value="95"></div>
+          <div class="ctl"><label for="ca-wm"><span>Mass of water</span> <output id="ca-wm-out"></output></label><input type="range" id="ca-wm" min="50" max="250" step="5" value="100"></div>
+          <div class="ctl"><label for="ca-wT"><span>Water starts at</span> <output id="ca-wT-out"></output></label><input type="range" id="ca-wT" min="10" max="30" step="1" value="20"></div>
+        </div>
+        <div class="split"><div><canvas id="ca-canvas" aria-label="A hot metal sample in a cup of water with a thermometer"></canvas></div><div><canvas id="ca-graph" aria-label="Temperature of the metal and the water against time, meeting at a final temperature"></canvas></div></div>
+        <div class="readout"><div><span>Final temperature</span><strong class="x" id="ca-tf">—</strong></div><div><span>Heat lost by metal</span><strong class="a" id="ca-ql">—</strong></div><div><span>Heat gained by water</span><strong id="ca-qg">—</strong></div><div><span>Specific heat of metal</span><strong id="ca-c">—</strong></div></div>
+      </div>
+      <div class="lab" id="cb-lab">
+        <div class="labbar"><span class="title">Dissolve a salt</span><div class="row"><button type="button" class="btn primary" id="cb-go">Stir it in</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="cb-salt"><span>Substance</span></label><select id="cb-salt"></select></div>
+          <div class="ctl"><label for="cb-m"><span>Mass dissolved in 100 g water</span> <output id="cb-m-out"></output></label><input type="range" id="cb-m" min="2" max="20" step="0.5" value="10"></div>
+        </div>
+        <div class="split"><div><canvas id="cb-canvas" aria-label="A salt dissolving in a cup of water, with a thermometer"></canvas></div><div><canvas id="cb-graph" aria-label="Solution temperature against time"></canvas></div></div>
+        <div class="readout"><div><span>Temperature change</span><strong class="a" id="cb-dT">—</strong></div><div><span>Heat absorbed by solution</span><strong id="cb-q">—</strong></div><div><span>ΔH of dissolving</span><strong class="x" id="cb-dh">—</strong></div><div><span>Type (cold or hot pack)</span><strong id="cb-ty">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict the final temperature, then drop the metal in.</p><ol>
+        <li><p>Lead versus aluminum at the same mass and temperature. Which warms the water more? <button type="button" class="btn link" data-show='[["#ca-metal","Pb"],["click","#ca-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Aluminum, because it has a much larger specific heat (0.897 vs 0.129 J/g·°C): each gram holds about seven times as much heat. Lead's temperature drops a lot but it carries little energy.</p></details></li>
+        <li><p>Use a lot more water. What happens to the final temperature? <button type="button" class="btn link" data-show='[["#ca-wm","250"],["click","#ca-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The final temperature ends closer to the water's starting temperature: a large mass of water changes temperature only a little for the same heat.</p></details></li>
+        <li><p>Dissolve ammonium nitrate. Is it a hot pack or a cold pack? <button type="button" class="btn link" data-show='[["#cb-salt","NH4NO3"],["click","#cb-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Cold. Dissolving NH₄NO₃ absorbs heat from the water (endothermic, ΔH positive). Instant cold packs use this.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A 50.0 g piece of metal at 99.0 °C is dropped into 100.0 g of water at 21.0 °C. The final temperature is 24.0 °C. What is the specific heat of the metal? (c<sub>water</sub> = 4.184 J/g·°C)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Heat gained by the water.</b> q = mcΔT = (100.0)(4.184)(24.0 − 21.0) = 1255 J.</li>
+          <li hidden><b>The metal lost the same amount.</b> q<sub>metal</sub> = −1255 J (negative because it lost heat).</li>
+          <li hidden><b>Solve for c.</b> −1255 = (50.0)(c)(24.0 − 99.0) = (50.0)(c)(−75.0), so c = 1255 / 3750 = <b>0.335 J/g·°C</b>.</li>
+          <li hidden><b>Check.</b> The metal's ΔT is large and the water's is small, so the metal's c should be much less than water's. 0.335 ≪ 4.184 ✓.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Getting the sign wrong: the water's q is positive when it warms, the metal's q is negative; they add to zero.</li>
+        <li>Using ΔT = T<sub>initial</sub> − T<sub>final</sub>. Always final minus initial.</li>
+        <li>Using the mass of the metal with the specific heat of water (or the reverse).</li>
+        <li>Forgetting that q<sub>rxn</sub> = −q<sub>solution</sub>, and that ΔH is per <i>mole</i>, so divide by moles.</li>
+        <li>Forgetting that the solution's mass includes the dissolved solid.</li>
+      </ul></div>
+      <div class="prose"><h2>Coffee-cup and bomb calorimeters</h2>
+        <p>A coffee-cup calorimeter is open to the air, so it measures heat at constant pressure: q = ΔH. A bomb calorimeter is a sealed steel container in a water bath, so it measures heat at constant volume, and it comes with a calibrated heat capacity C (in kJ/°C): q = CΔT. In both cases the heat absorbed by the surroundings has the opposite sign of the heat released by the reaction.</p></div>
+      <div class="quiz" data-correct="1" data-explain="The solution got colder, so it lost heat to the reaction: the reaction absorbed heat from its surroundings. That makes it endothermic, with a positive ΔH.">
+        <p class="q">Check yourself: the temperature of a solution falls when a salt dissolves. What can you conclude?</p>
+        <div class="opts"><button type="button">The dissolving is exothermic</button><button type="button">The dissolving is endothermic</button><button type="button">ΔH is zero</button><button type="button">No energy was exchanged</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

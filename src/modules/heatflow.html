@@ -1,0 +1,50 @@
+  <section class="view" id="v-heatflow" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 6</span></div>
+        <h1>Heat, temperature &amp; phase changes</h1>
+        <p class="lede">Heat is energy moving because of a temperature difference. Temperature is how fast the particles are jiggling. They are not the same thing, and a heating curve shows why.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Pour hot soup into a cold bowl: energy flows from hot to cold until the temperatures match. That energy flow is <b>heat</b> (q). <b>Temperature</b> measures the <i>average kinetic energy</i> of the particles. When you add heat to a solid, the particles jiggle harder and the temperature rises: <b>q = mcΔT</b>, where c is the <b>specific heat capacity</b>, the energy needed to raise 1 g by 1 °C.</p>
+        <p>But watch the heating curve: while ice melts, you keep adding heat and the temperature <i>stays put</i> at 0 °C. The energy isn't making particles faster; it is pulling them apart from their neighbors (breaking attractions). That energy is the <b>enthalpy of fusion</b>; for boiling, the <b>enthalpy of vaporization</b>. A plateau means "energy going into potential energy, not kinetic".</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed that adding heat always raises the temperature. Now we know that during a phase change heat goes into overcoming attractions, so the temperature stays constant and we need q = mΔH instead of q = mcΔT.</div>
+      <div class="lab" id="hf-lab">
+        <div class="labbar"><span class="title">Heat some water</span><div class="row"><button type="button" class="btn primary" id="hf-play">Heater on</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="hf-m"><span>Mass of water</span> <output id="hf-m-out"></output></label><input type="range" id="hf-m" min="5" max="20" step="1" value="10"></div>
+          <div class="ctl"><label for="hf-q"><span>Heat added</span> <output id="hf-q-out"></output></label><input type="range" id="hf-q" min="0" max="1000" step="1" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="hf-canvas" aria-label="Water particles as a solid, liquid and gas as heat is added"></canvas></div><div><canvas id="hf-graph" aria-label="Heating curve: temperature against heat added, with plateaus at melting and boiling"></canvas></div></div>
+        <div class="readout"><div><span>Temperature</span><strong class="a" id="hf-T">—</strong></div><div><span>State</span><strong id="hf-ph">—</strong></div><div><span>Heat added</span><strong class="x" id="hf-heat">—</strong></div><div><span>Equation in use</span><strong id="hf-eq" style="font-size:15px">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then drag the heat slider.</p><ol>
+        <li><p>Sit on the first plateau. Does the temperature change while you add more heat? <button type="button" class="btn link" data-show='[["#hf-m","10"],["#hf-q","60"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The temperature stays at 0 °C while the ice melts: the particles leave their lattice sites one by one. The energy raises potential energy, not kinetic energy.</p></details></li>
+        <li><p>Compare the two plateaus. Why is the boiling plateau so much longer? <button type="button" class="btn link" data-show='[["#hf-q","600"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Boiling needs about 7 times as much energy per gram as melting (2260 J/g vs 334 J/g): the particles must be separated completely, not just loosened.</p></details></li>
+        <li><p>Double the mass. What changes on the graph? <button type="button" class="btn link" data-show='[["#hf-m","20"],["#hf-q","300"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The shape is the same but every segment is twice as long (twice as much energy for the same temperature change). The plateau temperatures don't change.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">How much heat is needed to turn 25.0 g of ice at −10.0 °C into water at 20.0 °C? (c<sub>ice</sub> = 2.09 J/g·°C, c<sub>water</sub> = 4.184 J/g·°C, ΔH<sub>fus</sub> = 334 J/g)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Split the path.</b> Warm the ice to 0 °C, melt it at 0 °C, then warm the water to 20 °C. Three pieces; add them.</li>
+          <li hidden><b>Warm the ice.</b> q₁ = mcΔT = (25.0)(2.09)(10.0) = 522.5 J.</li>
+          <li hidden><b>Melt it.</b> No temperature change, so use q₂ = mΔH<sub>fus</sub> = (25.0)(334) = 8350 J.</li>
+          <li hidden><b>Warm the water.</b> q₃ = (25.0)(4.184)(20.0) = 2092 J. <b>Total</b> = 522.5 + 8350 + 2092 = 10 964.5 J ≈ <b>1.10×10⁴ J</b> (11.0 kJ). The melting step is by far the biggest share.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using q = mcΔT during a phase change. ΔT is zero there, but the heat isn't.</li>
+        <li>Forgetting a step: crossing several phases means several separate calculations, added up.</li>
+        <li>Mixing the specific heat of water with that of ice or steam. Each phase has its own c.</li>
+        <li>Using °C and K inconsistently. A change of 1 °C equals a change of 1 K, so ΔT is the same in both.</li>
+        <li>Saying "heat" and "temperature" mean the same. Heat is energy transferred; temperature is average kinetic energy.</li>
+      </ul></div>
+      <div class="prose"><h2>Why the plateau? A particle view</h2>
+        <p>Temperature tracks average kinetic energy. During melting the added energy loosens the lattice: the particles' potential energy rises while their kinetic energy (temperature) does not. Once every particle is free, further heat makes them move faster again. The attractions between particles are why ΔH<sub>vap</sub> is large for water: hydrogen bonds must be fully broken.</p></div>
+      <div class="quiz" data-correct="2" data-explain="During a phase change the added energy goes into overcoming attractions between particles (potential energy), not into speeding them up, so the temperature stays constant.">
+        <p class="q">Check yourself: ice at 0 °C is melting while heat is added. What happens to the temperature?</p>
+        <div class="opts"><button type="button">It rises steadily</button><button type="button">It falls</button><button type="button">It stays at 0 °C until all the ice has melted</button><button type="button">It jumps to 100 °C</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

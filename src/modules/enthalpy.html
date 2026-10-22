@@ -1,0 +1,61 @@
+  <section class="view" id="v-enthalpy" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 6</span></div>
+        <h1>Enthalpy, Hess's law &amp; bond energies</h1>
+        <p class="lede">Chemical bonds are energy stores. Breaking them costs energy, making them gives energy back, and the difference is the heat of the reaction.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Think of a reaction as taking apart a Lego build and making a new one. Pulling apart the old bonds takes work (energy <i>in</i>); snapping together new bonds gives energy back (energy <i>out</i>). If more energy comes out than went in, the reaction is <b>exothermic</b> and <b>ΔH is negative</b>. If more went in than came out, it's <b>endothermic</b> and ΔH is positive.</p>
+        <p><b>Enthalpy</b> (H) is a state function: ΔH depends only on where you start and finish, not the route. That gives <b>Hess's law</b>: if a reaction can be written as the sum of other reactions, its ΔH is the sum of theirs. You can flip a reaction (flip the sign) or multiply it (multiply ΔH), just like the coefficients. You can find the ΔH of a reaction you can't measure by adding ones you can.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we measured heat directly with a calorimeter. Now we can <i>calculate</i> ΔH without doing the experiment, using Hess's law, standard enthalpies of formation, or average bond energies. Bond energies are averages over many molecules, so they give only an estimate.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Formation enthalpies</span><b>ΔH° = ΣnΔH°f(products) − ΣnΔH°f(reactants)</b><small>ΔH°f of an element in its standard state = 0</small></div><div class="eqc"><span class="nm">Bond energies</span><b>ΔH ≈ Σ(bonds broken) − Σ(bonds formed)</b><small>energy in minus energy out</small></div></div>
+      <div class="lab" id="hl-lab" data-reset="own">
+        <div class="labbar"><span class="title">Build the reaction (Hess's law)</span><div class="row"><button type="button" class="btn" id="hl-new">Next puzzle</button></div></div>
+        <div class="controls"><div class="ctl"><label for="hl-set"><span>Target</span></label><select id="hl-set"></select></div></div>
+        <div id="hl-rows" class="hl-rows"></div>
+        <canvas id="hl-canvas" aria-label="Energy ladder: each chosen step moves the energy up or down"></canvas>
+        <div class="readout"><div><span>Net equation</span><strong id="hl-net" style="font-size:15px;white-space:normal">—</strong></div><div><span>Sum of ΔH</span><strong class="x" id="hl-sum">—</strong></div><div><span>Matches the target?</span><strong id="hl-ok">—</strong></div></div>
+      </div>
+      <div class="lab" id="be-lab" data-reset="own">
+        <div class="labbar"><span class="title">Break and make bonds</span><div class="row"><button type="button" class="btn primary" id="be-play">Play</button></div></div>
+        <div class="controls"><div class="ctl"><label for="be-sel"><span>Reaction</span></label><select id="be-sel"></select></div><div class="ctl"><label for="be-p"><span>Progress</span> <output id="be-p-out"></output></label><input type="range" id="be-p" min="0" max="200" step="1" value="0"></div></div>
+        <canvas id="be-canvas" aria-label="Molecules breaking into atoms and re-forming, with an energy ladder"></canvas>
+        <div class="tablewrap" style="min-width:0"><table class="data" id="be-tab"></table></div>
+        <div class="readout"><div><span>Energy in (break)</span><strong class="a" id="be-in">—</strong></div><div><span>Energy out (form)</span><strong class="x" id="be-out">—</strong></div><div><span>ΔH</span><strong id="be-dh">—</strong></div></div>
+      </div>
+      <div class="lab" id="fm-lab" data-reset="own">
+        <div class="labbar"><span class="title">Enthalpy of formation</span><div class="row"><button type="button" class="btn" id="fm-back">Back</button><button type="button" class="btn primary" id="fm-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="fm-sel"><span>Reaction</span></label><select id="fm-sel"></select></div></div>
+        <div class="eq-block" id="fm-out" aria-live="polite"></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then use the labs above.</p><ol>
+        <li><p>Do the first Hess puzzle. Which step did you have to flip? What happened to its sign? <button type="button" class="btn link" data-show='[["#hl-set","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The step with CO as a <i>reactant</i> must run backward, so it is flipped (×−1) and its ΔH changes sign: −283.0 becomes +283.0.</p></details></li>
+        <li><p>Watch the H₂ + Cl₂ reaction in the bond lab. Is the energy to break the bonds bigger or smaller than the energy released by forming them? <button type="button" class="btn link" data-show='[["#be-sel","0"],["#be-p","200"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Smaller: 679 kJ in (436 + 243) and 862 kJ out (2 × 431). The difference, −183 kJ, is released as heat, so the reaction is exothermic.</p></details></li>
+        <li><p>Step through the combustion of methane with enthalpies of formation. <button type="button" class="btn link" data-show='[["#fm-sel","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Products minus reactants: [−393.5 + 2(−285.8)] − [−74.8 + 0] = −890.3 kJ. O₂ is an element, so its ΔH°f is zero.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Find ΔH for C(s) + ½O₂(g) → CO(g) using: (1) C(s) + O₂(g) → CO₂(g), ΔH = −393.5 kJ; (2) CO(g) + ½O₂(g) → CO₂(g), ΔH = −283.0 kJ.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Place each species.</b> The target has C as a reactant, so keep equation (1) as written (C is on the left). The target has CO as a <i>product</i>, but in (2) CO is a reactant, so reverse (2).</li>
+          <li hidden><b>Reverse (2).</b> CO₂ → CO + ½O₂, and flip the sign: ΔH = +283.0 kJ.</li>
+          <li hidden><b>Add.</b> C + O₂ + CO₂ → CO₂ + CO + ½O₂. Cancel CO₂ on both sides and ½O₂ from the O₂: C + ½O₂ → CO. ✓</li>
+          <li hidden><b>Add the ΔH values.</b> (−393.5) + (+283.0) = <b>−110.5 kJ</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to change the sign when reversing a reaction, or forgetting to multiply ΔH when multiplying the equation.</li>
+        <li>Subtracting in the wrong order: it's products minus reactants for formation enthalpies, but <i>bonds broken minus bonds formed</i> for bond energies.</li>
+        <li>Forgetting to multiply each ΔH°f by its coefficient.</li>
+        <li>Using ΔH°f ≠ 0 for an element in its standard state (O₂, H₂, C(graphite), Fe(s)...). Those are all zero.</li>
+        <li>Confusing the state: H₂O(l) and H₂O(g) have different ΔH°f.</li>
+      </ul></div>
+      <div class="prose"><h2>Per mole of what?</h2>
+        <p>ΔH in a balanced equation is for the reaction <i>as written</i>. If you write 2CH₄ + 4O₂ → …, ΔH doubles. To find the heat for a specific amount, convert it to moles, divide by the coefficient, and multiply by ΔH. Bond energies are always positive numbers (breaking costs energy), but the energy of formation is released, so subtract it.</p></div>
+      <div class="quiz" data-correct="0" data-explain="More energy is released making the new bonds than was needed to break the old ones, so the net energy is released: the reaction is exothermic and ΔH is negative.">
+        <p class="q">Check yourself: bonds broken cost 800 kJ and bonds formed release 950 kJ. What is ΔH?</p>
+        <div class="opts"><button type="button">−150 kJ (exothermic)</button><button type="button">+150 kJ (endothermic)</button><button type="button">−1750 kJ</button><button type="button">+1750 kJ</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
