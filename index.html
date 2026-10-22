@@ -1861,6 +1861,190 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
     </div>
   </section>
 
+  <section class="view" id="v-solutions" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Solutions &amp; molarity</h1>
+        <p class="lede">Dissolving is a negotiation between attractions: solute for solute, solvent for solvent, and solute for solvent. Molarity then tells you how crowded the dissolved particles are.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>"Like dissolves like." Water molecules are polar, so each has a slightly negative oxygen end and slightly positive hydrogen ends. A salt crystal dissolves because water's negative ends swarm around the positive ions, and its positive ends around the negative ions (<b>ion–dipole</b> attraction), pulling the crystal apart. Sugar dissolves because its O–H groups can hydrogen bond with water. Oil does not, because water would rather bond to other water, so the oil molecules clump together.</p>
+        <p>Once dissolved, we count how much solute there is per liter of solution: <b>molarity</b>, <span class="m"><i>M</i> = <i>n</i> / <i>V</i></span>. Adding solvent spreads the same particles through more volume, so the concentration drops: dilution.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span><i>M</i> = mol solute / L solution</span><small>molarity</small></div><div class="eqn"><span><i>M</i><sub>1</sub><i>V</i><sub>1</sub> = <i>M</i><sub>2</sub><i>V</i><sub>2</sub></span><small>dilution</small></div></div>
+      <div class="lab" id="sl-lab">
+        <div class="labbar"><span class="title">Drop it in water</span><div class="row"><button type="button" class="btn primary" id="sl-go">Drop it in</button></div></div>
+        <div class="controls"><div class="ctl"><label for="sl-sel"><span>Solute</span></label><select id="sl-sel"><option value="nacl">NaCl (table salt)</option><option value="glu">Glucose (sugar)</option><option value="oil">Hexane (oil)</option></select></div></div>
+        <canvas id="sl-canvas" aria-label="Water molecules around a solute dropped into a beaker: salt ions surrounded by oriented water, sugar molecules hydrogen bonding, or oil clumping"></canvas>
+        <div class="readout"><div><span>Attraction to water</span><strong class="x" id="sl-f" style="white-space:normal;font-size:15px">—</strong></div><div><span>Result</span><strong class="v" id="sl-r" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" id="sl-n" style="margin:0"></p>
+      </div>
+      <div class="lab" id="dl-lab">
+        <div class="labbar"><span class="title">Dilution</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="dl-n"><span>Moles of solute</span> <output id="dl-n-out"></output></label><input type="range" id="dl-n" min="0.05" max="1" step="0.05" value="0.5"></div>
+          <div class="ctl"><label for="dl-v1"><span>Starting volume</span> <output id="dl-v1-out"></output></label><input type="range" id="dl-v1" min="0.1" max="1" step="0.05" value="0.25"></div>
+          <div class="ctl"><label for="dl-w"><span>Water added</span> <output id="dl-w-out"></output></label><input type="range" id="dl-w" min="0" max="2" step="0.05" value="0.75"></div>
+        </div>
+        <canvas id="dl-canvas" aria-label="Two beakers with the same number of solute particles: before and after adding water"></canvas>
+        <div class="readout"><div><span>Before: M₁</span><strong class="x" id="dl-m1">—</strong></div><div><span>After: M₂</span><strong class="hot" id="dl-m2">—</strong></div><div><span>Diluted by a factor of</span><strong id="dl-f">—</strong></div><div><span>Check: M₁V₁ = M₂V₂</span><strong id="dl-chk" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Drop salt into water. Which way do the water molecules turn near each ion? <button type="button" class="btn link" data-show='[["#sl-sel","nacl"],["click","#sl-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Around Na⁺ the water molecules point their negative oxygen end inward; around Cl⁻ they point their positive hydrogen ends inward. These hydrated ions are stable and drift apart: the salt has dissolved.</p></details></li>
+        <li><p>Try hexane (an oil). <button type="button" class="btn link" data-show='[["#sl-sel","oil"],["click","#sl-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The nonpolar hexane molecules cannot attract water, so they stay together in a clump and the water keeps to itself: they don't mix.</p></details></li>
+        <li><p>Add 0.75 L of water to 0.25 L of solution. How does the concentration change? <button type="button" class="btn link" data-show='[["#dl-n",0.5],["#dl-v1",0.25],["#dl-w",0.75]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The volume quadruples (0.25 L → 1.00 L), so the molarity falls to a quarter (2.0 M → 0.50 M). The number of solute particles never changed.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">You dissolve 11.7 g of NaCl in enough water to make 250. mL of solution. (a) What is the molarity? (b) What volume of this solution do you need to make 100. mL of 0.0500 M solution?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Moles of NaCl.</b> M = 58.44 g/mol, so n = 11.7 / 58.44 = 0.200 mol.</li>
+          <li hidden><b>Molarity.</b> Volume = 0.250 L, so M = 0.200 / 0.250 = <b>0.800 M</b>.</li>
+          <li hidden><b>Dilution.</b> M₁V₁ = M₂V₂ → V₁ = M₂V₂ / M₁ = (0.0500)(100.) / 0.800 = <b>6.25 mL</b>.</li>
+          <li hidden><b>How to make it.</b> Measure 6.25 mL of the stock into a 100. mL flask and add water up to the mark. The moles of NaCl are unchanged by the dilution (0.00500 mol).</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Dividing by the volume of water instead of the volume of the <i>solution</i>.</li>
+        <li>Forgetting to convert mL to L before computing molarity.</li>
+        <li>Forgetting that ionic compounds split: 0.10 M CaCl₂ gives 0.10 M Ca²⁺ and 0.20 M Cl⁻.</li>
+        <li>Using M₁V₁ = M₂V₂ to find a mass directly. It works with concentrations and volumes only.</li>
+        <li>Adding the solute to a full volume of water. Add solute first and then fill to the final volume mark.</li>
+      </ul></div>
+      <div class="prose"><h2>Making a solution</h2>
+        <p>To make a solution of known molarity from a solid: calculate the moles needed (<i>n</i> = <i>MV</i>), convert to grams with the molar mass, dissolve the solid in less water than the final volume, and then fill to the mark of a volumetric flask. To dilute a stock solution: calculate the volume of stock needed (<i>V</i><sub>1</sub> = <i>M</i><sub>2</sub><i>V</i><sub>2</sub>/<i>M</i><sub>1</sub>), measure it and add solvent to the final volume.</p>
+        <p>Substances that dissociate into ions: the ion concentrations are the formula-unit concentration times the subscript. A solution of an ionic compound conducts electricity because the ions are free to move.</p></div>
+      <div class="quiz" data-correct="2" data-explain="CaCl₂ gives one Ca²⁺ and two Cl⁻ per formula unit, so [Cl⁻] = 2 × 0.15 M = 0.30 M.">
+        <p class="q">Check yourself: what is [Cl⁻] in 0.15 M CaCl₂?</p>
+        <div class="opts"><button type="button">0.075 M</button><button type="button">0.15 M</button><button type="button">0.30 M</button><button type="button">0.45 M</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-light" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Light &amp; Beer–Lambert</h1>
+        <p class="lede">Light is a stream of energy packets called photons. Matter absorbs only photons with the right energy, which is how chemists identify substances and measure how much of them there is.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Light behaves as a wave with a wavelength and frequency, and as a stream of particles called <b>photons</b>. The two descriptions are tied together: a shorter wavelength means a higher frequency and a more energetic photon. A gamma-ray photon packs a punch; a radio photon is feeble. Each region of the <b>electromagnetic spectrum</b> pairs with something in a molecule: X-rays with inner electrons, UV and visible with valence electrons, infrared with vibrating bonds, microwaves with spinning molecules.</p>
+        <p>If a photon's energy exactly matches a gap in a molecule's energy levels, the molecule can absorb it. A colored solution absorbs the light that matches its gaps and lets the rest through. The <b>more</b> particles in the light's path, the more photons are absorbed: that is the <b>Beer–Lambert law</b>, and it lets you read concentration from how much light is lost.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span><i>c</i> = λν</span><small>wave relation</small></div><div class="eqn"><span><i>E</i> = <i>h</i>ν = <i>hc</i>/λ</span><small>photon energy</small></div><div class="eqn"><span><i>A</i> = ε<i>bc</i></span><small>Beer–Lambert</small></div><div class="eqn"><span><i>A</i> = −log(<i>I</i>/<i>I</i><sub>0</sub>)</span><small>absorbance</small></div></div>
+      <div class="lab" id="lt-lab1">
+        <div class="labbar"><span class="title">The electromagnetic spectrum</span></div>
+        <div class="controls"><div class="ctl"><label for="lt-w"><span>Wavelength (log scale)</span> <output id="lt-w-out"></output></label><input type="range" id="lt-w" min="-12" max="3" step="0.05" value="-6.3"></div></div>
+        <canvas id="lt-canvas" aria-label="The electromagnetic spectrum on a log scale with a marker and a wave drawn to the chosen wavelength"></canvas>
+        <div class="readout"><div><span>Region</span><strong class="x" id="lt-reg" style="white-space:normal;font-size:15px">—</strong></div><div><span>Frequency</span><strong id="lt-nu">—</strong></div><div><span>Energy per photon</span><strong class="hot" id="lt-ej">—</strong></div><div><span>Energy per mole of photons</span><strong id="lt-ek">—</strong></div></div>
+        <p class="small" id="lt-use" style="margin:0"></p>
+      </div>
+      <div class="lab" id="lt-lab2">
+        <div class="labbar"><span class="title">The photoelectric effect</span></div>
+        <div class="controls"><div class="ctl"><label for="pe2-m"><span>Metal (work function)</span></label><select id="pe2-m"></select></div>
+          <div class="ctl"><label for="pe2-f"><span>Frequency of the light</span> <output id="pe2-f-out"></output></label><input type="range" id="pe2-f" min="1" max="20" step="0.1" value="4"></div>
+          <div class="ctl"><label for="pe2-i"><span>Intensity (photons per second)</span> <output id="pe2-i-out"></output></label><input type="range" id="pe2-i" min="1" max="10" step="1" value="4"></div></div>
+        <canvas id="pe2-canvas" aria-label="Photons striking a metal surface and electrons ejected only if the photon energy exceeds the work function"></canvas>
+        <div class="readout"><div><span>Photon energy hν</span><strong class="x" id="pe2-e">—</strong></div><div><span>Work function Φ</span><strong id="pe2-w">—</strong></div><div><span>Electron kinetic energy</span><strong class="v" id="pe2-k" style="white-space:normal;font-size:15px">—</strong></div><div><span>Threshold frequency</span><strong id="pe2-th">—</strong></div></div>
+        <p class="small" id="pe2-msg" style="margin:0"></p>
+      </div>
+      <div class="lab" id="lt-lab3">
+        <div class="labbar"><span class="title">The spectrophotometer</span></div>
+        <div class="controls"><div class="ctl"><label for="bl-d"><span>Dye</span></label><select id="bl-d"></select></div>
+          <div class="ctl"><label for="bl-c"><span>Concentration</span> <output id="bl-c-out"></output></label><input type="range" id="bl-c" min="0" max="1" step="0.01" value="0.4"></div>
+          <div class="ctl"><label for="bl-b"><span>Path length b</span> <output id="bl-b-out"></output></label><input type="range" id="bl-b" min="0.5" max="4" step="0.5" value="1"></div></div>
+        <div class="split"><div><canvas id="bl-canvas" aria-label="Light passing through a cuvette of colored solution; absorbed photons disappear"></canvas></div><div><canvas id="bl-graph" aria-label="Absorbance against concentration: a straight line through the origin"></canvas></div></div>
+        <div class="readout"><div><span>Absorbance A = εbc</span><strong class="hot" id="bl-a">—</strong></div><div><span>Transmittance I/I₀</span><strong class="v" id="bl-t">—</strong></div><div><span>Photons through (measured)</span><strong id="bl-m">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Where is visible light on the spectrum, and how much energy does one mole of its photons carry? <button type="button" class="btn link" data-show='[["#lt-w",-6.3]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Visible light is a thin slice (400–700 nm) in the middle. A mole of 500 nm photons carries about 240 kJ, enough to excite the valence electrons of many molecules, and in the range of the energy of a chemical bond.</p></details></li>
+        <li><p>Shine light just below the threshold frequency, then just above. <button type="button" class="btn link" data-show='[["#pe2-m","Cs"],["#pe2-f",4]]'>Below (4)</button> <button type="button" class="btn link" data-show='[["#pe2-m","Cs"],["#pe2-f",8]]'>Above (8)</button></p><details><summary>What you should see</summary><p>Below the threshold no electrons come out, no matter how intense the light. Above it electrons are ejected immediately. Turning up the intensity then increases the <i>number</i> of electrons but not their energy: only a higher frequency does that.</p></details></li>
+        <li><p>Double the concentration of a dye. What happens to the absorbance? <button type="button" class="btn link" data-show='[["#bl-c",0.2],["#bl-b",1]]'>c = 0.2</button> <button type="button" class="btn link" data-show='[["#bl-c",0.4],["#bl-b",1]]'>c = 0.4</button></p><details><summary>What you should see</summary><p>Absorbance doubles (it is proportional to concentration), but the transmitted light does not halve: it falls exponentially. That is why the graph of A against c is a straight line, and why chemists plot A, not transmittance.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A violet laser has wavelength 405 nm. Find its frequency, the energy of one photon, and the energy of one mole of photons.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Convert the wavelength.</b> 405 nm = 4.05 × 10⁻⁷ m.</li>
+          <li hidden><b>Frequency.</b> ν = c/λ = (2.998 × 10⁸ m/s) / (4.05 × 10⁻⁷ m) = <b>7.40 × 10¹⁴ Hz</b>.</li>
+          <li hidden><b>Energy of one photon.</b> E = hν = (6.626 × 10⁻³⁴ J·s)(7.40 × 10¹⁴ s⁻¹) = <b>4.90 × 10⁻¹⁹ J</b>.</li>
+          <li hidden><b>Energy of a mole.</b> (4.90 × 10⁻¹⁹ J)(6.022 × 10²³ mol⁻¹) = 2.95 × 10⁵ J/mol = <b>295 kJ/mol</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to convert nanometers to meters before using c = λν.</li>
+        <li>Thinking brighter light ejects faster electrons. Intensity controls how many; frequency controls how energetic.</li>
+        <li>Thinking longer wavelength means higher energy. Energy is inversely proportional to wavelength.</li>
+        <li>Plotting transmittance against concentration and expecting a line. Absorbance is the one that is linear.</li>
+        <li>Choosing the wrong wavelength for a measurement. Use the wavelength where the sample absorbs most (the color complementary to what you see).</li>
+      </ul></div>
+      <div class="prose"><h2>Why this matters in chemistry</h2>
+        <p>A spectrophotometer measures absorbance at one wavelength. You prepare solutions of known concentration, measure their absorbance, and draw a calibration line (<i>A</i> against <i>c</i>); the slope is ε<i>b</i>. Then you measure an unknown and read its concentration off the line. The law fails at high concentration, where particles interact or too little light gets through, so keep absorbances under about 1.</p>
+        <p>The photoelectric effect (no electrons below a threshold frequency) was what convinced physicists that light comes in packets: if light were just a wave, enough intensity should eventually free electrons at any frequency. The same idea gives photoelectron spectroscopy, where the measured electron energies reveal binding energies.</p></div>
+      <div class="quiz" data-correct="3" data-explain="E = hc/λ. A shorter wavelength means a larger energy, and ultraviolet has a shorter wavelength than visible or infrared light, so a UV photon carries the most energy of the three.">
+        <p class="q">Check yourself: which photon has the most energy?</p>
+        <div class="opts"><button type="button">infrared</button><button type="button">visible red</button><button type="button">microwave</button><button type="button">ultraviolet</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-separation" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Separating mixtures</h1>
+        <p class="lede">A mixture can be taken apart without any chemical reaction, by using a physical property in which the parts differ: size, attraction to a surface, or boiling point.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Pure substances keep their identity in a mixture, so they keep their different properties, and those differences are handles for separating them. Sand and water differ in particle size: pour through a filter. Salt and water differ in volatility: evaporate the water. Dyes in ink differ in how strongly they stick to paper compared with how strongly they dissolve in a solvent: use <b>chromatography</b>. Two liquids with different boiling points: use <b>distillation</b>.</p>
+        <p>In chromatography a solvent (the mobile phase) creeps up paper (the stationary phase) and carries each dye along. Dyes that attract the paper strongly are held back; dyes that prefer the solvent race ahead. In distillation, the more volatile liquid (the one with the weaker intermolecular forces) escapes as vapor more readily, so the vapor is richer in it.</p>
+      </div>
+      <div class="lab" id="sp-lab">
+        <div class="labbar"><span class="title">Paper chromatography</span><div class="row"><button type="button" class="btn primary" id="sp-go">Run it</button></div></div>
+        <div class="controls"><div class="ctl"><label for="sp-mix"><span>Mixture</span></label><select id="sp-mix"><option value="0">Marker ink (3 dyes)</option><option value="1">Candy coating (4 dyes)</option></select></div>
+          <div class="ctl"><label for="sp-s"><span>Solvent polarity</span> <output id="sp-s-out"></output></label><input type="range" id="sp-s" min="0" max="1" step="0.05" value="0.55"></div></div>
+        <canvas id="sp-canvas" aria-label="A strip of paper with spots of dye; the solvent front rises and the dyes travel different distances"></canvas>
+        <div class="readout" id="sp-ro"></div>
+        <p class="small" style="margin:0">The paper is polar (cellulose). Polar dyes stick to it; nonpolar dyes prefer the solvent. A more polar solvent drags the polar dyes further. R<sub>f</sub> = distance the spot moved ÷ distance the solvent front moved.</p>
+      </div>
+      <div class="lab" id="ds-lab">
+        <div class="labbar"><span class="title">Distillation</span><div class="row"><button type="button" class="btn primary" id="ds-go">Heat</button><button type="button" class="btn" id="ds-reset">Start over</button></div></div>
+        <div class="controls"><div class="ctl"><label for="ds-x"><span>Starting ethanol (mole fraction)</span> <output id="ds-x-out"></output></label><input type="range" id="ds-x" min="0.1" max="0.9" step="0.05" value="0.5"></div>
+          <div class="ctl"><label for="ds-p"><span>Heating rate</span> <output id="ds-p-out"></output></label><input type="range" id="ds-p" min="1" max="5" step="1" value="3"></div></div>
+        <div class="split"><div><canvas id="ds-canvas" aria-label="A flask of ethanol and water being distilled into a receiving flask"></canvas></div><div><canvas id="ds-graph" aria-label="Graph of the temperature of the boiling liquid against the fraction distilled"></canvas></div></div>
+        <div class="readout"><div><span>Boiling temperature</span><strong class="hot" id="ds-t">—</strong></div><div><span>Ethanol in the pot</span><strong class="x" id="ds-xp">—</strong></div><div><span>Ethanol in the vapor now</span><strong id="ds-y">—</strong></div><div><span>Ethanol in the distillate</span><strong class="v" id="ds-xd">—</strong></div></div>
+        <p class="small" style="margin:0">Model: an ideal solution (Raoult's law) of ethanol (boils at 78.4 °C) and water (100 °C). Real ethanol–water mixtures form an azeotrope near 96% ethanol, so distillation alone can't go further.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Run the marker-ink chromatogram. Which dye travels furthest? <button type="button" class="btn link" data-show='[["#sp-mix","0"],["#sp-s",0.55],["click","#sp-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The least polar dye (yellow) is attracted least to the polar paper and travels furthest (highest R<sub>f</sub>); the most polar (blue) is held back. A mixture appearing as one color separates into its dyes.</p></details></li>
+        <li><p>Change the solvent to a more polar one and run again. <button type="button" class="btn link" data-show='[["#sp-s",0.9],["click","#sp-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Every dye moves further: the polar solvent competes better with the paper for the polar dyes. R<sub>f</sub> values change with the solvent, so they are only comparable under the same conditions.</p></details></li>
+        <li><p>Distill a 50:50 ethanol–water mixture. What is in the receiver first? <button type="button" class="btn link" data-show='[["#ds-x",0.5],["click","#ds-reset"],["click","#ds-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The first drops are about 70% ethanol (the vapor is richer in the lower-boiling liquid). As ethanol leaves, the pot gets richer in water, so the boiling temperature climbs toward 100 °C.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">On a chromatogram the solvent front moved 8.0 cm. Spots: yellow at 6.8 cm, red at 4.6 cm, blue at 1.2 cm. Find the R<sub>f</sub> of each dye, and say which is the most polar.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Definition.</b> R<sub>f</sub> = (distance traveled by the spot) / (distance traveled by the solvent front), measured from the starting line.</li>
+          <li hidden><b>Calculate.</b> Yellow: 6.8/8.0 = <b>0.85</b>. Red: 4.6/8.0 = <b>0.58</b>. Blue: 1.2/8.0 = <b>0.15</b>.</li>
+          <li hidden><b>Interpret.</b> The smallest R<sub>f</sub> belongs to the dye most strongly attracted to the polar paper: <b>blue is the most polar</b>, and yellow is the least.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 3</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Measuring R<sub>f</sub> from the bottom of the paper instead of from the starting line.</li>
+        <li>Using a pen (ink dissolves in the solvent) for the starting line: use pencil.</li>
+        <li>Saying the more volatile liquid is the one with the stronger intermolecular forces. It has the weaker ones, and the lower boiling point.</li>
+        <li>Expecting simple distillation to give a perfectly pure product from liquids with close boiling points.</li>
+        <li>Calling separation a chemical change. No new substances form; only physical properties are used.</li>
+      </ul></div>
+      <div class="prose"><h2>Choosing a method</h2>
+        <p>Filtration separates an insoluble solid from a liquid (different particle sizes). Evaporation or crystallization recovers a dissolved solid. Distillation separates liquids by boiling point. Chromatography separates small amounts of similar substances by how they divide between a stationary and a mobile phase: in paper or thin-layer chromatography, the stationary phase is polar; in column chromatography it can be a packed solid, and substances elute in order of their attraction to it.</p>
+        <p>The same principle, differences in intermolecular attractions, runs through all of them: stronger attraction to the stationary phase means moving more slowly; weaker attractions between molecules means boiling more easily.</p></div>
+      <div class="quiz" data-correct="0" data-explain="Chromatography separates by differences in attraction to the stationary versus the mobile phase, so it works for small amounts of dyes with different polarity. Filtration can't separate dissolved substances, and evaporation would destroy the mixture's parts.">
+        <p class="q">Check yourself: which method best separates the colored dyes in black ink?</p>
+        <div class="opts"><button type="button">paper chromatography</button><button type="button">filtration</button><button type="button">evaporation of the solvent</button><button type="button">magnetic separation</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -2099,8 +2283,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases"], "soon": ["solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": [], "soon": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -3698,6 +3882,227 @@ const VDW={'He':[.0346,.0238],'N₂':[1.370,.0387],'CH₄':[2.253,.0428],'CO₂'
   const MG=[['CO₂',44.01],['N₂',28.01],['O₂',32.00],['CH₄',16.04],['NH₃',17.03],['SO₂',64.07],['Ar',39.95]];
   PROBS.push({id:'gas-molarmass',topic:'gases',title:'Molar mass from gas density',gen(){const [f,M]=pick(MG),P=ri(8,20)/10,Tc=ri(0,60)*2,d=P*M/(RG*(Tc+273.15));
     return {q:`An unknown gas has a density of ${d.toFixed(3)} g/L at ${P.toFixed(1)} atm and ${Tc} °C. What is its molar mass?`,ans:M,unit:'g/mol',tol:.02,hint:'Density d = mass/V, and PV = nRT gives M = dRT/P.',sol:`M = dRT/P = (${d.toFixed(3)})(0.08206)(${(Tc+273.15).toFixed(2)}) / ${P.toFixed(1)} = <b>${fmt(M,1)} g/mol</b> (it could be ${f}).`};}});
+})();
+
+/* ===== modules/solutions.js ===== */
+
+/* ---------------- Solutions & molarity ---------------- */
+(function solutions(){
+  const cv=$('#sl-canvas');if(!cv)return;
+  const NW=95;let W=[],So=[],kind='nacl',t0=0,started=false;
+  const INFO={nacl:{f:'ion–dipole attraction',r:'dissolves',n:'Water\'s negative oxygen ends point at Na⁺ and its positive hydrogen ends at Cl⁻. Each ion is surrounded by a shell of water (hydration), and the crystal comes apart.'},glu:{f:'hydrogen bonding (O–H groups)',r:'dissolves',n:'Glucose has many O–H groups that hydrogen bond to water, so the molecules leave the solid one by one but stay uncharged (they do not conduct).'},oil:{f:'only weak dispersion forces',r:'does not mix',n:'Hexane is nonpolar. Water molecules prefer to hydrogen bond with each other, so they squeeze the hexane molecules together into a separate layer.'}};
+  function init(){const w=cv.clientWidth||500,h=Math.round(clamp(w*.5,260,340));W=[];So=[];
+    for(let i=0;i<NW;i++)W.push({x:20+Math.random()*(w-40),y:h*.3+Math.random()*(h*.62),a:Math.random()*6.28,vx:0,vy:0});
+    const cx=w/2,cy=h*.66;
+    if(kind==='nacl'){for(let i=0;i<4;i++)for(let j=0;j<4;j++)So.push({x:cx+(i-1.5)*22,y:cy+(j-1.5)*22,pos:(i+j)%2===0,free:false,rel:Math.random()*3+.4,vx:0,vy:0,r:(i+j)%2===0?9:12});}
+    else if(kind==='glu'){for(let i=0;i<14;i++)So.push({x:cx+(i%4-1.5)*24,y:cy+(Math.floor(i/4)-1.5)*24,free:false,rel:Math.random()*3+.4,vx:0,vy:0,r:11,a:Math.random()*6.28});}
+    else{for(let i=0;i<16;i++)So.push({x:cx+(Math.random()-.5)*160,y:cy+(Math.random()-.5)*70,free:true,rel:0,vx:0,vy:0,r:10});}
+    W=W.filter(q=>So.every(s=>Math.hypot(s.x-q.x,s.y-q.y)>s.r+9));t0=0;started=true;
+    setText('sl-f',INFO[kind].f);setText('sl-r',INFO[kind].r);setText('sl-n',INFO[kind].n);}
+  const sim=sim2d(cv,{h:w=>Math.round(clamp(w*.5,260,340)),step(dt){const w=cv.clientWidth,h=Math.round(clamp(w*.5,260,340));t0+=dt;
+      So.forEach(s=>{if(!s.free&&t0>s.rel)s.free=true;if(s.free){s.vx+=(Math.random()-.5)*400*dt;s.vy+=(Math.random()-.5)*400*dt;s.vx*=.97;s.vy*=.97;
+        if(kind==='oil'){let cx=0,cy=0;So.forEach(q=>{cx+=q.x;cy+=q.y;});cx/=So.length;cy/=So.length;s.vx+=(cx-s.x)*.8*dt;s.vy+=(cy-s.y)*.8*dt;}
+        s.x+=s.vx*dt;s.y+=s.vy*dt;}});
+      So.forEach(s=>{if(s.x<12)s.vx=Math.abs(s.vx);if(s.x>w-12)s.vx=-Math.abs(s.vx);if(s.y<h*.28)s.vy=Math.abs(s.vy);if(s.y>h-10)s.vy=-Math.abs(s.vy);});
+      W.forEach(q=>{q.vx+=(Math.random()-.5)*400*dt;q.vy+=(Math.random()-.5)*400*dt;q.vx*=.9;q.vy*=.9;q.a+=(Math.random()-.5)*2.4*dt;
+        [...So].forEach(s=>{const dx=q.x-s.x,dy=q.y-s.y,d=Math.hypot(dx,dy)||1;
+          if(d<s.r+9){const f=(s.r+9-d)*8;q.vx+=dx/d*f*dt*10;q.vy+=dy/d*f*dt*10;}
+          if(d<s.r+34&&kind!=='oil'&&s.free!==undefined){/* turn the dipole: positive end (H side) away from cations, toward anions */
+            let want;if(kind==='nacl')want=Math.atan2(dy,dx)+(s.pos?0:Math.PI);else want=Math.atan2(dy,dx)+Math.PI/2;
+            let da=Math.atan2(Math.sin(want-q.a),Math.cos(want-q.a));q.a+=da*Math.min(1,dt*(kind==='nacl'?8:3));}
+          if(kind==='oil'&&d<s.r+22){q.vx+=dx/d*30*dt*10;q.vy+=dy/d*30*dt*10;}});
+        W.forEach(o=>{if(o===q)return;const dx=q.x-o.x,dy=q.y-o.y,d=Math.hypot(dx,dy)||1;if(d<14){const f=(14-d)*5;q.vx+=dx/d*f*dt*10;q.vy+=dy/d*f*dt*10;}});
+        q.x+=q.vx*dt;q.y+=q.vy*dt;if(q.x<8){q.x=8;q.vx=Math.abs(q.vx);}if(q.x>w-8){q.x=w-8;q.vx=-Math.abs(q.vx);}if(q.y<h*.3){q.y=h*.3;q.vy=Math.abs(q.vy);}if(q.y>h-8){q.y=h-8;q.vy=-Math.abs(q.vy);}});},
+    draw(ctx,w,h){ctx.fillStyle=alpha(T.cx,.07);ctx.fillRect(0,h*.28,w,h*.72);ctx.strokeStyle=T.cx;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,h*.28);ctx.lineTo(w,h*.28);ctx.stroke();label(ctx,'water',8,h*.28+4,T.cx,'left','top',MONO);
+      W.forEach(q=>{const ux=Math.cos(q.a),uy=Math.sin(q.a);/* H end is the positive end (a points to it) */
+        ctx.strokeStyle=alpha(T.muted,.5);ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(q.x+ux*8,q.y+uy*8);ctx.stroke();
+        ball2(ctx,q.x-ux*3,q.y-uy*3,5.2,'#E5484D');ball2(ctx,q.x+ux*8+uy*3,q.y+uy*8-ux*3,3,'#EEF1F5','rgba(0,0,0,.4)');ball2(ctx,q.x+ux*8-uy*3,q.y+uy*8+ux*3,3,'#EEF1F5','rgba(0,0,0,.4)');});
+      So.forEach(s=>{if(kind==='nacl'){ball2(ctx,s.x,s.y,s.r,s.pos?'#3E63DD':'#2FB55A');label(ctx,s.pos?'+':'−',s.x,s.y,'#fff','center','middle','700 12px "IBM Plex Mono",monospace');}
+        else if(kind==='glu'){ctx.fillStyle=alpha(T.ink,.7);ctx.beginPath();for(let k=0;k<6;k++){const a=k*Math.PI/3;ctx.lineTo(s.x+Math.cos(a)*s.r,s.y+Math.sin(a)*s.r);}ctx.closePath();ctx.fill();label(ctx,'OH',s.x,s.y,'#fff','center','middle','700 8px "IBM Plex Mono",monospace');}
+        else{ctx.fillStyle=alpha('#C98A1B',.85);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,7);ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.stroke();}});
+      label(ctx,'water: red = δ− oxygen, white = δ+ hydrogen',w-8,h-6,T.muted,'right','bottom',MONO);}});
+  /* ---- dilution ---- */
+  const dc=$('#dl-canvas'),dsim=sim2d(dc,{h:w=>clamp(w*.5,260,340),draw(ctx,w,h,t){const n=+$('#dl-n').value,v1=+$('#dl-v1').value,wd=+$('#dl-w').value,v2=v1+wd,m1=n/v1,m2=n/v2,N=Math.round(n*40),base=h-26,ph=h-60;
+      const bw=Math.min(150,w*.3),bx=[w*.27,w*.73];[[v1,m1,'before'],[v2,m2,'after']].forEach(([v,m,nm],k)=>{const x=bx[k],ht=ph*v/3,top=base-ht;
+        ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x-bw/2,base-ph*1.0);ctx.lineTo(x-bw/2,base);ctx.lineTo(x+bw/2,base);ctx.lineTo(x+bw/2,base-ph*1.0);ctx.stroke();
+        ctx.fillStyle=alpha(T.cx,clamp(.12+m*.35,.1,.8));ctx.fillRect(x-bw/2+1.5,top,bw-3,ht);
+        for(let i=0;i<N;i++){const r1=Math.sin(i*12.9898)*43758.5453%1,r2=Math.sin(i*78.233)*12345.678%1,px=x-bw/2+10+Math.abs(r1)*(bw-20)+Math.sin(t*2+i)*2,py=top+8+Math.abs(r2)*Math.max(1,ht-16)+Math.cos(t*2.3+i)*2;ball2(ctx,px,py,3.8,T.hot);}
+        label(ctx,`${v.toFixed(2)} L · ${m.toFixed(2)} M`,x,base+6,T.ink,'center','top','600 13px "IBM Plex Mono",monospace');label(ctx,nm,x,top-8,T.muted,'center','bottom',MONO);});
+      arrow(ctx,w*.42,base-ph*.3,w*.58,base-ph*.3,T.cx,3);label(ctx,'+ '+wd.toFixed(2)+' L water',w/2,base-ph*.3-10,T.cx,'center','bottom',MONO);}});
+  function updD(){const n=+$('#dl-n').value,v1=+$('#dl-v1').value,wd=+$('#dl-w').value,v2=v1+wd;setText('dl-m1',(n/v1).toFixed(2)+' M');setText('dl-m2',(n/v2).toFixed(3)+' M');setText('dl-f',(v2/v1).toFixed(2)+'×');setText('dl-chk',`${(n/v1).toFixed(2)} × ${v1.toFixed(2)} = ${(n/v2).toFixed(3)} × ${v2.toFixed(2)} = ${n.toFixed(2)} mol`);dsim.render();}
+  bindRange('dl-n',x=>x.toFixed(2)+' mol',updD);bindRange('dl-v1',x=>x.toFixed(2)+' L',updD);bindRange('dl-w',x=>x.toFixed(2)+' L',updD);
+  $('#sl-sel').addEventListener('change',()=>{kind=$('#sl-sel').value;init();sim.render();});$('#sl-go').addEventListener('click',()=>{init();sim.render();});
+  init();drawers.solutions=()=>{sim.render();dsim.render();};
+  TIPS['sl-sel']='Compare how the water molecules behave around each solute.';
+  TIPS['dl-w']='Adding water spreads the same number of solute particles over a bigger volume: lower molarity.';
+  TIPS['dl-n']='More moles of solute in the same volume means a more concentrated solution.';
+  KEYS['sl-canvas']=['Pick a solute and press Drop it in.',[['bad','water oxygen (δ−)'],['cx','cation / water'],['cv','anion']]];
+  GLOSS['molarity']='Moles of solute per liter of solution (mol/L, written M).';
+  GLOSS['solvent']='The substance that does the dissolving, usually the larger amount (water in aqueous solutions).';
+  GLOSS['hydration']='Water molecules surrounding and stabilizing a dissolved ion.';
+  TT.solutions='Ask students which way the water molecules should point before running the salt animation. The dilution lab makes M₁V₁ = M₂V₂ obvious: the number of dots never changes.';
+})();
+(function(){
+  const SOL=[['NaCl'],['KCl'],['NaOH'],['C6H12O6'],['CaCl2'],['MgCl2'],['KNO3']];
+  PROBS.push({id:'sol-molarity',topic:'solutions',title:'Molarity from a mass',gen(){const f=pick(['NaCl','KCl','NaOH','C6H12O6','CaCl2','MgCl2']),{M}=molarMass(f),g=ri(20,300)/10,V=ri(10,50)*10,ans=g/M/(V/1000);
+    return {q:`${g.toFixed(1)} g of ${fsub(f)} is dissolved in water to make ${V} mL of solution. What is the molarity? (Atomic masses: H 1.008, C 12.01, O 16.00, Na 22.99, Mg 24.31, Cl 35.45, K 39.10, Ca 40.08.)`,ans,unit:'M',tol:.02,hint:'Convert grams to moles with the molar mass, convert mL to L, then divide.',sol:`n = ${g.toFixed(1)} ÷ ${M.toFixed(2)} = ${fmt(g/M,4)} mol; M = ${fmt(g/M,4)} mol ÷ ${(V/1000).toFixed(3)} L = <b>${fmt(ans,3)} M</b>.`};}});
+  PROBS.push({id:'sol-dilution',topic:'solutions',title:'Dilution',gen(){const M1=ri(10,120)/10,M2=+(M1/ri(3,20)).toFixed(3),V2=ri(5,50)*10,ans=M2*V2/M1;
+    return {q:`How many mL of ${M1.toFixed(1)} M stock solution are needed to prepare ${V2} mL of ${M2.toFixed(3)} M solution?`,ans,unit:'mL',tol:.02,hint:'M₁V₁ = M₂V₂, so V₁ = M₂V₂/M₁.',sol:`V₁ = (${M2.toFixed(3)})(${V2}) / ${M1.toFixed(1)} = <b>${fmt(ans,2)} mL</b>.`};}});
+  PROBS.push({id:'sol-ions',topic:'solutions',title:'Ion concentrations',gen(){const [f,ion,k,nm]=pick([['CaCl₂','Cl⁻',2,''],['Na₂SO₄','Na⁺',2,''],['Al(NO₃)₃','NO₃⁻',3,''],['MgCl₂','Cl⁻',2,''],['K₃PO₄','K⁺',3,''],['Ca(NO₃)₂','NO₃⁻',2,''],['FeCl₃','Cl⁻',3,'']]),c=ri(2,40)/100,ans=c*k;
+    return {q:`What is the concentration of ${ion} in a ${c.toFixed(2)} M solution of ${f}?`,ans,unit:'M',tol:.02,hint:'Write the dissociation equation. Each formula unit releases as many of this ion as its subscript.',sol:`Each ${f} gives ${k} ${ion}, so [${ion}] = ${k} × ${c.toFixed(2)} = <b>${fmt(ans,3)} M</b>.`};}});
+  PROBS.push({id:'sol-mass',topic:'solutions',title:'Mass needed for a solution',gen(){const f=pick(['NaCl','KCl','NaOH','C6H12O6']),{M}=molarMass(f),c=ri(5,100)/100,V=ri(10,50)*10,ans=c*V/1000*M;
+    return {q:`What mass of ${fsub(f)} is needed to make ${V} mL of ${c.toFixed(2)} M solution? (Atomic masses: H 1.008, C 12.01, O 16.00, Na 22.99, Cl 35.45, K 39.10.)`,ans,unit:'g',tol:.02,hint:'Moles = M × V (in L), then grams = moles × molar mass.',sol:`n = ${c.toFixed(2)} × ${(V/1000).toFixed(3)} = ${fmt(c*V/1000,4)} mol; mass = ${fmt(c*V/1000,4)} × ${M.toFixed(2)} = <b>${fmt(ans,2)} g</b>.`};}});
+})();
+
+/* ===== modules/light.js ===== */
+
+/* ---------------- Light & Beer–Lambert ---------------- */
+const H_P=6.626e-34,C_L=2.998e8,N_A=6.022e23,EV=1.602e-19;
+function wlRGB(nm){let r=0,g=0,b=0;if(nm>=380&&nm<440){r=-(nm-440)/60;b=1;}else if(nm<490){g=(nm-440)/50;b=1;}else if(nm<510){g=1;b=-(nm-510)/20;}else if(nm<580){r=(nm-510)/70;g=1;}else if(nm<645){r=1;g=-(nm-645)/65;}else if(nm<=700)r=1;
+  const f=nm<420?.3+.7*(nm-380)/40:nm>700?.3+.7*(780-nm)/80:1;return [r,g,b].map(x=>Math.round(255*Math.pow(clamp(x*f,0,1),.8)));}
+(function light(){
+  const cv=$('#lt-canvas');if(!cv)return;
+  const REG=[['gamma rays',-13,-11,'#8E6BD0','Produced in nuclear reactions. Energies of about 10⁸ kJ/mol: they break nuclei apart and strip atoms.'],['X-rays',-11,-8,'#5B7DD6','Eject inner-shell (core) electrons. Used in imaging and in X-ray photoelectron spectroscopy.'],['ultraviolet',-8,-6.4,'#7A4DD6','Excites valence electrons; high-energy UV can break bonds. Sunburn is bond damage in skin.'],['visible',-6.4,-6.15,'#4DB06B','Excites valence electrons in many molecules: this is what gives compounds their color.'],['infrared',-6.15,-3,'#D9534F','Makes bonds stretch and bend (molecular vibrations). IR spectroscopy identifies functional groups.'],['microwave',-3,-1,'#E9A23B','Makes whole molecules rotate. Microwave ovens heat the rotation of water molecules.'],['radio waves',-1,4,'#98A2B3','Flip nuclear spins in a magnetic field: the basis of NMR and MRI.']];
+  let e=-6.3;
+  const regOf=x=>REG.find(r=>x>=r[1]&&x<r[2])||REG[REG.length-1];
+  const sim=sim2d(cv,{h:w=>clamp(w*.34,200,260),draw(ctx,w,h,t){const bx=16,bw=w-32,X=v=>bx+(v+12)/15*bw,by=18,bh=36;
+      REG.forEach(r=>{const x0=X(Math.max(r[1],-12)),x1=X(Math.min(r[2],3));ctx.fillStyle=alpha(r[3],.35);ctx.fillRect(x0,by,x1-x0,bh);label(ctx,r[0],(x0+x1)/2,by+bh/2,T.ink,'center','middle',w<520?'600 9px "IBM Plex Mono",monospace':'600 11px "IBM Plex Mono",monospace');});
+      for(let nm=400;nm<=700;nm+=4){const c=wlRGB(nm),x0=X(Math.log10(nm*1e-9)),x1=X(Math.log10((nm+4)*1e-9));ctx.fillStyle=`rgb(${c})`;ctx.fillRect(x0,by+bh+2,x1-x0+.5,8);}
+      ctx.strokeStyle=T.line;ctx.fillStyle=T.muted;ctx.font=MONO;ctx.textAlign='center';ctx.textBaseline='top';[-12,-9,-6,-3,0,3].forEach(v=>{ctx.beginPath();ctx.moveTo(X(v),by+bh+14);ctx.lineTo(X(v),by+bh+19);ctx.stroke();ctx.fillText('10'+String(v).replace('-','⁻').replace(/\d/g,d=>SUP[d]),X(v),by+bh+21);});
+      const mx=X(e);ctx.fillStyle=T.ink;ctx.beginPath();ctx.moveTo(mx,by+bh+12);ctx.lineTo(mx-7,by+bh+24);ctx.lineTo(mx+7,by+bh+24);ctx.fill();label(ctx,'wavelength (m)',w-16,by+bh+38,T.muted,'right','top',MONO);
+      /* the wave: drawn with a wavelength that follows the slider (compressed so it is always visible) */
+      const wy=h-48,lam=clamp(8*Math.pow(10,(e+8)*.3),4,w*.8),nm=Math.pow(10,e)*1e9,col=nm>=380&&nm<=780?`rgb(${wlRGB(nm)})`:regOf(e)[3];
+      ctx.strokeStyle=col;ctx.lineWidth=3;ctx.beginPath();for(let x=0;x<=w;x+=2){const y=wy+Math.sin((x/lam-t*1.6)*6.2832)*26;x?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();
+      label(ctx,'wave drawn compressed to fit',8,h-6,T.muted,'left','bottom',MONO);}});
+  function upd(){const lam=Math.pow(10,e),nu=C_L/lam,E=H_P*nu,R=regOf(e);const sup=n=>String(n).split('').map(c=>SUP[c]).join('');
+    $('#lt-w-out').textContent=lam>=1?fmt(lam,1)+' m':lam>=1e-3?fmt(lam*1e3,1)+' mm':lam>=1e-6?fmt(lam*1e6,2)+' µm':lam>=1e-9?fmt(lam*1e9,1)+' nm':fmt(lam*1e12,1)+' pm';
+    setText('lt-reg',R[0]);setText('lt-nu',sci(nu,2)+' Hz');setText('lt-ej',sci(E,2)+' J');setText('lt-ek',sci(E*N_A/1000,2)+' kJ/mol');setText('lt-use',R[4]);sim.render();}
+  $('#lt-w').addEventListener('input',()=>{e=+$('#lt-w').value;upd();});upd();
+  /* ---- photoelectric ---- */
+  const MET={Cs:2.14,K:2.30,Zn:4.33,Cu:4.65};const pm=$('#pe2-m');pm.innerHTML=Object.keys(MET).map(k=>`<option value="${k}">${k}: Φ = ${MET[k]} eV</option>`).join('');pm.value='Cs';
+  let fq=4,inten=4,ph=[],el=[],em=0,tn=0;const pc=$('#pe2-canvas');
+  const sim2=sim2d(pc,{h:w=>clamp(w*.42,230,300),step(dt){const w=pc.clientWidth,h=pc.clientHeight||260,E=H_P*fq*1e14/EV,phi=MET[pm.value],KE=E-phi;em+=dt*inten*1.4;
+      while(em>1){em-=1;ph.push({x:20,y:h*.2+Math.random()*h*.55,hit:false});}
+      ph.forEach(p=>{p.x+=dt*230;if(!p.hit&&p.x>w*.62){p.hit=true;p.dead=true;if(KE>0)el.push({x:p.x,y:p.y,vx:Math.sqrt(KE)*60+20,vy:-30+Math.random()*60,age:0});}});ph=ph.filter(p=>!p.dead);
+      el.forEach(q=>{q.x+=q.vx*dt*.7;q.y+=q.vy*dt*.7;q.age+=dt;q.vx*=-1*0+1;});el=el.filter(q=>q.x<w+10&&q.y>0&&q.y<h&&q.age<4);},
+    draw(ctx,w,h,t){const E=H_P*fq*1e14/EV,phi=MET[pm.value],KE=E-phi,nm=C_L/(fq*1e14)*1e9,col=nm>=380&&nm<=780?`rgb(${wlRGB(nm)})`:nm<380?'#8E6BD0':'#D9534F';
+      ctx.fillStyle=T.muted;ctx.fillRect(w*.62,h*.1,26,h*.8);ctx.fillStyle=alpha(T.ink,.4);ctx.fillRect(w*.62+26,h*.1,6,h*.8);label(ctx,pm.value,w*.62+13,h*.5,'#fff','center','middle','700 14px "IBM Plex Sans",sans-serif');
+      ph.forEach(p=>{ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();for(let k=0;k<16;k++){const x=p.x-k*2,y=p.y+Math.sin(k*(.35+fq*.05)-t*20)*(5-k*.2);k?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();});
+      el.forEach(q=>{ball2(ctx,q.x,q.y,5,T.ce);});
+      label(ctx,KE>0?'electrons ejected with KE = '+KE.toFixed(2)+' eV':'photons are absorbed or reflected: no electrons escape',w*.5,10,KE>0?T.good:T.hot,'center','top','600 13px "IBM Plex Mono",monospace');
+      label(ctx,'photon energy '+E.toFixed(2)+' eV  vs  work function '+phi+' eV',w*.5,h-8,T.muted,'center','bottom',MONO);}});
+  function upd2(){const E=H_P*fq*1e14/EV,phi=MET[pm.value],KE=E-phi;$('#pe2-f-out').textContent=fmt(fq,1)+' × 10¹⁴ Hz';$('#pe2-i-out').textContent=inten;
+    setText('pe2-e',E.toFixed(2)+' eV');setText('pe2-w',phi+' eV');setText('pe2-k',KE>0?KE.toFixed(2)+' eV ('+sci(KE*EV,2)+' J)':'none');setText('pe2-th',sci(phi*EV/H_P,2)+' Hz');
+    setText('pe2-msg',KE>0?'Each photon has enough energy to free one electron; the extra becomes kinetic energy. More intense light frees more electrons, with the same energy each.':'Each photon is too weak to free an electron. Making the light brighter sends more photons but never gives one photon more energy, so nothing happens.');sim2.render();}
+  $('#pe2-f').addEventListener('input',()=>{fq=+$('#pe2-f').value;upd2();});$('#pe2-i').addEventListener('input',()=>{inten=+$('#pe2-i').value;upd2();});pm.addEventListener('change',upd2);upd2();
+  /* ---- Beer-Lambert ---- */
+  const DYE={'crystal violet':{eps:8.7e4,cmax:2e-5,nm:590,col:[120,40,180]},'KMnO₄':{eps:2.4e3,cmax:5e-4,nm:525,col:[150,30,120]},'Cu²⁺(aq)':{eps:12,cmax:.5,nm:810,col:[80,150,220]}};
+  const bd=$('#bl-d');bd.innerHTML=Object.keys(DYE).map(k=>`<option value="${k}">${k} (ε = ${sci(DYE[k].eps,1)} M⁻¹cm⁻¹ at ${DYE[k].nm} nm)</option>`).join('');
+  let bph=[],bem=0,passed=0,sent=0;const bc=$('#bl-canvas');
+  const cur=()=>{const d=DYE[bd.value],c=+$('#bl-c').value*d.cmax,b=+$('#bl-b').value,A=d.eps*b*c;return {d,c,b,A};};
+  const simB=sim2d(bc,{h:w=>clamp(w*.5,230,280),step(dt){const {d,c,b,A}=cur();bem+=dt*14;while(bem>1){bem-=1;const u=Math.random(),dist=c>0?-Math.log(1-u)/(Math.LN10*d.eps*c):1e9;bph.push({x:36,abs:dist<b?dist/b:2,dead:false});sent++;}
+      const w=bc.clientWidth,x0=w*.28,x1=w*.28+clamp(b*34,30,150);bph.forEach(p=>{p.x+=dt*180;const fr=clamp((p.x-x0)/(x1-x0),0,2);if(!p.dead&&p.abs<2&&fr>=p.abs&&fr<2){p.dead=true;}if(p.x>w-24&&!p.counted&&!p.dead){p.counted=true;passed++;}});bph=bph.filter(p=>p.x<w-14&&!(p.dead&&p.x>w));
+      if(sent>400){sent=Math.round(sent/2);passed=Math.round(passed/2);}},
+    draw(ctx,w,h,t){const {d,c,b,A}=cur(),cy=h*.5,x0=w*.28,len=clamp(b*34,30,150),x1=x0+len,T0=Math.pow(10,-A);
+      ctx.fillStyle=T.muted;ctx.fillRect(8,cy-14,28,28);label(ctx,'lamp',22,cy+20,T.muted,'center','top',MONO);ctx.fillStyle=T.ink;ctx.fillRect(w-24,cy-18,16,36);label(ctx,'detector',w-16,cy+24,T.muted,'center','top',MONO);
+      ctx.fillStyle=`rgba(${d.col},${clamp(.06+c/d.cmax*.6,.05,.75)})`;ctx.fillRect(x0,cy-34,len,68);ctx.strokeStyle=T.ink;ctx.lineWidth=2;ctx.strokeRect(x0+.5,cy-34.5,len,69);label(ctx,'cuvette, b = '+b+' cm',x0+len/2,cy-42,T.ink,'center','bottom',MONO);
+      const nm=d.nm,pc2=`rgb(${wlRGB(nm>700?650:nm)})`;bph.forEach(p=>{if(p.dead)return;ctx.fillStyle=pc2;ctx.beginPath();ctx.arc(p.x,cy+((p.id=p.id||Math.random())*24)-12,3,0,7);ctx.fill();});
+      label(ctx,'I₀ = 100%',8,10,T.muted,'left','top',MONO);label(ctx,'I = '+(T0*100).toFixed(T0<.1?2:1)+'%',w-8,10,T.hot,'right','top','600 12px "IBM Plex Mono",monospace');}});
+  const bg=$('#bl-graph'),simG=sim2d(bg,{h:w=>clamp(w*.5,230,280),draw(ctx,w,h){const {d,c,b,A}=cur(),Amax=d.eps*4*d.cmax;const P=panel(ctx,{x:44,y:12,w:w-58,h:h-46},[0,1],[0,2],{xn:4,yn:4,xlabel:'concentration (fraction of '+sci(d.cmax,1)+' M)',ylabel:'absorbance A',color:T.ink});
+      line(ctx,P,0,0,1,Math.min(d.eps*b*d.cmax,2),T.cx,2.6);if(d.eps*b*d.cmax>2)line(ctx,P,2/(d.eps*b*d.cmax),2,1,2,T.cx,0);dot(ctx,P.X(c/d.cmax),P.Y(Math.min(A,2)),6.5,T.hot,T.surface);if(A>2)label(ctx,'off the scale',P.X(c/d.cmax),P.Y(2)+14,T.hot,'center','top',MONO);
+      line(ctx,P,0,1,1,1,T.muted,1,[4,4]);label(ctx,'A = 1 (keep below this for accuracy)',P.box.x+6,P.Y(1)-4,T.muted,'left','bottom',MONO);}});
+  function updB(){const {d,c,b,A}=cur();$('#bl-c-out').textContent=sci(c,2)+' M';$('#bl-b-out').textContent=b+' cm';setText('bl-a',A.toFixed(3));setText('bl-t',(Math.pow(10,-A)*100).toFixed(1)+' %');sent=0;passed=0;bph=[];simB.render();simG.render();}
+  ['bl-c','bl-b'].forEach(id=>$('#'+id).addEventListener('input',updB));bd.addEventListener('change',updB);setInterval(()=>{if(current==='light')setText('bl-m',sent>20?(passed/Math.max(sent-3,1)*100).toFixed(0)+' % of the photons':'counting…');},500);updB();
+  drawers.light=()=>{sim.render();sim2.render();simB.render();simG.render();};
+  TIPS['lt-w']='Slide across the spectrum: shorter wavelength means higher frequency and more energy per photon.';
+  TIPS['pe2-f']='Only the frequency of the light (the energy of each photon) decides whether electrons escape.';
+  TIPS['pe2-i']='Intensity is the number of photons per second: more electrons, but the same energy each.';
+  TIPS['bl-c']='More dye in the path absorbs more photons: A rises in direct proportion.';
+  TIPS['bl-b']='A longer path means more dye along the beam, so more absorption: A is proportional to b.';
+  KEYS['bl-canvas']=['Change the concentration and the path length and watch the photons.',[['hot','light that survives (I/I₀)']]];
+  GLOSS['photon']='A packet of light energy, E = hν.';
+  GLOSS['absorbance']='A = −log(I/I₀). It is proportional to concentration and path length.';
+  GLOSS['wavelength']='The distance between successive wave crests; shorter wavelength means more energetic light.';
+  TT.light='Keep the three labs distinct: the spectrum is about photon energy, the photoelectric effect shows that energy comes in packets, Beer\'s law is about counting absorbing particles. The straight-line A versus c plot is the key to every spectrophotometry lab.';
+})();
+(function(){
+  PROBS.push({id:'lt-energy',topic:'light',title:'Energy of a photon',gen(){const nm=ri(200,750),E=H_P*C_L/(nm*1e-9);
+    return {q:`What is the energy of one photon of light with wavelength ${nm} nm? (h = 6.626 × 10⁻³⁴ J·s, c = 2.998 × 10⁸ m/s. Answer in joules, like 3.2e-19.)`,ans:E,unit:'J',tol:.02,hint:'Convert nm to m, then E = hc/λ.',sol:`E = (6.626 × 10⁻³⁴)(2.998 × 10⁸) / (${nm} × 10⁻⁹) = <b>${sci(E,3)} J</b>.`};}});
+  PROBS.push({id:'lt-freq',topic:'light',title:'Frequency from wavelength',gen(){const nm=ri(100,900),nu=C_L/(nm*1e-9);
+    return {q:`What is the frequency of light with a wavelength of ${nm} nm? (c = 2.998 × 10⁸ m/s. Answer in Hz, like 6.0e14.)`,ans:nu,unit:'Hz',tol:.02,hint:'c = λν, so ν = c/λ. Convert nm to m first.',sol:`ν = (2.998 × 10⁸) / (${nm} × 10⁻⁹) = <b>${sci(nu,3)} Hz</b>.`};}});
+  PROBS.push({id:'lt-photoelectric',topic:'light',title:'Photoelectric effect',gen(){const phi=ri(25,50)/10*1e-19,nm=ri(150,260),E=H_P*C_L/(nm*1e-9),KE=E-phi;
+    if(KE<=0)return PROBS.find(p=>p.id==='lt-photoelectric').gen();
+    return {q:`The work function of a metal is ${sci(phi,2)} J. Light of wavelength ${nm} nm strikes it. What is the maximum kinetic energy of the ejected electrons? (h = 6.626 × 10⁻³⁴ J·s, c = 2.998 × 10⁸ m/s.)`,ans:KE,unit:'J',tol:.03,hint:'KE = hν − Φ, where hν = hc/λ.',sol:`hν = ${sci(E,3)} J; KE = ${sci(E,3)} − ${sci(phi,2)} = <b>${sci(KE,3)} J</b>.`};}});
+  PROBS.push({id:'lt-beer',topic:'light',title:"Beer's law",gen(){const eps=pick([1500,3200,8500,12000,25000]),b=pick([1,1,2,0.5]),A=ri(10,90)/100,c=A/(eps*b);
+    return {q:`A solution in a ${b}-cm cuvette has an absorbance of ${A.toFixed(2)} at a wavelength where ε = ${eps.toLocaleString('en-US')} M⁻¹cm⁻¹. What is its concentration? (Answer like 4.5e-5.)`,ans:c,unit:'M',tol:.02,hint:'A = εbc, so c = A/(εb).',sol:`c = ${A.toFixed(2)} / (${eps} × ${b}) = <b>${sci(c,3)} M</b>.`};}});
+})();
+
+/* ===== modules/separation.js ===== */
+
+/* ---------------- Separating mixtures ---------------- */
+(function separation(){
+  const cv=$('#sp-canvas');if(!cv)return;
+  const MIX=[[['yellow',.15,'#E8C42A'],['red',.45,'#D9453B'],['blue',.8,'#3E63DD']],[['yellow',.1,'#E8C42A'],['orange',.3,'#E8832A'],['red',.55,'#D9453B'],['blue',.85,'#3E63DD']]];
+  let mix=0,s=.55,front=0,running=false;
+  const rf=p=>.04+.9/(1+Math.exp(-7*(s-p)));
+  const sim=sim2d(cv,{h:w=>clamp(w*.6,300,380),step(dt){if(running){front=Math.min(1,front+dt*.16);if(front>=1)running=false;}},
+    draw(ctx,w,h){const px=w*.3,pw=Math.min(190,w*.34),top=16,bot=h-34,base=bot-14,len=base-top-10,fy=base-len*front;ctx.fillStyle=alpha(T.sunk,1);ctx.fillRect(px,top,pw,bot-top);ctx.strokeStyle=T.line;ctx.strokeRect(px+.5,top+.5,pw,bot-top);
+      ctx.fillStyle=alpha(T.cx,.18);ctx.fillRect(px,fy,pw,bot-fy);label(ctx,'solvent',px+pw+8,Math.max(fy,top+6)+10,T.cx,'left','middle',MONO);ctx.strokeStyle=T.cx;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(px,fy);ctx.lineTo(px+pw,fy);ctx.stroke();label(ctx,'solvent front',px-8,fy,T.cx,'right','middle',MONO);
+      ctx.strokeStyle=T.ink;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(px,base);ctx.lineTo(px+pw,base);ctx.stroke();ctx.setLineDash([]);label(ctx,'start line (pencil)',px-8,base,T.muted,'right','middle',MONO);
+      const n=MIX[mix].length;MIX[mix].forEach(([nm,p,c],i)=>{const x=px+pw*(i+1)/(n+1),d=rf(p)*(base-fy),y=base-d;ctx.fillStyle=alpha(c,.85);ctx.beginPath();ctx.ellipse(x,y,12,Math.min(9+d*.04,14),0,0,7);ctx.fill();
+        if(front>0){ctx.strokeStyle=alpha(c,.3);ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,y);ctx.stroke();}
+        if(front>.02){ctx.strokeStyle=T.muted;ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(x+16,y);ctx.lineTo(px+pw+60,y);ctx.stroke();ctx.setLineDash([]);label(ctx,nm+'  Rf '+(front>.99?rf(p).toFixed(2):'…'),px+pw+64,y,c,'left','middle','600 12px "IBM Plex Mono",monospace');}});
+      label(ctx,'paper (polar stationary phase)',px+pw/2,bot+8,T.muted,'center','top',MONO);}});
+  function ro(){$('#sp-ro').innerHTML=MIX[mix].map(([n,p,c])=>`<div><span>R<sub>f</sub> of ${n}</span><strong style="color:${c}">${rf(p).toFixed(2)}</strong></div>`).join('');}
+  function upd(){$('#sp-s-out').textContent=s<.3?'nonpolar':s>.7?'very polar':'moderately polar';ro();sim.render();}
+  $('#sp-go').addEventListener('click',()=>{front=0;running=!REDUCE;if(REDUCE)front=1;sim.render();});$('#sp-mix').addEventListener('change',()=>{mix=+$('#sp-mix').value;front=0;running=false;upd();});$('#sp-s').addEventListener('input',()=>{s=+$('#sp-s').value;front=0;running=false;upd();});
+  front=1;upd();
+  /* ---- distillation ---- */
+  const R8=8.314,A={Tb:351.55,H:38600},B={Tb:373.15,H:40700};
+  const Pv=(c,T)=>Math.exp(-(c.H/R8)*(1/T-1/c.Tb));
+  const bp=x=>solve(T=>x*Pv(A,T)+(1-x)*Pv(B,T)-1,330,400);
+  const N0=60;let pot=[],vap=[],recA=0,recB=0,heating=false,acc=0,hist=[];const dcv=$('#ds-canvas'),gcv=$('#ds-graph');
+  function reset(){const xa=+$('#ds-x').value,nA=Math.round(N0*xa);pot=[];for(let i=0;i<N0;i++)pot.push({t:i<nA?'A':'B',x:Math.random(),y:Math.random(),p:Math.random()*6});vap=[];recA=0;recB=0;heating=false;hist=[];$('#ds-go').textContent='Heat';readout();dsim.render();gsim.render();}
+  const xp=()=>{const a=pot.filter(p=>p.t==='A').length;return pot.length?a/pot.length:0;};
+  function readout(){const x=xp(),T=pot.length?bp(x):373.15,y=pot.length?x*Pv(A,T):0,rec=recA+recB;setText('ds-t',(T-273.15).toFixed(1)+' °C');setText('ds-xp',(x*100).toFixed(0)+' %');setText('ds-y',pot.length?(y*100).toFixed(0)+' %':'—');setText('ds-xd',rec?(recA/rec*100).toFixed(0)+' %':'—');}
+  const dsim=sim2d(dcv,{h:w=>clamp(w*.62,260,320),step(dt){if(heating&&pot.length){acc+=dt*(+$('#ds-p').value)*.9;while(acc>1&&pot.length){acc-=1;const x=xp(),T=bp(x),yA=x*Pv(A,T),isA=Math.random()<yA;const idx=pot.findIndex(p=>p.t===(isA?'A':'B'));const k=idx<0?0:idx;const m=pot.splice(k,1)[0];vap.push({t:m.t,u:0});hist.push([1-pot.length/N0,bp(xp())-273.15]);}}
+      vap.forEach(v=>{v.u+=dt*.6;if(v.u>=1&&!v.done){v.done=true;if(v.t==='A')recA++;else recB++;}});vap=vap.filter(v=>v.u<1);if(heating&&!pot.length){heating=false;$('#ds-go').textContent='Heat';}
+      pot.forEach(p=>{p.p+=dt*(heating?5:2);});},
+    draw(ctx,w,h,t){const fx=w*.12,fy=h*.5,fw=Math.min(120,w*.24),fh=h*.42;const path=u=>{if(u<.35)return [fx+fw*.5,fy-u/.35*(h*.3)];if(u<.7){const k=(u-.35)/.35;return [fx+fw*.5+k*(w*.5),fy-h*.3+k*h*.18];}const k=(u-.7)/.3;return [fx+fw*.5+w*.5,fy-h*.12+k*(h*.2)];};
+      ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(fx+fw*.35,fy-h*.3);ctx.lineTo(fx+fw*.35,fy);ctx.lineTo(fx,fy+8);ctx.lineTo(fx,fy+fh);ctx.lineTo(fx+fw,fy+fh);ctx.lineTo(fx+fw,fy+8);ctx.lineTo(fx+fw*.65,fy);ctx.lineTo(fx+fw*.65,fy-h*.3);ctx.stroke();
+      const lvl=Math.max(6,fh*pot.length/N0);ctx.fillStyle=alpha(T.cx,.12);ctx.fillRect(fx+2,fy+fh-lvl,fw-4,lvl);
+      pot.forEach((p,i)=>{const px=fx+8+((Math.sin(i*12.99)*43758.5%1+1)%1)*(fw-16),py=fy+fh-8-((Math.sin(i*78.2)*12345.6%1+1)%1)*Math.max(4,lvl-12);ball2(ctx,px+Math.sin(p.p)*2,py+Math.cos(p.p*1.3)*2,3.6,p.t==='A'?T.cx:T.hot);});
+      if(heating){for(let k=0;k<4;k++){ctx.fillStyle=alpha(T.hot,.6);ctx.beginPath();ctx.moveTo(fx+fw*(.2+k*.2),fy+fh+8);ctx.quadraticCurveTo(fx+fw*(.25+k*.2),fy+fh+18+Math.sin(t*8+k)*3,fx+fw*(.2+k*.2)+4,fy+fh+26);ctx.lineTo(fx+fw*(.2+k*.2)-4,fy+fh+26);ctx.fill();}}
+      ctx.strokeStyle=T.muted;ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(fx+fw*.5,fy-h*.3);ctx.lineTo(fx+fw*.5+w*.5,fy-h*.12);ctx.stroke();ctx.strokeStyle=alpha(T.cx,.35);ctx.lineWidth=11;ctx.stroke();label(ctx,'condenser (cold water)',fx+fw*.5+w*.27,fy-h*.3+8,T.cx,'center','bottom',MONO);
+      vap.forEach(v=>{const [x,y]=path(Math.min(v.u,.99));ball2(ctx,x,y,3.6,v.t==='A'?T.cx:T.hot);});
+      const rx=fx+fw*.5+w*.5-26,ry=fy+fh*.45,rw=52,rh=h*.38;ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(rx,ry,rw,rh);const tot=recA+recB,lv=rh*Math.min(1,tot/N0*2.2);
+      if(tot){ctx.fillStyle=alpha(T.hot,.35);ctx.fillRect(rx+1.5,ry+rh-lv,rw-3,lv);ctx.fillStyle=alpha(T.cx,.45);ctx.fillRect(rx+1.5,ry+rh-lv,rw-3,lv*recA/tot);}
+      label(ctx,'receiver',rx+rw/2,ry+rh+8,T.muted,'center','top',MONO);label(ctx,'pot',fx+fw/2,fy+fh+30,T.muted,'center','top',MONO);
+      label(ctx,'● ethanol  ● water',8,8,T.muted,'left','top',MONO);const th=pot.length?bp(xp())-273.15:100;ctx.fillStyle=T.ink;ctx.fillRect(fx+fw*.5-1.5,fy-h*.33,3,h*.2);label(ctx,th.toFixed(1)+' °C',fx+fw*.5+8,fy-h*.2,T.hot,'left','middle','600 12px "IBM Plex Mono",monospace');}});
+  const gsim=sim2d(gcv,{h:w=>clamp(w*.62,260,320),draw(ctx,w,h){const P=panel(ctx,{x:48,y:12,w:w-62,h:h-46},[0,1],[75,105],{xn:5,yn:3,xlabel:'fraction distilled',ylabel:'pot temperature (°C)',color:T.ink});line(ctx,P,0,78.4,1,78.4,T.cx,1,[4,4]);line(ctx,P,0,100,1,100,T.hot,1,[4,4]);label(ctx,'ethanol boils 78.4 °C',P.X(.98),P.Y(78.4)-3,T.cx,'right','bottom',MONO);label(ctx,'water boils 100 °C',P.X(.98),P.Y(100)-3,T.hot,'right','bottom',MONO);
+      const x0=+$('#ds-x').value;const pts=[[0,bp(x0)-273.15],...hist];ctx.save();clip(ctx,P);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(P.X(p[0]),P.Y(p[1])):ctx.moveTo(P.X(p[0]),P.Y(p[1])));ctx.stroke();ctx.restore();const l=pts[pts.length-1];dot(ctx,P.X(l[0]),P.Y(l[1]),5.5,T.hot,T.surface);}});
+  $('#ds-go').addEventListener('click',()=>{heating=!heating;$('#ds-go').textContent=heating?'Pause':'Heat';});$('#ds-reset').addEventListener('click',reset);
+  $('#ds-x').addEventListener('input',()=>{$('#ds-x-out').textContent=(+$('#ds-x').value*100).toFixed(0)+' % ethanol';reset();});bindRange('ds-p',x=>x,()=>{},false);$('#ds-x-out').textContent='50 % ethanol';
+  setInterval(()=>{if(current==='separation'){readout();gsim.render();}},300);
+  reset();drawers.separation=()=>{sim.render();dsim.render();gsim.render();};
+  TIPS['sp-s']='A more polar solvent competes better with the polar paper, so polar dyes travel further.';
+  TIPS['sp-mix']='Each dye has its own polarity, so each lands at its own distance.';
+  TIPS['ds-x']='The more ethanol you start with, the lower the boiling temperature and the more ethanol in the first distillate.';
+  TIPS['ds-p']='Heat gently: a slow rate gives a better separation.';
+  KEYS['sp-canvas']=['Press Run it and compare how far each spot travels.',[['cx','solvent front']]];
+  GLOSS['chromatography']='Separating a mixture by how strongly each part is attracted to a stationary phase compared with a moving solvent.';
+  GLOSS['distillation']='Separating liquids by boiling the mixture and condensing the vapor, using differences in boiling point.';
+  GLOSS['rf']='The distance a spot travels divided by the distance the solvent front travels.';
+  TT.separation='Link both methods back to intermolecular forces: strong attraction to the paper means a small Rf; strong attractions in a liquid mean a high boiling point.';
+})();
+(function(){
+  PROBS.push({id:'sp-rf',topic:'separation',title:'Calculate Rf',gen(){const f=ri(60,120)/10,d=ri(8,Math.round(f*9))/10,rfv=d/f;
+    return {q:`In paper chromatography the solvent front travels ${f.toFixed(1)} cm from the start line, and a dye spot travels ${d.toFixed(1)} cm. What is the Rf of the dye?`,ans:rfv,unit:'',tol:.02,hint:'Rf = distance traveled by the spot ÷ distance traveled by the solvent front.',sol:`Rf = ${d.toFixed(1)} / ${f.toFixed(1)} = <b>${rfv.toFixed(2)}</b>.`};}});
+  const SC=[['sand and water','filtration'],['ethanol and water','distillation'],['the dyes in black ink','chromatography'],['salt dissolved in water (recover the salt)','evaporation'],['chalk powder suspended in water','filtration'],['two liquids with boiling points of 65 °C and 110 °C','distillation'],['the pigments in spinach leaves','chromatography'],['sugar dissolved in water (recover the sugar)','evaporation']],ch=['filtration','distillation','chromatography','evaporation'];
+  PROBS.push({id:'sp-method',topic:'separation',title:'Choose the separation method',gen(){const [d,m]=pick(SC);
+    return {q:`Which method is best to separate ${d}?`,choices:ch,ans:ch.indexOf(m),hint:'Match the property that differs: particle size, volatility, or attraction to a surface.',sol:`<b>${m}</b>: ${m==='filtration'?'an insoluble solid is much larger than the liquid\'s particles':m==='distillation'?'the liquids differ in boiling point':m==='chromatography'?'the components differ in attraction to the stationary phase':'the solvent is volatile and the solid is not'}.`};}});
+  PROBS.push({id:'sp-distill',topic:'separation',title:'What distills first?',gen(){const L=[['ethanol (bp 78 °C)','water (bp 100 °C)'],['acetone (bp 56 °C)','water (bp 100 °C)'],['hexane (bp 69 °C)','octane (bp 126 °C)'],['water (bp 100 °C)','glycerol (bp 290 °C)']],[a,b]=pick(L),sw=Math.random()<.5,x=sw?b:a,y=sw?a:b;
+    return {q:`A mixture of ${x} and ${y} is slowly heated in a distillation apparatus. Which liquid is enriched in the first drops of distillate?`,choices:[x,y],ans:x===a?0:1,hint:'The more volatile liquid has the lower boiling point (weaker intermolecular forces), so more of it is in the vapor.',sol:`The lower boiling point means weaker attractions and more vapor: <b>${a}</b>.`};}});
 })();
 
 /* ===== overview.js ===== */

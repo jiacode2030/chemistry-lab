@@ -1,0 +1,66 @@
+  <section class="view" id="v-light" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Light &amp; Beer–Lambert</h1>
+        <p class="lede">Light is a stream of energy packets called photons. Matter absorbs only photons with the right energy, which is how chemists identify substances and measure how much of them there is.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Light behaves as a wave with a wavelength and frequency, and as a stream of particles called <b>photons</b>. The two descriptions are tied together: a shorter wavelength means a higher frequency and a more energetic photon. A gamma-ray photon packs a punch; a radio photon is feeble. Each region of the <b>electromagnetic spectrum</b> pairs with something in a molecule: X-rays with inner electrons, UV and visible with valence electrons, infrared with vibrating bonds, microwaves with spinning molecules.</p>
+        <p>If a photon's energy exactly matches a gap in a molecule's energy levels, the molecule can absorb it. A colored solution absorbs the light that matches its gaps and lets the rest through. The <b>more</b> particles in the light's path, the more photons are absorbed: that is the <b>Beer–Lambert law</b>, and it lets you read concentration from how much light is lost.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span><i>c</i> = λν</span><small>wave relation</small></div><div class="eqn"><span><i>E</i> = <i>h</i>ν = <i>hc</i>/λ</span><small>photon energy</small></div><div class="eqn"><span><i>A</i> = ε<i>bc</i></span><small>Beer–Lambert</small></div><div class="eqn"><span><i>A</i> = −log(<i>I</i>/<i>I</i><sub>0</sub>)</span><small>absorbance</small></div></div>
+      <div class="lab" id="lt-lab1">
+        <div class="labbar"><span class="title">The electromagnetic spectrum</span></div>
+        <div class="controls"><div class="ctl"><label for="lt-w"><span>Wavelength (log scale)</span> <output id="lt-w-out"></output></label><input type="range" id="lt-w" min="-12" max="3" step="0.05" value="-6.3"></div></div>
+        <canvas id="lt-canvas" aria-label="The electromagnetic spectrum on a log scale with a marker and a wave drawn to the chosen wavelength"></canvas>
+        <div class="readout"><div><span>Region</span><strong class="x" id="lt-reg" style="white-space:normal;font-size:15px">—</strong></div><div><span>Frequency</span><strong id="lt-nu">—</strong></div><div><span>Energy per photon</span><strong class="hot" id="lt-ej">—</strong></div><div><span>Energy per mole of photons</span><strong id="lt-ek">—</strong></div></div>
+        <p class="small" id="lt-use" style="margin:0"></p>
+      </div>
+      <div class="lab" id="lt-lab2">
+        <div class="labbar"><span class="title">The photoelectric effect</span></div>
+        <div class="controls"><div class="ctl"><label for="pe2-m"><span>Metal (work function)</span></label><select id="pe2-m"></select></div>
+          <div class="ctl"><label for="pe2-f"><span>Frequency of the light</span> <output id="pe2-f-out"></output></label><input type="range" id="pe2-f" min="1" max="20" step="0.1" value="4"></div>
+          <div class="ctl"><label for="pe2-i"><span>Intensity (photons per second)</span> <output id="pe2-i-out"></output></label><input type="range" id="pe2-i" min="1" max="10" step="1" value="4"></div></div>
+        <canvas id="pe2-canvas" aria-label="Photons striking a metal surface and electrons ejected only if the photon energy exceeds the work function"></canvas>
+        <div class="readout"><div><span>Photon energy hν</span><strong class="x" id="pe2-e">—</strong></div><div><span>Work function Φ</span><strong id="pe2-w">—</strong></div><div><span>Electron kinetic energy</span><strong class="v" id="pe2-k" style="white-space:normal;font-size:15px">—</strong></div><div><span>Threshold frequency</span><strong id="pe2-th">—</strong></div></div>
+        <p class="small" id="pe2-msg" style="margin:0"></p>
+      </div>
+      <div class="lab" id="lt-lab3">
+        <div class="labbar"><span class="title">The spectrophotometer</span></div>
+        <div class="controls"><div class="ctl"><label for="bl-d"><span>Dye</span></label><select id="bl-d"></select></div>
+          <div class="ctl"><label for="bl-c"><span>Concentration</span> <output id="bl-c-out"></output></label><input type="range" id="bl-c" min="0" max="1" step="0.01" value="0.4"></div>
+          <div class="ctl"><label for="bl-b"><span>Path length b</span> <output id="bl-b-out"></output></label><input type="range" id="bl-b" min="0.5" max="4" step="0.5" value="1"></div></div>
+        <div class="split"><div><canvas id="bl-canvas" aria-label="Light passing through a cuvette of colored solution; absorbed photons disappear"></canvas></div><div><canvas id="bl-graph" aria-label="Absorbance against concentration: a straight line through the origin"></canvas></div></div>
+        <div class="readout"><div><span>Absorbance A = εbc</span><strong class="hot" id="bl-a">—</strong></div><div><span>Transmittance I/I₀</span><strong class="v" id="bl-t">—</strong></div><div><span>Photons through (measured)</span><strong id="bl-m">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Where is visible light on the spectrum, and how much energy does one mole of its photons carry? <button type="button" class="btn link" data-show='[["#lt-w",-6.3]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Visible light is a thin slice (400–700 nm) in the middle. A mole of 500 nm photons carries about 240 kJ, enough to excite the valence electrons of many molecules, and in the range of the energy of a chemical bond.</p></details></li>
+        <li><p>Shine light just below the threshold frequency, then just above. <button type="button" class="btn link" data-show='[["#pe2-m","Cs"],["#pe2-f",4]]'>Below (4)</button> <button type="button" class="btn link" data-show='[["#pe2-m","Cs"],["#pe2-f",8]]'>Above (8)</button></p><details><summary>What you should see</summary><p>Below the threshold no electrons come out, no matter how intense the light. Above it electrons are ejected immediately. Turning up the intensity then increases the <i>number</i> of electrons but not their energy: only a higher frequency does that.</p></details></li>
+        <li><p>Double the concentration of a dye. What happens to the absorbance? <button type="button" class="btn link" data-show='[["#bl-c",0.2],["#bl-b",1]]'>c = 0.2</button> <button type="button" class="btn link" data-show='[["#bl-c",0.4],["#bl-b",1]]'>c = 0.4</button></p><details><summary>What you should see</summary><p>Absorbance doubles (it is proportional to concentration), but the transmitted light does not halve: it falls exponentially. That is why the graph of A against c is a straight line, and why chemists plot A, not transmittance.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A violet laser has wavelength 405 nm. Find its frequency, the energy of one photon, and the energy of one mole of photons.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Convert the wavelength.</b> 405 nm = 4.05 × 10⁻⁷ m.</li>
+          <li hidden><b>Frequency.</b> ν = c/λ = (2.998 × 10⁸ m/s) / (4.05 × 10⁻⁷ m) = <b>7.40 × 10¹⁴ Hz</b>.</li>
+          <li hidden><b>Energy of one photon.</b> E = hν = (6.626 × 10⁻³⁴ J·s)(7.40 × 10¹⁴ s⁻¹) = <b>4.90 × 10⁻¹⁹ J</b>.</li>
+          <li hidden><b>Energy of a mole.</b> (4.90 × 10⁻¹⁹ J)(6.022 × 10²³ mol⁻¹) = 2.95 × 10⁵ J/mol = <b>295 kJ/mol</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Forgetting to convert nanometers to meters before using c = λν.</li>
+        <li>Thinking brighter light ejects faster electrons. Intensity controls how many; frequency controls how energetic.</li>
+        <li>Thinking longer wavelength means higher energy. Energy is inversely proportional to wavelength.</li>
+        <li>Plotting transmittance against concentration and expecting a line. Absorbance is the one that is linear.</li>
+        <li>Choosing the wrong wavelength for a measurement. Use the wavelength where the sample absorbs most (the color complementary to what you see).</li>
+      </ul></div>
+      <div class="prose"><h2>Why this matters in chemistry</h2>
+        <p>A spectrophotometer measures absorbance at one wavelength. You prepare solutions of known concentration, measure their absorbance, and draw a calibration line (<i>A</i> against <i>c</i>); the slope is ε<i>b</i>. Then you measure an unknown and read its concentration off the line. The law fails at high concentration, where particles interact or too little light gets through, so keep absorbances under about 1.</p>
+        <p>The photoelectric effect (no electrons below a threshold frequency) was what convinced physicists that light comes in packets: if light were just a wave, enough intensity should eventually free electrons at any frequency. The same idea gives photoelectron spectroscopy, where the measured electron energies reveal binding energies.</p></div>
+      <div class="quiz" data-correct="3" data-explain="E = hc/λ. A shorter wavelength means a larger energy, and ultraviolet has a shorter wavelength than visible or infrared light, so a UV photon carries the most energy of the three.">
+        <p class="q">Check yourself: which photon has the most energy?</p>
+        <div class="opts"><button type="button">infrared</button><button type="button">visible red</button><button type="button">microwave</button><button type="button">ultraviolet</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

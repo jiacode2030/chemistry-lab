@@ -1,0 +1,59 @@
+  <section class="view" id="v-solutions" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Solutions &amp; molarity</h1>
+        <p class="lede">Dissolving is a negotiation between attractions: solute for solute, solvent for solvent, and solute for solvent. Molarity then tells you how crowded the dissolved particles are.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>"Like dissolves like." Water molecules are polar, so each has a slightly negative oxygen end and slightly positive hydrogen ends. A salt crystal dissolves because water's negative ends swarm around the positive ions, and its positive ends around the negative ions (<b>ion–dipole</b> attraction), pulling the crystal apart. Sugar dissolves because its O–H groups can hydrogen bond with water. Oil does not, because water would rather bond to other water, so the oil molecules clump together.</p>
+        <p>Once dissolved, we count how much solute there is per liter of solution: <b>molarity</b>, <span class="m"><i>M</i> = <i>n</i> / <i>V</i></span>. Adding solvent spreads the same particles through more volume, so the concentration drops: dilution.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span><i>M</i> = mol solute / L solution</span><small>molarity</small></div><div class="eqn"><span><i>M</i><sub>1</sub><i>V</i><sub>1</sub> = <i>M</i><sub>2</sub><i>V</i><sub>2</sub></span><small>dilution</small></div></div>
+      <div class="lab" id="sl-lab">
+        <div class="labbar"><span class="title">Drop it in water</span><div class="row"><button type="button" class="btn primary" id="sl-go">Drop it in</button></div></div>
+        <div class="controls"><div class="ctl"><label for="sl-sel"><span>Solute</span></label><select id="sl-sel"><option value="nacl">NaCl (table salt)</option><option value="glu">Glucose (sugar)</option><option value="oil">Hexane (oil)</option></select></div></div>
+        <canvas id="sl-canvas" aria-label="Water molecules around a solute dropped into a beaker: salt ions surrounded by oriented water, sugar molecules hydrogen bonding, or oil clumping"></canvas>
+        <div class="readout"><div><span>Attraction to water</span><strong class="x" id="sl-f" style="white-space:normal;font-size:15px">—</strong></div><div><span>Result</span><strong class="v" id="sl-r" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" id="sl-n" style="margin:0"></p>
+      </div>
+      <div class="lab" id="dl-lab">
+        <div class="labbar"><span class="title">Dilution</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="dl-n"><span>Moles of solute</span> <output id="dl-n-out"></output></label><input type="range" id="dl-n" min="0.05" max="1" step="0.05" value="0.5"></div>
+          <div class="ctl"><label for="dl-v1"><span>Starting volume</span> <output id="dl-v1-out"></output></label><input type="range" id="dl-v1" min="0.1" max="1" step="0.05" value="0.25"></div>
+          <div class="ctl"><label for="dl-w"><span>Water added</span> <output id="dl-w-out"></output></label><input type="range" id="dl-w" min="0" max="2" step="0.05" value="0.75"></div>
+        </div>
+        <canvas id="dl-canvas" aria-label="Two beakers with the same number of solute particles: before and after adding water"></canvas>
+        <div class="readout"><div><span>Before: M₁</span><strong class="x" id="dl-m1">—</strong></div><div><span>After: M₂</span><strong class="hot" id="dl-m2">—</strong></div><div><span>Diluted by a factor of</span><strong id="dl-f">—</strong></div><div><span>Check: M₁V₁ = M₂V₂</span><strong id="dl-chk" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Drop salt into water. Which way do the water molecules turn near each ion? <button type="button" class="btn link" data-show='[["#sl-sel","nacl"],["click","#sl-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Around Na⁺ the water molecules point their negative oxygen end inward; around Cl⁻ they point their positive hydrogen ends inward. These hydrated ions are stable and drift apart: the salt has dissolved.</p></details></li>
+        <li><p>Try hexane (an oil). <button type="button" class="btn link" data-show='[["#sl-sel","oil"],["click","#sl-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The nonpolar hexane molecules cannot attract water, so they stay together in a clump and the water keeps to itself: they don't mix.</p></details></li>
+        <li><p>Add 0.75 L of water to 0.25 L of solution. How does the concentration change? <button type="button" class="btn link" data-show='[["#dl-n",0.5],["#dl-v1",0.25],["#dl-w",0.75]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The volume quadruples (0.25 L → 1.00 L), so the molarity falls to a quarter (2.0 M → 0.50 M). The number of solute particles never changed.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">You dissolve 11.7 g of NaCl in enough water to make 250. mL of solution. (a) What is the molarity? (b) What volume of this solution do you need to make 100. mL of 0.0500 M solution?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Moles of NaCl.</b> M = 58.44 g/mol, so n = 11.7 / 58.44 = 0.200 mol.</li>
+          <li hidden><b>Molarity.</b> Volume = 0.250 L, so M = 0.200 / 0.250 = <b>0.800 M</b>.</li>
+          <li hidden><b>Dilution.</b> M₁V₁ = M₂V₂ → V₁ = M₂V₂ / M₁ = (0.0500)(100.) / 0.800 = <b>6.25 mL</b>.</li>
+          <li hidden><b>How to make it.</b> Measure 6.25 mL of the stock into a 100. mL flask and add water up to the mark. The moles of NaCl are unchanged by the dilution (0.00500 mol).</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Dividing by the volume of water instead of the volume of the <i>solution</i>.</li>
+        <li>Forgetting to convert mL to L before computing molarity.</li>
+        <li>Forgetting that ionic compounds split: 0.10 M CaCl₂ gives 0.10 M Ca²⁺ and 0.20 M Cl⁻.</li>
+        <li>Using M₁V₁ = M₂V₂ to find a mass directly. It works with concentrations and volumes only.</li>
+        <li>Adding the solute to a full volume of water. Add solute first and then fill to the final volume mark.</li>
+      </ul></div>
+      <div class="prose"><h2>Making a solution</h2>
+        <p>To make a solution of known molarity from a solid: calculate the moles needed (<i>n</i> = <i>MV</i>), convert to grams with the molar mass, dissolve the solid in less water than the final volume, and then fill to the mark of a volumetric flask. To dilute a stock solution: calculate the volume of stock needed (<i>V</i><sub>1</sub> = <i>M</i><sub>2</sub><i>V</i><sub>2</sub>/<i>M</i><sub>1</sub>), measure it and add solvent to the final volume.</p>
+        <p>Substances that dissociate into ions: the ion concentrations are the formula-unit concentration times the subscript. A solution of an ionic compound conducts electricity because the ions are free to move.</p></div>
+      <div class="quiz" data-correct="2" data-explain="CaCl₂ gives one Ca²⁺ and two Cl⁻ per formula unit, so [Cl⁻] = 2 × 0.15 M = 0.30 M.">
+        <p class="q">Check yourself: what is [Cl⁻] in 0.15 M CaCl₂?</p>
+        <div class="opts"><button type="button">0.075 M</button><button type="button">0.15 M</button><button type="button">0.30 M</button><button type="button">0.45 M</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

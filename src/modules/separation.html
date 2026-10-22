@@ -1,0 +1,56 @@
+  <section class="view" id="v-separation" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span></div>
+        <h1>Separating mixtures</h1>
+        <p class="lede">A mixture can be taken apart without any chemical reaction, by using a physical property in which the parts differ: size, attraction to a surface, or boiling point.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Pure substances keep their identity in a mixture, so they keep their different properties, and those differences are handles for separating them. Sand and water differ in particle size: pour through a filter. Salt and water differ in volatility: evaporate the water. Dyes in ink differ in how strongly they stick to paper compared with how strongly they dissolve in a solvent: use <b>chromatography</b>. Two liquids with different boiling points: use <b>distillation</b>.</p>
+        <p>In chromatography a solvent (the mobile phase) creeps up paper (the stationary phase) and carries each dye along. Dyes that attract the paper strongly are held back; dyes that prefer the solvent race ahead. In distillation, the more volatile liquid (the one with the weaker intermolecular forces) escapes as vapor more readily, so the vapor is richer in it.</p>
+      </div>
+      <div class="lab" id="sp-lab">
+        <div class="labbar"><span class="title">Paper chromatography</span><div class="row"><button type="button" class="btn primary" id="sp-go">Run it</button></div></div>
+        <div class="controls"><div class="ctl"><label for="sp-mix"><span>Mixture</span></label><select id="sp-mix"><option value="0">Marker ink (3 dyes)</option><option value="1">Candy coating (4 dyes)</option></select></div>
+          <div class="ctl"><label for="sp-s"><span>Solvent polarity</span> <output id="sp-s-out"></output></label><input type="range" id="sp-s" min="0" max="1" step="0.05" value="0.55"></div></div>
+        <canvas id="sp-canvas" aria-label="A strip of paper with spots of dye; the solvent front rises and the dyes travel different distances"></canvas>
+        <div class="readout" id="sp-ro"></div>
+        <p class="small" style="margin:0">The paper is polar (cellulose). Polar dyes stick to it; nonpolar dyes prefer the solvent. A more polar solvent drags the polar dyes further. R<sub>f</sub> = distance the spot moved ÷ distance the solvent front moved.</p>
+      </div>
+      <div class="lab" id="ds-lab">
+        <div class="labbar"><span class="title">Distillation</span><div class="row"><button type="button" class="btn primary" id="ds-go">Heat</button><button type="button" class="btn" id="ds-reset">Start over</button></div></div>
+        <div class="controls"><div class="ctl"><label for="ds-x"><span>Starting ethanol (mole fraction)</span> <output id="ds-x-out"></output></label><input type="range" id="ds-x" min="0.1" max="0.9" step="0.05" value="0.5"></div>
+          <div class="ctl"><label for="ds-p"><span>Heating rate</span> <output id="ds-p-out"></output></label><input type="range" id="ds-p" min="1" max="5" step="1" value="3"></div></div>
+        <div class="split"><div><canvas id="ds-canvas" aria-label="A flask of ethanol and water being distilled into a receiving flask"></canvas></div><div><canvas id="ds-graph" aria-label="Graph of the temperature of the boiling liquid against the fraction distilled"></canvas></div></div>
+        <div class="readout"><div><span>Boiling temperature</span><strong class="hot" id="ds-t">—</strong></div><div><span>Ethanol in the pot</span><strong class="x" id="ds-xp">—</strong></div><div><span>Ethanol in the vapor now</span><strong id="ds-y">—</strong></div><div><span>Ethanol in the distillate</span><strong class="v" id="ds-xd">—</strong></div></div>
+        <p class="small" style="margin:0">Model: an ideal solution (Raoult's law) of ethanol (boils at 78.4 °C) and water (100 °C). Real ethanol–water mixtures form an azeotrope near 96% ethanol, so distillation alone can't go further.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Run the marker-ink chromatogram. Which dye travels furthest? <button type="button" class="btn link" data-show='[["#sp-mix","0"],["#sp-s",0.55],["click","#sp-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The least polar dye (yellow) is attracted least to the polar paper and travels furthest (highest R<sub>f</sub>); the most polar (blue) is held back. A mixture appearing as one color separates into its dyes.</p></details></li>
+        <li><p>Change the solvent to a more polar one and run again. <button type="button" class="btn link" data-show='[["#sp-s",0.9],["click","#sp-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Every dye moves further: the polar solvent competes better with the paper for the polar dyes. R<sub>f</sub> values change with the solvent, so they are only comparable under the same conditions.</p></details></li>
+        <li><p>Distill a 50:50 ethanol–water mixture. What is in the receiver first? <button type="button" class="btn link" data-show='[["#ds-x",0.5],["click","#ds-reset"],["click","#ds-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The first drops are about 70% ethanol (the vapor is richer in the lower-boiling liquid). As ethanol leaves, the pot gets richer in water, so the boiling temperature climbs toward 100 °C.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">On a chromatogram the solvent front moved 8.0 cm. Spots: yellow at 6.8 cm, red at 4.6 cm, blue at 1.2 cm. Find the R<sub>f</sub> of each dye, and say which is the most polar.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Definition.</b> R<sub>f</sub> = (distance traveled by the spot) / (distance traveled by the solvent front), measured from the starting line.</li>
+          <li hidden><b>Calculate.</b> Yellow: 6.8/8.0 = <b>0.85</b>. Red: 4.6/8.0 = <b>0.58</b>. Blue: 1.2/8.0 = <b>0.15</b>.</li>
+          <li hidden><b>Interpret.</b> The smallest R<sub>f</sub> belongs to the dye most strongly attracted to the polar paper: <b>blue is the most polar</b>, and yellow is the least.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 3</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Measuring R<sub>f</sub> from the bottom of the paper instead of from the starting line.</li>
+        <li>Using a pen (ink dissolves in the solvent) for the starting line: use pencil.</li>
+        <li>Saying the more volatile liquid is the one with the stronger intermolecular forces. It has the weaker ones, and the lower boiling point.</li>
+        <li>Expecting simple distillation to give a perfectly pure product from liquids with close boiling points.</li>
+        <li>Calling separation a chemical change. No new substances form; only physical properties are used.</li>
+      </ul></div>
+      <div class="prose"><h2>Choosing a method</h2>
+        <p>Filtration separates an insoluble solid from a liquid (different particle sizes). Evaporation or crystallization recovers a dissolved solid. Distillation separates liquids by boiling point. Chromatography separates small amounts of similar substances by how they divide between a stationary and a mobile phase: in paper or thin-layer chromatography, the stationary phase is polar; in column chromatography it can be a packed solid, and substances elute in order of their attraction to it.</p>
+        <p>The same principle, differences in intermolecular attractions, runs through all of them: stronger attraction to the stationary phase means moving more slowly; weaker attractions between molecules means boiling more easily.</p></div>
+      <div class="quiz" data-correct="0" data-explain="Chromatography separates by differences in attraction to the stationary versus the mobile phase, so it works for small amounts of dyes with different polarity. Filtration can't separate dissolved substances, and evaporation would destroy the mixture's parts.">
+        <p class="q">Check yourself: which method best separates the colored dyes in black ink?</p>
+        <div class="opts"><button type="button">paper chromatography</button><button type="button">filtration</button><button type="button">evaporation of the solvent</button><button type="button">magnetic separation</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
