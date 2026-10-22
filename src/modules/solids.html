@@ -1,0 +1,53 @@
+  <section class="view" id="v-solids" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 3</span><span class="tag">3D</span></div>
+        <h1>Types of solids</h1>
+        <p class="lede">Every solid is a pattern of particles, but what the particles are and what holds them decides everything: how hard it is, whether it conducts, and when it melts.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Ask two questions: <i>what are the particles</i>, and <i>what holds them together</i>? Table salt is ions held by the pull between opposite charges. Copper is metal cations bathed in shared electrons. Diamond is atoms bonded to each other in one giant network. Dry ice is separate molecules held by weak intermolecular forces.</p>
+        <p>Each answer predicts behavior. If the particles are charged ions locked in place, the solid won't conduct, but it will when melted, and it shatters if you shift a layer. If electrons roam, it conducts and bends. If every atom is covalently locked in place, it is very hard and melts only at extreme heat. If the forces are weak, it is soft and melts easily.</p>
+      </div>
+      <div class="lab" id="sd-lab">
+        <div class="labbar"><span class="title">Build, push and heat a crystal</span></div>
+        <div class="controls"><div class="ctl"><span class="lbl">Type of solid</span><div class="seg" id="sd-type" role="group" aria-label="Type of solid"><button type="button" data-k="ionic" aria-pressed="true">Ionic (NaCl)</button><button type="button" data-k="metal" aria-pressed="false">Metallic (Cu)</button><button type="button" data-k="net" aria-pressed="false">Network (diamond)</button><button type="button" data-k="mol" aria-pressed="false">Molecular (CO₂)</button></div></div></div>
+        <div class="controls"><div class="ctl"><label for="sd-shear"><span>Push the top layer sideways</span> <output id="sd-shear-out"></output></label><input type="range" id="sd-shear" min="0" max="1.2" step="0.02" value="0"></div>
+          <div class="ctl"><label for="sd-temp"><span>Temperature</span> <output id="sd-temp-out"></output></label><input type="range" id="sd-temp" min="0" max="4000" step="20" value="300"></div></div>
+        <canvas id="sd-canvas" aria-label="3D crystal lattice. Drag to rotate; the sliders push the top layer and heat the crystal."></canvas>
+        <div class="readout"><div><span>Particles</span><strong class="x" id="sd-p" style="white-space:normal;font-size:15px">—</strong></div><div><span>Held together by</span><strong id="sd-h" style="white-space:normal;font-size:15px">—</strong></div><div><span>Melts at (real)</span><strong class="hot" id="sd-mp">—</strong></div><div><span>What you see</span><strong class="v" id="sd-w" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <div class="tablewrap"><table id="sd-table" style="min-width:640px"><thead><tr><th>Type</th><th>Conducts as a solid?</th><th>Conducts when molten?</th><th>Hardness</th><th>Melting point</th><th>Examples</th></tr></thead><tbody>
+          <tr data-k="ionic"><td>Ionic</td><td>No (ions can't move)</td><td>Yes</td><td>Hard and brittle</td><td>High</td><td>NaCl, MgO, CaF₂</td></tr>
+          <tr data-k="metal"><td>Metallic</td><td>Yes</td><td>Yes</td><td>Varies; malleable, ductile</td><td>Varies</td><td>Cu, Fe, Na</td></tr>
+          <tr data-k="net"><td>Covalent network</td><td>No (graphite is an exception)</td><td>No</td><td>Very hard</td><td>Very high</td><td>diamond, SiO₂, SiC</td></tr>
+          <tr data-k="mol"><td>Molecular</td><td>No</td><td>No</td><td>Soft</td><td>Low</td><td>CO₂, I₂, sugar, ice</td></tr></tbody></table></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Slide a layer of the ionic crystal by half a spacing. <button type="button" class="btn link" data-show='[["click","#sd-type button[data-k=ionic]"],["#sd-shear",0.6]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The layer slides until like charges (+ over +, − over −) line up. The repulsion flashes and the crystal cracks. That is why ionic solids are brittle.</p></details></li>
+        <li><p>Do the same to the metal. <button type="button" class="btn link" data-show='[["click","#sd-type button[data-k=metal]"],["#sd-shear",0.9]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The layers glide past each other and the crystal stays together, because the electron sea holds the cations the same way in any arrangement. Metals bend instead of breaking.</p></details></li>
+        <li><p>Heat each type. Which melts first? <button type="button" class="btn link" data-show='[["click","#sd-type button[data-k=mol]"],["#sd-temp",500]]'>Molecular</button> <button type="button" class="btn link" data-show='[["click","#sd-type button[data-k=net]"],["#sd-temp",2500]]'>Network</button></p><details><summary>What you should see</summary><p>The molecular solid melts at a few hundred kelvins (only weak attractions to overcome), while the diamond network holds firm to well over 3000 K, since every atom would need its covalent bonds broken.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A white solid is hard and brittle, melts at 800 °C and does not conduct electricity, but its melt does. What type of solid is it, and why?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Hard, brittle, high melting point.</b> This points to strong forces: ionic or network.</li>
+          <li hidden><b>Conducts when molten but not as a solid.</b> Charged particles that are free to move only after melting: ions. Network solids do not conduct even when molten (there are no charges to move).</li>
+          <li hidden><b>Answer.</b> An <b>ionic solid</b> (like NaCl, mp 801 °C). In the solid, the ions are locked in the lattice; when melted, they can move and carry current.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 3</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Saying ionic solids conduct because they contain ions. In the solid the ions can't move; they conduct only when molten or dissolved.</li>
+        <li>Thinking molecular solids contain no covalent bonds. They do, inside each molecule; it is the attractions between molecules that are weak.</li>
+        <li>Calling a metal's bonding ionic. Metal atoms share a sea of delocalized electrons.</li>
+        <li>Believing network solids melt like molecular ones. Melting a network solid means breaking covalent bonds.</li>
+        <li>Explaining ionic brittleness without mentioning that sliding a layer brings like charges together.</li>
+      </ul></div>
+      <div class="prose"><h2>Lattice energy</h2>
+        <p>For ionic solids the strength of the lattice follows Coulomb's law: higher charges and smaller ions give stronger attraction and a higher melting point. MgO (2+ and 2−, mp 2852 °C) melts far above NaCl (1+ and 1−, mp 801 °C). The same logic orders NaCl above KCl, because the sodium ion is smaller.</p>
+        <p>Metals owe their luster, conductivity and malleability to delocalized electrons. Alloys mix metals: in a substitutional alloy (brass) atoms of similar size replace each other; in an interstitial alloy (steel) small atoms like carbon sit in the gaps, making the layers harder to slide.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Only ionic solids conduct when molten but not as solids: the ions are fixed in the solid and free to move in the liquid. Metals conduct in both states; network and molecular solids conduct in neither.">
+        <p class="q">Check yourself: a solid does not conduct electricity, but the liquid made by melting it does. It is most likely:</p>
+        <div class="opts"><button type="button">metallic</button><button type="button">a covalent network solid</button><button type="button">ionic</button><button type="button">molecular</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
