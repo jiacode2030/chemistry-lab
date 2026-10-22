@@ -1,0 +1,62 @@
+  <section class="view" id="v-collision" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Collision theory, activation energy &amp; catalysts</h1>
+        <p class="lede">Why does heating speed a reaction up, and how can a catalyst do it without heat? The answer is a hill and a crowd of particles.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>For particles to react they must <b>collide</b>, hard enough and facing the right way. Think of pushing a ball over a hill: only a ball with enough energy gets to the other side. The height of that hill is the <b>activation energy, E<sub>a</sub></b>. Most collisions are too gentle and the particles just bounce apart.</p>
+        <p>At any temperature, particles have a spread of energies (the <b>Boltzmann distribution</b>). Raising the temperature does two things, but the big one is that it stretches the high-energy tail, so many more collisions clear the hill. A <b>catalyst</b> doesn't heat anything: it offers a different path with a lower hill, so a much larger share of ordinary collisions succeed. It is not used up and doesn't change the overall ΔE.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed that every collision between reactants makes products, so we only needed to count collisions. Now we also need <b>enough energy</b> and the <b>right orientation</b>, so only a small fraction of collisions are effective.</div>
+      <div class="lab" id="cl-lab">
+        <div class="labbar"><span class="title">Energy distribution &amp; collisions</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="cl-t"><span>Temperature T</span> <output id="cl-t-out"></output></label><input type="range" id="cl-t" min="250" max="700" step="10" value="300"></div>
+          <div class="ctl"><label for="cl-ea"><span>Activation energy E<sub>a</sub></span> <output id="cl-ea-out"></output></label><input type="range" id="cl-ea" min="20" max="120" step="5" value="60"></div>
+        </div>
+        <div class="toggles"><label class="check"><input type="checkbox" id="cl-cat"> Add a catalyst (Eₐ × 0.6)</label><label class="check"><input type="checkbox" id="cl-or"> Orientation matters</label><label class="check"><input type="checkbox" id="cl-zoom"> Magnify the tail</label></div>
+        <div class="split"><div><canvas id="cl-canvas" aria-label="Reactant particles colliding; energetic, correctly aimed collisions react"></canvas></div><div><canvas id="cl-graph" aria-label="Boltzmann distribution of energies with the activation energy marked and the tail shaded"></canvas></div></div>
+        <div class="readout"><div><span>Effective Eₐ</span><strong class="x" id="cl-ee">—</strong></div><div><span>Collisions above Eₐ</span><strong class="a" id="cl-fr">—</strong></div><div><span>Rate vs 300 K, no catalyst, same Eₐ</span><strong id="cl-rel">—</strong></div><div><span>Reactions so far</span><strong id="cl-n">—</strong></div></div>
+        <p class="small" style="margin:6px 0 0">The box is not to scale: it uses a scaled-down hill so you can see reactions happen. The graph and numbers are real.</p>
+      </div>
+      <div class="lab" id="eh-lab">
+        <div class="labbar"><span class="title">The energy hill</span><div class="row"><button type="button" class="btn primary" id="eh-go">Roll</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="eh-dh"><span>Reaction energy ΔH</span> <output id="eh-dh-out"></output></label><input type="range" id="eh-dh" min="-80" max="60" step="5" value="-40"></div>
+          <div class="ctl"><label for="eh-ea"><span>Activation energy E<sub>a</sub></span> <output id="eh-ea-out"></output></label><input type="range" id="eh-ea" min="20" max="120" step="5" value="70"></div>
+        </div>
+        <div class="toggles"><label class="check"><input type="checkbox" id="eh-cat"> Add a catalyst</label></div>
+        <canvas id="eh-canvas" aria-label="Potential energy diagram with reactants, a barrier and products, and a ball rolling over it"></canvas>
+        <div class="readout"><div><span>Forward Eₐ</span><strong class="x" id="eh-f">—</strong></div><div><span>Reverse Eₐ</span><strong class="a" id="eh-r">—</strong></div><div><span>ΔH (unchanged by a catalyst)</span><strong id="eh-d">—</strong></div><div><span>Type</span><strong id="eh-ty">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict, then look at both the box and the graph.</p><ol>
+        <li><p>Heat the gas by 100 K. By roughly what factor does the number of high-energy collisions change? <button type="button" class="btn link" data-show='[["#cl-t","300"],["#cl-ea","60"],["#cl-t","400"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The tail above Eₐ grows by a factor of tens to thousands for a typical Eₐ, while the average energy rises only a third. That is why a 10 K rise can double a rate.</p></details></li>
+        <li><p>Add a catalyst at 300 K. Compare with heating. <button type="button" class="btn link" data-show='[["#cl-t","300"],["#cl-ea","60"],["#cl-cat",true]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The temperature (and the curve) hasn't changed, but the Eₐ marker moved left into a much fatter part of the distribution. The fraction of effective collisions rose by many orders of magnitude.</p></details></li>
+        <li><p>On the energy hill, add the catalyst. Does ΔH change? <button type="button" class="btn link" data-show='[["#eh-cat",true],["click","#eh-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The barrier shrinks for both directions, but reactants and products stay at the same heights. ΔH is the same; only the speed changes.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A reaction has E<sub>a</sub> = 75 kJ/mol. By what factor does its rate constant increase when T rises from 300 K to 310 K? (R = 8.314 J/mol·K)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Use the Arrhenius form for two temperatures.</b> ln(k₂/k₁) = (E<sub>a</sub>/R)(1/T₁ − 1/T₂).</li>
+          <li hidden><b>Convert units.</b> E<sub>a</sub> = 75 000 J/mol so it matches R in J.</li>
+          <li hidden><b>Compute.</b> 1/300 − 1/310 = 1.075×10⁻⁴ K⁻¹. E<sub>a</sub>/R = 75000/8.314 = 9.02×10³ K. The product is 0.970.</li>
+          <li hidden><b>Exponentiate.</b> k₂/k₁ = e<sup>0.970</sup> = <b>2.6</b>. A 10 K rise multiplies the rate by about 2.6, the old "doubles every 10 °C" rule of thumb (it depends on Eₐ).</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking a catalyst supplies energy or changes ΔH. It lowers Eₐ for both the forward and reverse reactions equally.</li>
+        <li>Saying heat makes <i>every</i> particle go faster by the same amount. Temperature widens the whole distribution; the tail grows most.</li>
+        <li>Forgetting to convert Eₐ from kJ to J, or to use Kelvin, in the Arrhenius equation.</li>
+        <li>Saying a catalyst is a reactant. It is consumed in one step and regenerated in another, so it doesn't appear in the net equation.</li>
+        <li>Treating "more collisions" as the whole story. Most of the speed-up from heating comes from more <i>energetic</i> collisions, not more frequent ones.</li>
+      </ul></div>
+      <div class="prose"><h2>The Arrhenius equation</h2>
+        <p>The rate constant is k = A·e<sup>−E<sub>a</sub>/RT</sup>. The factor A bundles collision frequency and orientation. The exponential factor is roughly the fraction of collisions with energy of at least E<sub>a</sub>. A plot of ln k against 1/T is a straight line with slope −E<sub>a</sub>/R.</p></div>
+      <div class="quiz" data-correct="2" data-explain="A catalyst provides an alternative pathway with a lower activation energy. The reactants and products are the same, so ΔH doesn't change, and the catalyst is regenerated.">
+        <p class="q">Check yourself: what does a catalyst change?</p>
+        <div class="opts"><button type="button">ΔH of the reaction</button><button type="button">The energy of the products</button><button type="button">The activation energy</button><button type="button">The amount of product at the end</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

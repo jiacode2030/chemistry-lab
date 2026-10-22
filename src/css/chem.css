@@ -109,3 +109,9 @@ table.data th,table.data td{padding:6px 6px;font-size:13px;text-align:center;bor
 table.data th{font-weight:600;color:var(--muted)}
 table.data{min-width:0}
 .ctl[hidden]{display:none!important}
+.steps-list{display:grid;gap:6px}
+.stp{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14px}
+.stp em{font-style:normal;font-size:12px;margin-left:6px;padding:1px 8px;border-radius:99px}
+.stp em.slow{background:var(--hot);color:#fff}
+.stp em.fast{background:var(--surface-2,#eef1f5);border:1px solid var(--line)}
+.derive{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}

@@ -1,0 +1,59 @@
+  <section class="view" id="v-mechanism" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Reaction mechanisms</h1>
+        <p class="lede">Most reactions don't happen in one step. A mechanism is the movie of what really happens, and the slowest scene sets the speed.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine a busy sandwich shop: one person slices bread (fast), one adds fillings (fast), and one wraps each sandwich, slowly. However fast the first two work, orders go out at the speed of the wrapper. In a reaction, that slow stage is the <b>rate-determining step</b>, and it's the step with the highest energy hill.</p>
+        <p>A mechanism is a list of <b>elementary steps</b>: single collisions or breakups. For an elementary step, and only for those, the rate law comes straight from the coefficients: A + B → C has rate = k[A][B]. Species made in one step and used up in a later one are <b>intermediates</b>: they never appear in the overall equation, and they can't appear in the final rate law. A <b>catalyst</b> is the reverse: used first, then regenerated.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed a balanced equation was a single event, so its coefficients could set the rate. Now we know the equation is only the sum of several steps, so the rate law must come from the slow step.</div>
+      <div class="lab" id="mc-lab">
+        <div class="labbar"><span class="title">Walk through a mechanism</span><div class="row"><button type="button" class="btn primary" id="mc-go">Roll the ball</button></div></div>
+        <div class="controls"><div class="ctl"><label for="mc-sel"><span>Reaction</span></label><select id="mc-sel"></select></div></div>
+        <canvas id="mc-canvas" aria-label="Energy profile of a multi-step mechanism with a ball rolling along it; tap a hill to choose the slow step"></canvas>
+        <div class="steps-list" id="mc-steps"></div>
+        <p class="small" id="mc-fb" aria-live="polite" style="margin:0">Tap the hill you think is the rate-determining step.</p>
+      </div>
+      <div class="lab" id="mr-lab" data-reset="own">
+        <div class="labbar"><span class="title">Write the rate law</span><div class="row"><button type="button" class="btn" id="mr-back">Back</button><button type="button" class="btn primary" id="mr-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="mr-net"><span>Overall reaction</span></label><output id="mr-net" style="font-family:var(--mono,monospace)"></output></div></div>
+        <ol class="derive" id="mr-out" aria-live="polite"></ol>
+        <div class="readout"><div><span>Rate law</span><strong class="x" id="mr-rate" style="font-size:18px">?</strong></div><div><span>Overall order</span><strong id="mr-ord">?</strong></div></div>
+      </div>
+      <div class="lab" id="mq-lab" data-reset="own">
+        <div class="labbar"><span class="title">Label every species</span><div class="row"><button type="button" class="btn primary" id="mq-check">Check</button></div></div>
+        <div class="chips" id="mq-chips"></div>
+        <p class="small" id="mq-fb" aria-live="polite" style="margin:0">Tap a species to cycle: reactant, product, intermediate, catalyst. Then press Check.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then use the labs above.</p><ol>
+        <li><p>Pick the NO₂ + CO reaction. Which species is in the net equation's reactants but is <i>not</i> in the rate law? <button type="button" class="btn link" data-show='[["#mc-sel","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>CO. The rate law is rate = k[NO₂]²: CO takes part only in the fast second step, after the slow one, so changing [CO] doesn't change the speed.</p></details></li>
+        <li><p>Pick H₂O₂ + I⁻. Why does iodide appear in the rate law but not in the overall equation? <button type="button" class="btn link" data-show='[["#mc-sel","1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>I⁻ is a catalyst: it reacts in the slow step (so it affects the rate) and is regenerated in the fast step (so it cancels in the net equation).</p></details></li>
+        <li><p>Pick 2NO + O₂ and step through the rate law. What do we do with N₂O₂? <button type="button" class="btn link" data-show='[["#mc-sel","2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The slow step contains an intermediate, so we replace [N₂O₂] using the fast equilibrium before it: forward rate = reverse rate gives [N₂O₂] ∝ [NO]².</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Proposed mechanism: Step 1 (slow): A + B → C + D. Step 2 (fast): C + B → E. Find the overall reaction, the intermediate and the rate law.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Add the steps.</b> A + B + C + B → C + D + E. Cancel what appears on both sides (C): <b>A + 2B → D + E</b>.</li>
+          <li hidden><b>Find the intermediate.</b> C is produced in step 1 and consumed in step 2, and isn't in the overall reaction. C is the intermediate.</li>
+          <li hidden><b>Find the slow step.</b> Step 1 is slow, so it sets the rate.</li>
+          <li hidden><b>Write its rate law.</b> Step 1 is elementary, so rate = k[A][B]. It has no intermediate on the left, so this is the answer. Note it is <i>not</i> k[A][B]², even though the overall reaction uses 2B.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the overall equation's coefficients for the rate law. Only an elementary step works that way.</li>
+        <li>Leaving an intermediate in the rate law. Express it with the earlier fast steps instead.</li>
+        <li>Confusing intermediates and catalysts: an intermediate is made then used up; a catalyst is used then made again.</li>
+        <li>Thinking a mechanism can be proved. Experiments can only show whether a mechanism <i>agrees</i> with the measured rate law.</li>
+        <li>Forgetting that the steps must add up to the overall reaction.</li>
+      </ul></div>
+      <div class="prose"><h2>Checking a mechanism</h2>
+        <p>A proposed mechanism must (1) add up to the overall equation, and (2) predict the experimental rate law. If the slow step is the first step, the rate law is read directly from it. If the slow step comes after a fast equilibrium, substitute for the intermediates using that equilibrium. Molecularity (unimolecular, bimolecular, termolecular) is the number of particles in an elementary step; it is almost always 1 or 2.</p></div>
+      <div class="quiz" data-correct="0" data-explain="The slow step is the bottleneck, so the overall rate law is that of the slow step, rewritten without any intermediates.">
+        <p class="q">Check yourself: which step determines the rate law of a multi-step mechanism?</p>
+        <div class="opts"><button type="button">The slowest step</button><button type="button">The fastest step</button><button type="button">The first step always</button><button type="button">The last step always</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

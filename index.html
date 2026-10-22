@@ -758,6 +758,12 @@ table.data th,table.data td{padding:6px 6px;font-size:13px;text-align:center;bor
 table.data th{font-weight:600;color:var(--muted)}
 table.data{min-width:0}
 .ctl[hidden]{display:none!important}
+.steps-list{display:grid;gap:6px}
+.stp{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14px}
+.stp em{font-style:normal;font-size:12px;margin-left:6px;padding:1px 8px;border-radius:99px}
+.stp em.slow{background:var(--hot);color:#fff}
+.stp em.fast{background:var(--surface-2,#eef1f5);border:1px solid var(--line)}
+.derive{margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px}
 
 </style>
 
@@ -2397,6 +2403,129 @@ table.data{min-width:0}
     </div>
   </section>
 
+  <section class="view" id="v-collision" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Collision theory, activation energy &amp; catalysts</h1>
+        <p class="lede">Why does heating speed a reaction up, and how can a catalyst do it without heat? The answer is a hill and a crowd of particles.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>For particles to react they must <b>collide</b>, hard enough and facing the right way. Think of pushing a ball over a hill: only a ball with enough energy gets to the other side. The height of that hill is the <b>activation energy, E<sub>a</sub></b>. Most collisions are too gentle and the particles just bounce apart.</p>
+        <p>At any temperature, particles have a spread of energies (the <b>Boltzmann distribution</b>). Raising the temperature does two things, but the big one is that it stretches the high-energy tail, so many more collisions clear the hill. A <b>catalyst</b> doesn't heat anything: it offers a different path with a lower hill, so a much larger share of ordinary collisions succeed. It is not used up and doesn't change the overall ΔE.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed that every collision between reactants makes products, so we only needed to count collisions. Now we also need <b>enough energy</b> and the <b>right orientation</b>, so only a small fraction of collisions are effective.</div>
+      <div class="lab" id="cl-lab">
+        <div class="labbar"><span class="title">Energy distribution &amp; collisions</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="cl-t"><span>Temperature T</span> <output id="cl-t-out"></output></label><input type="range" id="cl-t" min="250" max="700" step="10" value="300"></div>
+          <div class="ctl"><label for="cl-ea"><span>Activation energy E<sub>a</sub></span> <output id="cl-ea-out"></output></label><input type="range" id="cl-ea" min="20" max="120" step="5" value="60"></div>
+        </div>
+        <div class="toggles"><label class="check"><input type="checkbox" id="cl-cat"> Add a catalyst (Eₐ × 0.6)</label><label class="check"><input type="checkbox" id="cl-or"> Orientation matters</label><label class="check"><input type="checkbox" id="cl-zoom"> Magnify the tail</label></div>
+        <div class="split"><div><canvas id="cl-canvas" aria-label="Reactant particles colliding; energetic, correctly aimed collisions react"></canvas></div><div><canvas id="cl-graph" aria-label="Boltzmann distribution of energies with the activation energy marked and the tail shaded"></canvas></div></div>
+        <div class="readout"><div><span>Effective Eₐ</span><strong class="x" id="cl-ee">—</strong></div><div><span>Collisions above Eₐ</span><strong class="a" id="cl-fr">—</strong></div><div><span>Rate vs 300 K, no catalyst, same Eₐ</span><strong id="cl-rel">—</strong></div><div><span>Reactions so far</span><strong id="cl-n">—</strong></div></div>
+        <p class="small" style="margin:6px 0 0">The box is not to scale: it uses a scaled-down hill so you can see reactions happen. The graph and numbers are real.</p>
+      </div>
+      <div class="lab" id="eh-lab">
+        <div class="labbar"><span class="title">The energy hill</span><div class="row"><button type="button" class="btn primary" id="eh-go">Roll</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="eh-dh"><span>Reaction energy ΔH</span> <output id="eh-dh-out"></output></label><input type="range" id="eh-dh" min="-80" max="60" step="5" value="-40"></div>
+          <div class="ctl"><label for="eh-ea"><span>Activation energy E<sub>a</sub></span> <output id="eh-ea-out"></output></label><input type="range" id="eh-ea" min="20" max="120" step="5" value="70"></div>
+        </div>
+        <div class="toggles"><label class="check"><input type="checkbox" id="eh-cat"> Add a catalyst</label></div>
+        <canvas id="eh-canvas" aria-label="Potential energy diagram with reactants, a barrier and products, and a ball rolling over it"></canvas>
+        <div class="readout"><div><span>Forward Eₐ</span><strong class="x" id="eh-f">—</strong></div><div><span>Reverse Eₐ</span><strong class="a" id="eh-r">—</strong></div><div><span>ΔH (unchanged by a catalyst)</span><strong id="eh-d">—</strong></div><div><span>Type</span><strong id="eh-ty">—</strong></div></div>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict, then look at both the box and the graph.</p><ol>
+        <li><p>Heat the gas by 100 K. By roughly what factor does the number of high-energy collisions change? <button type="button" class="btn link" data-show='[["#cl-t","300"],["#cl-ea","60"],["#cl-t","400"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The tail above Eₐ grows by a factor of tens to thousands for a typical Eₐ, while the average energy rises only a third. That is why a 10 K rise can double a rate.</p></details></li>
+        <li><p>Add a catalyst at 300 K. Compare with heating. <button type="button" class="btn link" data-show='[["#cl-t","300"],["#cl-ea","60"],["#cl-cat",true]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The temperature (and the curve) hasn't changed, but the Eₐ marker moved left into a much fatter part of the distribution. The fraction of effective collisions rose by many orders of magnitude.</p></details></li>
+        <li><p>On the energy hill, add the catalyst. Does ΔH change? <button type="button" class="btn link" data-show='[["#eh-cat",true],["click","#eh-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The barrier shrinks for both directions, but reactants and products stay at the same heights. ΔH is the same; only the speed changes.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">A reaction has E<sub>a</sub> = 75 kJ/mol. By what factor does its rate constant increase when T rises from 300 K to 310 K? (R = 8.314 J/mol·K)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Use the Arrhenius form for two temperatures.</b> ln(k₂/k₁) = (E<sub>a</sub>/R)(1/T₁ − 1/T₂).</li>
+          <li hidden><b>Convert units.</b> E<sub>a</sub> = 75 000 J/mol so it matches R in J.</li>
+          <li hidden><b>Compute.</b> 1/300 − 1/310 = 1.075×10⁻⁴ K⁻¹. E<sub>a</sub>/R = 75000/8.314 = 9.02×10³ K. The product is 0.970.</li>
+          <li hidden><b>Exponentiate.</b> k₂/k₁ = e<sup>0.970</sup> = <b>2.6</b>. A 10 K rise multiplies the rate by about 2.6, the old "doubles every 10 °C" rule of thumb (it depends on Eₐ).</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking a catalyst supplies energy or changes ΔH. It lowers Eₐ for both the forward and reverse reactions equally.</li>
+        <li>Saying heat makes <i>every</i> particle go faster by the same amount. Temperature widens the whole distribution; the tail grows most.</li>
+        <li>Forgetting to convert Eₐ from kJ to J, or to use Kelvin, in the Arrhenius equation.</li>
+        <li>Saying a catalyst is a reactant. It is consumed in one step and regenerated in another, so it doesn't appear in the net equation.</li>
+        <li>Treating "more collisions" as the whole story. Most of the speed-up from heating comes from more <i>energetic</i> collisions, not more frequent ones.</li>
+      </ul></div>
+      <div class="prose"><h2>The Arrhenius equation</h2>
+        <p>The rate constant is k = A·e<sup>−E<sub>a</sub>/RT</sup>. The factor A bundles collision frequency and orientation. The exponential factor is roughly the fraction of collisions with energy of at least E<sub>a</sub>. A plot of ln k against 1/T is a straight line with slope −E<sub>a</sub>/R.</p></div>
+      <div class="quiz" data-correct="2" data-explain="A catalyst provides an alternative pathway with a lower activation energy. The reactants and products are the same, so ΔH doesn't change, and the catalyst is regenerated.">
+        <p class="q">Check yourself: what does a catalyst change?</p>
+        <div class="opts"><button type="button">ΔH of the reaction</button><button type="button">The energy of the products</button><button type="button">The activation energy</button><button type="button">The amount of product at the end</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-mechanism" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Reaction mechanisms</h1>
+        <p class="lede">Most reactions don't happen in one step. A mechanism is the movie of what really happens, and the slowest scene sets the speed.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Imagine a busy sandwich shop: one person slices bread (fast), one adds fillings (fast), and one wraps each sandwich, slowly. However fast the first two work, orders go out at the speed of the wrapper. In a reaction, that slow stage is the <b>rate-determining step</b>, and it's the step with the highest energy hill.</p>
+        <p>A mechanism is a list of <b>elementary steps</b>: single collisions or breakups. For an elementary step, and only for those, the rate law comes straight from the coefficients: A + B → C has rate = k[A][B]. Species made in one step and used up in a later one are <b>intermediates</b>: they never appear in the overall equation, and they can't appear in the final rate law. A <b>catalyst</b> is the reverse: used first, then regenerated.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed a balanced equation was a single event, so its coefficients could set the rate. Now we know the equation is only the sum of several steps, so the rate law must come from the slow step.</div>
+      <div class="lab" id="mc-lab">
+        <div class="labbar"><span class="title">Walk through a mechanism</span><div class="row"><button type="button" class="btn primary" id="mc-go">Roll the ball</button></div></div>
+        <div class="controls"><div class="ctl"><label for="mc-sel"><span>Reaction</span></label><select id="mc-sel"></select></div></div>
+        <canvas id="mc-canvas" aria-label="Energy profile of a multi-step mechanism with a ball rolling along it; tap a hill to choose the slow step"></canvas>
+        <div class="steps-list" id="mc-steps"></div>
+        <p class="small" id="mc-fb" aria-live="polite" style="margin:0">Tap the hill you think is the rate-determining step.</p>
+      </div>
+      <div class="lab" id="mr-lab" data-reset="own">
+        <div class="labbar"><span class="title">Write the rate law</span><div class="row"><button type="button" class="btn" id="mr-back">Back</button><button type="button" class="btn primary" id="mr-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="mr-net"><span>Overall reaction</span></label><output id="mr-net" style="font-family:var(--mono,monospace)"></output></div></div>
+        <ol class="derive" id="mr-out" aria-live="polite"></ol>
+        <div class="readout"><div><span>Rate law</span><strong class="x" id="mr-rate" style="font-size:18px">?</strong></div><div><span>Overall order</span><strong id="mr-ord">?</strong></div></div>
+      </div>
+      <div class="lab" id="mq-lab" data-reset="own">
+        <div class="labbar"><span class="title">Label every species</span><div class="row"><button type="button" class="btn primary" id="mq-check">Check</button></div></div>
+        <div class="chips" id="mq-chips"></div>
+        <p class="small" id="mq-fb" aria-live="polite" style="margin:0">Tap a species to cycle: reactant, product, intermediate, catalyst. Then press Check.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then use the labs above.</p><ol>
+        <li><p>Pick the NO₂ + CO reaction. Which species is in the net equation's reactants but is <i>not</i> in the rate law? <button type="button" class="btn link" data-show='[["#mc-sel","0"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>CO. The rate law is rate = k[NO₂]²: CO takes part only in the fast second step, after the slow one, so changing [CO] doesn't change the speed.</p></details></li>
+        <li><p>Pick H₂O₂ + I⁻. Why does iodide appear in the rate law but not in the overall equation? <button type="button" class="btn link" data-show='[["#mc-sel","1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>I⁻ is a catalyst: it reacts in the slow step (so it affects the rate) and is regenerated in the fast step (so it cancels in the net equation).</p></details></li>
+        <li><p>Pick 2NO + O₂ and step through the rate law. What do we do with N₂O₂? <button type="button" class="btn link" data-show='[["#mc-sel","2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The slow step contains an intermediate, so we replace [N₂O₂] using the fast equilibrium before it: forward rate = reverse rate gives [N₂O₂] ∝ [NO]².</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Proposed mechanism: Step 1 (slow): A + B → C + D. Step 2 (fast): C + B → E. Find the overall reaction, the intermediate and the rate law.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Add the steps.</b> A + B + C + B → C + D + E. Cancel what appears on both sides (C): <b>A + 2B → D + E</b>.</li>
+          <li hidden><b>Find the intermediate.</b> C is produced in step 1 and consumed in step 2, and isn't in the overall reaction. C is the intermediate.</li>
+          <li hidden><b>Find the slow step.</b> Step 1 is slow, so it sets the rate.</li>
+          <li hidden><b>Write its rate law.</b> Step 1 is elementary, so rate = k[A][B]. It has no intermediate on the left, so this is the answer. Note it is <i>not</i> k[A][B]², even though the overall reaction uses 2B.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the overall equation's coefficients for the rate law. Only an elementary step works that way.</li>
+        <li>Leaving an intermediate in the rate law. Express it with the earlier fast steps instead.</li>
+        <li>Confusing intermediates and catalysts: an intermediate is made then used up; a catalyst is used then made again.</li>
+        <li>Thinking a mechanism can be proved. Experiments can only show whether a mechanism <i>agrees</i> with the measured rate law.</li>
+        <li>Forgetting that the steps must add up to the overall reaction.</li>
+      </ul></div>
+      <div class="prose"><h2>Checking a mechanism</h2>
+        <p>A proposed mechanism must (1) add up to the overall equation, and (2) predict the experimental rate law. If the slow step is the first step, the rate law is read directly from it. If the slow step comes after a fast equilibrium, substitute for the intermediates using that equilibrium. Molecularity (unimolecular, bimolecular, termolecular) is the number of particles in an elementary step; it is almost always 1 or 2.</p></div>
+      <div class="quiz" data-correct="0" data-explain="The slow step is the bottleneck, so the overall rate law is that of the slow step, rewritten without any intermediates.">
+        <p class="q">Check yourself: which step determines the rate law of a multi-step mechanism?</p>
+        <div class="opts"><button type="button">The slowest step</button><button type="button">The fastest step</button><button type="button">The first step always</button><button type="button">The last step always</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -2635,8 +2764,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated"], "soon": ["collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated", "collision", "mechanism"], "soon": []}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -4892,6 +5021,176 @@ function igPanels(ctx,w,h,pts,fnA,hi,tm){const names=['[A] (M)','ln[A]','1/[A] (
     return {q:`A student plots data for a reaction three ways. The graph of ${pl[o]} is a straight line and the other two curve. What is the order of the reaction?`,choices:ch,ans:o,hint:'Zero order: [A] vs t. First: ln[A] vs t. Second: 1/[A] vs t.',sol:`A straight line for ${pl[o]} means <b>${ch[o]}</b>.`};}});
   PROBS.push({id:'int-slope',topic:'integrated',title:'k from the slope',gen(){const k=pick([.0125,.034,.0071,.058]),A0=pick([.5,1.0]),t=pick([40,60,80]);
     return {q:`For a first-order reaction, a plot of ln[A] vs t (t in seconds) is a straight line with slope −${sci(k,3)}. What is the half-life?`,ans:Math.LN2/k,unit:'s',tol:.02,hint:'The slope equals −k. Then t½ = 0.693/k.',sol:`k = ${sci(k,3)} s⁻¹; t½ = 0.693 ÷ ${sci(k,3)} = <b>${sci(Math.LN2/k,3)} s</b>.`};}});
+})();
+
+/* ===== modules/collision.js ===== */
+
+/* ---------------- Collision theory & activation energy ---------------- */
+const RK=8.314e-3; /* kJ/mol·K */
+function mbTail(Ea,T){const rt=RK*T,x0=Ea/rt,N=800,top=x0+45;let s=0;const f=x=>2/Math.sqrt(Math.PI)*Math.sqrt(x)*Math.exp(-x);const hh=(top-x0)/N;
+  for(let i=0;i<=N;i++){const x=x0+i*hh;s+=f(x)*(i===0||i===N?1:i%2?4:2);}return s*hh/3;}
+const mbDens=(E,T)=>{const rt=RK*T,x=E/rt;return 2/Math.sqrt(Math.PI)*Math.sqrt(x)*Math.exp(-x)/rt;};
+function peCurve(dh,ea){const sm=x=>x*x*(3-2*x),g=x=>Math.exp(-Math.pow((x-.5)/.2,2));
+  let lo=0,hi=400;const mx=B=>{let m=-1e9;for(let i=0;i<=200;i++){const x=i/200,e=dh*sm(x)+B*g(x);if(e>m)m=e;}return m;};
+  for(let i=0;i<50;i++){const mid=(lo+hi)/2;mx(mid)<ea?lo=mid:hi=mid;}const B=(lo+hi)/2;return x=>dh*sm(x)+B*g(x);}
+(function collision(){
+  const cv=$('#cl-canvas');if(!cv)return;
+  const tS=$('#cl-t'),eS=$('#cl-ea'),cat=$('#cl-cat'),ori=$('#cl-or'),zm=$('#cl-zoom');
+  const H=250,gauss=()=>Math.sqrt(-2*Math.log(1-Math.random()))*Math.cos(6.2832*Math.random());let P=[],fl=[],nR=0;
+  const Eeff=()=>+eS.value*(cat.checked?.6:1);
+  function fill(){const w=cv.clientWidth||300;P=[];for(let i=0;i<38;i++){const s=70;P.push({x:10+Math.random()*(w-20),y:10+Math.random()*(H-20),vx:gauss()*s,vy:gauss()*s,th:Math.random()*6.28,w:(Math.random()-.5)*3,hot:0});}fl=[];nR=0;}
+  function scaleV(){const k=Math.sqrt(+tS.value/(scaleV.last||300));P.forEach(p=>{p.vx*=k;p.vy*=k;});scaleV.last=+tS.value;}
+  const sim=sim2d(cv,{h:()=>H,step(dt){const w=cv.clientWidth,T=+tS.value,sg=70*Math.sqrt(T/300),thr=(Eeff()/(RK*T))/6*sg*sg;
+      P.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.th+=p.w*dt;p.hot=Math.max(0,p.hot-dt);if(p.x<6){p.x=6;p.vx=Math.abs(p.vx);}if(p.x>w-6){p.x=w-6;p.vx=-Math.abs(p.vx);}if(p.y<6){p.y=6;p.vy=Math.abs(p.vy);}if(p.y>H-6){p.y=H-6;p.vy=-Math.abs(p.vy);}});
+      for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);if(d>12||d<1e-6)continue;const nx=dx/d,ny=dy/d,vr=(a.vx-b.vx)*nx+(a.vy-b.vy)*ny;if(vr<=0)continue;
+        const E=.25*vr*vr;let ok=E>=thr;if(ok&&ori.checked){const fa=Math.cos(a.th)*nx+Math.sin(a.th)*ny>0,fb=Math.cos(b.th)*-nx+Math.sin(b.th)*-ny>0;ok=fa&&fb;}
+        if(ok&&a.hot<=0&&b.hot<=0){nR++;a.hot=b.hot=.9;fl.push({x:(a.x+b.x)/2,y:(a.y+b.y)/2,l:.6});}
+        a.vx-=vr*nx;a.vy-=vr*ny;b.vx+=vr*nx;b.vy+=vr*ny;}
+      fl.forEach(f=>f.l-=dt);fl=fl.filter(f=>f.l>0);setText('cl-n',String(nR));},
+    draw(ctx,w,h){ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,1,w-2,H-2);
+      P.forEach(p=>{ball2(ctx,p.x,p.y,6,p.hot>0?'#2FA36B':'#3E7BDC');if(ori.checked){ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(p.x+Math.cos(p.th)*3.6,p.y+Math.sin(p.th)*3.6,1.8,0,7);ctx.fill();}});
+      fl.forEach(f=>{ctx.strokeStyle=alpha('#2FA36B',f.l*1.6);ctx.lineWidth=2;ctx.beginPath();ctx.arc(f.x,f.y,6+(.6-f.l)*45,0,7);ctx.stroke();});}});
+  const g=$('#cl-graph'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const T=+tS.value,E=Eeff(),zoom=zm.checked,xmax=Math.max(70,+eS.value*1.15);
+      const f=e=>mbDens(e,T),f0=e=>mbDens(e,300);const ymax=zoom?Math.max(f(E),f0(E))*4:f(RK*T/2)*1.1;
+      const Pn=panel(ctx,{x:44,y:12,w:w-58,h:h-46},[0,xmax],[0,ymax],{xn:4,yn:3,xlabel:'energy (kJ/mol)',ylabel:zoom?'fraction (tail magnified)':'fraction of collisions',color:T_.ink});
+      if(T!==300)curve(ctx,Pn,f0,0.01,xmax,T_.muted,1.6,300,[5,4]);
+      ctx.save();clip(ctx,Pn);ctx.fillStyle=alpha(T_.hot,.35);ctx.beginPath();ctx.moveTo(Pn.X(E),Pn.Y(0));for(let e=E;e<=xmax;e+=xmax/200)ctx.lineTo(Pn.X(e),Pn.Y(f(e)));ctx.lineTo(Pn.X(xmax),Pn.Y(0));ctx.closePath();ctx.fill();ctx.restore();
+      curve(ctx,Pn,f,0.01,xmax,T_.cx,2.4,300);ctx.save();clip(ctx,Pn);ctx.strokeStyle=T_.ink;ctx.lineWidth=2;ctx.setLineDash([5,3]);ctx.beginPath();ctx.moveTo(Pn.X(E),Pn.box.y);ctx.lineTo(Pn.X(E),Pn.box.y+Pn.box.h);ctx.stroke();ctx.restore();
+      label(ctx,'Eₐ',Pn.X(E)+4,Pn.box.y+10,T_.ink,'left','middle',MONO);if(T!==300)label(ctx,'dashed: 300 K',Pn.box.x+Pn.box.w-4,Pn.box.y+10,T_.muted,'right','middle',MONO);}});
+  const T_=T;
+  function upd(){const T=+tS.value,E=Eeff();setText('cl-t-out',T+' K');setText('cl-ea-out',eS.value+' kJ/mol');setText('cl-ee',fmt(E,0)+' kJ/mol');setText('cl-fr',sci(mbTail(E,T),2));
+    const rel=Math.exp(-E/(RK*T))/Math.exp(-(+eS.value)/(RK*300));setText('cl-rel',(rel>=.01&&rel<1000?fmt(rel,2):sci(rel,2))+'×');scaleV();sim.render();gs.render();}
+  bindRange('cl-t',()=>'',upd,false);bindRange('cl-ea',()=>'',upd,false);[cat,ori,zm].forEach(c=>c.addEventListener('change',()=>{upd();}));
+  $('#cl-lab').addEventListener('labreset',()=>{fill();scaleV.last=300;upd();});
+  fill();scaleV.last=300;upd();drawers.collision=upd;
+  /* energy hill */
+  const pc=$('#eh-canvas'),dh=$('#eh-dh'),pea=$('#eh-ea'),pcat=$('#eh-cat');let u=0,roll=false,wait=0;
+  const dims=()=>{const D=+dh.value,Ea0=Math.max(+pea.value,Math.max(0,D)+8),Ea=pcat.checked?Math.max(Ea0*.6,Math.max(0,D)+8):Ea0;return {D,Ea0,Ea};};
+  const psim=sim2d(pc,{h:()=>280,step(dt){if(!roll)return;const {D,Ea}=dims(),f=peCurve(D,Ea);if(wait>0){wait-=dt;if(wait<=0)u=0;return;}const Et=Ea*1.04,v=Math.sqrt(Math.max(Et-f(u),.02*Et))*.06;u+=v*dt;if(u>=1){u=1;wait=1.2;}},
+    draw(ctx,w,h){const {D,Ea0,Ea}=dims(),box={x:56,y:14,w:w-72,h:h-44},lo=Math.min(0,D)-10,hi=Math.max(Ea0,Ea)+Math.max(0,D)*0+16;
+      const Pn=panel(ctx,box,[0,1],[lo,hi],{xn:1,yn:4,ylabel:'energy (kJ/mol)',color:T_.ink});ctx.save();ctx.fillStyle=T_.muted;ctx.font=MONO;ctx.textAlign='center';ctx.fillText('reaction progress →',box.x+box.w/2,box.y+box.h+16);ctx.restore();
+      if(pcat.checked)curve(ctx,Pn,peCurve(D,Ea0),0,1,T_.muted,1.6,200,[5,4]);const f=peCurve(D,Ea);curve(ctx,Pn,f,0,1,pcat.checked?T_.cv:T_.cx,2.8,240);
+      line(ctx,Pn,0,0,.25,0,T_.muted,1,[3,3]);line(ctx,Pn,.5,0,.5,Ea,T_.hot,1,[3,3]);
+      arrow(ctx,Pn.X(.12),Pn.Y(0),Pn.X(.12),Pn.Y(Ea),T_.hot,2);label(ctx,'Eₐ',Pn.X(.12)+6,Pn.Y(Ea/2),T_.hot,'left','middle',MONO);
+      arrow(ctx,Pn.X(.92),Pn.Y(0),Pn.X(.92),Pn.Y(D),T_.ca,2);label(ctx,'ΔH',Pn.X(.92)-6,Pn.Y(D/2),T_.ca,'right','middle',MONO);
+      label(ctx,'reactants',Pn.X(.05),Pn.Y(0)-12,T_.ink,'left','bottom',MONO);label(ctx,'products',Pn.X(.86),Pn.Y(D)-12,T_.ink,'right','bottom',MONO);label(ctx,'transition state',Pn.X(.5),Pn.Y(Ea)-8,T_.ink,'center','bottom',MONO);
+      const bx=Pn.X(u),by=Pn.Y(f(u));ball2(ctx,bx,by-8,8,u<.5?'#3E7BDC':'#2FA36B');}});
+  function pupd(){const {D,Ea0,Ea}=dims();setText('eh-dh-out',dh.value+' kJ/mol');setText('eh-ea-out',pea.value+' kJ/mol');setText('eh-f',fmt(Ea,0)+' kJ/mol');setText('eh-r',fmt(Ea-D,0)+' kJ/mol');setText('eh-d',(D>0?'+':D<0?'−':'')+Math.abs(D)+' kJ/mol');setText('eh-ty',D<0?'exothermic':D>0?'endothermic':'thermoneutral');psim.render();}
+  bindRange('eh-dh',()=>'',pupd,false);bindRange('eh-ea',()=>'',pupd,false);pcat.addEventListener('change',pupd);
+  $('#eh-go').addEventListener('click',()=>{roll=true;u=0;wait=0;psim.render();});
+  $('#eh-lab').addEventListener('labreset',()=>{roll=false;u=0;pupd();});
+  pupd();drawers.collision=()=>{upd();pupd();};
+  TIPS['cl-t']='Hotter gas: the whole curve flattens and the tail beyond Eₐ grows much faster than the average.';
+  TIPS['cl-ea']='A taller hill means fewer collisions clear it.';
+  TIPS['cl-cat']='A catalyst gives a lower hill. Same temperature, same curve, but Eₐ moves left into a fatter region.';
+  TIPS['cl-or']='Collisions only count if both particles face each other; white dots mark each particle\'s reactive side.';
+  TIPS['cl-zoom']='Rescales the vertical axis so the tail above Eₐ is visible.';
+  TIPS['eh-dh']='ΔH sets how far the products sit below or above the reactants.';
+  TIPS['eh-ea']='Eₐ is measured from the reactants to the top of the hill.';
+  TIPS['eh-cat']='The catalyst path (colored) is lower; the original path is dashed.';
+  KEYS['cl-canvas']=['Raise the temperature and watch the green rings.',[['#3E7BDC','reactant particles'],['#2FA36B','reacting']]];
+  GLOSS['activation energy']='The minimum energy colliding particles need to react; the height of the energy hill.';
+  GLOSS['catalyst']='A substance that speeds up a reaction by lowering the activation energy, and is not consumed.';
+  GLOSS['transition state']='The highest-energy arrangement of atoms on the way from reactants to products.';
+  TT.collision='Connect to the Unit 3 Maxwell-Boltzmann module: same curve, now with Eₐ marked. Stress that a catalyst changes the path, not the endpoints.';
+})();
+(function(){
+  const R=8.314;
+  PROBS.push({id:'col-arr',topic:'collision',title:'Rate change with temperature',gen(){const Ea=pick([50,60,75,85]),T1=pick([290,300,310]),T2=T1+pick([10,20,30,50]),r=Math.exp(Ea*1000/R*(1/T1-1/T2));
+    return {q:`A reaction has E<sub>a</sub> = ${Ea} kJ/mol. By what factor does its rate constant increase when the temperature rises from ${T1} K to ${T2} K? (R = 8.314 J/mol·K)`,ans:r,unit:'×',tol:.03,hint:'ln(k₂/k₁) = (Eₐ/R)(1/T₁ − 1/T₂). Use Eₐ in joules.',sol:`ln(k₂/k₁) = (${Ea*1000}/8.314)(1/${T1} − 1/${T2}) = ${fmt(Math.log(r),3)}, so k₂/k₁ = <b>${fmt(r,2)}</b>.`};}});
+  PROBS.push({id:'col-ea',topic:'collision',title:'Eₐ from two rate constants',gen(){const Ea=pick([45,60,75,90]),T1=pick([300,310]),T2=T1+pick([30,40,50]),k1=pick([1.5e-3,4.0e-4,2.2e-2]),k2=+(k1*Math.exp(Ea*1000/R*(1/T1-1/T2))).toPrecision(3),E=R*Math.log(k2/k1)/(1/T1-1/T2)/1000;
+    return {q:`A first-order reaction has k = ${sci(k1,2)} s⁻¹ at ${T1} K and k = ${sci(k2,3)} s⁻¹ at ${T2} K. What is the activation energy? (R = 8.314 J/mol·K)`,ans:E,unit:'kJ/mol',tol:.03,hint:'Rearrange ln(k₂/k₁) = (Eₐ/R)(1/T₁ − 1/T₂) for Eₐ.',sol:`Eₐ = R·ln(k₂/k₁) ÷ (1/${T1} − 1/${T2}) = <b>${fmt(E,1)} kJ/mol</b>.`};}});
+  PROBS.push({id:'col-diag',topic:'collision',title:'Read an energy diagram',gen(){const Rr=pick([10,20,30,40]),TS=Rr+pick([45,60,75,90]),Pp=Rr+pick([-50,-30,-15,20]),what=pick(['fwd','rev','dh']);
+    const ans=what==='fwd'?TS-Rr:what==='rev'?TS-Pp:Pp-Rr,nm={fwd:'activation energy of the forward reaction',rev:'activation energy of the reverse reaction',dh:'ΔH of the forward reaction'}[what];
+    return {q:`On an energy diagram the reactants are at ${Rr} kJ/mol, the transition state at ${TS} kJ/mol and the products at ${Pp} kJ/mol. What is the ${nm}?`,ans:ans,unit:'kJ/mol',abs:.5,hint:'Forward Eₐ = TS − reactants; reverse Eₐ = TS − products; ΔH = products − reactants.',sol:`${what==='fwd'?`${TS} − ${Rr}`:what==='rev'?`${TS} − (${Pp})`:`${Pp} − ${Rr}`} = <b>${ans} kJ/mol</b>.`};}});
+  PROBS.push({id:'col-slope',topic:'collision',title:'Eₐ from an Arrhenius plot',gen(){const Ea=pick([40,55,70,95,110]),sl=+(-Ea*1000/R).toPrecision(3);
+    return {q:`A plot of ln k vs 1/T (T in kelvin) is a straight line with slope ${sci(sl,3)} K. What is the activation energy? (R = 8.314 J/mol·K)`,ans:-sl*R/1000,unit:'kJ/mol',tol:.02,hint:'The slope of ln k vs 1/T is −Eₐ/R.',sol:`Eₐ = −slope × R = ${fmt(-sl,0)} × 8.314 = ${fmt(-sl*R,0)} J/mol = <b>${fmt(-sl*R/1000,1)} kJ/mol</b>.`};}});
+  const CQ=[['A catalyst is added to a reaction at constant temperature. Which quantity does NOT change?',['The activation energy','The overall ΔH','The rate constant k','The reaction pathway'],1,'A catalyst changes the path and the activation energy (so k), but the reactants and products are the same, so ΔH stays the same.'],
+    ['Why does a modest rise in temperature increase a reaction rate so much?',['The particles collide a few percent more often','A much larger fraction of collisions has energy of at least Eₐ','Eₐ decreases when it is hot','The reaction becomes less exothermic'],1,'The fraction of collisions above Eₐ is exponentially sensitive to temperature; the collision frequency rises only slightly.'],
+    ['When the temperature of a gas rises, how does its Boltzmann energy distribution change?',['The peak moves to lower energy','It becomes narrower and taller','The peak flattens, moves right and the high-energy tail grows','Nothing changes except the area'],2,'The curve flattens and shifts to higher energy; the area stays 1, but the tail above Eₐ grows.'],
+    ['Which statement about a catalyst is true?',['It lowers the activation energy of both forward and reverse reactions','It increases the yield at equilibrium','It supplies energy to the reactants','It is consumed in the reaction'],0,'A catalyst lowers the barrier in both directions and is regenerated; it doesn\'t change the equilibrium position.'],
+    ['Two particles collide with enough energy but the wrong orientation. What most likely happens?',['They react anyway','They bounce apart','They form a catalyst','They gain energy'],1,'Effective collisions need enough energy and the correct orientation.']];
+  PROBS.push({id:'col-concept',topic:'collision',title:'Collision-theory concept',gen(){const [q,ch,a,why]=pick(CQ);return {q,choices:ch,ans:a,hint:'Think about the hill the particles must climb and what a catalyst or heat does to it.',sol:why};}});
+})();
+
+/* ===== modules/mechanism.js ===== */
+
+/* ---------------- Reaction mechanisms ---------------- */
+const MECH=[
+ {t:'NO₂ + CO → NO + CO₂',net:'NO₂ + CO → NO + CO₂',steps:[['NO₂ + NO₂ → NO₃ + NO','slow','bimolecular'],['NO₃ + CO → NO₂ + CO₂','fast','bimolecular']],E:[0,90,40,60,-20],
+  sp:[['NO₂','reactant'],['CO','reactant'],['NO','product'],['CO₂','product'],['NO₃','intermediate']],rate:'rate = k[NO₂]²',ord:2,
+  der:['The slowest step sets the overall rate. That is step 1.','Step 1 is elementary, so its rate law comes from its coefficients: rate = k₁[NO₂][NO₂] = k₁[NO₂]².','Step 1 has no intermediate among its reactants, so no substitution is needed.','Final answer: rate = k[NO₂]². CO is absent because it reacts only after the slow step.'],
+  wrongR:['rate = k[NO₂][CO]','rate = k[NO₃][CO]','rate = k[NO₂][CO][NO]'],wrongN:['NO₂ + NO₃ → NO + CO₂','NO₃ + CO → NO + CO₂','2NO₂ + CO → NO₃ + NO + CO₂']},
+ {t:'H₂O₂ + I⁻ (iodide catalyst)',net:'2H₂O₂ → 2H₂O + O₂',steps:[['H₂O₂ + I⁻ → H₂O + OI⁻','slow','bimolecular'],['H₂O₂ + OI⁻ → H₂O + O₂ + I⁻','fast','bimolecular']],E:[0,75,45,35,-60],
+  sp:[['H₂O₂','reactant'],['H₂O','product'],['O₂','product'],['OI⁻','intermediate'],['I⁻','catalyst']],rate:'rate = k[H₂O₂][I⁻]',ord:2,
+  der:['The slowest step sets the overall rate. That is step 1.','Step 1 is elementary: rate = k₁[H₂O₂][I⁻].','Step 1 contains no intermediate (OI⁻ appears only later), so no substitution is needed.','Final answer: rate = k[H₂O₂][I⁻]. The catalyst I⁻ appears in the rate law even though it is not in the overall equation.'],
+  wrongR:['rate = k[H₂O₂]²','rate = k[H₂O₂][OI⁻]','rate = k[H₂O₂]²[I⁻]'],wrongN:['H₂O₂ + I⁻ → H₂O + O₂ + OI⁻','H₂O₂ → H₂O + O₂','2H₂O₂ + I⁻ → 2H₂O + O₂ + I⁻ + OI⁻']},
+ {t:'2NO + O₂ → 2NO₂',net:'2NO + O₂ → 2NO₂',steps:[['NO + NO ⇌ N₂O₂','fast eq','bimolecular'],['N₂O₂ + O₂ → 2NO₂','slow','bimolecular']],E:[0,25,10,60,-45],
+  sp:[['NO','reactant'],['O₂','reactant'],['NO₂','product'],['N₂O₂','intermediate']],rate:'rate = k[NO]²[O₂]',ord:3,
+  der:['The slowest step sets the overall rate. That is step 2.','Step 2 is elementary: rate = k₂[N₂O₂][O₂].','N₂O₂ is an intermediate, so it must go. Step 1 is a fast equilibrium: forward rate = reverse rate, k₁[NO]² = k₋₁[N₂O₂], so [N₂O₂] = (k₁/k₋₁)[NO]².','Substitute: rate = k₂(k₁/k₋₁)[NO]²[O₂] = k[NO]²[O₂].'],
+  wrongR:['rate = k[NO][O₂]','rate = k[N₂O₂][O₂]','rate = k[NO]²'],wrongN:['N₂O₂ + O₂ → 2NO₂','NO + O₂ → NO₂','2NO + O₂ → N₂O₂ + NO₂']},
+ {t:'O₃ + O → 2O₂ (chlorine catalyst)',net:'O₃ + O → 2O₂',steps:[['Cl + O₃ → ClO + O₂','slow','bimolecular'],['ClO + O → Cl + O₂','fast','bimolecular']],E:[0,50,10,25,-80],
+  sp:[['O₃','reactant'],['O','reactant'],['O₂','product'],['ClO','intermediate'],['Cl','catalyst']],rate:'rate = k[Cl][O₃]',ord:2,
+  der:['The slowest step sets the overall rate. That is step 1.','Step 1 is elementary: rate = k₁[Cl][O₃].','Both Cl and O₃ are species we can measure (ClO, the intermediate, is not in this step).','Final answer: rate = k[Cl][O₃]. The catalyst Cl appears in the rate law, and the other reactant, O, does not.'],
+  wrongR:['rate = k[O₃][O]','rate = k[ClO][O]','rate = k[Cl][O₃][O]'],wrongN:['Cl + O₃ + O → ClO + 2O₂','O₃ → O₂ + O','ClO + O₃ → Cl + 2O₂']},
+ {t:'NO + O₃ → NO₂ + O₂ (one step)',net:'NO + O₃ → NO₂ + O₂',steps:[['NO + O₃ → NO₂ + O₂','slow','bimolecular']],E:[0,45,-60],
+  sp:[['NO','reactant'],['O₃','reactant'],['NO₂','product'],['O₂','product']],rate:'rate = k[NO][O₃]',ord:2,
+  der:['There is only one step, so it is the rate-determining step.','It is elementary, so the coefficients give the orders: rate = k[NO][O₃].','No intermediates, so no substitution is needed.','Final answer: rate = k[NO][O₃]. For a one-step reaction the rate law really can be read from the equation.'],
+  wrongR:['rate = k[NO₂][O₂]','rate = k[NO]²[O₃]','rate = k[NO]'],wrongN:['NO + O₃ → NO₃ + O','NO₂ + O₂ → NO + O₃','NO + 2O₃ → NO₂ + 2O₂']}];
+const MC_COL={reactant:'#3E7BDC',product:'#2FA36B',intermediate:'#8B5CF6',catalyst:'#E08A2E'};
+function mechCurve(E){const n=E.length;return x=>{x=clamp(x,0,1);const s=x*(n-1),i=Math.min(n-2,Math.floor(s)),f=s-i;return E[i]+(E[i+1]-E[i])*(1-Math.cos(Math.PI*f))/2;};}
+(function mechanism(){
+  const cv=$('#mc-canvas');if(!cv)return;const sel=$('#mc-sel');sel.innerHTML=MECH.map((m,i)=>`<option value="${i}">${m.t}</option>`).join('');
+  let M=MECH[0],f=mechCurve(M.E),guess=-1,roll=false,u=0,wait=0,done=false;
+  const peaks=()=>M.E.map((e,i)=>i).filter(i=>i%2===1);
+  const rds=()=>{let b=-1,bi=-1;peaks().forEach(i=>{if(M.E[i]>b){b=M.E[i];bi=i;}});return (bi-1)/2;};
+  function steps(){$('#mc-steps').innerHTML=M.steps.map((s,i)=>`<div class="stp"><b>Step ${i+1}</b> <span>${s[0]}</span>${done||guess>=0?` <em class="${s[1]==='slow'?'slow':'fast'}">${s[1]==='slow'?'slow (rate-determining)':s[1]==='eq'?'fast equilibrium':'fast'}</em>`:''}</div>`).join('')+`<div class="stp"><b>Overall</b> <span>${M.net}</span></div>`;}
+  function load(){M=MECH[+sel.value];f=mechCurve(M.E);guess=-1;done=false;u=0;roll=false;wait=0;$('#mc-fb').textContent=M.steps.length===1?'This reaction has one step, so one hill. Press Roll the ball.':'Tap the hill you think is the rate-determining step.';$('#mc-fb').className='small';steps();sim.render();
+    dr=0;mrender();msInit();}
+  const sim=sim2d(cv,{h:()=>270,step(dt){if(!roll)return;if(wait>0){wait-=dt;if(wait<=0){u=0;}return;}const Et=Math.max(...M.E)*1.05+4,v=Math.sqrt(Math.max(Et-f(u),.03*Et))*.045/Math.max(1,M.steps.length-.5);u+=v*dt;if(u>=1){u=1;wait=1.3;}},
+    draw(ctx,w,h){const lo=Math.min(...M.E)-15,hi=Math.max(...M.E)+22,box={x:50,y:12,w:w-66,h:h-40},P=panel(ctx,box,[0,1],[lo,hi],{xn:1,yn:4,ylabel:'energy',color:T.ink});
+      label(ctx,'reaction progress →',box.x+box.w/2,box.y+box.h+16,T.muted,'center','middle',MONO);
+      const hl=guess>=0?peaks()[guess]:-1;
+      curve(ctx,P,f,0,1,T.cx,2.8,300);
+      M.E.forEach((e,i)=>{const x=i/(M.E.length-1);if(i%2===1){const hi2=hl===i;ctx.save();ctx.fillStyle=hi2?alpha(T.hot,.9):alpha(T.hot,.2);ctx.beginPath();ctx.arc(P.X(x),P.Y(e),hi2?9:7,0,7);ctx.fill();ctx.restore();label(ctx,'TS'+((i+1)/2),P.X(x),P.Y(e)-14,T.ink,'center','bottom',MONO);}
+        else if(i>0&&i<M.E.length-1)label(ctx,'intermediate',P.X(x),P.Y(e)+14,MC_COL.intermediate,'center','top',MONO);});
+      label(ctx,'reactants',P.X(0)+4,P.Y(M.E[0])-12,T.ink,'left','bottom',MONO);label(ctx,'products',P.X(1)-4,P.Y(M.E[M.E.length-1])-12,T.ink,'right','bottom',MONO);
+      if(done){const i=peaks()[rds()];label(ctx,'highest hill = slow step',P.X((i)/(M.E.length-1)),P.Y(M.E[i])-34,T.hot,'center','bottom',MONO);}
+      ball2(ctx,P.X(u),P.Y(f(u))-8,8,u<.99?'#3E7BDC':'#2FA36B');},
+    drag(kind,e,c){if(kind!=='down')return;const [x,y]=ptr(e,c),w=c.clientWidth,bx=50,bw=w-66,xx=(x-bx)/bw,n=M.E.length-1;let best=-1,bd=.2;peaks().forEach((i,k)=>{const d=Math.abs(i/n-xx);if(d<bd){bd=d;best=k;}});if(best<0)return;
+      guess=best;done=true;const ok=best===rds();$('#mc-fb').textContent=ok?`Yes: the tallest hill is the slowest step. That is step ${best+1}: ${M.steps[best][0]}.`:`Not quite. Compare the heights: the highest hill is the slowest step (step ${rds()+1}).`;$('#mc-fb').className='small '+(ok?'ok':'');steps();sim.render();}});
+  sel.addEventListener('change',load);$('#mc-go').addEventListener('click',()=>{roll=true;u=0;wait=0;sim.render();});$('#mc-lab').addEventListener('labreset',load);
+  /* derivation */
+  let dr=0;function mrender(){setText('mr-net',M.net);$('#mr-out').innerHTML=M.der.slice(0,dr).map(s=>`<li>${s}</li>`).join('');setText('mr-rate',dr>=M.der.length?M.rate.replace('rate = ',''):'?');setText('mr-ord',dr>=M.der.length?String(M.ord):'?');
+    $('#mr-back').disabled=dr===0;$('#mr-next').textContent=dr>=M.der.length?'Start over':'Next step';}
+  $('#mr-next').addEventListener('click',()=>{dr=dr>=M.der.length?0:dr+1;mrender();});$('#mr-back').addEventListener('click',()=>{dr=Math.max(0,dr-1);mrender();});
+  /* species */
+  const RL=['unlabeled','reactant','product','intermediate','catalyst'];let lab={};
+  function msInit(){lab={};M.sp.forEach(s=>lab[s[0]]=0);msRender();$('#mq-fb').textContent='Tap a species to cycle: reactant, product, intermediate, catalyst. Then press Check.';$('#mq-fb').className='small';}
+  function msRender(res){$('#mq-chips').innerHTML=M.sp.map(s=>{const L=lab[s[0]],c=L?MC_COL[RL[L]]:'';const st=res===undefined?'':(RL[L]===s[1]?'outline:2px solid #2FA36B':'outline:2px solid #E5484D');return `<button type="button" class="chip-d" data-s="${s[0]}" style="${c?'border-color:'+c+';':''}${st}"><b>${s[0]}</b><small style="${c?'color:'+c:''}">${RL[L]}</small></button>`;}).join('');}
+  $('#mq-chips').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;lab[b.dataset.s]=(lab[b.dataset.s]+1)%5;msRender();});
+  $('#mq-check').addEventListener('click',()=>{const bad=M.sp.filter(s=>RL[lab[s[0]]]!==s[1]);msRender(1);const f=$('#mq-fb');f.textContent=bad.length?`${M.sp.length-bad.length} of ${M.sp.length} correct. Remember: an intermediate is made then used up; a catalyst is used then regenerated.`:'All correct!';f.className='small '+(bad.length?'':'ok');});
+  $('#mr-lab').addEventListener('labreset',()=>{dr=0;mrender();});$('#mq-lab').addEventListener('labreset',msInit);
+  load();drawers.mechanism=()=>sim.render();
+  TIPS['mc-sel']='Each mechanism is a list of elementary steps; their sum is the overall reaction.';
+  KEYS['mc-canvas']=['Tap the highest hill, then press Roll the ball.',[['hot','transition state'],['#8B5CF6','intermediate']]];
+  GLOSS['elementary step']='A single molecular event (one collision or breakup); its rate law follows from its coefficients.';
+  GLOSS['intermediate']='A species made in one step of a mechanism and used up in a later one.';
+  GLOSS['rate-determining step']='The slowest elementary step; it sets the overall reaction rate.';
+  GLOSS['molecularity']='The number of particles that collide in an elementary step.';
+  TT.mechanism='Use the sandwich-shop analogy. Common exam move: given a mechanism, students must remove intermediates from the rate law.';
+})();
+(function(){
+  PROBS.push({id:'mech-rate',topic:'mechanism',title:'Rate law from a mechanism',gen(){const m=pick(MECH.slice(0,5)),ch=[m.rate,...m.wrongR],i=Math.floor(Math.random()*4);ch.splice(0,1);ch.splice(i,0,m.rate);
+    return {q:`A proposed mechanism for ${m.net}:<br>${m.steps.map((s,j)=>`Step ${j+1} (${s[1]==='eq'?'fast equilibrium':s[1]}): ${s[0]}`).join('<br>')}<br>Which rate law does it predict?`,choices:ch,ans:i,hint:'Find the slow step, write its rate from its coefficients, then replace any intermediate using the fast step before it.',sol:`<b>${m.rate}</b>.<br>${m.der.join(' ')}`};}});
+  PROBS.push({id:'mech-net',topic:'mechanism',title:'Overall reaction from the steps',gen(){const m=pick(MECH.slice(0,4)),ch=[m.net,...m.wrongN],i=Math.floor(Math.random()*4);ch.splice(0,1);ch.splice(i,0,m.net);
+    return {q:`A mechanism has these steps:<br>${m.steps.map((s,j)=>`Step ${j+1}: ${s[0]}`).join('<br>')}<br>What is the overall reaction?`,choices:ch,ans:i,hint:'Add the steps, then cancel any species that appears on both sides.',sol:`Adding and cancelling gives <b>${m.net}</b>.`};}});
+  PROBS.push({id:'mech-species',topic:'mechanism',title:'Intermediate or catalyst?',gen(){const role=pick(['intermediate','catalyst']),ms=MECH.filter(m=>m.sp.some(s=>s[1]===role)),m=pick(ms),ans=m.sp.find(s=>s[1]===role)[0];
+    const others=m.sp.filter(s=>s[1]!==role).map(s=>s[0]).sort(()=>Math.random()-.5).slice(0,3),ch=[...others];const i=Math.floor(Math.random()*(ch.length+1));ch.splice(i,0,ans);
+    return {q:`In the mechanism for ${m.net}:<br>${m.steps.map((s,j)=>`Step ${j+1}: ${s[0]}`).join('<br>')}<br>Which species is a${role==='intermediate'?'n':''} ${role}?`,choices:ch,ans:i,hint:role==='intermediate'?'An intermediate is produced in one step and consumed in a later one.':'A catalyst is consumed in one step and regenerated in a later one.',sol:`<b>${ans}</b> is the ${role}: ${role==='intermediate'?'it is made in one step and used up in another':'it is used in one step and re-formed in another'}, so it is absent from the overall reaction.`};}});
+  const EL=[['A + B → products',2],['2A → products',2],['A → products',1],['2NO + Cl₂ → 2NOCl',3],['NO + O₃ → NO₂ + O₂',2],['2NO₂ → N₂O₄',2],['O₃ → O₂ + O',1],['A + 2B → products',3]];
+  PROBS.push({id:'mech-elem',topic:'mechanism',title:'Overall order of an elementary step',gen(){const [eq,n]=pick(EL);
+    return {q:`The reaction ${eq} is a single elementary step. What is the overall order of its rate law?`,ans:n,unit:'',abs:.01,hint:'For an elementary step, each reactant\'s order equals its coefficient. Add them.',sol:`The orders equal the reactant coefficients, which add to <b>${n}</b>.`};}});
 })();
 
 /* ===== overview.js ===== */
