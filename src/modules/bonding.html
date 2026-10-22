@@ -1,0 +1,57 @@
+  <section class="view" id="v-bonding" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 2</span></div>
+        <h1>Bonding &amp; potential energy</h1>
+        <p class="lede">Atoms bond because two atoms together have lower energy than the same two atoms apart. The energy well between them explains bond length, bond strength and what kind of bond forms.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Bring two atoms together. At first the nucleus of each starts to attract the other atom's electrons, and the energy drops. Push them closer and the two positive nuclei begin to repel each other, and the electron clouds crowd, so the energy shoots up. In between there is a sweet spot with the lowest energy. That distance is the <b>bond length</b>, and the depth of the well is the <b>bond energy</b>, the energy you must supply to pull the atoms apart.</p>
+        <p>What kind of bond forms depends on how the atoms share electrons. Two similar atoms share evenly (nonpolar covalent). A pull from one atom's higher <b>electronegativity</b> makes the sharing uneven (polar covalent). If a metal meets a nonmetal, the electron is taken completely and the oppositely charged ions attract (ionic). Metals share their outer electrons with all their neighbors in a "sea" (metallic).</p>
+      </div>
+      <div class="assume upgrade"><h3>Assumption upgrade</h3><dl><dt>Before</dt><dd>bonds were just lines between atoms, and every bond was "covalent" or "ionic"</dd><dt>So we didn't need</dt><dd>energy, distance or a scale between the extremes</dd><dt>Now</dt><dd>bonds are energy wells, and sharing runs from equal to complete transfer</dd><dt>So we need</dt><dd>potential energy curves and the electronegativity difference</dd></dl></div>
+      <div class="lab" id="bd-lab1">
+        <div class="labbar"><span class="title">The bond as an energy well</span><div class="row"><button type="button" class="btn primary" id="bd-go">Let go</button></div></div>
+        <div class="controls"><div class="ctl"><label for="bd-sel"><span>Bond</span></label><select id="bd-sel"></select></div>
+          <div class="ctl"><label for="bd-r"><span>Distance between the nuclei</span> <output id="bd-r-out"></output></label><input type="range" id="bd-r" min="50" max="300" step="1" value="150"></div></div>
+        <canvas id="bd-canvas" aria-label="Two atoms drawn to scale on a spring, and the potential energy curve with a dot showing the current distance"></canvas>
+        <div class="readout"><div><span>Distance now</span><strong class="x" id="bd-now">—</strong></div><div><span>Potential energy now</span><strong class="hot" id="bd-pe">—</strong></div><div><span>Bond length</span><strong id="bd-len">—</strong></div><div><span>Bond energy</span><strong class="v" id="bd-en">—</strong></div><div><span>What is happening</span><strong id="bd-what" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" style="margin:0">Drag the slider to pull the atoms apart or squeeze them together, then press Let go to watch them vibrate around the bottom of the well. Real bonds vibrate about 10¹³ times a second; here it is slowed down. Curves are model curves fitted to each bond's length and energy.</p>
+      </div>
+      <div class="lab" id="bd-lab2">
+        <div class="labbar"><span class="title">What kind of bond?</span></div>
+        <div class="controls"><div class="ctl"><label for="bd-a"><span>First atom</span></label><select id="bd-a"></select></div><div class="ctl"><label for="bd-b"><span>Second atom</span></label><select id="bd-b"></select></div></div>
+        <canvas id="bd-type" aria-label="Animation of the electrons shared or transferred between the two chosen atoms"></canvas>
+        <div class="readout"><div><span>Electronegativities</span><strong id="bd-en2" style="white-space:normal;font-size:15px">—</strong></div><div><span>Difference</span><strong class="hot" id="bd-den">—</strong></div><div><span>Bond type</span><strong class="v" id="bd-typ" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" id="bd-why" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Compare the single, double and triple carbon–carbon bonds. Which has the shortest bond and the deepest well? <button type="button" class="btn link" data-show='[["#bd-sel","C–C"]]'>C–C</button> <button type="button" class="btn link" data-show='[["#bd-sel","C=C"]]'>C=C</button> <button type="button" class="btn link" data-show='[["#bd-sel","C≡C"]]'>C≡C</button></p><details><summary>What you should see</summary><p>More shared electron pairs pull the nuclei closer and hold them harder: 154 pm and 347 kJ/mol, then 134 pm and 614 kJ/mol, then 120 pm and 839 kJ/mol. Shorter bond, stronger bond.</p></details></li>
+        <li><p>Squeeze two hydrogen atoms to 50 pm and let go. <button type="button" class="btn link" data-show='[["#bd-sel","H–H"],["#bd-r",50],["click","#bd-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Too close: the repulsion is huge and the potential energy is high, so the atoms spring apart past the equilibrium distance (74 pm), then back, vibrating around the bottom of the well.</p></details></li>
+        <li><p>Compare sodium with chlorine, then carbon with hydrogen. <button type="button" class="btn link" data-show='[["#bd-a","Na"],["#bd-b","Cl"]]'>Na and Cl</button> <button type="button" class="btn link" data-show='[["#bd-a","C"],["#bd-b","H"]]'>C and H</button></p><details><summary>What you should see</summary><p>Na and Cl: a large difference (2.23) and a metal with a nonmetal, so the electron is transferred: ionic. C and H: a difference of only 0.35, so the electrons are shared almost equally: nonpolar covalent.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Classify the bonds in H–Cl, NaCl and Cl–Cl, and say which has the most polar bond. (EN: H 2.20, Cl 3.16, Na 0.93.)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Cl–Cl.</b> Two identical atoms: ΔEN = 0. The electrons are shared equally: <b>nonpolar covalent</b>.</li>
+          <li hidden><b>H–Cl.</b> Two nonmetals: they share electrons. ΔEN = 3.16 − 2.20 = 0.96, so the sharing is uneven, with the electrons pulled toward Cl: <b>polar covalent</b> (Cl is δ−, H is δ+).</li>
+          <li hidden><b>NaCl.</b> A metal with a nonmetal. ΔEN = 3.16 − 0.93 = 2.23. Sodium gives its outer electron to chlorine: <b>ionic</b>, Na⁺ and Cl⁻.</li>
+          <li hidden><b>Most polar.</b> The larger the ΔEN, the more polar the bond, so NaCl (2.23) is the most polar and Cl–Cl (0) the least. The ionic bond is the extreme case of polar bonding.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Thinking bond breaking releases energy. Breaking a bond always costs energy; forming one releases it.</li>
+        <li>Mixing up bond length (where the minimum is) with bond energy (how deep it is). Stronger bonds are usually shorter.</li>
+        <li>Calling H–Cl ionic because it is "polar". It is polar covalent: the electrons are shared, just unevenly.</li>
+        <li>Believing there is a sharp cutoff between types. Real bonds lie along a continuum; the cutoffs are conventions.</li>
+        <li>Forgetting that two metals bond metallically, not covalently or ionically.</li>
+      </ul></div>
+      <div class="prose"><h2>Reading the curve</h2>
+        <p>On a plot of potential energy against the distance between two nuclei, zero is the energy of the two separated atoms. The curve dips below zero as the atoms attract, reaches a minimum at the bond length, and rises steeply as they are pushed closer. The depth from zero down to the minimum is the bond energy (the energy needed to separate the atoms completely).</p>
+        <p>Coulomb's law is behind all of it: attraction between nuclei and the other atom's electrons, repulsion between nuclei, and repulsion between electron clouds. The minimum is where these balance. Ionic bonds follow the same logic: the higher the charges and the smaller the ions, the stronger the attraction (lattice energy).</p></div>
+      <div class="quiz" data-correct="2" data-explain="Stronger bonds are generally shorter and have deeper wells. N≡N (945 kJ/mol, 110 pm) is the strongest and shortest of these.">
+        <p class="q">Check yourself: which has the strongest and shortest bond?</p>
+        <div class="opts"><button type="button">F–F</button><button type="button">O=O</button><button type="button">N≡N</button><button type="button">Cl–Cl</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

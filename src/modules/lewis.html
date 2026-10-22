@@ -1,0 +1,51 @@
+  <section class="view" id="v-lewis" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 2</span></div>
+        <h1>Lewis structures &amp; formal charge</h1>
+        <p class="lede">A Lewis structure is a bookkeeping diagram for valence electrons: who shares, who keeps, and who has a full shell. Formal charge tells you which of several possible diagrams is the most believable.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Atoms are happiest with a full outer shell: two electrons for hydrogen, eight for the elements of periods 2 and 3 (the <b>octet</b> rule). They get there by sharing electron pairs in bonds. Every electron in your count has to land somewhere: in a bond (shared between two atoms) or in a <b>lone pair</b> (kept by one atom).</p>
+        <p>Sometimes more than one diagram works. To choose, give every atom a <b>formal charge</b>: the electrons it brought (its valence electrons) minus the electrons it "owns" in the diagram (all its lone-pair electrons, plus half of its bonding electrons). The best structure has formal charges as close to zero as possible, with any negative charge on the more electronegative atom.</p>
+      </div>
+      <div class="eqgrid"><div class="eqn"><span>FC = V − L − B/2</span><small>V valence e⁻ · L lone-pair e⁻ · B bonding e⁻</small></div><div class="eqn"><span>Σ FC = overall charge</span><small>a check on your work</small></div></div>
+      <div class="lab" id="lw-lab">
+        <div class="labbar"><span class="title">Draw it, then check it</span><div class="row"><button type="button" class="btn" id="lw-back">Back</button><button type="button" class="btn primary" id="lw-next">Next step</button></div></div>
+        <div class="controls"><div class="ctl"><label for="lw-sel"><span>Molecule or ion</span></label><select id="lw-sel"></select></div><div class="ctl"><span class="lbl">Which structure?</span><div class="seg" id="lw-var" role="group" aria-label="Alternative structures"></div></div></div>
+        <p class="small" id="lw-step" style="margin:0;font-weight:600"></p>
+        <canvas id="lw-canvas" aria-label="Lewis structure with atoms, shared bonds, lone pairs and formal charges"></canvas>
+        <div class="readout"><div><span>Total valence electrons</span><strong class="x" id="lw-ve">—</strong></div><div><span>Electrons used</span><strong id="lw-used">—</strong></div><div><span>Formal charges</span><strong class="hot" id="lw-fc" style="white-space:normal;font-size:15px">—</strong></div><div><span>Octets</span><strong id="lw-oct" style="white-space:normal;font-size:15px">—</strong></div></div>
+        <p class="small" id="lw-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Carbon dioxide has two possible structures. Which is better? <button type="button" class="btn link" data-show='[["#lw-sel","co2"],["click","#lw-var button[data-v=\"0\"]"]]'>O=C=O</button> <button type="button" class="btn link" data-show='[["#lw-sel","co2"],["click","#lw-var button[data-v=\"1\"]"]]'>O≡C–O</button></p><details><summary>What you should see</summary><p>In O=C=O every formal charge is 0. In the other structure, one oxygen is +1 and the other −1. Both have octets, but the all-zero structure is better.</p></details></li>
+        <li><p>Ozone, O₃, can be drawn two ways. Flip between them. <button type="button" class="btn link" data-show='[["#lw-sel","o3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The double bond can be on either side, so the structures are <b>resonance forms</b>. Measurements show both O–O bonds are identical, in between a single and a double bond: the real molecule is a hybrid. Its bond order is 1.5.</p></details></li>
+        <li><p>Check the carbonate ion. How many resonance forms, and what is the total charge? <button type="button" class="btn link" data-show='[["#lw-sel","co3"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Three forms, with the double bond on each oxygen in turn. The formal charges add up to the ion's overall 2− charge: 0 on carbon, 0 on the double-bonded O and −1 on each of the other two.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Draw the Lewis structure of HCN, and find the formal charge on every atom.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Count valence electrons.</b> H 1 + C 4 + N 5 = 10 electrons.</li>
+          <li hidden><b>Skeleton.</b> Carbon is the least electronegative atom that can make several bonds, so it goes in the middle. H hangs off only one bond: H–C–N. That uses 4 electrons (2 bonds).</li>
+          <li hidden><b>Add lone pairs.</b> 6 electrons remain. Give nitrogen three lone pairs (6 electrons). Now N has 8 electrons around it, but carbon has only 4 and H has 2.</li>
+          <li hidden><b>Make multiple bonds.</b> Move two of nitrogen's lone pairs into the bond between C and N: H–C≡N. Now C has 8 (4 bonds), N has 8 (3 bonds and 1 lone pair) and H has 2.</li>
+          <li hidden><b>Formal charges.</b> H: 1 − 0 − 1 = 0. C: 4 − 0 − 4 = 0. N: 5 − 2 − 3 = 0. All zero: the best structure, and the sum is 0, as it must be for a neutral molecule.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 5</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Miscounting electrons for ions: add one for each negative charge, subtract one for each positive charge.</li>
+        <li>Counting only bonds when computing formal charge. You must count lone-pair electrons <i>and</i> half the bonding electrons.</li>
+        <li>Giving hydrogen more than one bond. Hydrogen holds only two electrons, so it can never be central.</li>
+        <li>Forgetting that resonance forms are not separate molecules that flip back and forth. The real structure is the hybrid.</li>
+        <li>Ignoring the check that the formal charges must add up to the overall charge of the species.</li>
+      </ul></div>
+      <div class="prose"><h2>The recipe</h2>
+        <p>(1) Add up the valence electrons (adjust for charge). (2) Put the least electronegative atom (not H) in the middle and join the others to it with single bonds. (3) Finish the octets of the outer atoms with lone pairs. (4) Put any electrons left on the central atom. (5) If the central atom lacks an octet, turn lone pairs from outer atoms into double or triple bonds. (6) Calculate formal charges and, if there is a choice, pick the structure with the smallest ones.</p>
+        <p>Not every molecule follows the octet. Boron compounds like BF₃ are happy with six electrons; some atoms in period 3 or lower (like S in SO₂ or SF₆) can hold more than eight. The formal-charge test can favor an expanded octet (as with SO₂), but the course often asks you to draw the octet structure; follow your teacher's convention.</p></div>
+      <div class="quiz" data-correct="3" data-explain="Nitrogen has 5, each of three oxygens has 6, and the 1− charge adds one more: 5 + 3(6) + 1 = 24. Forgetting the charge gives 23.">
+        <p class="q">Check yourself: how many valence electrons must the Lewis structure of NO₃⁻ show?</p>
+        <div class="opts"><button type="button">18</button><button type="button">23</button><button type="button">22</button><button type="button">24</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

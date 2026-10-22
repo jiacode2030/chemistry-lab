@@ -77,7 +77,7 @@ const lpWeight=n=>n<=3?1.07:n===4?LP_WEIGHT:1;
 function sim2d(cv,o){let seen=true,last=0,t=0,raf=0;
   const live=()=>seen&&!document.hidden&&cv.offsetParent!==null;
   function render(){const w=cv.clientWidth;if(!w)return;const h=o.h?o.h(w):clamp(w*.5,240,380);const c=prep(cv,h);if(!c)return;o.draw(c.ctx,w,h,t);}
-  function frame(ts){raf=0;if(!live()){last=0;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;if(o.step&&!o.paused?.())o.step(dt,t+=dt);render();raf=requestAnimationFrame(frame);}
+  function frame(ts){raf=0;if(!live()){last=0;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;t+=dt;if(o.step&&!(o.paused&&o.paused()))o.step(dt,t);render();raf=requestAnimationFrame(frame);}
   function kick(){if(REDUCE){render();return;}if(!raf&&live())raf=requestAnimationFrame(frame);}
   if('IntersectionObserver' in window)new IntersectionObserver(es=>{seen=es[es.length-1].isIntersecting;if(seen)kick();}).observe(cv);
   document.addEventListener('visibilitychange',kick);window.addEventListener('hashchange',()=>setTimeout(kick,50));

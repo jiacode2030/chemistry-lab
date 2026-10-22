@@ -1,0 +1,56 @@
+  <section class="view" id="v-hybrid" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 2</span><span class="tag">3D</span></div>
+        <h1>Hybridization, sigma &amp; pi bonds</h1>
+        <p class="lede">Atoms can blend their own orbitals into new ones that point exactly where the bonds go. Bonds then form by overlap, end to end (sigma) or side by side (pi), and that explains why double bonds are rigid.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A carbon atom has one s and three p orbitals in its outer shell, but methane has four identical C–H bonds 109.5° apart. The p orbitals alone point 90° apart and the s orbital points nowhere, so none of them fit. Carbon <b>hybridizes</b>: it mixes the s and the three p orbitals into four identical <b>sp³</b> hybrids that point to the corners of a tetrahedron. Like mixing paint, you get new colors with the same total amount.</p>
+        <p>The rule of thumb: count the regions of electron density (the same count as in VSEPR). Two regions: <b>sp</b> (180°). Three: <b>sp²</b> (120°). Four: <b>sp³</b> (109.5°). Hybrid orbitals make <b>σ (sigma) bonds</b>, overlapping head-on along the line between the nuclei. Any p orbital left over can overlap sideways above and below the bond to make a <b>π (pi) bond</b>. A double bond is one σ plus one π; a triple bond is one σ plus two π.</p>
+      </div>
+      <div class="lab" id="hy-lab">
+        <div class="labbar"><span class="title">Mix the orbitals</span><div class="row"><button type="button" class="btn primary" id="hy-go">Mix them</button></div></div>
+        <div class="controls"><div class="ctl"><span class="lbl">Hybridization</span><div class="seg" id="hy-type" role="group" aria-label="Hybridization"><button type="button" data-k="3" aria-pressed="true">sp³ (4 regions)</button><button type="button" data-k="2" aria-pressed="false">sp² (3 regions)</button><button type="button" data-k="1" aria-pressed="false">sp (2 regions)</button></div></div>
+          <div class="ctl"><label for="hy-mix"><span>Mixing</span> <output id="hy-mix-out"></output></label><input type="range" id="hy-mix" min="0" max="1" step="0.01" value="0"></div></div>
+        <div class="split"><div><canvas id="hy-canvas" aria-label="3D view: a carbon s orbital and p orbitals blend into hybrid orbitals. Drag to rotate."></canvas></div><div><canvas id="hy-energy" aria-label="Energy level diagram showing the s and p levels merging into equal-energy hybrid levels"></canvas></div></div>
+        <div class="readout"><div><span>Hybrid orbitals</span><strong class="v" id="hy-n">—</strong></div><div><span>Angle between them</span><strong id="hy-ang">—</strong></div><div><span>Left-over p orbitals</span><strong id="hy-p">—</strong></div><div><span>Typical examples</span><strong id="hy-ex" style="white-space:normal;font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="hs-lab">
+        <div class="labbar"><span class="title">Try to twist the bond</span></div>
+        <div class="controls"><div class="ctl"><span class="lbl">Molecule</span><div class="seg" id="hs-mol" role="group" aria-label="Molecule"><button type="button" data-k="c2h6" aria-pressed="false">Ethane C–C</button><button type="button" data-k="c2h4" aria-pressed="true">Ethene C=C</button><button type="button" data-k="c2h2" aria-pressed="false">Ethyne C≡C</button></div></div>
+          <div class="ctl"><label for="hs-tw"><span>Twist the right end by</span> <output id="hs-tw-out"></output></label><input type="range" id="hs-tw" min="0" max="180" step="1" value="0"></div></div>
+        <div class="split"><div><canvas id="hs-canvas" aria-label="3D model of the carbon–carbon bond with sigma and pi overlaps; the right end can be twisted. Drag to rotate."></canvas></div><div><canvas id="hs-energy" aria-label="Graph of energy against twist angle"></canvas></div></div>
+        <div class="readout"><div><span>Bonds between the carbons</span><strong class="v" id="hs-b">—</strong></div><div><span>π overlap</span><strong id="hs-ov">—</strong></div><div><span>Energy cost of this twist</span><strong class="hot" id="hs-e">—</strong></div></div>
+        <p class="small" id="hs-why" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict what will happen first. Then set it up and check.</p><ol>
+        <li><p>Watch carbon mix one s and three p orbitals. How many hybrids come out, and where do they point? <button type="button" class="btn link" data-show='[["click","#hy-type button[data-k=\"3\"]"],["#hy-mix",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Four equivalent sp³ orbitals, 109.5° apart, pointing to the corners of a tetrahedron. On the energy diagram the s level rises and the three p levels fall until all four are at the same level.</p></details></li>
+        <li><p>Now try sp². What is left over? <button type="button" class="btn link" data-show='[["click","#hy-type button[data-k=\"2\"]"],["#hy-mix",1]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Three sp² hybrids in a flat triangle (120°) and one p orbital left over, standing perpendicular to the plane. That p orbital is the one that makes π bonds in ethene or formaldehyde.</p></details></li>
+        <li><p>Twist the C=C bond in ethene to 90°. <button type="button" class="btn link" data-show='[["click","#hs-mol button[data-k=\"c2h4\"]"],["#hs-tw",90]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>At 90° the two p orbitals no longer overlap sideways, the π bond is broken and the energy cost is large (about 270 kJ/mol). Double bonds are rigid, which is why cis and trans isomers exist. Compare ethane, where twisting costs only 12 kJ/mol.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">For formaldehyde, H₂C=O, find the hybridization of carbon and count the σ and π bonds.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Lewis structure.</b> C is bonded to two H atoms and double bonded to O: H–C(=O)–H. Carbon has no lone pairs.</li>
+          <li hidden><b>Count regions around C.</b> Two single bonds and one double bond (one region): 3 regions.</li>
+          <li hidden><b>Hybridization.</b> Three regions give <b>sp²</b> (120°, trigonal planar), leaving one unhybridized p orbital on carbon.</li>
+          <li hidden><b>Count bonds.</b> Each single bond is one σ: 2 C–H σ bonds. The double bond is one σ plus one π, so in total <b>3 σ bonds and 1 π bond</b>.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Counting a double bond as two regions of electron density. It is one region: one σ plus one π.</li>
+        <li>Thinking hybrid orbitals are a property of molecules instead of atoms. Each atom in the molecule has its own hybridization.</li>
+        <li>Saying a lone pair does not count. It occupies a hybrid orbital: nitrogen in NH₃ (3 bonds + 1 lone pair) is sp³.</li>
+        <li>Forgetting that π bonds come only from unhybridized p orbitals. sp² carbon has one, sp carbon has two.</li>
+        <li>Believing π bonds are stronger than σ bonds. Head-on overlap is better: a σ bond is stronger than a π bond in the same pair of atoms.</li>
+      </ul></div>
+      <div class="prose"><h2>Counting hybrids</h2>
+        <p>The number of hybrid orbitals always equals the number of orbitals you mixed: 1 s + 3 p → 4 sp³; 1 s + 2 p → 3 sp²; 1 s + 1 p → 2 sp. The hybrids hold both bonding pairs and lone pairs. An atom in a molecule with 5 or 6 regions needs d orbitals (sp³d, sp³d²), an idea that goes beyond the course's usual cases.</p>
+        <p>Single bond: 1 σ. Double: 1 σ + 1 π. Triple: 1 σ + 2 π. So the number of σ bonds equals the number of bonded pairs of atoms, and the number of π bonds equals the total bond order minus the number of bonded pairs.</p></div>
+      <div class="quiz" data-correct="1" data-explain="Each carbon in ethyne (HC≡CH) has two regions of electron density (one C–H and one C≡C), so it is sp hybridized. The triple bond is one σ and two π bonds, and the C–H bonds are σ: 3 σ and 2 π in all.">
+        <p class="q">Check yourself: what is the hybridization of each carbon in ethyne, H–C≡C–H?</p>
+        <div class="opts"><button type="button">sp³</button><button type="button">sp</button><button type="button">sp²</button><button type="button">sp³d</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
