@@ -1,0 +1,57 @@
+  <section class="view" id="v-rates" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Reaction rates &amp; rate laws</h1>
+        <p class="lede">How fast does a reaction go, and what does the speed depend on? The rate law is the recipe that answers it.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A <b>reaction rate</b> is how quickly reactants disappear or products appear: change in concentration per second. Think of a busy dance floor where pairs must bump into each other to react. Crowd the floor and bumps happen far more often. Whether the rate doubles, quadruples or doesn't change when you double a concentration tells you the <b>order</b> with respect to that reactant.</p>
+        <p>A <b>rate law</b> has the form <b>rate = k[A]<sup>m</sup>[B]<sup>n</sup></b>. The exponents <b>m</b> and <b>n</b> are the orders and must be found from experiments, <i>not</i> read from the balanced equation. The constant <b>k</b> is the rate constant: bigger k, faster reaction at the same concentrations.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, a balanced equation told us how much reacts. We assumed it also told us how fast. It doesn't: the coefficients give amounts, but the orders in the rate law come from experiment.</div>
+      <div class="lab" id="rt-lab">
+        <div class="labbar"><span class="title">Particles reacting</span><div class="row"><button type="button" class="btn primary" id="rt-go">Start</button><button type="button" class="btn" id="rt-new">Refill the box</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="rt-type"><span>Reaction</span></label><select id="rt-type"><option value="first">A → P (first order)</option><option value="second">A + A → P (second order in A)</option><option value="ab">A + B → P (first order in each)</option></select></div>
+          <div class="ctl"><label for="rt-a"><span>Particles of A</span> <output id="rt-a-out"></output></label><input type="range" id="rt-a" min="10" max="60" step="5" value="40"></div>
+          <div class="ctl" id="rt-bbox" hidden><label for="rt-b"><span>Particles of B</span> <output id="rt-b-out"></output></label><input type="range" id="rt-b" min="10" max="60" step="5" value="40"></div>
+        </div>
+        <div class="split"><div><canvas id="rt-canvas" aria-label="A box of particles A and B reacting to form product P"></canvas></div><div><canvas id="rt-graph" aria-label="Number of each particle against time"></canvas></div></div>
+        <div class="readout"><div><span>A left</span><strong class="a" id="rt-na">—</strong></div><div><span>Products formed</span><strong class="x" id="rt-np">—</strong></div><div><span>Reactions in last 4 s</span><strong id="rt-ev">—</strong></div><div><span>Rate law</span><strong id="rt-law" style="font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="ir-lab" data-reset="own">
+        <div class="labbar"><span class="title">Initial-rates detective</span><div class="row"><button type="button" class="btn" id="ir-new">New experiment</button><button type="button" class="btn primary" id="ir-check">Check my orders</button></div></div>
+        <table class="data" id="ir-tab" style="width:100%;border-collapse:collapse"></table>
+        <div class="controls"><div class="ctl"><label for="ir-m"><span>Order in A (m)</span></label><select id="ir-m"><option>0</option><option>1</option><option>2</option></select></div><div class="ctl"><label for="ir-n"><span>Order in B (n)</span></label><select id="ir-n"><option>0</option><option>1</option><option>2</option></select></div></div>
+        <p class="small" id="ir-fb" aria-live="polite" style="margin:0">Compare two trials where only one concentration changes. By what factor did the rate change?</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then watch the counts and the reaction count.</p><ol>
+        <li><p>First order: double the number of A particles. Does the reaction rate double? <button type="button" class="btn link" data-show='[["#rt-type","first"],["#rt-a","60"],["click","#rt-new"],["click","#rt-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>About twice as many reactions per second at 60 particles as at 30. Each A reacts on its own, so more A means proportionally more reactions: rate = k[A].</p></details></li>
+        <li><p>Second order: do the same experiment. What happens now? <button type="button" class="btn link" data-show='[["#rt-type","second"],["#rt-a","60"],["click","#rt-new"],["click","#rt-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Doubling A roughly quadruples the reactions per second, because every A can bump into twice as many partners and there are twice as many A. Rate = k[A]².</p></details></li>
+        <li><p>Use the detective: find a pair of trials where only [B] changes. <button type="button" class="btn link" data-show='[["click","#ir-new"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Divide the rates of those two trials, then ask: what power of the concentration ratio gives that factor? Ratio 1 means order 0, ratio equal to the concentration ratio means 1, its square means 2.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Experiments for A + B → products: Trial 1: [A] = 0.10 M, [B] = 0.10 M, rate = 2.0×10⁻³ M/s. Trial 2: [A] = 0.20, [B] = 0.10, rate = 8.0×10⁻³. Trial 3: [A] = 0.10, [B] = 0.30, rate = 6.0×10⁻³. Find the rate law and k.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Order in A.</b> Compare trials 1 and 2: only [A] changed, by a factor 2. The rate rose by 8.0/2.0 = 4. Since 2<sup>m</sup> = 4, m = 2.</li>
+          <li hidden><b>Order in B.</b> Compare trials 1 and 3: only [B] changed, by a factor 3. The rate rose 6.0/2.0 = 3, and 3<sup>n</sup> = 3, so n = 1.</li>
+          <li hidden><b>Write the rate law.</b> rate = k[A]²[B].</li>
+          <li hidden><b>Solve for k</b> with any trial: k = rate / ([A]²[B]) = (2.0×10⁻³) / (0.10² × 0.10) = <b>2.0 M⁻²s⁻¹</b>. The units come out of making M/s on the left: M⁻² s⁻¹ × M³ = M/s.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the coefficients in the balanced equation as the orders. Only a (one-step) elementary reaction works that way.</li>
+        <li>Comparing two trials where more than one concentration changed. Change one at a time, or untangle the factors carefully.</li>
+        <li>Forgetting that k depends on temperature: a different temperature means a different k.</li>
+        <li>Dropping the units of k. They depend on the overall order: M/s for zero order, s⁻¹ for first, M⁻¹s⁻¹ for second.</li>
+        <li>Zero order does not mean zero rate. It means the rate doesn't depend on that concentration.</li>
+      </ul></div>
+      <div class="prose"><h2>Units of k</h2>
+        <p>Rate has units M/s. For overall order <i>N</i>, k has units M<sup>1−N</sup>·s⁻¹: zero order M/s, first order s⁻¹, second order M⁻¹s⁻¹, third order M⁻²s⁻¹. You can read the overall order straight from the units of k.</p></div>
+      <div class="quiz" data-correct="2" data-explain="When [A] triples and the rate becomes 9 times as large, 3^m = 9, so m = 2. The rate law is second order in A.">
+        <p class="q">Check yourself: tripling [A] makes the rate 9 times as fast. What is the order in A?</p>
+        <div class="opts"><button type="button">0</button><button type="button">1</button><button type="button">2</button><button type="button">3</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

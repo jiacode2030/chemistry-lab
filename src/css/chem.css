@@ -105,3 +105,7 @@
 .eq-block .ln{white-space:nowrap}
 .eq-block .sp{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
 .eq-block .net{color:var(--good);font-weight:600}
+table.data th,table.data td{padding:6px 6px;font-size:13px;text-align:center;border-bottom:1px solid var(--line,#d8dde6)}
+table.data th{font-weight:600;color:var(--muted)}
+table.data{min-width:0}
+.ctl[hidden]{display:none!important}

@@ -1,0 +1,58 @@
+  <section class="view" id="v-integrated" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Integrated rate laws &amp; half-life</h1>
+        <p class="lede">Rate laws tell you how fast. Integrated rate laws tell you <i>how much is left after a given time</i>, and which graph turns into a straight line.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Watch a jar of reactant disappear. A <b>zero-order</b> reaction loses the same amount every second, like a tap emptying a bucket at a steady rate. A <b>first-order</b> reaction loses the same <i>fraction</i> every second, like a bank balance shrinking by 10% a day: fast at first, then slower. A <b>second-order</b> reaction slows down even more as it goes, because the reactants meet less and less often.</p>
+        <p>Each order has one graph that comes out as a straight line: <b>[A] vs t</b> (zero), <b>ln[A] vs t</b> (first), <b>1/[A] vs t</b> (second). If you measure concentrations over time, the straight one tells you the order. The <b>half-life</b> is the time for [A] to fall to half. For first order it never changes, however much you start with. That is the signature of exponential decay.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, the rate law gave the rate at one instant, so we only needed concentrations at that instant. Now we want the concentration at a later time, so we need the <i>integrated</i> forms, and time enters the equations.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Zero order</span><b>[A] = [A]₀ − kt</b><small>t½ = [A]₀ / 2k</small></div><div class="eqc"><span class="nm">First order</span><b>ln[A] = ln[A]₀ − kt</b><small>t½ = 0.693 / k</small></div><div class="eqc"><span class="nm">Second order</span><b>1/[A] = 1/[A]₀ + kt</b><small>t½ = 1 / (k[A]₀)</small></div></div>
+      <div class="lab" id="ig-lab">
+        <div class="labbar"><span class="title">Watch it decay</span><div class="row"><button type="button" class="btn primary" id="ig-play">Play</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ig-ord"><span>Order</span></label><select id="ig-ord"><option value="0">Zero order</option><option value="1" selected>First order</option><option value="2">Second order</option></select></div>
+          <div class="ctl"><label for="ig-k"><span>Rate constant k</span> <output id="ig-k-out"></output></label><input type="range" id="ig-k" min="1" max="10" step="1" value="5"></div>
+          <div class="ctl"><label for="ig-t"><span>Time t</span> <output id="ig-t-out"></output></label><input type="range" id="ig-t" min="0" max="100" step="0.5" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="ig-jar" aria-label="A jar of reactant particles that disappear over time"></canvas></div><div><canvas id="ig-graph" aria-label="Three graphs of the same decay: concentration, natural log of concentration, and one over concentration, against time"></canvas></div></div>
+        <div class="readout"><div><span>[A] now</span><strong class="a" id="ig-A">—</strong></div><div><span>Half-life</span><strong class="x" id="ig-hl">—</strong></div><div><span>Fraction left</span><strong id="ig-fr">—</strong></div><div><span>Straight-line graph</span><strong id="ig-sl" style="font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="my-lab" data-reset="own">
+        <div class="labbar"><span class="title">Mystery data: which order?</span><div class="row"><button type="button" class="btn" id="my-new">New data</button><button type="button" class="btn primary" id="my-check">Check</button></div></div>
+        <canvas id="my-canvas" aria-label="The same measured data plotted three ways"></canvas>
+        <div class="controls"><div class="ctl"><label for="my-sel"><span>Your answer</span></label><select id="my-sel"><option value="0">Zero order</option><option value="1">First order</option><option value="2">Second order</option></select></div></div>
+        <p class="small" id="my-fb" aria-live="polite" style="margin:0">Which of the three graphs is a straight line? Its order is the answer.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then check on the graphs.</p><ol>
+        <li><p>First order: play to 100 s and watch the jar. Is the second half-life the same length as the first? <button type="button" class="btn link" data-show='[["#ig-ord","1"],["#ig-k","5"],["#ig-t","100"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes: each half-life takes the same time. At t½ half is left, at 2t½ a quarter, at 3t½ an eighth. Only first order behaves like this.</p></details></li>
+        <li><p>Zero order: does it ever run out? <button type="button" class="btn link" data-show='[["#ig-ord","0"],["#ig-k","8"],["#ig-t","100"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes. It loses a fixed amount per second, so it hits zero at a definite time, [A]₀/k. First and second order only approach zero.</p></details></li>
+        <li><p>Second order: look at the 1/[A] graph. <button type="button" class="btn link" data-show='[["#ig-ord","2"],["#ig-k","6"],["#ig-t","100"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The 1/[A] graph is a straight line rising with slope k. The other two curve.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">The decomposition of N₂O₅ is first order with k = 5.0×10⁻⁴ s⁻¹. Starting with 0.800 M, how much is left after 20.0 minutes, and what is the half-life?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Pick the equation.</b> First order, and we want a concentration at a time: ln[A] = ln[A]₀ − kt.</li>
+          <li hidden><b>Convert time to seconds</b> so it matches k: 20.0 min × 60 = 1200 s.</li>
+          <li hidden><b>Compute kt.</b> kt = (5.0×10⁻⁴)(1200) = 0.60. Then [A] = [A]₀·e<sup>−kt</sup> = 0.800 × e<sup>−0.60</sup> = 0.800 × 0.549 = <b>0.439 M</b>.</li>
+          <li hidden><b>Half-life.</b> t½ = 0.693 / k = 0.693 / 5.0×10⁻⁴ = <b>1.4×10³ s</b> (about 23 min). Check: 1200 s is a bit less than one half-life, so a bit more than half should be left. 0.439/0.800 = 55%. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using minutes with a k in s⁻¹. Convert time first.</li>
+        <li>Using the first-order half-life formula for a second-order reaction. Only first order has a constant half-life, 0.693/k.</li>
+        <li>Forgetting the sign: the slope of ln[A] vs t is −k, so k itself is positive.</li>
+        <li>Using log base 10 where the equation needs ln.</li>
+        <li>Thinking a half-life means the reaction is "half done" at a fixed time regardless of order. In second order, each successive half-life is <i>longer</i>; in zero order, <i>shorter</i>.</li>
+      </ul></div>
+      <div class="prose"><h2>Why first order is a straight ln plot</h2>
+        <p>If the rate is proportional to [A], the amount lost each second is a fixed fraction of what is there, and the solution is exponential: [A] = [A]₀e<sup>−kt</sup>. Taking ln of both sides gives ln[A] = ln[A]₀ − kt, a straight line with slope −k. Second order and zero order integrate the same way and give their own lines.</p></div>
+      <div class="quiz" data-correct="1" data-explain="First-order half-lives are constant. 80 s is two half-lives (40 s each), so 1/4 of the original is left: 25%.">
+        <p class="q">Check yourself: a first-order reaction has t½ = 40 s. What percent of A is left after 80 s?</p>
+        <div class="opts"><button type="button">50%</button><button type="button">25%</button><button type="button">12.5%</button><button type="button">0%</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

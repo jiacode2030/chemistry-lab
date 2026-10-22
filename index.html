@@ -754,6 +754,10 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
 .eq-block .ln{white-space:nowrap}
 .eq-block .sp{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
 .eq-block .net{color:var(--good);font-weight:600}
+table.data th,table.data td{padding:6px 6px;font-size:13px;text-align:center;border-bottom:1px solid var(--line,#d8dde6)}
+table.data th{font-weight:600;color:var(--muted)}
+table.data{min-width:0}
+.ctl[hidden]{display:none!important}
 
 </style>
 
@@ -2276,6 +2280,123 @@ details>p,details>div{margin-top:8px!important;padding:10px 14px;background:var(
     </div>
   </section>
 
+  <section class="view" id="v-rates" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Reaction rates &amp; rate laws</h1>
+        <p class="lede">How fast does a reaction go, and what does the speed depend on? The rate law is the recipe that answers it.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>A <b>reaction rate</b> is how quickly reactants disappear or products appear: change in concentration per second. Think of a busy dance floor where pairs must bump into each other to react. Crowd the floor and bumps happen far more often. Whether the rate doubles, quadruples or doesn't change when you double a concentration tells you the <b>order</b> with respect to that reactant.</p>
+        <p>A <b>rate law</b> has the form <b>rate = k[A]<sup>m</sup>[B]<sup>n</sup></b>. The exponents <b>m</b> and <b>n</b> are the orders and must be found from experiments, <i>not</i> read from the balanced equation. The constant <b>k</b> is the rate constant: bigger k, faster reaction at the same concentrations.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, a balanced equation told us how much reacts. We assumed it also told us how fast. It doesn't: the coefficients give amounts, but the orders in the rate law come from experiment.</div>
+      <div class="lab" id="rt-lab">
+        <div class="labbar"><span class="title">Particles reacting</span><div class="row"><button type="button" class="btn primary" id="rt-go">Start</button><button type="button" class="btn" id="rt-new">Refill the box</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="rt-type"><span>Reaction</span></label><select id="rt-type"><option value="first">A → P (first order)</option><option value="second">A + A → P (second order in A)</option><option value="ab">A + B → P (first order in each)</option></select></div>
+          <div class="ctl"><label for="rt-a"><span>Particles of A</span> <output id="rt-a-out"></output></label><input type="range" id="rt-a" min="10" max="60" step="5" value="40"></div>
+          <div class="ctl" id="rt-bbox" hidden><label for="rt-b"><span>Particles of B</span> <output id="rt-b-out"></output></label><input type="range" id="rt-b" min="10" max="60" step="5" value="40"></div>
+        </div>
+        <div class="split"><div><canvas id="rt-canvas" aria-label="A box of particles A and B reacting to form product P"></canvas></div><div><canvas id="rt-graph" aria-label="Number of each particle against time"></canvas></div></div>
+        <div class="readout"><div><span>A left</span><strong class="a" id="rt-na">—</strong></div><div><span>Products formed</span><strong class="x" id="rt-np">—</strong></div><div><span>Reactions in last 4 s</span><strong id="rt-ev">—</strong></div><div><span>Rate law</span><strong id="rt-law" style="font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="ir-lab" data-reset="own">
+        <div class="labbar"><span class="title">Initial-rates detective</span><div class="row"><button type="button" class="btn" id="ir-new">New experiment</button><button type="button" class="btn primary" id="ir-check">Check my orders</button></div></div>
+        <table class="data" id="ir-tab" style="width:100%;border-collapse:collapse"></table>
+        <div class="controls"><div class="ctl"><label for="ir-m"><span>Order in A (m)</span></label><select id="ir-m"><option>0</option><option>1</option><option>2</option></select></div><div class="ctl"><label for="ir-n"><span>Order in B (n)</span></label><select id="ir-n"><option>0</option><option>1</option><option>2</option></select></div></div>
+        <p class="small" id="ir-fb" aria-live="polite" style="margin:0">Compare two trials where only one concentration changes. By what factor did the rate change?</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then watch the counts and the reaction count.</p><ol>
+        <li><p>First order: double the number of A particles. Does the reaction rate double? <button type="button" class="btn link" data-show='[["#rt-type","first"],["#rt-a","60"],["click","#rt-new"],["click","#rt-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>About twice as many reactions per second at 60 particles as at 30. Each A reacts on its own, so more A means proportionally more reactions: rate = k[A].</p></details></li>
+        <li><p>Second order: do the same experiment. What happens now? <button type="button" class="btn link" data-show='[["#rt-type","second"],["#rt-a","60"],["click","#rt-new"],["click","#rt-go"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Doubling A roughly quadruples the reactions per second, because every A can bump into twice as many partners and there are twice as many A. Rate = k[A]².</p></details></li>
+        <li><p>Use the detective: find a pair of trials where only [B] changes. <button type="button" class="btn link" data-show='[["click","#ir-new"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Divide the rates of those two trials, then ask: what power of the concentration ratio gives that factor? Ratio 1 means order 0, ratio equal to the concentration ratio means 1, its square means 2.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Experiments for A + B → products: Trial 1: [A] = 0.10 M, [B] = 0.10 M, rate = 2.0×10⁻³ M/s. Trial 2: [A] = 0.20, [B] = 0.10, rate = 8.0×10⁻³. Trial 3: [A] = 0.10, [B] = 0.30, rate = 6.0×10⁻³. Find the rate law and k.</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Order in A.</b> Compare trials 1 and 2: only [A] changed, by a factor 2. The rate rose by 8.0/2.0 = 4. Since 2<sup>m</sup> = 4, m = 2.</li>
+          <li hidden><b>Order in B.</b> Compare trials 1 and 3: only [B] changed, by a factor 3. The rate rose 6.0/2.0 = 3, and 3<sup>n</sup> = 3, so n = 1.</li>
+          <li hidden><b>Write the rate law.</b> rate = k[A]²[B].</li>
+          <li hidden><b>Solve for k</b> with any trial: k = rate / ([A]²[B]) = (2.0×10⁻³) / (0.10² × 0.10) = <b>2.0 M⁻²s⁻¹</b>. The units come out of making M/s on the left: M⁻² s⁻¹ × M³ = M/s.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using the coefficients in the balanced equation as the orders. Only a (one-step) elementary reaction works that way.</li>
+        <li>Comparing two trials where more than one concentration changed. Change one at a time, or untangle the factors carefully.</li>
+        <li>Forgetting that k depends on temperature: a different temperature means a different k.</li>
+        <li>Dropping the units of k. They depend on the overall order: M/s for zero order, s⁻¹ for first, M⁻¹s⁻¹ for second.</li>
+        <li>Zero order does not mean zero rate. It means the rate doesn't depend on that concentration.</li>
+      </ul></div>
+      <div class="prose"><h2>Units of k</h2>
+        <p>Rate has units M/s. For overall order <i>N</i>, k has units M<sup>1−N</sup>·s⁻¹: zero order M/s, first order s⁻¹, second order M⁻¹s⁻¹, third order M⁻²s⁻¹. You can read the overall order straight from the units of k.</p></div>
+      <div class="quiz" data-correct="2" data-explain="When [A] triples and the rate becomes 9 times as large, 3^m = 9, so m = 2. The rate law is second order in A.">
+        <p class="q">Check yourself: tripling [A] makes the rate 9 times as fast. What is the order in A?</p>
+        <div class="opts"><button type="button">0</button><button type="button">1</button><button type="button">2</button><button type="button">3</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-integrated" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 5</span></div>
+        <h1>Integrated rate laws &amp; half-life</h1>
+        <p class="lede">Rate laws tell you how fast. Integrated rate laws tell you <i>how much is left after a given time</i>, and which graph turns into a straight line.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>Watch a jar of reactant disappear. A <b>zero-order</b> reaction loses the same amount every second, like a tap emptying a bucket at a steady rate. A <b>first-order</b> reaction loses the same <i>fraction</i> every second, like a bank balance shrinking by 10% a day: fast at first, then slower. A <b>second-order</b> reaction slows down even more as it goes, because the reactants meet less and less often.</p>
+        <p>Each order has one graph that comes out as a straight line: <b>[A] vs t</b> (zero), <b>ln[A] vs t</b> (first), <b>1/[A] vs t</b> (second). If you measure concentrations over time, the straight one tells you the order. The <b>half-life</b> is the time for [A] to fall to half. For first order it never changes, however much you start with. That is the signature of exponential decay.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, the rate law gave the rate at one instant, so we only needed concentrations at that instant. Now we want the concentration at a later time, so we need the <i>integrated</i> forms, and time enters the equations.</div>
+      <div class="eqgrid"><div class="eqc"><span class="nm">Zero order</span><b>[A] = [A]₀ − kt</b><small>t½ = [A]₀ / 2k</small></div><div class="eqc"><span class="nm">First order</span><b>ln[A] = ln[A]₀ − kt</b><small>t½ = 0.693 / k</small></div><div class="eqc"><span class="nm">Second order</span><b>1/[A] = 1/[A]₀ + kt</b><small>t½ = 1 / (k[A]₀)</small></div></div>
+      <div class="lab" id="ig-lab">
+        <div class="labbar"><span class="title">Watch it decay</span><div class="row"><button type="button" class="btn primary" id="ig-play">Play</button></div></div>
+        <div class="controls">
+          <div class="ctl"><label for="ig-ord"><span>Order</span></label><select id="ig-ord"><option value="0">Zero order</option><option value="1" selected>First order</option><option value="2">Second order</option></select></div>
+          <div class="ctl"><label for="ig-k"><span>Rate constant k</span> <output id="ig-k-out"></output></label><input type="range" id="ig-k" min="1" max="10" step="1" value="5"></div>
+          <div class="ctl"><label for="ig-t"><span>Time t</span> <output id="ig-t-out"></output></label><input type="range" id="ig-t" min="0" max="100" step="0.5" value="0"></div>
+        </div>
+        <div class="split"><div><canvas id="ig-jar" aria-label="A jar of reactant particles that disappear over time"></canvas></div><div><canvas id="ig-graph" aria-label="Three graphs of the same decay: concentration, natural log of concentration, and one over concentration, against time"></canvas></div></div>
+        <div class="readout"><div><span>[A] now</span><strong class="a" id="ig-A">—</strong></div><div><span>Half-life</span><strong class="x" id="ig-hl">—</strong></div><div><span>Fraction left</span><strong id="ig-fr">—</strong></div><div><span>Straight-line graph</span><strong id="ig-sl" style="font-size:15px">—</strong></div></div>
+      </div>
+      <div class="lab" id="my-lab" data-reset="own">
+        <div class="labbar"><span class="title">Mystery data: which order?</span><div class="row"><button type="button" class="btn" id="my-new">New data</button><button type="button" class="btn primary" id="my-check">Check</button></div></div>
+        <canvas id="my-canvas" aria-label="The same measured data plotted three ways"></canvas>
+        <div class="controls"><div class="ctl"><label for="my-sel"><span>Your answer</span></label><select id="my-sel"><option value="0">Zero order</option><option value="1">First order</option><option value="2">Second order</option></select></div></div>
+        <p class="small" id="my-fb" aria-live="polite" style="margin:0">Which of the three graphs is a straight line? Its order is the answer.</p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict first, then check on the graphs.</p><ol>
+        <li><p>First order: play to 100 s and watch the jar. Is the second half-life the same length as the first? <button type="button" class="btn link" data-show='[["#ig-ord","1"],["#ig-k","5"],["#ig-t","100"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes: each half-life takes the same time. At t½ half is left, at 2t½ a quarter, at 3t½ an eighth. Only first order behaves like this.</p></details></li>
+        <li><p>Zero order: does it ever run out? <button type="button" class="btn link" data-show='[["#ig-ord","0"],["#ig-k","8"],["#ig-t","100"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Yes. It loses a fixed amount per second, so it hits zero at a definite time, [A]₀/k. First and second order only approach zero.</p></details></li>
+        <li><p>Second order: look at the 1/[A] graph. <button type="button" class="btn link" data-show='[["#ig-ord","2"],["#ig-k","6"],["#ig-t","100"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>The 1/[A] graph is a straight line rising with slope k. The other two curve.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">The decomposition of N₂O₅ is first order with k = 5.0×10⁻⁴ s⁻¹. Starting with 0.800 M, how much is left after 20.0 minutes, and what is the half-life?</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Pick the equation.</b> First order, and we want a concentration at a time: ln[A] = ln[A]₀ − kt.</li>
+          <li hidden><b>Convert time to seconds</b> so it matches k: 20.0 min × 60 = 1200 s.</li>
+          <li hidden><b>Compute kt.</b> kt = (5.0×10⁻⁴)(1200) = 0.60. Then [A] = [A]₀·e<sup>−kt</sup> = 0.800 × e<sup>−0.60</sup> = 0.800 × 0.549 = <b>0.439 M</b>.</li>
+          <li hidden><b>Half-life.</b> t½ = 0.693 / k = 0.693 / 5.0×10⁻⁴ = <b>1.4×10³ s</b> (about 23 min). Check: 1200 s is a bit less than one half-life, so a bit more than half should be left. 0.439/0.800 = 55%. ✓</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Using minutes with a k in s⁻¹. Convert time first.</li>
+        <li>Using the first-order half-life formula for a second-order reaction. Only first order has a constant half-life, 0.693/k.</li>
+        <li>Forgetting the sign: the slope of ln[A] vs t is −k, so k itself is positive.</li>
+        <li>Using log base 10 where the equation needs ln.</li>
+        <li>Thinking a half-life means the reaction is "half done" at a fixed time regardless of order. In second order, each successive half-life is <i>longer</i>; in zero order, <i>shorter</i>.</li>
+      </ul></div>
+      <div class="prose"><h2>Why first order is a straight ln plot</h2>
+        <p>If the rate is proportional to [A], the amount lost each second is a fixed fraction of what is there, and the solution is exponential: [A] = [A]₀e<sup>−kt</sup>. Taking ln of both sides gives ln[A] = ln[A]₀ − kt, a straight line with slope −k. Second order and zero order integrate the same way and give their own lines.</p></div>
+      <div class="quiz" data-correct="1" data-explain="First-order half-lives are constant. 80 s is two half-lives (40 s each), so 1/4 of the original is left: 25%.">
+        <p class="q">Check yourself: a first-order reaction has t½ = 40 s. What percent of A is left after 80 s?</p>
+        <div class="opts"><button type="button">50%</button><button type="button">25%</button><button type="button">12.5%</button><button type="button">0%</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-practice" hidden>
     <div class="wrap">
       <div class="head">
@@ -2514,8 +2635,8 @@ function view3d(cv,o){
 
 /* ---------------- Roster and registries (the data blocks are injected by build.py) ---------------- */
 const MODS={"units": {"t": "Units & dimensional analysis", "d": "Convert anything by cancelling units, one factor at a time."}, "sigfigs": {"t": "Scientific notation & sig figs", "d": "How many digits to trust, and how to write very big and very small numbers."}, "logs": {"t": "Logs & pH math", "d": "Why pH is a log scale, and how to go back and forth."}, "icealg": {"t": "ICE-table algebra", "d": "Quadratics, the 'x is small' shortcut and when it fails."}, "mole": {"t": "Moles & molar mass", "d": "Count atoms by weighing them."}, "massspec": {"t": "Mass spectra & average atomic mass", "d": "Isotopes, peaks and why masses aren't whole numbers."}, "composition": {"t": "Composition & empirical formulas", "d": "From percent composition to a formula."}, "pes": {"t": "Electron configuration & PES", "d": "Fill the shells, then read the photoelectron spectrum."}, "orbitals": {"t": "Orbital shapes in 3D", "d": "Spin s, p and d orbitals and see where electrons live."}, "trends": {"t": "Periodic trends & Coulomb's law", "d": "Radius and ionization energy from nuclear pull and shielding."}, "bonding": {"t": "Bonding & potential energy", "d": "Why atoms bond: the energy well between two atoms."}, "lewis": {"t": "Lewis structures & formal charge", "d": "Place the electrons, check the formal charges."}, "vsepr": {"t": "VSEPR shapes & polarity", "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."}, "hybrid": {"t": "Hybridization, sigma and pi bonds", "d": "Orbitals overlapping end-to-end and side-by-side."}, "imf": {"t": "Intermolecular forces", "d": "The attractions between molecules and what they do to boiling points."}, "solids": {"t": "Types of solids", "d": "Ionic, metallic, network and molecular solids in 3D."}, "gases": {"t": "Gas laws & kinetic theory", "d": "A piston full of particles: pressure, volume, temperature, moles."}, "solutions": {"t": "Solutions & molarity", "d": "Dissolving, diluting and what the particles are doing."}, "light": {"t": "Light & Beer–Lambert", "d": "Photons, spectra and how color tells concentration."}, "separation": {"t": "Separating mixtures", "d": "Chromatography and distillation as particle races."}, "equations": {"t": "Balancing equations", "d": "Conserve atoms with particle diagrams."}, "stoich": {"t": "Stoichiometry & limiting reagent", "d": "Run a reaction particle by particle and see what runs out."}, "precip": {"t": "Net ionic equations & precipitation", "d": "Mix two solutions and watch the solid fall out."}, "redox": {"t": "Oxidation states & redox", "d": "Follow the electrons from one species to another."}, "rates": {"t": "Reaction rates & rate laws", "d": "Find the order by changing concentrations."}, "integrated": {"t": "Integrated rate laws", "d": "Half-lives and the straight-line test."}, "collision": {"t": "Collision theory", "d": "Why heat and catalysts speed reactions up."}, "mechanism": {"t": "Mechanisms & energy diagrams", "d": "Steps, intermediates and the slow step."}, "heatflow": {"t": "Heat & phase changes", "d": "The heating curve, with particles."}, "calorimetry": {"t": "Calorimetry", "d": "Measure heat with a coffee cup."}, "enthalpy": {"t": "Enthalpy & Hess's law", "d": "Bond energies, formation enthalpies and adding up steps."}, "equilibrium": {"t": "Dynamic equilibrium, K and Q", "d": "Forward and reverse at the same rate."}, "icecalc": {"t": "Equilibrium calculations", "d": "ICE tables with particles and numbers."}, "lechatelier": {"t": "Le Châtelier's principle", "d": "Stress an equilibrium and watch it respond."}, "ksp": {"t": "Solubility equilibria", "d": "Ksp, the common-ion effect and precipitation."}, "ph": {"t": "pH, pOH & strong acids", "d": "Count the H₃O⁺ in water."}, "weak": {"t": "Weak acids & Ka", "d": "Only a few molecules ionize. Which ones, and how many?"}, "titration": {"t": "Titration curves", "d": "Add base drop by drop and watch the pH."}, "buffers": {"t": "Buffers", "d": "A solution that resists change."}, "entropy": {"t": "Entropy & microstates", "d": "Count the ways to arrange energy and matter."}, "gibbs": {"t": "Gibbs free energy", "d": "ΔG = ΔH − TΔS on a temperature slider."}, "galvanic": {"t": "Galvanic cells", "d": "A battery you can build, with electron flow."}, "electrolysis": {"t": "Electrolysis", "d": "Forcing a reaction with electricity."}};
-const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}];
-const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": [], "soon": ["rates", "integrated", "collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
+const GROUPS=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"]}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"]}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"]}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"]}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"]}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated"]}];
+const ROADMAP=[{"w": "Optional", "name": "Math toolkit", "tag": "Math", "ids": ["units", "sigfigs", "logs", "icealg"], "soon": []}, {"w": "Unit 1", "name": "Atomic structure and properties", "tag": "AP Unit 1", "ids": ["mole", "massspec", "composition", "pes", "orbitals", "trends"], "soon": []}, {"w": "Unit 2", "name": "Compound structure and properties", "tag": "AP Unit 2", "ids": ["bonding", "lewis", "vsepr", "hybrid"], "soon": []}, {"w": "Unit 3", "name": "Properties of substances and mixtures", "tag": "AP Unit 3", "ids": ["imf", "solids", "gases", "solutions", "light", "separation"], "soon": []}, {"w": "Unit 4", "name": "Chemical reactions", "tag": "AP Unit 4", "ids": ["equations", "stoich", "precip", "redox"], "soon": []}, {"w": "Unit 5", "name": "Kinetics", "tag": "AP Unit 5", "ids": ["rates", "integrated"], "soon": ["collision", "mechanism"]}, {"w": "Unit 6", "name": "Thermochemistry", "tag": "AP Unit 6", "ids": [], "soon": ["heatflow", "calorimetry", "enthalpy"]}, {"w": "Unit 7", "name": "Equilibrium", "tag": "AP Unit 7", "ids": [], "soon": ["equilibrium", "icecalc", "lechatelier", "ksp"]}, {"w": "Unit 8", "name": "Acids and bases", "tag": "AP Unit 8", "ids": [], "soon": ["ph", "weak", "titration", "buffers"]}, {"w": "Unit 9", "name": "Thermodynamics and electrochemistry", "tag": "AP Unit 9", "ids": [], "soon": ["entropy", "gibbs", "galvanic", "electrolysis"]}]; /* every unit, with ids (built) and soon (planned, not built yet) */
 const TIPS={},TT={},GLOSS={},KEYS={},PROBS=[],FRQS=[],GLYPH={};
 const METHODS={clues:[],items:[]};
 Object.keys(MODS).forEach(id=>{const g=ROADMAP.find(g=>g.ids.includes(id)||g.soon.includes(id));MODS[id].ap=g?g.tag:'';MODS[id].w=g?g.w:'';});
@@ -4638,6 +4759,141 @@ const onFmt=n=>n>0?'+'+n:n<0?'−'+Math.abs(n):'0';
     return {q:`How many electrons appear in the balanced half-reaction ${h}?`,ans:e,unit:'electrons',abs:.01,hint:'Find the change in oxidation number per atom and multiply by the number of atoms that change.',sol:`The change in oxidation number, times the number of atoms, is <b>${e}</b> electron${e>1?'s':''}.`};}});
 })();
 
+/* ===== modules/rates.js ===== */
+
+/* ---------------- Reaction rates & rate laws ---------------- */
+const KUNIT=n=>({0:'M/s',1:'s⁻¹',2:'M⁻¹s⁻¹',3:'M⁻²s⁻¹'})[n];
+(function rates(){
+  const cv=$('#rt-canvas');if(!cv)return;
+  const CA='#3E7BDC',CB='#14A5A5',CP='#2FA36B',H=240;
+  const type=$('#rt-type');let P=[],hist=[],evs=[],run=false,tt=0,flash=[];
+  const LAW={first:'rate = k[A]',second:'rate = k[A]²',ab:'rate = k[A][B]'};
+  function fill(){const w=cv.clientWidth||300,nA=+$('#rt-a').value,nB=type.value==='ab'?+$('#rt-b').value:0;P=[];
+    for(let i=0;i<nA+nB;i++)P.push({k:i<nA?'A':'B',x:12+Math.random()*(w-24),y:12+Math.random()*(H-24),a:Math.random()*6.28});
+    P.forEach(p=>{const s=70+Math.random()*50;p.vx=Math.cos(p.a)*s;p.vy=Math.sin(p.a)*s;});hist=[];evs=[];flash=[];tt=0;}
+  const cnt=k=>P.filter(p=>p.k===k).length;
+  function react(a,b,t){a.k='P';a.x=(a.x+b.x)/2;a.y=(a.y+b.y)/2;b.dead=true;evs.push(t);flash.push({x:a.x,y:a.y,l:.5});}
+  const sim=sim2d(cv,{h:()=>H,step(dt){if(!run)return;const w=cv.clientWidth;tt+=dt;
+      P.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<6){p.x=6;p.vx=Math.abs(p.vx);}if(p.x>w-6){p.x=w-6;p.vx=-Math.abs(p.vx);}if(p.y<6){p.y=6;p.vy=Math.abs(p.vy);}if(p.y>H-6){p.y=H-6;p.vy=-Math.abs(p.vy);}});
+      if(type.value==='first'){P.forEach(p=>{if(p.k==='A'&&Math.random()<.25*dt){p.k='P';evs.push(tt);flash.push({x:p.x,y:p.y,l:.5});}});}
+      else{const need=type.value==='second'?['A','A']:['A','B'];for(let i=0;i<P.length;i++){const a=P[i];if(a.dead||a.k!==need[0])continue;for(let j=type.value==='second'?i+1:0;j<P.length;j++){const b=P[j];if(b===a||b.dead||b.k!==need[1])continue;
+        if(Math.hypot(a.x-b.x,a.y-b.y)<13&&Math.random()<.4){react(a,b,tt);break;}}}P=P.filter(p=>!p.dead);}
+      flash.forEach(f=>f.l-=dt);flash=flash.filter(f=>f.l>0);
+      if(!hist.length||tt-hist[hist.length-1].t>.25)hist.push({t:tt,A:cnt('A'),B:cnt('B'),P:cnt('P')});
+      while(evs.length&&tt-evs[0]>4)evs.shift();
+      setText('rt-na',String(cnt('A')));setText('rt-np',String(cnt('P')));setText('rt-ev',String(evs.length));},
+    draw(ctx,w,h){ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,1,w-2,H-2);
+      P.forEach(p=>ball2(ctx,p.x,p.y,5.5,p.k==='A'?CA:p.k==='B'?CB:CP));
+      flash.forEach(f=>{ctx.strokeStyle=alpha(CP,f.l*1.6);ctx.lineWidth=2;ctx.beginPath();ctx.arc(f.x,f.y,6+(.5-f.l)*50,0,7);ctx.stroke();});
+      label(ctx,'A',10,H+14,CA,'left','middle',MONO);if(type.value==='ab')label(ctx,'B',34,H+14,CB,'left','middle',MONO);label(ctx,'P',type.value==='ab'?58:34,H+14,CP,'left','middle',MONO);}});
+  const g=$('#rt-graph'),sg=sim2d(g,{h:()=>H+24,draw(ctx,w,h){const tmax=Math.max(20,tt*1.1),nmax=Math.max(+$('#rt-a').value,type.value==='ab'?+$('#rt-b').value:0,10)+(type.value==='ab'?0:0);
+      const Pn=panel(ctx,{x:40,y:12,w:w-54,h:h-48},[0,tmax],[0,nmax*1.08],{xn:4,yn:4,xlabel:'time (s)',ylabel:'particles',color:T.ink});
+      const ser=[['A',CA],['P',CP]];if(type.value==='ab')ser.push(['B',CB]);
+      ser.forEach(([k,c])=>{ctx.save();clip(ctx,Pn);ctx.strokeStyle=c;ctx.lineWidth=2.2;ctx.beginPath();hist.forEach((q,i)=>{const px=Pn.X(q.t),py=Pn.Y(q[k]);i?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();ctx.restore();});}});
+  function reset(){const two=type.value==='ab';$('#rt-bbox').hidden=!two;fill();run=false;$('#rt-go').textContent='Start';setText('rt-law',LAW[type.value]);setText('rt-na',String(cnt('A')));setText('rt-np','0');setText('rt-ev','0');sim.render();sg.render();}
+  bindRange('rt-a',x=>x+'',()=>{if(!run)reset();},false);bindRange('rt-b',x=>x+'',()=>{if(!run)reset();},false);
+  type.addEventListener('change',reset);$('#rt-new').addEventListener('click',reset);
+  $('#rt-go').addEventListener('click',()=>{run=!run;$('#rt-go').textContent=run?'Pause':'Resume';sim.render();});
+  $('#rt-lab').addEventListener('labreset',reset);
+  reset();drawers.rates=()=>{sim.render();sg.render();};
+  /* detective */
+  let HID=null;
+  function newExp(){const m=pick([0,1,1,2]),n=pick([0,1,1,2]),k=pick([.5,1.5,2.5,.02,.15,4]);HID={m,n,k};
+    const t=[[.10,.10],[.20,.10],[.10,.20],[.20,.20]],o=pick([0,1]);if(o){t[3]=[.30,.10];t[2]=[.10,.30];}
+    const rows=t.map(([a,b],i)=>`<tr><td>${i+1}</td><td>${a.toFixed(2)}</td><td>${b.toFixed(2)}</td><td><b>${sci(k*a**m*b**n,2)}</b></td></tr>`).join('');
+    $('#ir-tab').innerHTML=`<thead><tr><th>Trial</th><th>[A] (M)</th><th>[B] (M)</th><th>Rate (M/s)</th></tr></thead><tbody>${rows}</tbody>`;$('#ir-fb').textContent='Compare two trials where only one concentration changes. By what factor did the rate change?';$('#ir-fb').className='small';}
+  $('#ir-new').addEventListener('click',newExp);
+  $('#ir-check').addEventListener('click',()=>{const m=+$('#ir-m').value,n=+$('#ir-n').value,f=$('#ir-fb');
+    if(m===HID.m&&n===HID.n){f.textContent=`Yes: rate = k[A]${HID.m===0?'⁰':HID.m===1?'':'²'}[B]${HID.n===0?'⁰':HID.n===1?'':'²'}, and k = ${sci(HID.k)} ${KUNIT(HID.m+HID.n)}.`;f.className='small ok';}
+    else{f.textContent=(m===HID.m?'Your order in A is right. ':'Recheck A: compare two trials where only [A] changes. ')+(n===HID.n?'Your order in B is right.':'Recheck B: compare two trials where only [B] changes.');f.className='small';}});
+  newExp();
+  TIPS['rt-type']='The type fixes the rate law: the exponents say how many particles must meet.';
+  TIPS['rt-a']='More particles means a more crowded box; watch how the reaction count responds.';
+  TIPS['rt-b']='B is a second reactant; each A + B encounter can make a product.';
+  KEYS['rt-canvas']=['Blue = A, teal = B, green = product. A ring marks each reaction.',[['#3E7BDC','A'],['#14A5A5','B'],['#2FA36B','product']]];
+  GLOSS['rate law']='An equation giving rate in terms of reactant concentrations, rate = k[A]^m[B]^n.';
+  GLOSS['rate constant']='The proportionality constant k in the rate law; it depends on temperature.';
+  GLOSS['order']='The exponent of a concentration in the rate law.';
+  TT.rates='Have students predict the reaction count before changing a slider. The "orders are not coefficients" point comes up again in mechanisms.';
+})();
+(function(){
+  const pw=(m)=>m===0?'':m===1?'[A]':'[A]²';
+  PROBS.push({id:'rt-order',topic:'rates',title:'Order from two trials',gen(){const m=pick([0,1,2]),f=pick([2,3]),k=pick([.5,1.2,3.5,.04])*1e-3,a=pick([.10,.15,.20]),r1=k*a**m,r2=k*(a*f)**m;
+    return {q:`For A → products, [A] = ${fmt(a,2)} M gives an initial rate of ${sci(r1,3)} M/s and [A] = ${fmt(a*f,2)} M gives ${sci(r2,3)} M/s. What is the order in A?`,ans:m,unit:'',abs:.01,hint:'Divide the two rates, and ask what power of the concentration ratio gives that factor.',sol:`Rate ratio = ${fmt(r2/r1,2)} and concentration ratio = ${f}; ${f}<sup>m</sup> = ${fmt(r2/r1,2)}, so m = <b>${m}</b>.`};}});
+  PROBS.push({id:'rt-k',topic:'rates',title:'Rate constant from data',gen(){const m=pick([1,1,2]),n=pick([0,1,1]),a=pick([.10,.20,.25,.50]),b=pick([.10,.30,.40]),k=pick([.5,1.5,2.5,4,12]),r=+(k*a**m*b**n).toPrecision(3),kk=r/(a**m*b**n);
+    return {q:`The rate law for a reaction is rate = k[A]${m>1?'²':''}${n===0?'':n===1?'[B]':'[B]²'}. At [A] = ${fmt(a,2)} M${n?` and [B] = ${fmt(b,2)} M`:''}, the rate is ${sci(r,3)} M/s. What is k? (units: ${KUNIT(m+n)})`,ans:kk,unit:KUNIT(m+n),tol:.02,hint:'Rearrange: k = rate ÷ (the concentrations raised to their orders).',sol:`k = ${sci(r,3)} ÷ (${fmt(a,2)}${m>1?'²':''}${n?` × ${fmt(b,2)}`:''}) = <b>${sci(kk,3)} ${KUNIT(m+n)}</b>.`};}});
+  PROBS.push({id:'rt-units',topic:'rates',title:'Units of k',gen(){const N=pick([0,1,2,3]);const ch=['M/s','s⁻¹','M⁻¹s⁻¹','M⁻²s⁻¹'];
+    return {q:`A reaction has an overall order of ${N}. What are the units of its rate constant k?`,choices:ch,ans:N,hint:'k has units of M^(1−N) per second.',sol:`Rate (M/s) = k·M<sup>${N}</sup>, so k = M<sup>${1-N}</sup>s⁻¹ = <b>${ch[N]}</b>.`};}});
+  PROBS.push({id:'rt-rate',topic:'rates',title:'Rate from the rate law',gen(){const m=pick([1,2]),n=pick(m===1?[0,1,2]:[0,1]),k=pick([.5,2.5,.04,15]),a=pick([.10,.25,.50]),b=pick([.10,.20,.60]),r=k*a**m*b**n;
+    return {q:`For rate = k[A]${m>1?'²':''}${n===0?'':n===1?'[B]':'[B]²'} with k = ${fmt(k,2)} ${KUNIT(m+n)}, find the rate when [A] = ${fmt(a,2)} M${n?` and [B] = ${fmt(b,2)} M`:''}.`,ans:r,unit:'M/s',tol:.02,hint:'Plug the concentrations in and raise each to its order.',sol:`rate = ${fmt(k,2)} × ${fmt(a,2)}${m>1?'²':''}${n?` × ${fmt(b,2)}${n>1?'²':''}`:''} = <b>${sci(r,3)} M/s</b>.`};}});
+})();
+
+/* ===== modules/integrated.js ===== */
+
+/* ---------------- Integrated rate laws ---------------- */
+const IGK={0:{min:.002,max:.02,u:'M/s'},1:{min:.01,max:.1,u:'s⁻¹'},2:{min:.01,max:.1,u:'M⁻¹s⁻¹'}};
+const igA=(o,k,t,A0=1)=>o===0?Math.max(0,A0-k*t):o===1?A0*Math.exp(-k*t):1/(1/A0+k*t);
+const igHL=(o,k,A0=1)=>o===0?A0/(2*k):o===1?Math.LN2/k:1/(k*A0);
+function igPanels(ctx,w,h,pts,fnA,hi,tm){const names=['[A] (M)','ln[A]','1/[A] (1/M)'],tr=[A=>A,A=>Math.log(A),A=>1/A],hh=(h-16)/3;
+  for(let i=0;i<3;i++){const box={x:52,y:8+i*(hh+4),w:w-66,h:hh-22};let yr;const vals=pts.map(p=>tr[i](p.A));const lo=Math.min(...vals),hi2=Math.max(...vals),pad=(hi2-lo)*.12||.1;yr=i===0?[0,1.05]:[lo-pad,hi2+pad];
+    const P=panel(ctx,box,[0,tm||Math.max(...pts.map(p=>p.t))*1.04||100],yr,{xn:5,yn:3,ylabel:names[i],xlabel:i===2?'time (s)':'',color:T.ink});
+    if(hi===i){ctx.strokeStyle=T.cv;ctx.lineWidth=2.5;ctx.strokeRect(box.x-1,box.y-1,box.w+2,box.h+2);}
+    ctx.save();clip(ctx,P);if(fnA){ctx.strokeStyle=T.cx;ctx.lineWidth=2.4;ctx.beginPath();pts.forEach((p,j)=>{const px=P.X(p.t),py=P.Y(tr[i](p.A));j?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();}
+    else pts.forEach(p=>dot(ctx,P.X(p.t),P.Y(tr[i](p.A)),3.6,T.cx));ctx.restore();
+}}
+(function integrated(){
+  const cv=$('#ig-jar');if(!cv)return;
+  const ord=$('#ig-ord'),kS=$('#ig-k'),tS=$('#ig-t');let play=false,drops=[],P=[];
+  const O=()=>+ord.value,K=()=>{const r=IGK[O()];return r.min+(r.max-r.min)*(+kS.value-1)/9;};
+  const A=t=>igA(O(),K(),t);
+  function mk(){const w=cv.clientWidth||300;P=[];for(let i=0;i<100;i++)P.push({x:16+Math.random()*(w-32),y:40+Math.random()*(260-60),r:Math.random(),vx:(Math.random()-.5)*40,vy:(Math.random()-.5)*40});}
+  const jar=sim2d(cv,{h:()=>280,step(dt){if(play){tS.value=Math.min(100,+tS.value+dt*8);if(+tS.value>=100){play=false;$('#ig-play').textContent='Play';}upd();}const w=cv.clientWidth;
+      P.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<10||p.x>w-10)p.vx*=-1;if(p.y<30||p.y>270)p.vy*=-1;p.x=clamp(p.x,10,w-10);p.y=clamp(p.y,30,270);});},
+    draw(ctx,w,h){const frac=A(+tS.value),nAlive=Math.round(frac*100);ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.strokeRect(1,24,w-2,h-26);label(ctx,'jar of A',8,12,T.muted,'left','middle',MONO);
+      const sorted=P.slice().sort((a,b)=>a.r-b.r);sorted.forEach((p,i)=>{if(i<nAlive)ball2(ctx,p.x,p.y,5.5,'#3E7BDC');else ball2(ctx,p.x,p.y,4,alpha('#2FA36B',.28));});
+      label(ctx,nAlive+' of 100 left',w-8,12,T.ink,'right','middle',MONO);}});
+  const g=$('#ig-graph'),gs=sim2d(g,{h:()=>290,draw(ctx,w,h){const pts=[];for(let t=0;t<=100;t+=2){const a=A(t);if(a>.012)pts.push({t,A:a});}
+      igPanels(ctx,w,h,pts,true,O(),104);const tmax=104;
+      const x=52+(w-66)*(+tS.value/tmax);ctx.strokeStyle=T.hot;ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.beginPath();ctx.moveTo(x,8);ctx.lineTo(x,h-18);ctx.stroke();ctx.setLineDash([]);}});
+  function upd(){const t=+tS.value,a=A(t),hl=igHL(O(),K());setText('ig-k-out',fmt(K(),O()===0?3:3)+' '+IGK[O()].u);setText('ig-t-out',fmt(t,1)+' s');setText('ig-A',fmt(a,3)+' M');setText('ig-hl',fmt(hl,1)+' s'+(O()===1?' (constant)':O()===0?' (first one)':' (first one)'));setText('ig-fr',fmt(a*100,1)+'%');setText('ig-sl',['[A] vs t','ln[A] vs t','1/[A] vs t'][O()]);jar.render();gs.render();}
+  ord.addEventListener('change',()=>{kS.value=5;upd();});bindRange('ig-k',()=>'',upd,false);bindRange('ig-t',()=>'',upd,false);
+  $('#ig-play').addEventListener('click',()=>{if(+tS.value>=100)tS.value=0;play=!play;$('#ig-play').textContent=play?'Pause':'Play';upd();});
+  $('#ig-lab').addEventListener('labreset',()=>{play=false;$('#ig-play').textContent='Play';upd();});
+  mk();upd();drawers.integrated=upd;
+  /* mystery */
+  const mc=$('#my-canvas');let MY=null;
+  const mys=sim2d(mc,{h:()=>300,draw(ctx,w,h){if(MY)igPanels(ctx,w,h,MY.pts,false,null);}});
+  function newMy(){const o=pick([0,1,2]),k=IGK[o].min+(IGK[o].max-IGK[o].min)*Math.random()*.7+IGK[o].max*.2,pts=[];for(let t=0;t<=60;t+=10){const a=igA(o,k,t);if(a>.03)pts.push({t,A:a*(1+(Math.random()-.5)*.012)});}MY={o,pts};$('#my-fb').textContent='Which of the three graphs is a straight line? Its order is the answer.';$('#my-fb').className='small';mys.render();}
+  $('#my-new').addEventListener('click',newMy);
+  $('#my-check').addEventListener('click',()=>{const f=$('#my-fb'),a=+$('#my-sel').value;f.textContent=a===MY.o?['Yes: [A] vs t is the straight line, so the order is zero.','Yes: ln[A] vs t is the straight line, so the order is one.','Yes: 1/[A] vs t is the straight line, so the order is two.'][a]:'Not quite. Look again for the graph with no curve in it.';f.className='small '+(a===MY.o?'ok':'');});
+  newMy();
+  TIPS['ig-ord']='Zero, first and second order each give a different decay shape and a different straight-line graph.';
+  TIPS['ig-k']='A larger k means a faster reaction and a shorter half-life.';
+  TIPS['ig-t']='Drag time and watch the jar, the readouts and the dashed marker on the graphs.';
+  KEYS['ig-jar']=['Press Play, or drag the time slider.',[['#3E7BDC','A (reactant)'],['#2FA36B','products']]];
+  GLOSS['half-life']='The time for the concentration of a reactant to fall to half its value.';
+  GLOSS['integrated rate law']='An equation giving concentration as a function of time.';
+  TT.integrated='Make students predict the shape of ln[A] vs t before showing it. The "only first-order half-lives are constant" fact is a favourite exam point.';
+})();
+(function(){
+  PROBS.push({id:'int-first',topic:'integrated',title:'First order: amount left',gen(){const k=pick([.0020,.012,.035,.0085]),A0=pick([.40,.80,1.20,2.00]),kt=pick([.4,.8,1.2,1.8,2.4]),t=Math.round(kt/k/10)*10,A=A0*Math.exp(-k*t);
+    return {q:`A first-order reaction has k = ${sci(k,2)} s⁻¹. Starting from ${fmt(A0,2)} M, what is [A] after ${t} s?`,ans:A,unit:'M',tol:.02,hint:'ln[A] = ln[A]₀ − kt, so [A] = [A]₀e^(−kt).',sol:`kt = ${sci(k,2)} × ${t} = ${fmt(k*t,3)}; [A] = ${fmt(A0,2)} × e<sup>−${fmt(k*t,3)}</sup> = <b>${sci(A,3)} M</b>.`};}});
+  PROBS.push({id:'int-time',topic:'integrated',title:'First order: time to reach a value',gen(){const k=pick([.0030,.015,.045,.0007]),A0=pick([.50,1.00,2.00]),f=pick([.25,.40,.10,.60]),A=A0*f,t=Math.log(A0/A)/k;
+    return {q:`A first-order reaction has k = ${sci(k,2)} s⁻¹. How long does it take for [A] to fall from ${fmt(A0,2)} M to ${fmt(A,3)} M?`,ans:t,unit:'s',tol:.02,hint:'Rearrange ln[A]₀/[A] = kt for t.',sol:`t = ln(${fmt(A0,2)}/${fmt(A,3)}) ÷ ${sci(k,2)} = ${fmt(Math.log(A0/A),3)} ÷ ${sci(k,2)} = <b>${sci(t,3)} s</b>.`};}});
+  PROBS.push({id:'int-half',topic:'integrated',title:'First-order half-life',gen(){const k=pick([.0030,.0150,.045,.0007,.12]),t=Math.LN2/k;
+    return {q:`A first-order reaction has k = ${sci(k,2)} s⁻¹. What is its half-life?`,ans:t,unit:'s',tol:.02,hint:'For first order, t½ = 0.693/k.',sol:`t½ = 0.693 ÷ ${sci(k,2)} = <b>${sci(t,3)} s</b>.`};}});
+  PROBS.push({id:'int-nhalf',topic:'integrated',title:'Half-lives and fraction left',gen(){const th=pick([12,25,40,58,120]),n=pick([2,3,4,5]),A0=pick([.80,1.60,2.40]),A=A0/2**n;
+    return {q:`A first-order reaction has a half-life of ${th} s. If [A]₀ = ${fmt(A0,2)} M, what is [A] after ${th*n} s?`,ans:A,unit:'M',tol:.02,hint:`How many half-lives is ${th*n} s? Halve the concentration once for each.`,sol:`${th*n} s ÷ ${th} s = ${n} half-lives, so [A] = ${fmt(A0,2)} ÷ 2<sup>${n}</sup> = <b>${fmt(A,4)} M</b>.`};}});
+  PROBS.push({id:'int-second',topic:'integrated',title:'Second order: amount left',gen(){const A0=pick([.20,.40,.80,1.00]),k=pick([.020,.060,.15]),t=pick([20,50,100,150]),A=1/(1/A0+k*t);
+    return {q:`A second-order reaction has k = ${fmt(k,3)} M⁻¹s⁻¹ and [A]₀ = ${fmt(A0,2)} M. What is [A] after ${t} s?`,ans:A,unit:'M',tol:.02,hint:'1/[A] = 1/[A]₀ + kt.',sol:`1/[A] = 1/${fmt(A0,2)} + (${fmt(k,3)})(${t}) = ${fmt(1/A,3)}, so [A] = <b>${fmt(A,4)} M</b>.`};}});
+  PROBS.push({id:'int-zero',topic:'integrated',title:'Zero order: amount left',gen(){const A0=pick([.80,1.20,2.00]),k=pick([.004,.010,.020]),t=Math.round(A0*pick([.2,.4,.6,.8])/k/5)*5,A=A0-k*t;
+    return {q:`A zero-order reaction has k = ${fmt(k,3)} M/s and [A]₀ = ${fmt(A0,2)} M. What is [A] after ${t} s?`,ans:A,unit:'M',tol:.02,hint:'[A] = [A]₀ − kt.',sol:`[A] = ${fmt(A0,2)} − (${fmt(k,3)})(${t}) = <b>${fmt(A,3)} M</b>.`};}});
+  PROBS.push({id:'int-ident',topic:'integrated',title:'Order from the straight-line plot',gen(){const o=pick([0,1,2]),pl=['[A] vs t','ln[A] vs t','1/[A] vs t'],ch=['zero order','first order','second order'];
+    return {q:`A student plots data for a reaction three ways. The graph of ${pl[o]} is a straight line and the other two curve. What is the order of the reaction?`,choices:ch,ans:o,hint:'Zero order: [A] vs t. First: ln[A] vs t. Second: 1/[A] vs t.',sol:`A straight line for ${pl[o]} means <b>${ch[o]}</b>.`};}});
+  PROBS.push({id:'int-slope',topic:'integrated',title:'k from the slope',gen(){const k=pick([.0125,.034,.0071,.058]),A0=pick([.5,1.0]),t=pick([40,60,80]);
+    return {q:`For a first-order reaction, a plot of ln[A] vs t (t in seconds) is a straight line with slope −${sci(k,3)}. What is the half-life?`,ans:Math.LN2/k,unit:'s',tol:.02,hint:'The slope equals −k. Then t½ = 0.693/k.',sol:`k = ${sci(k,3)} s⁻¹; t½ = 0.693 ÷ ${sci(k,3)} = <b>${sci(Math.LN2/k,3)} s</b>.`};}});
+})();
+
 /* ===== overview.js ===== */
 
 /* ---------------- Overview: a molecule you can spin, and the module cards ---------------- */
@@ -4762,7 +5018,7 @@ $$('.example').forEach(ex=>{const lis=$$('.exsteps li',ex),nx=$('[data-next]',ex
 /* ---------------- "How to read it" keys and Set-it-up buttons ---------------- */
 (function guides(){
   Object.entries(KEYS).forEach(([id,[todo,items]])=>{const cv=$('#'+id);if(!cv)return;const d=document.createElement('div');d.className='howto';
-    d.innerHTML=`<span class="do">${todo}</span>`+items.map(([c,t,st])=>`<span class="key"><i class="${st||''}" style="--k:var(--${c})"></i>${t}</span>`).join('');(cv.closest('.v3')||cv).before(d);});
+    d.innerHTML=`<span class="do">${todo}</span>`+items.map(([c,t,st])=>`<span class="key"><i class="${st||''}" style="--k:${c[0]==='#'?c:'var(--'+c+')'}"></i>${t}</span>`).join('');(cv.closest('.v3')||cv).before(d);});
   document.addEventListener('click',e=>{const b=e.target.closest('[data-show]');if(!b)return;const acts=JSON.parse(b.dataset.show),sec=b.closest('.view');let first=null;
     acts.forEach(a=>{let el;if(a[0]==='click'){el=$(a[1],sec);el&&el.click();}else{el=$(a[0]);if(!el)return;
       if(el.type==='checkbox'){if(el.checked!==a[1]){el.checked=a[1];el.dispatchEvent(new Event('change',{bubbles:true}));el.dispatchEvent(new Event('input',{bubbles:true}));}}

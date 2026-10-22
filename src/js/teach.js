@@ -11,7 +11,7 @@ $$('.example').forEach(ex=>{const lis=$$('.exsteps li',ex),nx=$('[data-next]',ex
 /* ---------------- "How to read it" keys and Set-it-up buttons ---------------- */
 (function guides(){
   Object.entries(KEYS).forEach(([id,[todo,items]])=>{const cv=$('#'+id);if(!cv)return;const d=document.createElement('div');d.className='howto';
-    d.innerHTML=`<span class="do">${todo}</span>`+items.map(([c,t,st])=>`<span class="key"><i class="${st||''}" style="--k:var(--${c})"></i>${t}</span>`).join('');(cv.closest('.v3')||cv).before(d);});
+    d.innerHTML=`<span class="do">${todo}</span>`+items.map(([c,t,st])=>`<span class="key"><i class="${st||''}" style="--k:${c[0]==='#'?c:'var(--'+c+')'}"></i>${t}</span>`).join('');(cv.closest('.v3')||cv).before(d);});
   document.addEventListener('click',e=>{const b=e.target.closest('[data-show]');if(!b)return;const acts=JSON.parse(b.dataset.show),sec=b.closest('.view');let first=null;
     acts.forEach(a=>{let el;if(a[0]==='click'){el=$(a[1],sec);el&&el.click();}else{el=$(a[0]);if(!el)return;
       if(el.type==='checkbox'){if(el.checked!==a[1]){el.checked=a[1];el.dispatchEvent(new Event('change',{bubbles:true}));el.dispatchEvent(new Event('input',{bubbles:true}));}}
