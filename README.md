@@ -46,6 +46,6 @@ localStorage keys all start with `chem-` (Mechanics Lab uses `kin-`), so both si
 
 ## Reporting a problem
 
-Every module and practice problem has a **Report an issue** link that opens a pre-filled GitHub issue. Issues go to the shared [Intulab feedback](https://github.com/jiacode2030/ap-labs-feedback/issues) tracker, labelled `course:chem`. You can also [open one directly](https://github.com/jiacode2030/ap-labs-feedback/issues/new/choose).
+Every module and practice problem has a **Report an issue** link that opens a pre-filled GitHub issue. Issues go to the shared [Intulab feedback](https://github.com/jiacode2030/intulab-feedback/issues) tracker, labelled `course:chem`. You can also [open one directly](https://github.com/jiacode2030/intulab-feedback/issues/new/choose).
 
-The **More labs** link in the side rail goes to the [Intulab](https://jiacode2030.github.io/ap-labs/) landing page. Visits are counted anonymously with GoatCounter (no cookies), shared with the other Intulab sites.
+The **More labs** link in the side rail goes to the [Intulab](https://jiacode2030.github.io/intulab/) landing page. Visits are counted anonymously with GoatCounter (no cookies), shared with the other Intulab sites.

@@ -2,7 +2,7 @@
 /* ---------------- Report an issue: opens a pre-filled GitHub issue (no server needed) ---------------- */
 (function report(){
   const dlg=$('#rp'),form=$('#rp-form'),where=$('#rp-where'),type=$('#rp-type'),det=$('#rp-details'),ctxEl=$('#rp-ctx'),msg=$('#rp-msg');
-  const REPO='https://github.com/jiacode2030/ap-labs-feedback';
+  const REPO='https://github.com/jiacode2030/intulab-feedback';
   const COURSE='Chemistry Lab',COURSE_LABEL='course:chem',SITE_VERSION='2026-10-23';
   let ctx='';
   const viewName=v=>{if(v==='overview')return 'Overview';if(MODS[v])return MODS[v].t;const a=$(`#nav a[data-view="${v}"]`);return a?a.textContent.replace(/ \(\d+ due\)/,'').trim():v;};
