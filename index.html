@@ -801,11 +801,11 @@ table.data{min-width:0}
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0D1712; --surface:#14211A; --sunk:#1B2C23; --ink:#E5F1E9; --muted:#9BB3A5; --line:#28402F; --grid:#1A2B21;
-  --accent:#6FD0A0; --accent-d:#8FE0B8; --accent-soft:#1F3A2C; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
+  --accent:#7DBF9E; --accent-d:#A9D4BC; --accent-soft:#1C3328; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
   --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 2px 4px rgba(0,0,0,.4),0 14px 30px rgba(0,0,0,.45);}}
 :root[data-theme="dark"]{
   --bg:#0D1712; --surface:#14211A; --sunk:#1B2C23; --ink:#E5F1E9; --muted:#9BB3A5; --line:#28402F; --grid:#1A2B21;
-  --accent:#6FD0A0; --accent-d:#8FE0B8; --accent-soft:#1F3A2C; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
+  --accent:#7DBF9E; --accent-d:#A9D4BC; --accent-soft:#1C3328; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
   --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 2px 4px rgba(0,0,0,.4),0 14px 30px rgba(0,0,0,.45);}
 
 /* page: soft pastel glow instead of a flat grey */
@@ -907,6 +907,23 @@ h1{letter-spacing:-.03em}
 .li-link svg{width:14px;height:14px;fill:#0A66C2}.li-link:hover{border-color:#0A66C2;color:#0A66C2}
 .prob header .tag{white-space:normal;max-width:100%}
 
+/* Dark mode, calmer: softer sage instead of neon mint, no colored glows, and a faint highlighter
+   so the white headline text stays easy to read. Light mode is unchanged. */
+:root[data-theme="dark"] body{background:radial-gradient(900px 520px at 88% -8%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 70%),radial-gradient(700px 480px at -6% 30%,color-mix(in srgb,#F6C9A8 5%,transparent),transparent 70%),var(--bg);background-attachment:fixed}
+:root[data-theme="dark"] .nav a[aria-current="page"],.nav .ind,.steps .ind{box-shadow:none}
+:root[data-theme="dark"] .btn.primary{box-shadow:none}
+:root[data-theme="dark"] .hero h1 .hl{background:linear-gradient(transparent 64%,color-mix(in srgb,var(--accent) 30%,transparent) 64% 92%,transparent 92%) no-repeat 0 0/100% 100%}
+:root[data-theme="dark"] .rmeter i,.meter i{background:linear-gradient(90deg,#5E9C80,var(--accent))}
+:root[data-theme="dark"] .lab::before,.strobe::before{opacity:.7}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) body{background:radial-gradient(900px 520px at 88% -8%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 70%),radial-gradient(700px 480px at -6% 30%,color-mix(in srgb,#F6C9A8 5%,transparent),transparent 70%),var(--bg);background-attachment:fixed}
+  :root:not([data-theme="light"]) .nav a[aria-current="page"],.nav .ind,.steps .ind{box-shadow:none}
+  :root:not([data-theme="light"]) .btn.primary{box-shadow:none}
+  :root:not([data-theme="light"]) .hero h1 .hl{background:linear-gradient(transparent 64%,color-mix(in srgb,var(--accent) 30%,transparent) 64% 92%,transparent 92%) no-repeat 0 0/100% 100%}
+  :root:not([data-theme="light"]) .rmeter i,.meter i{background:linear-gradient(90deg,#5E9C80,var(--accent))}
+  :root:not([data-theme="light"]) .lab::before,.strobe::before{opacity:.7}
+}
+
 </style>
 
 <div class="fs-scrim" id="fs-scrim" aria-hidden="true"></div>
@@ -982,7 +999,7 @@ h1{letter-spacing:-.03em}
       <div class="lg"><i style="--k:var(--hot)"></i>energy · heat</div>
       <div class="lg"><i style="--k:var(--ce)"></i>electrons</div>
     </div>
-    <div class="foot">For AP Chemistry.<span class="mapnote">Unofficial study aid. Not affiliated with the College Board.</span><span class="mapnote">Use it to study, not on graded work.</span><span class="mapnote">Last updated October 23, 2026</span><span class="mapnote">Privacy: your progress stays in your browser. Visit counts are anonymous (GoatCounter, no cookies).</span><span class="mapnote">AP® and Advanced Placement® are trademarks registered by the College Board, which is not affiliated with, and does not endorse, this site.</span><span class="mapnote credit">Made by JL · Princeton Class of 2030</span><span class="mapnote"><a class="li-link" href="https://www.linkedin.com/in/jiarui-li2030" target="_blank" rel="noopener" aria-label="JL on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>LinkedIn</a></span></div>
+    <div class="foot">For AP Chemistry.<span class="mapnote">Unofficial study aid. Not affiliated with the College Board.</span><span class="mapnote">Use it to study, not on graded work.</span><span class="mapnote">Last updated October 23, 2026</span><span class="mapnote">Privacy: your progress stays in your browser. Visit counts are anonymous (GoatCounter, no cookies).</span><span class="mapnote"><a href="/ap-labs/privacy.html">Privacy policy</a> · <a href="/ap-labs/terms.html">Terms of use</a></span><span class="mapnote">AP® and Advanced Placement® are trademarks registered by the College Board, which is not affiliated with, and does not endorse, this site.</span><span class="mapnote credit">Created by JL · Princeton Class of 2030</span><span class="mapnote">© 2026 JL. All rights reserved.</span><span class="mapnote"><a class="li-link" href="https://www.linkedin.com/in/jiarui-li2030" target="_blank" rel="noopener" aria-label="JL on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>LinkedIn</a></span></div>
   </aside>
 
   <main>
@@ -998,7 +1015,7 @@ h1{letter-spacing:-.03em}
           <div class="row"><a class="btn primary" id="ov-start" href="#overview" style="text-decoration:none">Start the first module</a><a class="btn" href="#practice" style="text-decoration:none">Go to the practice set</a></div>
           <div class="countdown" id="ap-count" aria-live="polite"></div>
           <p class="heronote">This is an independent, unofficial study aid. It is not affiliated with, reviewed by, or endorsed by the College Board. Use it to study, not on graded work. Don't use this site on homework you submit, in labs, or during quizzes and exams. AP® and Advanced Placement® are trademarks registered by the College Board, which is not affiliated with, and does not endorse, this site.</p>
-          <p class="ov-report"><span class="credit-row"><span>Made by <b>JL</b> · Princeton Class of 2030 · a student project</span><a class="li-link" href="https://www.linkedin.com/in/jiarui-li2030" target="_blank" rel="noopener" aria-label="JL on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>LinkedIn</a></span><span class="mapnote" style="margin:0 0 4px">Last updated October 23, 2026</span>Spotted a mistake or something confusing? <button type="button" class="btn link rp-link" data-report="overview" style="padding:0">Report an issue</button></p>
+          <p class="ov-report"><span class="credit-row"><span>Created by <b>JL</b> · Princeton Class of 2030 · a student project</span><a class="li-link" href="https://www.linkedin.com/in/jiarui-li2030" target="_blank" rel="noopener" aria-label="JL on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>LinkedIn</a></span><span class="mapnote" style="margin:0 0 4px">© 2026 JL. All rights reserved. · <a href="/ap-labs/privacy.html">Privacy policy</a> · <a href="/ap-labs/terms.html">Terms of use</a></span><span class="mapnote" style="margin:0 0 4px">Last updated October 23, 2026</span>Spotted a mistake or something confusing? <button type="button" class="btn link rp-link" data-report="overview" style="padding:0">Report an issue</button></p>
         </div>
         <figure class="strobe" style="margin:0">
           <div class="lab3d-hero"><canvas id="hero-canvas" aria-label="A molecule you can rotate: drag to spin it, tap the buttons to change molecule"></canvas></div>
@@ -8085,7 +8102,9 @@ const myExamDate=()=>{try{return localStorage.getItem('chem-examdate')||'';}catc
 
 /* Analytics: GoatCounter, shared with every AP Labs site. Anonymous, no cookies, no personal data.
    Loads only on the public GitHub Pages site, and counts each module view as its own page. */
-(function analytics(){if(!/\.github\.io$/.test(location.hostname))return;window.goatcounter={no_onload:true};
+(function analytics(){if(!/\.github\.io$/.test(location.hostname))return;
+  /* honor Do Not Track and Global Privacy Control: no counter at all */
+  if(navigator.doNotTrack==='1'||window.doNotTrack==='1'||navigator.globalPrivacyControl===true)return;window.goatcounter={no_onload:true};
   const s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://aplabs.goatcounter.com/count';
   const view=()=>{const id=(location.hash||'').slice(1)||'overview';if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:location.pathname.replace(/\/$/,'')+'/'+id,title:id});};
   s.onload=()=>{view();addEventListener('hashchange',view);};document.head.appendChild(s);})();

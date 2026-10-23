@@ -146,11 +146,11 @@ table.data{min-width:0}
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0D1712; --surface:#14211A; --sunk:#1B2C23; --ink:#E5F1E9; --muted:#9BB3A5; --line:#28402F; --grid:#1A2B21;
-  --accent:#6FD0A0; --accent-d:#8FE0B8; --accent-soft:#1F3A2C; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
+  --accent:#7DBF9E; --accent-d:#A9D4BC; --accent-soft:#1C3328; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
   --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 2px 4px rgba(0,0,0,.4),0 14px 30px rgba(0,0,0,.45);}}
 :root[data-theme="dark"]{
   --bg:#0D1712; --surface:#14211A; --sunk:#1B2C23; --ink:#E5F1E9; --muted:#9BB3A5; --line:#28402F; --grid:#1A2B21;
-  --accent:#6FD0A0; --accent-d:#8FE0B8; --accent-soft:#1F3A2C; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
+  --accent:#7DBF9E; --accent-d:#A9D4BC; --accent-soft:#1C3328; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
   --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 2px 4px rgba(0,0,0,.4),0 14px 30px rgba(0,0,0,.45);}
 
 /* page: soft pastel glow instead of a flat grey */
@@ -251,3 +251,20 @@ h1{letter-spacing:-.03em}
 .li-link{display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:600 12.5px var(--f-body);text-decoration:none;min-height:32px}
 .li-link svg{width:14px;height:14px;fill:#0A66C2}.li-link:hover{border-color:#0A66C2;color:#0A66C2}
 .prob header .tag{white-space:normal;max-width:100%}
+
+/* Dark mode, calmer: softer sage instead of neon mint, no colored glows, and a faint highlighter
+   so the white headline text stays easy to read. Light mode is unchanged. */
+:root[data-theme="dark"] body{background:radial-gradient(900px 520px at 88% -8%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 70%),radial-gradient(700px 480px at -6% 30%,color-mix(in srgb,#F6C9A8 5%,transparent),transparent 70%),var(--bg);background-attachment:fixed}
+:root[data-theme="dark"] .nav a[aria-current="page"],.nav .ind,.steps .ind{box-shadow:none}
+:root[data-theme="dark"] .btn.primary{box-shadow:none}
+:root[data-theme="dark"] .hero h1 .hl{background:linear-gradient(transparent 64%,color-mix(in srgb,var(--accent) 30%,transparent) 64% 92%,transparent 92%) no-repeat 0 0/100% 100%}
+:root[data-theme="dark"] .rmeter i,.meter i{background:linear-gradient(90deg,#5E9C80,var(--accent))}
+:root[data-theme="dark"] .lab::before,.strobe::before{opacity:.7}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) body{background:radial-gradient(900px 520px at 88% -8%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 70%),radial-gradient(700px 480px at -6% 30%,color-mix(in srgb,#F6C9A8 5%,transparent),transparent 70%),var(--bg);background-attachment:fixed}
+  :root:not([data-theme="light"]) .nav a[aria-current="page"],.nav .ind,.steps .ind{box-shadow:none}
+  :root:not([data-theme="light"]) .btn.primary{box-shadow:none}
+  :root:not([data-theme="light"]) .hero h1 .hl{background:linear-gradient(transparent 64%,color-mix(in srgb,var(--accent) 30%,transparent) 64% 92%,transparent 92%) no-repeat 0 0/100% 100%}
+  :root:not([data-theme="light"]) .rmeter i,.meter i{background:linear-gradient(90deg,#5E9C80,var(--accent))}
+  :root:not([data-theme="light"]) .lab::before,.strobe::before{opacity:.7}
+}

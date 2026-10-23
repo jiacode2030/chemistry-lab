@@ -36,7 +36,9 @@
 
 /* Analytics: GoatCounter, shared with every AP Labs site. Anonymous, no cookies, no personal data.
    Loads only on the public GitHub Pages site, and counts each module view as its own page. */
-(function analytics(){if(!/\.github\.io$/.test(location.hostname))return;window.goatcounter={no_onload:true};
+(function analytics(){if(!/\.github\.io$/.test(location.hostname))return;
+  /* honor Do Not Track and Global Privacy Control: no counter at all */
+  if(navigator.doNotTrack==='1'||window.doNotTrack==='1'||navigator.globalPrivacyControl===true)return;window.goatcounter={no_onload:true};
   const s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://aplabs.goatcounter.com/count';
   const view=()=>{const id=(location.hash||'').slice(1)||'overview';if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:location.pathname.replace(/\/$/,'')+'/'+id,title:id});};
   s.onload=()=>{view();addEventListener('hashchange',view);};document.head.appendChild(s);})();
