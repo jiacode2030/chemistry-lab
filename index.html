@@ -403,6 +403,12 @@ main::before{content:"";position:absolute;inset:0 0 auto;height:560px;pointer-ev
 .searchbtn .tl{flex:1}
 kbd{font:500 11px/1.4 var(--f-mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--muted);background:var(--surface)}
 .railtools{display:flex;flex-direction:column;gap:10px}
+/* link back to the AP Science Labs landing page */
+.morelabs{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;min-height:36px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px 6px 9px;font:500 12.5px var(--f-body);text-decoration:none;
+  transition:color var(--d-1),border-color var(--d-1)}
+.morelabs:hover{color:var(--ink);border-color:var(--muted)}
+.morelabs svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2}
+@media (max-width:900px){.morelabs{flex:none;padding:8px}.morelabs .tl{display:none}}
 @media (max-width:900px){.railprog{display:none}.railtools{flex-direction:row;order:1;flex:none;gap:8px}.themebtn{flex:none;padding:8px}.themebtn .tl,.searchbtn .tl,.searchbtn kbd{display:none}.searchbtn{width:auto;padding:8px;border-radius:999px;background:var(--surface)}}
 
 /* step pills: one sliding highlight */
@@ -965,6 +971,7 @@ h1{letter-spacing:-.03em}
     <div class="railtools">
     <button type="button" class="searchbtn" id="cmd-btn" aria-label="Search modules"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="tl">Search modules</span><kbd>/</kbd></button>
     <button type="button" class="themebtn" id="theme-btn" data-mode="auto"><svg class="ti-auto" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg><svg class="ti-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="ti-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span class="tl">Theme: auto</span></button>
+    <a class="morelabs" href="/ap-labs/" aria-label="More AP labs"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tl">More AP labs</span></a>
     </div>
     <nav class="nav" id="nav" aria-label="Modules"></nav>
     <select id="navsel" class="navsel" aria-label="Go to module"></select>
@@ -8044,7 +8051,8 @@ const myExamDate=()=>{try{return localStorage.getItem('chem-examdate')||'';}catc
 /* ---------------- Report an issue: opens a pre-filled GitHub issue (no server needed) ---------------- */
 (function report(){
   const dlg=$('#rp'),form=$('#rp-form'),where=$('#rp-where'),type=$('#rp-type'),det=$('#rp-details'),ctxEl=$('#rp-ctx'),msg=$('#rp-msg');
-  const REPO='https://github.com/jiacode2030/chemistry-lab';
+  const REPO='https://github.com/jiacode2030/ap-labs-feedback';
+  const COURSE='Chemistry Lab',COURSE_LABEL='course:chem',SITE_VERSION='2026-10-23';
   let ctx='';
   const viewName=v=>{if(v==='overview')return 'Overview';if(MODS[v])return MODS[v].t;const a=$(`#nav a[data-view="${v}"]`);return a?a.textContent.replace(/ \(\d+ due\)/,'').trim():v;};
   const clip=(t,n)=>t.length>n?t.slice(0,n-1)+'…':t;
@@ -8064,9 +8072,9 @@ const myExamDate=()=>{try{return localStorage.getItem('chem-examdate')||'';}catc
   const text=()=>`Report an issue (Chemistry Lab)\nWhere: ${viewName(where.value)} (#${where.value})\nType: ${type.value}\nDetails: ${det.value.trim()}\nContext: ${ctx}`;
   form.addEventListener('submit',e=>{e.preventDefault();const details=det.value.trim();
     if(!details){msg.className='msg no';msg.textContent='Add a few words about the issue first.';det.focus();return;}
-    const title=clip(`[${type.value}] ${viewName(where.value)}: ${details.replace(/\s+/g,' ')}`,90);
-    const body=`**Where:** ${viewName(where.value)} (#${where.value})\n**Type:** ${type.value}\n\n${details}\n\n**Context:** ${ctx}`;
-    const url=REPO+'/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
+    const title=clip(`[${COURSE}] [${type.value}] ${viewName(where.value)}: ${details.replace(/\s+/g,' ')}`,100);
+    const body=`**Course:** ${COURSE}\n**Module:** ${viewName(where.value)} (#${where.value})\n**Type:** ${type.value}\n**Site version:** ${SITE_VERSION}\n\n${details}\n\n**Context:** ${ctx}`;
+    const url=REPO+'/issues/new?labels='+encodeURIComponent(COURSE_LABEL)+'&title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
     const w=window.open(url,'_blank');if(w)w.opener=null;msg.className='msg ok';msg.textContent=w?'Opened GitHub in a new tab. Press "Submit new issue" there.':'Your browser blocked the new tab. Use "Copy report text" and post it at '+REPO.replace('https://','')+'/issues.';});
   $('#rp-copy').addEventListener('click',async()=>{if(!det.value.trim()){msg.className='msg no';msg.textContent='Add a few words about the issue first.';det.focus();return;}
     let ok=false;try{await navigator.clipboard.writeText(text());ok=true;}catch(e){}msg.className='msg '+(ok?'ok':'no');msg.textContent=ok?'Copied. Paste it into a new issue or an email.':'Could not copy automatically.';});
@@ -8074,6 +8082,13 @@ const myExamDate=()=>{try{return localStorage.getItem('chem-examdate')||'';}catc
   dlg.addEventListener('click',e=>{if(e.target===dlg)close();});
   document.addEventListener('click',e=>{const b=e.target.closest('[data-report]');if(b){e.preventDefault();open(b);}});
 })();
+
+/* Analytics: GoatCounter, shared with every AP Science Labs site. Anonymous, no cookies, no personal data.
+   Loads only on the public GitHub Pages site, and counts each module view as its own page. */
+(function analytics(){if(!/\.github\.io$/.test(location.hostname))return;window.goatcounter={no_onload:true};
+  const s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://aplabs.goatcounter.com/count';
+  const view=()=>{const id=(location.hash||'').slice(1)||'overview';if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:location.pathname.replace(/\/$/,'')+'/'+id,title:id});};
+  s.onload=()=>{view();addEventListener('hashchange',view);};document.head.appendChild(s);})();
 
 if(/[?&]debug/.test(location.search))window.__chem={PROBS,FRQS,GROUPS,MODS,METHODS,fmt,sci};
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{redraw();navSync(true);stepSync(true);});

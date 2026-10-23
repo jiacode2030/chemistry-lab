@@ -46,4 +46,6 @@ localStorage keys all start with `chem-` (Mechanics Lab uses `kin-`), so both si
 
 ## Reporting a problem
 
-Every module and practice problem has a **Report an issue** link that opens a pre-filled GitHub issue. You can also [open an issue](https://github.com/jiacode2030/chemistry-lab/issues/new) directly.
+Every module and practice problem has a **Report an issue** link that opens a pre-filled GitHub issue. Issues go to the shared [AP Science Labs feedback](https://github.com/jiacode2030/ap-labs-feedback/issues) tracker, labelled `course:chem`. You can also [open one directly](https://github.com/jiacode2030/ap-labs-feedback/issues/new/choose).
+
+The **More AP labs** link in the side rail goes to the [AP Science Labs](https://jiacode2030.github.io/ap-labs/) landing page. Visits are counted anonymously with GoatCounter (no cookies), shared with the other AP Science Labs sites.
