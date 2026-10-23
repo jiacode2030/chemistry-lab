@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Chemistry Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="An interactive, intuition-first study site for AP Chemistry: 3D molecules, particle simulations and randomized practice.">
@@ -937,6 +939,8 @@ h1{letter-spacing:-.03em}
   :root:not([data-theme="light"]) .rmeter i,.meter i{background:linear-gradient(90deg,#5E9C80,var(--accent))}
   :root:not([data-theme="light"]) .lab::before,.strobe::before{opacity:.7}
 }
+/* small phones: long FRQ unit tags may wrap */
+.frq .row .tag{white-space:normal;max-width:100%;line-height:1.35}
 
 </style>
 
