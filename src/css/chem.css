@@ -320,3 +320,5 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
   :root:not([data-theme="light"]) .chip.no{color:#FF9C8C}
 }
 .eq-block .net,.net{color:color-mix(in srgb,var(--good) 78%,var(--ink))}
+:root[data-theme="dark"] .try .small{color:#C9DDD1}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .try .small{color:#C9DDD1}}
