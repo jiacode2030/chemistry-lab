@@ -403,7 +403,7 @@ main::before{content:"";position:absolute;inset:0 0 auto;height:560px;pointer-ev
 .searchbtn .tl{flex:1}
 kbd{font:500 11px/1.4 var(--f-mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--muted);background:var(--surface)}
 .railtools{display:flex;flex-direction:column;gap:10px}
-/* link back to the AP Science Labs landing page */
+/* link back to the AP Labs landing page */
 .morelabs{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;min-height:36px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px 6px 9px;font:500 12.5px var(--f-body);text-decoration:none;
   transition:color var(--d-1),border-color var(--d-1)}
 .morelabs:hover{color:var(--ink);border-color:var(--muted)}
@@ -8083,7 +8083,7 @@ const myExamDate=()=>{try{return localStorage.getItem('chem-examdate')||'';}catc
   document.addEventListener('click',e=>{const b=e.target.closest('[data-report]');if(b){e.preventDefault();open(b);}});
 })();
 
-/* Analytics: GoatCounter, shared with every AP Science Labs site. Anonymous, no cookies, no personal data.
+/* Analytics: GoatCounter, shared with every AP Labs site. Anonymous, no cookies, no personal data.
    Loads only on the public GitHub Pages site, and counts each module view as its own page. */
 (function analytics(){if(!/\.github\.io$/.test(location.hostname))return;window.goatcounter={no_onload:true};
   const s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://aplabs.goatcounter.com/count';
