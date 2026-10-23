@@ -42,3 +42,5 @@
   const s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://aplabs.goatcounter.com/count';
   const view=()=>{const id=(location.hash||'').slice(1)||'overview';if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:location.pathname.replace(/\/$/,'')+'/'+id,title:id});};
   s.onload=()=>{view();addEventListener('hashchange',view);};document.head.appendChild(s);})();
+/* AP Labs app: offline support (sw.js). Only on the live site, and localhost for testing. */
+if('serviceWorker' in navigator&&(/\.github\.io$/.test(location.hostname)||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
