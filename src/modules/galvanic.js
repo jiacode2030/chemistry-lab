@@ -28,13 +28,13 @@ const FARADAY=96485;
       const vx=w/2,vy=wy;ctx.fillStyle=T.surface||'#fff';ctx.beginPath();ctx.arc(vx,vy,25,0,7);ctx.fill();ctx.strokeStyle=T.ink;ctx.lineWidth=2.5;ctx.stroke();label(ctx,'V',vx,vy-9,T.muted,'center','middle',MONO);label(ctx,fmt(Math.max(s.E,0),2),vx,vy+7,T.ink,'center','middle','700 13px "IBM Plex Mono",monospace');
       /* electrons: from anode side to cathode side along the wire */
       const pa=u=>{const ax=sideL?x0:x1,bx=sideL?x1:x0;const t=u;if(t<.2)return [ax,by-40+(wy-(by-40))*(t/.2)];if(t<.8)return [ax+(bx-ax)*((t-.2)/.6),wy];return [bx,wy+((by-40)-wy)*((t-.8)/.2)];};
-      es.forEach(e=>{const [px,py]=pa(e.u);dot(ctx,px,py,4,T.ce);});label(ctx,'e⁻ flow: anode → cathode',w/2,wy-34,T.ce,'center','middle',MONO);
+      es.forEach(e=>{const [px,py]=pa(e.u);dot(ctx,px,py,4,T.ce);});label(ctx,w<520?'e⁻: anode → cathode':'e⁻ flow: anode → cathode',w/2,wy-34,T.ce,'center','middle',MONO);
       /* salt bridge */
       const sb=by+10;ctx.strokeStyle=T.muted;ctx.lineWidth=14;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(lx+bw-8,sb-30);ctx.lineTo(lx+bw-8,sb-44);ctx.lineTo(rx+8,sb-44);ctx.lineTo(rx+8,sb-30);ctx.stroke();ctx.strokeStyle=alpha(T.hot,.35);ctx.lineWidth=9;ctx.stroke();ctx.lineCap='butt';
       /* ions in bridge: anions toward anode, cations toward cathode */
       ions.forEach(p=>{const ax=sideL?lx+bw-8:rx+8,cx=sideL?rx+8:lx+bw-8,y=sb-44;const t=p.u;const an=p.k===0;const x=an?cx+(ax-cx)*t:ax+(cx-ax)*t;dot(ctx,x,y,3,an?'#8B5CF6':'#E0A82E');});
-      label(ctx,'salt bridge: anions → anode, cations → cathode',w/2,H-8,T.muted,'center','middle',MONO);
-      label(ctx,'Oxidation: anode (An Ox)  ·  Reduction: cathode (Red Cat)',w/2,12,T.muted,'center','middle',MONO);}});
+      label(ctx,w<520?'salt bridge: anions → anode':'salt bridge: anions → anode, cations → cathode',w/2,H-8,T.muted,'center','middle',MONO);
+      label(ctx,w<520?'An Ox · Red Cat':'Oxidation: anode (An Ox)  ·  Reduction: cathode (Red Cat)',w/2,12,T.muted,'center','middle',MONO);}});
   const g=$('#gv-ladder'),gs=sim2d(g,{h:()=>H,draw(ctx,w,h){const s=state(xi()),lo=-2.6,hi=1.1,Y=v=>16+(h-40)*(1-(v-lo)/(hi-lo));ctx.strokeStyle=T.muted;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(46,12);ctx.lineTo(46,h-18);ctx.stroke();
       for(let v=-2;v<=1;v++){ctx.strokeStyle=T.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(46,Y(v));ctx.lineTo(w-8,Y(v));ctx.stroke();label(ctx,(v>0?'+':'')+v+' V',42,Y(v),T.muted,'right','middle',MONO);}
       keys.forEach(k=>{const on=k===s.an||k===s.ca,y=Y(GV[k].E);ctx.fillStyle=on?(k===s.ca?T.cx:T.ca):alpha(T.muted,.5);ctx.fillRect(56,y-3,on?90:60,6);label(ctx,k+' '+GV[k].E.toFixed(2),on?152:122,y,on?T.ink:T.muted,'left','middle',on?'600 12px "IBM Plex Mono",monospace':MONO);});

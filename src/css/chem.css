@@ -132,3 +132,110 @@ table.data{min-width:0}
   input[type=range]{min-height:44px}
   .steps a{min-height:40px}
 }
+
+/* =====================================================================
+   Pastel-green theme layer: soft sage surfaces, a leafy accent, rounder cards.
+   Particle/graph color roles (blue, green, violet, orange, gold) are unchanged.
+   ===================================================================== */
+:root{
+  --bg:#EAF4EC; --surface:#FBFEFB; --sunk:#DDEBDF; --ink:#14291F; --muted:#51675A; --line:#C6DCCB; --grid:#DAEADD;
+  --accent:#2F8A63; --accent-d:#236C4D; --accent-soft:#D3EBDC; --accent-ink:#FFFFFF; --blush:#FBE9EE; --peach:#FDEBD8;
+  --shadow-1:0 1px 2px rgba(20,60,40,.06),0 4px 14px rgba(20,60,40,.06);
+  --shadow-2:0 2px 4px rgba(20,60,40,.07),0 16px 34px rgba(20,60,40,.12);
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1712; --surface:#14211A; --sunk:#1B2C23; --ink:#E5F1E9; --muted:#9BB3A5; --line:#28402F; --grid:#1A2B21;
+  --accent:#6FD0A0; --accent-d:#8FE0B8; --accent-soft:#1F3A2C; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
+  --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 2px 4px rgba(0,0,0,.4),0 14px 30px rgba(0,0,0,.45);}}
+:root[data-theme="dark"]{
+  --bg:#0D1712; --surface:#14211A; --sunk:#1B2C23; --ink:#E5F1E9; --muted:#9BB3A5; --line:#28402F; --grid:#1A2B21;
+  --accent:#6FD0A0; --accent-d:#8FE0B8; --accent-soft:#1F3A2C; --accent-ink:#0B1A12; --blush:#33202A; --peach:#33271A;
+  --shadow-1:0 1px 2px rgba(0,0,0,.4); --shadow-2:0 2px 4px rgba(0,0,0,.4),0 14px 30px rgba(0,0,0,.45);}
+
+/* page: soft pastel glow instead of a flat grey */
+html,body{background:var(--bg)}
+body{background:
+  radial-gradient(900px 520px at 88% -8%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%),
+  radial-gradient(700px 480px at -6% 30%,color-mix(in srgb,#F6C9A8 22%,transparent),transparent 70%),var(--bg);background-attachment:fixed}
+main::before{opacity:.55}
+a{color:var(--accent-d)}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:2px}
+
+/* side rail */
+.rail{background:linear-gradient(180deg,color-mix(in srgb,var(--accent-soft) 55%,var(--surface)),var(--surface) 45%);border-right:1px solid var(--line)}
+.brand{color:var(--ink)}
+.nav a{border-radius:12px;padding:7px 12px;color:var(--muted);transition:background .18s,color .18s,transform .18s}
+.nav a:hover{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--ink);transform:translateX(2px)}
+.nav a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);font-weight:600;box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+.nav .ind{background:var(--accent);border-radius:12px;box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+.nav.has-ind a[aria-current="page"]{color:var(--accent-ink)}
+.nav .grp{color:var(--accent-d);letter-spacing:.09em}
+.nav a.done::after{color:var(--accent)}
+.rmeter{background:color-mix(in srgb,var(--accent) 18%,var(--surface));height:8px}
+.rmeter i{background:linear-gradient(90deg,#8ED9B0,var(--accent))}
+.searchbtn,.themebtn{border-radius:14px;background:color-mix(in srgb,var(--surface) 70%,var(--accent-soft));border-color:var(--line)}
+.searchbtn:hover,.themebtn:hover{border-color:var(--accent)}
+
+/* buttons */
+.btn{border-radius:12px;border-color:var(--line);background:var(--surface)}
+.btn:hover{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 32%,transparent)}
+.btn.primary:hover{background:var(--accent-d);border-color:var(--accent-d);opacity:1}
+.btn.link{color:var(--accent-d)}
+.btn.isdone{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.fs-btn{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:var(--shadow-2)}
+.seg{background:color-mix(in srgb,var(--accent) 10%,var(--sunk));border-radius:12px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent-d);box-shadow:0 1px 4px rgba(20,60,40,.18)}
+input[type=range],input[type=checkbox]{accent-color:var(--accent)}
+select,input[type=text]{border-radius:11px;background:var(--surface);border-color:var(--line)}
+select:focus,input[type=text]:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+
+/* cards and panels */
+.lab,.example,.sorter,.frq,.prob,.strobe,.start>div,.mod,.modnav a,.tablewrap,.hs-row,.stp{border-radius:var(--r);border-color:var(--line);background:var(--surface);box-shadow:var(--shadow-1)}
+.lab::before,.strobe::before{background:linear-gradient(90deg,#8ED9B0 0 34%,#9CC7F2 34% 67%,#F4B6CB 67% 100%);height:5px;width:64px;border-radius:0 0 4px 4px}
+.mod:hover{border-color:var(--accent);box-shadow:var(--shadow-2)}
+.mod::before{background:var(--accent)}
+.readout{border-radius:14px;background:var(--line);border-color:var(--line)}
+.coach{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:14px}
+.coach b{color:var(--accent-d)}
+.intuit{background:color-mix(in srgb,var(--accent-soft) 70%,var(--surface));border-left:4px solid var(--accent);border-radius:0 var(--r) var(--r) 0}
+.intuit .k{color:var(--accent-d)}
+.try{background:color-mix(in srgb,#CFE6FA 28%,var(--surface));border-color:color-mix(in srgb,#8DBCEB 40%,var(--line));border-radius:var(--r)}
+.assume.upgrade{background:var(--blush);border-color:color-mix(in srgb,#E58AA8 45%,var(--line));border-radius:var(--r)}
+.oops{background:color-mix(in srgb,var(--peach) 55%,var(--surface));border-left-color:#E5895B;border-radius:0 var(--r) var(--r) 0;padding:14px 18px}
+.oops h3{color:#B5502A}
+.note{background:var(--peach);border-radius:12px;border-left-color:#E5895B;padding:10px 14px}
+.ttip{background:var(--peach);border-radius:var(--r)}
+.eqgrid .eqc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.eq-block{background:var(--sunk);border-radius:14px}
+.tag{background:color-mix(in srgb,var(--accent-soft) 60%,var(--surface));border-color:color-mix(in srgb,var(--accent) 30%,var(--line));color:var(--accent-d)}
+.tag.ap{background:var(--accent-soft);color:var(--accent-d);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.eyebrow{color:var(--accent-d)}
+details summary{border-color:color-mix(in srgb,var(--accent) 40%,transparent);color:var(--accent-d)}
+details summary:hover,details[open] summary{background:var(--accent-soft)}
+details>p,details>div{border-left-color:var(--accent);background:var(--surface)}
+.quiz .opts button{border-radius:12px}
+.quiz .opts button:hover{background:var(--accent-soft)}
+.example h3,.try h3,.sorter h3{color:var(--accent-d)}
+.meter{background:color-mix(in srgb,var(--accent) 16%,var(--surface))}.meter i{background:linear-gradient(90deg,#8ED9B0,var(--accent))}
+
+/* step pills */
+.steps a{border-radius:999px;background:var(--surface);border-color:var(--line)}
+.steps .ind{background:var(--accent);box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+.steps a.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.steps a.on .sn{color:var(--accent-ink)}
+.steps.has-ind a.on{color:var(--accent-ink)}
+
+/* headings and hero */
+h1{letter-spacing:-.03em}
+.hero h1 .hl{background:linear-gradient(transparent 60%,color-mix(in srgb,#8ED9B0 62%,transparent) 60% 94%,transparent 94%) no-repeat 0 0/100% 100%}
+.wrap>.head h2::after{background:var(--accent);border-radius:3px}
+.hero .copy .btn.primary{padding:12px 20px;font-size:15px}
+.strobe{background:linear-gradient(160deg,var(--surface),color-mix(in srgb,var(--accent-soft) 55%,var(--surface)))}
+.lede{color:var(--muted)}
+.gloss{text-decoration-color:var(--accent)}
+#gtip,.cmd,.pop{border-radius:var(--r)}
+#cmd-list li[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.bubble{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:900px){.rail{background:var(--surface);backdrop-filter:blur(8px)}}
