@@ -34,7 +34,7 @@
   document.addEventListener('click',e=>{const b=e.target.closest('[data-report]');if(b){e.preventDefault();open(b);}});
 })();
 
-/* Analytics: GoatCounter, shared with every AP Labs site. Anonymous, no cookies, no personal data.
+/* Analytics: GoatCounter, shared with every Intulab site. Anonymous, no cookies, no personal data.
    Loads only on the public GitHub Pages site, and counts each module view as its own page. */
 (function analytics(){if(!/\.github\.io$/.test(location.hostname))return;
   /* honor Do Not Track and Global Privacy Control: no counter at all */
@@ -42,9 +42,9 @@
   const s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://aplabs.goatcounter.com/count';
   const view=()=>{const id=(location.hash||'').slice(1)||'overview';if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:location.pathname.replace(/\/$/,'')+'/'+id,title:id});};
   s.onload=()=>{view();addEventListener('hashchange',view);};document.head.appendChild(s);})();
-/* AP Labs app: offline support (sw.js). Only on the live site, and localhost for testing. */
+/* Intulab app: offline support (sw.js). Only on the live site, and localhost for testing. */
 if('serviceWorker' in navigator&&(/\.github\.io$/.test(location.hostname)||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-/* Get the AP Labs app (same app as the AP Labs page; hidden once you're in it) */
+/* Get the Intulab app (same app as the Intulab page; hidden once you're in it) */
 (function appInstall(){var btns=document.querySelectorAll('.appbtn,.appbtn2'),dlg=document.getElementById('app-dlg');if(!btns.length||!dlg)return;
   var each=function(f){Array.prototype.forEach.call(btns,f);};
   if(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)return;
