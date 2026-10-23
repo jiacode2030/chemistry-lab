@@ -44,3 +44,14 @@
   s.onload=()=>{view();addEventListener('hashchange',view);};document.head.appendChild(s);})();
 /* AP Labs app: offline support (sw.js). Only on the live site, and localhost for testing. */
 if('serviceWorker' in navigator&&(/\.github\.io$/.test(location.hostname)||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+/* Get the AP Labs app (same app as the AP Labs page; hidden once you're in it) */
+(function appInstall(){var btns=document.querySelectorAll('.appbtn,.appbtn2'),dlg=document.getElementById('app-dlg');if(!btns.length||!dlg)return;
+  var each=function(f){Array.prototype.forEach.call(btns,f);};
+  if(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)return;
+  each(function(b){b.hidden=false;});var prompt=null;
+  var ua=navigator.userAgent,os=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)?'ios':/Android/.test(ua)?'android':'desktop';
+  var form=dlg.querySelector('form'),mine=dlg.querySelector('[data-os="'+os+'"]'),more=document.createElement('details');more.innerHTML='<summary>Other devices</summary>';
+  Array.prototype.forEach.call(dlg.querySelectorAll('.appos'),function(el){if(el!==mine)more.appendChild(el);});form.insertBefore(more,form.querySelector('.approw'));
+  addEventListener('beforeinstallprompt',function(e){e.preventDefault();prompt=e;});
+  addEventListener('appinstalled',function(){each(function(b){b.hidden=true;});});
+  each(function(b){b.addEventListener('click',function(){if(prompt){prompt.prompt();prompt=null;return;}if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');});});})();

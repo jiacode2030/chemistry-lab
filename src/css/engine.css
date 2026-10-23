@@ -409,6 +409,23 @@ kbd{font:500 11px/1.4 var(--f-mono);border:1px solid var(--line);border-bottom-w
 .exfmt dd{margin:0;color:var(--muted)}
 .exfmt .exsrc{font-size:12.5px;color:var(--muted);margin:0}
 @media (max-width:560px){.exfmt dl{grid-template-columns:1fr}.exfmt dd{margin-bottom:6px}}
+/* Get the AP Labs app: button in the rail and the steps dialog */
+.appbtn,.appbtn2{cursor:pointer}
+.appbtn[hidden],.appbtn2[hidden]{display:none!important}
+/* computers: in the side rail; phones: on the course's home page (the top bar is full) */
+@media (max-width:900px){.appbtn{display:none!important}}
+@media (min-width:901px){.appbtn2{display:none!important}}
+.appdlg{max-width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;width:100%;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.appdlg::backdrop{background:rgba(5,10,20,.55)}
+.appdlg h2{margin:0 0 8px;font-size:22px}
+.appdlg h3{margin:16px 0 6px;font-size:15px}
+.appdlg p{margin:0 0 4px;color:var(--muted)}
+.appdlg ol{margin:0;padding-left:22px}.appdlg li{margin:4px 0}
+.appdlg .appnote{font-size:13.5px;margin-top:8px}
+.appdlg details{margin-top:14px;border-top:1px solid var(--line);padding-top:6px}
+.appdlg summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+.appdlg summary::before{content:'▸';margin-right:8px}.appdlg details[open] summary::before{content:'▾'}
+.appdlg .approw{display:flex;justify-content:flex-end;margin-top:18px}
 /* link back to the AP Labs landing page */
 .morelabs{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;min-height:36px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 12px 6px 9px;font:500 12.5px var(--f-body);text-decoration:none;
   transition:color var(--d-1),border-color var(--d-1)}
