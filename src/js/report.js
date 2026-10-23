@@ -25,7 +25,7 @@
     const title=clip(`[${type.value}] ${viewName(where.value)}: ${details.replace(/\s+/g,' ')}`,90);
     const body=`**Where:** ${viewName(where.value)} (#${where.value})\n**Type:** ${type.value}\n\n${details}\n\n**Context:** ${ctx}`;
     const url=REPO+'/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
-    const w=window.open(url,'_blank','noopener');msg.className='msg ok';msg.textContent=w?'Opened GitHub in a new tab. Press "Submit new issue" there.':'Your browser blocked the new tab. Use "Copy report text" and post it at '+REPO.replace('https://','')+'/issues.';});
+    const w=window.open(url,'_blank');if(w)w.opener=null;msg.className='msg ok';msg.textContent=w?'Opened GitHub in a new tab. Press "Submit new issue" there.':'Your browser blocked the new tab. Use "Copy report text" and post it at '+REPO.replace('https://','')+'/issues.';});
   $('#rp-copy').addEventListener('click',async()=>{if(!det.value.trim()){msg.className='msg no';msg.textContent='Add a few words about the issue first.';det.focus();return;}
     let ok=false;try{await navigator.clipboard.writeText(text());ok=true;}catch(e){}msg.className='msg '+(ok?'ok':'no');msg.textContent=ok?'Copied. Paste it into a new issue or an email.':'Could not copy automatically.';});
   $('#rp-close').addEventListener('click',close);
