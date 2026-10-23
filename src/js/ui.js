@@ -118,15 +118,15 @@ function flipFrom(el,from,ms=480){if(REDUCE||!el.animate)return null;const to=el
 /* ---------------- AP exam countdown ----------------
    College Board sets the date each year. Add the AP Chemistry date to AP_EXAM_DATES (YYYY-MM-DD) once it is posted at
    apstudents.collegeboard.org/exam-dates. Until then the page says the date isn't posted instead of guessing.
-   Exam time varies by subject, so the countdown counts calendar days and does not state a start time. */
-const AP_EXAM_DATES=[];
+   AP Chemistry is a Session 2 (afternoon) exam, 12 p.m. local time for most schools; some locations differ, so the text says to confirm with your coordinator. */
+const AP_EXAM_DATES=['2027-05-06'];
 const myExamDate=()=>{try{return localStorage.getItem('chem-examdate')||'';}catch(e){return '';}};
 (function countdown(){const el=$('#ap-count'),rl=$('#rail-count');if(!el)return;
   function paint(){const now=new Date(),link='<a href="https://apstudents.collegeboard.org/exam-dates" target="_blank" rel="noopener">official schedule</a>';
     const mine=myExamDate(),next=(mine?[mine]:AP_EXAM_DATES).map(d=>{const [y,m,dd]=d.split('-').map(Number);return new Date(y,m-1,dd);}).filter(x=>new Date(x.getFullYear(),x.getMonth(),x.getDate()+1)>now).sort((a,b)=>a-b)[0];
     if(next){const days=Math.ceil((next-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5),fd=next.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
       if(days<=0){el.innerHTML=`<span class="num">Today</span><span class="lbl">AP Chemistry exam day. Good luck!<small>${fd}</small></span>`;if(rl)rl.textContent='AP exam today. Good luck!';}
-      else{el.innerHTML=`<span class="num">${days}</span><span class="lbl">day${days===1?'':'s'} until the AP Chemistry exam<small>${fd} · ${mine?'your date':link} · <button type="button" class="btn link ap-set" style="padding:0;min-height:0">${mine?'change':'set my date'}</button></small></span>`;if(rl)rl.textContent=`${days} day${days===1?'':'s'} to the AP exam`;}}
+      else{el.innerHTML=`<span class="num">${days}</span><span class="lbl">day${days===1?'':'s'} until the AP Chemistry exam<small>${fd}${mine?'':', afternoon session (12 p.m. for most schools)'} · ${mine?'your date':link} · <button type="button" class="btn link ap-set" style="padding:0;min-height:0">${mine?'change':'set my date'}</button></small></span>`;if(rl)rl.textContent=`${days} day${days===1?'':'s'} to the AP exam`;}}
     else{const y=now.getMonth()>4?now.getFullYear()+1:now.getFullYear();el.innerHTML=`<span class="lbl">Next AP Chemistry exam: early to mid May ${y}<small>The exact date isn't listed here yet. Check the ${link}, or <button type="button" class="btn link ap-set" style="padding:0;min-height:0">set your own exam date</button> for a countdown.</small></span>`;if(rl)rl.textContent='';}
     const b=$('.ap-set');if(b)b.onclick=()=>{const v=prompt('Your AP Chemistry exam date (YYYY-MM-DD). Leave empty to clear.',myExamDate()||'');if(v===null)return;try{if(/^\d{4}-\d{2}-\d{2}$/.test(v.trim()))localStorage.setItem('chem-examdate',v.trim());else localStorage.removeItem('chem-examdate');}catch(e){}paint();};}
   paint();setInterval(paint,6e5);})();
