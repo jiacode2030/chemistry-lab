@@ -1,45 +1,178 @@
 {
- "units":{"t":"Units & dimensional analysis","d":"Convert anything by cancelling units, one factor at a time."},
- "sigfigs":{"t":"Scientific notation & sig figs","d":"How many digits to trust, and how to write very big and very small numbers."},
- "logs":{"t":"Logs & pH math","d":"Why pH is a log scale, and how to go back and forth."},
- "icealg":{"t":"ICE-table algebra","d":"Quadratics, the 'x is small' shortcut and when it fails."},
- "mole":{"t":"Moles & molar mass","d":"Count atoms by weighing them."},
- "massspec":{"t":"Mass spectra & average atomic mass","d":"Isotopes, peaks and why masses aren't whole numbers."},
- "composition":{"t":"Composition & empirical formulas","d":"From percent composition to a formula."},
- "pes":{"t":"Electron configuration & PES","d":"Fill the shells, then read the photoelectron spectrum."},
- "orbitals":{"t":"Orbital shapes in 3D","d":"Spin s, p and d orbitals and see where electrons live."},
- "trends":{"t":"Periodic trends & Coulomb's law","d":"Radius and ionization energy from nuclear pull and shielding."},
- "bonding":{"t":"Bonding & potential energy","d":"Why atoms bond: the energy well between two atoms."},
- "lewis":{"t":"Lewis structures & formal charge","d":"Place the electrons, check the formal charges."},
- "vsepr":{"t":"VSEPR shapes & polarity","d":"Tie balloons together: shapes, bond angles and dipoles in 3D."},
- "hybrid":{"t":"Hybridization, sigma and pi bonds","d":"Orbitals overlapping end-to-end and side-by-side."},
- "imf":{"t":"Intermolecular forces","d":"The attractions between molecules and what they do to boiling points."},
- "solids":{"t":"Types of solids","d":"Ionic, metallic, network and molecular solids in 3D."},
- "gases":{"t":"Gas laws & kinetic theory","d":"A piston full of particles: pressure, volume, temperature, moles."},
- "solutions":{"t":"Solutions & molarity","d":"Dissolving, diluting and what the particles are doing."},
- "light":{"t":"Light & Beer–Lambert","d":"Photons, spectra and how color tells concentration."},
- "separation":{"t":"Separating mixtures","d":"Chromatography and distillation as particle races."},
- "equations":{"t":"Balancing equations","d":"Conserve atoms with particle diagrams."},
- "stoich":{"t":"Stoichiometry & limiting reagent","d":"Run a reaction particle by particle and see what runs out."},
- "precip":{"t":"Net ionic equations & precipitation","d":"Mix two solutions and watch the solid fall out."},
- "redox":{"t":"Oxidation states & redox","d":"Follow the electrons from one species to another."},
- "rates":{"t":"Reaction rates & rate laws","d":"Find the order by changing concentrations."},
- "integrated":{"t":"Integrated rate laws","d":"Half-lives and the straight-line test."},
- "collision":{"t":"Collision theory","d":"Why heat and catalysts speed reactions up."},
- "mechanism":{"t":"Mechanisms & energy diagrams","d":"Steps, intermediates and the slow step."},
- "heatflow":{"t":"Heat & phase changes","d":"The heating curve, with particles."},
- "calorimetry":{"t":"Calorimetry","d":"Measure heat with a coffee cup."},
- "enthalpy":{"t":"Enthalpy & Hess's law","d":"Bond energies, formation enthalpies and adding up steps."},
- "equilibrium":{"t":"Dynamic equilibrium, K and Q","d":"Forward and reverse at the same rate."},
- "icecalc":{"t":"Equilibrium calculations","d":"ICE tables with particles and numbers."},
- "lechatelier":{"t":"Le Châtelier's principle","d":"Stress an equilibrium and watch it respond."},
- "ksp":{"t":"Solubility equilibria","d":"Ksp, the common-ion effect and precipitation."},
- "ph":{"t":"pH, pOH & strong acids","d":"Count the H₃O⁺ in water."},
- "weak":{"t":"Weak acids & Ka","d":"Only a few molecules ionize. Which ones, and how many?"},
- "titration":{"t":"Titration curves","d":"Add base drop by drop and watch the pH."},
- "buffers":{"t":"Buffers","d":"A solution that resists change."},
- "entropy":{"t":"Entropy & microstates","d":"Count the ways to arrange energy and matter."},
- "gibbs":{"t":"Gibbs free energy","d":"ΔG = ΔH − TΔS on a temperature slider."},
- "galvanic":{"t":"Galvanic cells","d":"A battery you can build, with electron flow."},
- "electrolysis":{"t":"Electrolysis","d":"Forcing a reaction with electricity."}
+ "units": {
+  "t": "Units & dimensional analysis",
+  "d": "Convert anything by cancelling units, one factor at a time."
+ },
+ "sigfigs": {
+  "t": "Scientific notation & sig figs",
+  "d": "How many digits to trust, and how to write very big and very small numbers."
+ },
+ "logs": {
+  "t": "Logs & pH math",
+  "d": "Why pH is a log scale, and how to go back and forth."
+ },
+ "icealg": {
+  "t": "ICE-table algebra",
+  "d": "Quadratics, the 'x is small' shortcut and when it fails."
+ },
+ "mole": {
+  "t": "Moles & molar mass",
+  "d": "Count atoms by weighing them."
+ },
+ "massspec": {
+  "t": "Mass spectra & average atomic mass",
+  "d": "Isotopes, peaks and why masses aren't whole numbers."
+ },
+ "composition": {
+  "t": "Composition & empirical formulas",
+  "d": "From percent composition to a formula."
+ },
+ "pes": {
+  "t": "Electron configuration & PES",
+  "d": "Fill the shells, then read the photoelectron spectrum."
+ },
+ "orbitals": {
+  "t": "Orbital shapes in 3D",
+  "d": "Spin s, p and d orbitals and see where electrons live."
+ },
+ "trends": {
+  "t": "Periodic trends & Coulomb's law",
+  "d": "Radius and ionization energy from nuclear pull and shielding."
+ },
+ "bonding": {
+  "t": "Bonding & potential energy",
+  "d": "Why atoms bond: the energy well between two atoms."
+ },
+ "lewis": {
+  "t": "Lewis structures & formal charge",
+  "d": "Place the electrons, check the formal charges."
+ },
+ "vsepr": {
+  "t": "VSEPR shapes & polarity",
+  "d": "Tie balloons together: shapes, bond angles and dipoles in 3D."
+ },
+ "hybrid": {
+  "t": "Hybridization, sigma and pi bonds",
+  "d": "Orbitals overlapping end-to-end and side-by-side."
+ },
+ "imf": {
+  "t": "Intermolecular forces",
+  "d": "The attractions between molecules and what they do to boiling points."
+ },
+ "solids": {
+  "t": "Types of solids",
+  "d": "Ionic, metallic, network and molecular solids in 3D."
+ },
+ "gases": {
+  "t": "Gas laws & kinetic theory",
+  "d": "A piston full of particles: pressure, volume, temperature, moles."
+ },
+ "solutions": {
+  "t": "Solutions & molarity",
+  "d": "Dissolving, diluting and what the particles are doing."
+ },
+ "light": {
+  "t": "Light & Beer–Lambert",
+  "d": "Photons, spectra and how color tells concentration."
+ },
+ "separation": {
+  "t": "Separating mixtures",
+  "d": "Chromatography and distillation as particle races."
+ },
+ "equations": {
+  "t": "Balancing equations",
+  "d": "Conserve atoms with particle diagrams."
+ },
+ "stoich": {
+  "t": "Stoichiometry & limiting reagent",
+  "d": "Run a reaction particle by particle and see what runs out."
+ },
+ "precip": {
+  "t": "Net ionic equations & precipitation",
+  "d": "Mix two solutions and watch the solid fall out."
+ },
+ "redox": {
+  "t": "Oxidation states & redox",
+  "d": "Follow the electrons from one species to another."
+ },
+ "rates": {
+  "t": "Reaction rates & rate laws",
+  "d": "Find the order by changing concentrations."
+ },
+ "integrated": {
+  "t": "Integrated rate laws",
+  "d": "Half-lives and the straight-line test."
+ },
+ "collision": {
+  "t": "Collision theory",
+  "d": "Why heat and catalysts speed reactions up."
+ },
+ "mechanism": {
+  "t": "Mechanisms & energy diagrams",
+  "d": "Steps, intermediates and the slow step."
+ },
+ "heatflow": {
+  "t": "Heat & phase changes",
+  "d": "The heating curve, with particles."
+ },
+ "calorimetry": {
+  "t": "Calorimetry",
+  "d": "Measure heat with a coffee cup."
+ },
+ "enthalpy": {
+  "t": "Enthalpy & Hess's law",
+  "d": "Bond energies, formation enthalpies and adding up steps."
+ },
+ "equilibrium": {
+  "t": "Dynamic equilibrium, K and Q",
+  "d": "Forward and reverse at the same rate."
+ },
+ "icecalc": {
+  "t": "Equilibrium calculations",
+  "d": "ICE tables with particles and numbers."
+ },
+ "lechatelier": {
+  "t": "Le Châtelier's principle",
+  "d": "Stress an equilibrium and watch it respond."
+ },
+ "ksp": {
+  "t": "Solubility equilibria",
+  "d": "Ksp, the common-ion effect and precipitation."
+ },
+ "ph": {
+  "t": "pH, pOH & strong acids",
+  "d": "Count the H₃O⁺ in water."
+ },
+ "weak": {
+  "t": "Weak acids & Ka",
+  "d": "Only a few molecules ionize. Which ones, and how many?"
+ },
+ "salts": {
+  "t": "Salts & polyprotic acids",
+  "d": "Is a salt solution acidic, basic or neutral? Which form of an acid dominates at a given pH?"
+ },
+ "titration": {
+  "t": "Titration curves",
+  "d": "Add base drop by drop and watch the pH."
+ },
+ "buffers": {
+  "t": "Buffers",
+  "d": "A solution that resists change."
+ },
+ "entropy": {
+  "t": "Entropy & microstates",
+  "d": "Count the ways to arrange energy and matter."
+ },
+ "gibbs": {
+  "t": "Gibbs free energy",
+  "d": "ΔG = ΔH − TΔS on a temperature slider."
+ },
+ "galvanic": {
+  "t": "Galvanic cells",
+  "d": "A battery you can build, with electron flow."
+ },
+ "electrolysis": {
+  "t": "Electrolysis",
+  "d": "Forcing a reaction with electricity."
+ }
 }

@@ -50,3 +50,8 @@ const IMF_SUB=[['He','London dispersion (very weak)',4.2,'#7CC4E6'],['Ar','Londo
   PROBS.push({id:'imf-like',topic:'imf',title:'Like dissolves like',gen(){const [f,a,why]=pick(SOL),ch=['soluble in water','not very soluble in water'];
     return {q:`Is ${f} likely to be soluble in water?`,choices:ch,ans:a==='yes'?0:1,hint:'Water is polar and hydrogen bonds. Substances that can form strong attractions with water dissolve; nonpolar ones do not.',sol:`${f} is <b>${a==='yes'?'soluble':'not very soluble'}</b>: ${why}.`};}});
 })();
+
+(function(){
+  const Q=[['Which attraction mainly pulls an NaCl crystal apart when it dissolves in water?',['Ion–dipole forces between the ions and water','London dispersion forces between the ions','Covalent bonds between Na and Cl','Hydrogen bonds between Na⁺ and Cl⁻'],0,'water\'s partial charges surround each ion'],['Why is KBr soluble in water but not in hexane?',['Hexane cannot form ion–dipole attractions strong enough to separate the ions','KBr is nonpolar','Hexane is too dense','The ions are too large'],0,'nonpolar hexane has only dispersion forces, far weaker than the lattice attraction'],['Which is the strongest of these attractions?',['Ion–dipole','Hydrogen bonding','Dipole–dipole','London dispersion'],0,'ion–dipole involves a full ionic charge']];
+  PROBS.push({id:'imf-ion',topic:'imf',title:'Ion–dipole forces',gen(){const [q,ch,a,why]=pick(Q);return {q,choices:ch,ans:a,hint:'Think about which particles are charged and which are only partially charged.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+})();

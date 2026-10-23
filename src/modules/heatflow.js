@@ -53,3 +53,8 @@ function heatAt(m,Q){const S=heatSegs(m);let acc=0;for(let i=0;i<S.length;i++){c
       ['Two samples of the same liquid, one of mass 10 g and one of 20 g, absorb the same amount of heat. Which warms more?',['The 10 g sample','The 20 g sample','They warm the same','Cannot tell'],0,'ΔT = q/(mc): half the mass means twice the temperature change.']];
     const [q,ch,a,why]=pick(Q);return {q,choices:ch,ans:a,hint:'Think about what the energy does to the particles at each stage.',sol:why};}});
 })();
+
+(function(){
+  const Q=[['A hot metal block is placed in cool water in an insulated container. At thermal equilibrium…',['both have the same temperature','the metal is still hotter','the water is hotter','both are at the average of their masses'],0,'heat flows until the temperatures are equal'],['Two objects reach thermal equilibrium. Which statement is true?',['The heat lost by the hotter object equals the heat gained by the cooler one (no energy is lost)','The hotter object loses more energy than the cooler one gains','Temperature is transferred from hot to cold','Both have the same heat content'],0,'energy is conserved'],['Heat always flows…',['from higher temperature to lower temperature','from more massive to less massive objects','from lower to higher temperature','from objects with more heat to objects with less heat'],0,'it is the temperature difference that drives the flow']];
+  PROBS.push({id:'hf-equil',topic:'heatflow',title:'Thermal equilibrium',gen(){const [q,ch,a,why]=pick(Q);return {q,choices:ch,ans:a,hint:'Think about the direction of energy flow and conservation of energy.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+})();

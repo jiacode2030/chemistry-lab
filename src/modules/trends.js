@@ -79,3 +79,12 @@ const trShell=z=>z<=10?2:z<=18?3:4;
     return {q:`Two oppositely charged particles attract with force F. The positive charge is multiplied by ${a}, the negative charge by ${b}, and the distance between them is ${d===.5?'halved':'multiplied by '+d}. By what factor does the force change?`,ans,unit:'× F',tol:.02,hint:'F is proportional to q₁q₂/r². Multiply the charge factors and divide by the square of the distance factor.',
       sol:`Factor = (${a} × ${b}) / ${d}² = ${a*b} / ${d*d} = <b>${fmt(ans,3)}</b>.`};}});
 })();
+
+(function(){
+  const ISO=[[['N³⁻','O²⁻','F⁻','Na⁺','Mg²⁺','Al³⁺'],10],[['S²⁻','Cl⁻','K⁺','Ca²⁺'],18],[['Se²⁻','Br⁻','Rb⁺','Sr²⁺'],36],[['O²⁻','F⁻','Na⁺','Mg²⁺'],10]];
+  const ZI={'N³⁻':7,'O²⁻':8,'F⁻':9,'Na⁺':11,'Mg²⁺':12,'Al³⁺':13,'S²⁻':16,'Cl⁻':17,'K⁺':19,'Ca²⁺':20,'Se²⁻':34,'Br⁻':35,'Rb⁺':37,'Sr²⁺':38};
+  PROBS.push({id:'tr-iso',topic:'trends',title:'Isoelectronic ions: which is largest?',gen(){const [list,n]=pick(ISO),sub=list.slice().sort(()=>Math.random()-.5).slice(0,4),big=sub.reduce((a,b)=>ZI[a]<ZI[b]?a:b);
+    return {q:`The ions ${sub.join(', ')} all have ${n} electrons. Which is the largest?`,choices:sub,ans:sub.indexOf(big),hint:'With the same number of electrons, the ion with the fewest protons pulls on them least.',sol:`<b>${big}</b> has the fewest protons (Z = ${ZI[big]}), so the weakest attraction for the same ${n} electrons.`};}});
+  const Q=[['Which element has the most negative (most favorable) electron affinity?',['Cl','Ar','Mg','Na'],0,'halogens gain an electron to complete an octet'],['Why is the electron affinity of nitrogen less favorable than that of carbon?',['The added electron must pair up in a 2p orbital','Nitrogen has a smaller nucleus','Nitrogen has no valence electrons','Nitrogen is a metal'],0,'N has a half-filled 2p subshell; a fourth 2p electron must pair, adding repulsion'],['Which is harder: removing an electron from a neutral Na atom, or from a Na⁻ ion?',['From the neutral Na atom','They are equally hard','From Na⁻','Cannot tell'],0,'the more crowded anion loses an electron more easily']];
+  PROBS.push({id:'tr-ea',topic:'trends',title:'Electron affinity concept',gen(){const [q,ch,a,why]=pick(Q);return {q,choices:ch,ans:a,hint:'Think about Zeff, subshell stability and electron repulsion.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+})();

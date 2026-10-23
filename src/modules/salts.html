@@ -1,0 +1,63 @@
+  <section class="view" id="v-salts" hidden>
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow"><span class="tag ap">AP Unit 8</span></div>
+        <h1>Salt solutions, polyprotic acids &amp; species vs pH</h1>
+        <p class="lede">"Neutral salt" doesn't mean a neutral solution. The ions of a salt can be acids or bases themselves, and the pH decides which form of an acid is actually in the beaker.</p>
+      </div>
+      <div class="intuit"><b class="k">The idea</b>
+        <p>When a salt dissolves, you get its cation and its anion. Ask where each came from. An ion from a <b>strong</b> acid or base (Na⁺, K⁺, Cl⁻, NO₃⁻, Br⁻, ClO₄⁻) is a bystander: it does nothing to the pH. An ion from a <b>weak</b> acid or base is not. The conjugate base of a weak acid (CH₃COO⁻, F⁻, CO₃²⁻) takes protons from water and makes OH⁻, so the solution is <b>basic</b>. The conjugate acid of a weak base (NH₄⁺) gives protons to water and makes H₃O⁺, so it is <b>acidic</b>. Small, highly charged metal ions such as Al³⁺ and Fe³⁺ pull on the O–H bonds of their hydrating water and are acidic as well.</p>
+        <p>The strength of that effect comes from <b>K<sub>a</sub> × K<sub>b</sub> = K<sub>w</sub></b>. The weaker the parent acid, the stronger its conjugate base. And for an acid with more than one removable proton (a <b>polyprotic</b> acid such as H₃PO₄ or H₂CO₃) each proton comes off with its own K<sub>a</sub>, always K<sub>a1</sub> &gt; K<sub>a2</sub> &gt; K<sub>a3</sub>, because it is harder to remove a proton from an ion that is already negative. Which form dominates depends on the pH compared with each pK<sub>a</sub>: <b>below the pK<sub>a</sub> the protonated form wins; above it, the deprotonated form wins</b>; at pH = pK<sub>a</sub> they are equal.</p>
+      </div>
+      <div class="assume upgrade"><b>Assumption upgrade</b> Before, we assumed a salt solution is neutral (we only used it to make precipitates and spectators). Now we know the ions themselves can be weak acids or bases, so a salt like sodium acetate has a pH above 7 and ammonium chloride below 7.</div>
+      <div class="lab" id="sh-lab">
+        <div class="labbar"><span class="title">Acidic, basic or neutral salt?</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="sh-salt"><span>Salt</span></label><select id="sh-salt"></select></div>
+          <div class="ctl"><label for="sh-c"><span>Concentration</span> <output id="sh-c-out"></output></label><input type="range" id="sh-c" min="-3" max="0" step="0.05" value="-1"></div>
+        </div>
+        <div class="split"><div><canvas id="sh-canvas" aria-label="A salt splitting into its cation and anion, each labelled with the strong or weak acid or base it came from"></canvas></div><div><canvas id="sh-graph" aria-label="A pH scale with the solution marked"></canvas></div></div>
+        <div class="eq-block" id="sh-eq" aria-live="polite"></div>
+        <div class="readout"><div><span>Cation from</span><strong id="sh-cat" style="font-size:15px;white-space:normal">—</strong></div><div><span>Anion from</span><strong id="sh-an" style="font-size:15px;white-space:normal">—</strong></div><div><span>Solution is</span><strong class="x" id="sh-res">—</strong></div><div><span>pH</span><strong class="a" id="sh-ph">—</strong></div></div>
+      </div>
+      <div class="lab" id="pp-lab">
+        <div class="labbar"><span class="title">Which form is in the flask?</span></div>
+        <div class="controls">
+          <div class="ctl"><label for="pp-sel"><span>Acid</span></label><select id="pp-sel"></select></div>
+          <div class="ctl"><label for="pp-ph"><span>pH of the solution</span> <output id="pp-ph-out"></output></label><input type="range" id="pp-ph" min="0" max="14" step="0.05" value="7"></div>
+        </div>
+        <div class="split"><div><canvas id="pp-canvas" aria-label="A bar for each form of the acid showing its fraction at the chosen pH"></canvas></div><div><canvas id="pp-graph" aria-label="Fraction of each form against pH, crossing at each pKa"></canvas></div></div>
+        <div class="readout" id="pp-read"></div>
+        <p class="small" id="pp-note" style="margin:0"></p>
+      </div>
+      <div class="try"><h3>Try this</h3><p class="small" style="margin:0">Predict, then check.</p><ol>
+        <li><p>Dissolve sodium acetate. Is the solution acidic or basic? Why? <button type="button" class="btn link" data-show='[["#sh-salt","1"],["#sh-c","-1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Basic (pH about 8.9 at 0.10 M). Na⁺ is a bystander, but CH₃COO⁻ is the conjugate base of a weak acid and pulls a proton off water: CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻.</p></details></li>
+        <li><p>Dissolve ammonium chloride. <button type="button" class="btn link" data-show='[["#sh-salt","3"],["#sh-c","-1"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>Acidic (pH about 5.1). Cl⁻ is a bystander; NH₄⁺ is the conjugate acid of weak NH₃ and gives a proton to water: NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺.</p></details></li>
+        <li><p>Phosphoric acid at pH 7: which form dominates? <button type="button" class="btn link" data-show='[["#pp-sel","3"],["#pp-ph","7.2"]]'>Set it up for me</button></p><details><summary>What you should see</summary><p>H₂PO₄⁻ and HPO₄²⁻ are about equal at pH 7.2 (the second pK<sub>a</sub>). Around neutral pH the two middle forms dominate, which is why phosphate buffers work in cells.</p></details></li>
+      </ol></div>
+      <div class="example"><h3>Worked example</h3><p class="prob">Find the pH of 0.10 M sodium acetate. (K<sub>a</sub> of acetic acid = 1.8×10⁻⁵)</p><p class="small" style="margin:0">Try it yourself first, then reveal one step at a time.</p>
+        <div class="exbody"><ol class="exsteps">
+          <li hidden><b>Which ion reacts?</b> Na⁺ comes from a strong base (a bystander). CH₃COO⁻ is the conjugate base of a weak acid, so it reacts with water: CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻.</li>
+          <li hidden><b>Find K<sub>b</sub>.</b> K<sub>b</sub> = K<sub>w</sub>/K<sub>a</sub> = 1.0×10⁻¹⁴ / 1.8×10⁻⁵ = 5.6×10⁻¹⁰.</li>
+          <li hidden><b>ICE table.</b> K<sub>b</sub> = x²/(0.10 − x) ≈ x²/0.10, so x = [OH⁻] = √(5.6×10⁻¹⁰ × 0.10) = 7.5×10⁻⁶ M (far under 5% of 0.10).</li>
+          <li hidden><b>pH.</b> pOH = −log(7.5×10⁻⁶) = 5.13, so pH = 14.00 − 5.13 = <b>8.87</b>. Basic, as predicted.</li>
+        </ol><div class="row"><button type="button" class="btn primary" data-next>Show step 1 of 4</button><button type="button" class="btn" data-all>Show all steps</button></div></div>
+      </div>
+      <div class="oops"><h3>Common mistakes</h3><ul>
+        <li>Calling every salt solution neutral. Only a salt made from a strong acid and a strong base (NaCl, KNO₃) is neutral.</li>
+        <li>Using K<sub>a</sub> of the parent acid directly for the anion. The anion is a base: use K<sub>b</sub> = K<sub>w</sub>/K<sub>a</sub>.</li>
+        <li>Letting the cation of a strong base (Na⁺) or the anion of a strong acid (Cl⁻) hydrolyze. They don't.</li>
+        <li>For a polyprotic acid, treating the second proton as if it matters for pH. Usually K<sub>a1</sub> ≫ K<sub>a2</sub>, so the pH comes from the first dissociation alone.</li>
+        <li>Mixing up the direction: below the pK<sub>a</sub> (more acidic solution) the <i>protonated</i> form dominates.</li>
+      </ul></div>
+      <div class="prose"><h2>Cheat sheet</h2>
+        <p><b>Strong acid + strong base parent:</b> neutral (NaCl). <b>Strong base + weak acid:</b> basic (NaCH₃COO, NaF, Na₂CO₃, NaCN). <b>Weak base + strong acid:</b> acidic (NH₄Cl). <b>Weak acid + weak base:</b> compare K<sub>a</sub> of the cation with K<sub>b</sub> of the anion; NH₄CH₃COO is nearly neutral because K<sub>a</sub>(NH₄⁺) ≈ K<sub>b</sub>(CH₃COO⁻). <b>Small, highly charged cations</b> (Al³⁺, Fe³⁺, Cu²⁺): acidic.</p>
+        <p>Species vs pH: pH = pK<sub>a</sub> + log([A⁻]/[HA]), so [A⁻]/[HA] = 10<sup>(pH − pK<sub>a</sub>)</sup>. Two pH units below the pK<sub>a</sub> the acid is 99% protonated; two units above, 99% deprotonated. This is also how indicators work: the two forms HIn and In⁻ have different colors, and the color changes where pH ≈ pK<sub>a</sub> of the indicator.</p>
+        <p>An <b>amphiprotic</b> species can act as an acid or a base: water, HCO₃⁻, H₂PO₄⁻, HSO₄⁻ (as an acid only toward water in practice), HPO₄²⁻. A solution of such an ion is often close to the average of the two neighboring pK<sub>a</sub> values.</p></div>
+      <div class="quiz" data-correct="2" data-explain="Fluoride is the conjugate base of the weak acid HF, so F⁻ + H₂O ⇌ HF + OH⁻ makes the solution basic. Na⁺ comes from a strong base and does nothing.">
+        <p class="q">Check yourself: a solution of NaF in water is…</p>
+        <div class="opts"><button type="button">acidic</button><button type="button">neutral</button><button type="button">basic</button><button type="button">cannot be predicted</button></div>
+        <p class="fb" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>

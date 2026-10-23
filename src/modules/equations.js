@@ -60,3 +60,11 @@ const eqSame=(a,b)=>{const k=[...new Set([...Object.keys(a),...Object.keys(b)])]
     const reac=[a,b],prod=[c,d],okk=eqSame(eqCounts(reac,bad.slice(0,2)),eqCounts(prod,bad.slice(2))),ch=['balanced','not balanced'];
     return {q:`Is this equation balanced? ${eqSide(reac,bad.slice(0,2))} → ${eqSide(prod,bad.slice(2))}`,choices:ch,ans:okk?0:1,hint:'Count each kind of atom on both sides.',sol:`${okk?'Every atom count matches':'The atom counts do not match'}: <b>${okk?'balanced':'not balanced'}</b>.`};}});
 })();
+
+(function(){
+  const R=[['2Mg + O₂ → 2MgO','synthesis'],['CaCO₃ → CaO + CO₂','decomposition'],['Zn + CuSO₄ → ZnSO₄ + Cu','single replacement'],['AgNO₃ + NaCl → AgCl + NaNO₃','double replacement (precipitation)'],['CH₄ + 2O₂ → CO₂ + 2H₂O','combustion'],['HCl + NaOH → NaCl + H₂O','acid–base (neutralization)']],T=R.map(r=>r[1]);
+  PROBS.push({id:'eq-type',topic:'equations',title:'Classify the reaction',gen(){const [eq,t]=pick(R),ch=T.slice().sort(()=>Math.random()-.5).filter(x=>x!==t).slice(0,3),i=Math.floor(Math.random()*4);ch.splice(i,0,t);
+    return {q:`What type of reaction is ${eq}?`,choices:ch,ans:i,hint:'Compare the number and kind of reactants and products, and look for O₂, an acid and a base, or an element replacing an ion.',sol:`<b>${t}</b>.`};}});
+  const C=[['Ice melting','physical'],['Iron rusting','chemical'],['Salt dissolving in water','physical'],['Burning wood','chemical'],['Water boiling','physical'],['Baking soda reacting with vinegar','chemical'],['Dissolving sugar in water','physical'],['Silver tarnishing','chemical']];
+  PROBS.push({id:'eq-change',topic:'equations',title:'Physical or chemical change?',gen(){const [x,t]=pick(C);return {q:`Is this a physical or a chemical change: ${x.toLowerCase()}?`,choices:['physical change','chemical change'],ans:t==='physical'?0:1,hint:'Does a new substance form, or only the phase or arrangement of the same substance?',sol:`<b>${t} change</b>.`};}});
+})();

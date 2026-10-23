@@ -62,3 +62,10 @@ const kspPure=r=>kspS(r,0,0);
   PROBS.push({id:'ksp-pH',topic:'ksp',title:'pH of a saturated hydroxide',gen(){const K=pick([5.6e-12,1.8e-11,2.0e-13]),nm={5.6e-12:'Mg(OH)₂',1.8e-11:'Mn(OH)₂',2.0e-13:'Fe(OH)₂'}[K],s=Math.cbrt(K/4),pH=14+Math.log10(2*s);
     return {q:`${nm} has K<sub>sp</sub> = ${sci(K,2)}. What is the pH of a saturated solution in pure water at 25 °C?`,ans:pH,unit:'',abs:.05,hint:'K_sp = s(2s)² = 4s³. [OH⁻] = 2s, then pOH and pH.',sol:`s = (K<sub>sp</sub>/4)<sup>1/3</sup> = ${sci(s,3)} M; [OH⁻] = 2s = ${sci(2*s,3)} M; pOH = ${fmt(-Math.log10(2*s),2)}; pH = <b>${fmt(pH,2)}</b>.`};}});
 })();
+
+(function(){
+  PROBS.push({id:'ksp-dG',topic:'ksp',title:'Free energy of dissolution',gen(){const r=pick(KSP.slice(0,5)),T=298,dG=-8.314*T*Math.log(r.K)/1000;
+    return {q:`The K<sub>sp</sub> of ${r.f} is ${sci(r.K,2)} at 298 K. What is ΔG° for the dissolving of ${r.f}(s)? (R = 8.314 J/mol·K)`,ans:dG,unit:'kJ/mol',tol:.02,hint:'The dissolution equilibrium constant is Ksp, so ΔG° = −RT ln Ksp.',sol:`ΔG° = −(8.314)(298) ln(${sci(r.K,2)}) = <b>+${fmt(dG,1)} kJ/mol</b>. It is positive because K<sub>sp</sub> &lt; 1: little dissolves.`};}});
+  const Q=[['Which salt is more soluble in 1 M HNO₃ than in pure water?',['CaCO₃','AgCl','BaSO₄','AgBr'],0,'carbonate is a base: H⁺ converts CO₃²⁻ to HCO₃⁻ and H₂CO₃, pulling the dissolution equilibrium to the right'],['Which salt\'s solubility is almost unaffected by adding acid?',['AgCl','Mg(OH)₂','CaCO₃','Fe(OH)₃'],0,'Cl⁻ is the conjugate base of a strong acid, so H⁺ does not remove it'],['Adding HCl dissolves more Mg(OH)₂ because…',['H⁺ reacts with OH⁻, lowering [OH⁻] and shifting the equilibrium right','H⁺ is a common ion','Cl⁻ forms a complex with Mg²⁺','acid raises Ksp'],0,'removing a product shifts the equilibrium toward dissolving']];
+  PROBS.push({id:'ksp-acid',topic:'ksp',title:'Solubility and pH',gen(){const [q,ch,a,why]=pick(Q);return {q,choices:ch,ans:a,hint:'Which ions are conjugate bases of weak acids? Acid removes those.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
+})();
