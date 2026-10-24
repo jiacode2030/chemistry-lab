@@ -460,3 +460,19 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .theme-fade,.theme-fade *,.theme-fade *::before,.theme-fade *::after{transition:background-color .35s,color .35s,border-color .35s,fill .35s,stroke .35s!important}
 .btn.cont{max-width:100%;white-space:normal;text-align:left}
 @media (prefers-reduced-motion:reduce){#rdbar{transition:none}}
+
+/* Phone and touch pass (2026-10): every control at least 44px for a thumb, no text under 12px,
+   and draggable canvases keep the page from scrolling mid-drag. */
+canvas.drag{touch-action:none}
+@media (max-width:900px),(pointer:coarse){
+  .btn,.seg button,.sopts button,.quiz .opts button,.steps a,details summary,select,input[type=text],input[type=number],input[type=range],.check,.pt{min-height:44px!important}
+  .btn{padding-top:10px;padding-bottom:10px}
+  .btn,.seg button,.sopts button,.fs-btn,.stp-b button{min-width:44px}
+  .btn.link{display:inline-flex;align-items:center}
+  .check{display:flex;align-items:center}
+  .railtools .searchbtn,.railtools .themebtn,.railtools .morelabs,.v3ui button{min-width:44px!important;min-height:44px!important}
+  .v3ui button{width:44px;height:44px}
+  .rail .brand,.li-link{min-height:44px;display:inline-flex;align-items:center}
+  input[type=checkbox]{width:22px;height:22px}
+  .tag,.coach b,.steps .sn,.readout span,.eqn small,.modnav a span,.fbdnotes span,.assume dt,th,.bcbadge{font-size:12px!important}
+}
