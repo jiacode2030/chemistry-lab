@@ -416,3 +416,4 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .cf .f-dyey{fill:#E8C21D}.cf .f-dyer{fill:#D7263E}.cf .f-dyeb{fill:#2F5BEA}
 .cf .f-ba{fill:var(--cx)}.cf .f-so4{fill:var(--ca)}.cf .f-na{fill:var(--hot)}.cf .f-cl{fill:var(--cv)}
 .cf .f-ppt{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
+.cf .f-fillg{fill:color-mix(in srgb,var(--cv) 18%,transparent)}
