@@ -71,3 +71,17 @@ if('serviceWorker' in navigator&&(/\.github\.io$/.test(location.hostname)||locat
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.quiz .opts button');if(!b||rm.matches)return;b.classList.remove('pulse','shake');void b.offsetWidth;
     if(b.classList.contains('right'))b.classList.add('pulse');
     else if(b.classList.contains('wrong')){b.classList.add('shake');var fb=b.closest('.quiz').querySelector('.fb');if(fb){fb.classList.remove('fb-pop');void fb.offsetWidth;fb.classList.add('fb-pop');if(fb.getBoundingClientRect().bottom>innerHeight-80)fb.scrollIntoView({block:'center',behavior:'smooth'});}}});})();
+/* UX pack (same in every lab): remembers the last module you opened (this device only) and offers Continue on the overview; thin reading-progress bar; soft cross-fade when the theme changes. */
+(function uxPack(){var KEY='chem-last',rm=matchMedia('(prefers-reduced-motion: reduce)');
+  var ls=function(f){try{return f();}catch(e){return null;}};
+  var titleOf=function(id){var a=document.querySelector('#nav a[data-view="'+id+'"]');return a?a.textContent.replace(/\s+/g,' ').trim():null;};
+  var save=function(){var id=(location.hash||'').slice(1);if(!id||id==='overview'||id==='practice'||!document.getElementById('v-'+id))return;var t=titleOf(id);if(!t)return;ls(function(){localStorage.setItem(KEY,JSON.stringify({id:id,t:t,ts:Date.now()}));});};
+  var load=function(){return ls(function(){var o=JSON.parse(localStorage.getItem(KEY)||'null');return o&&o.id&&o.t?o:null;});};
+  var addContinue=function(){var o=load(),ov=document.getElementById('v-overview');if(!ov||!o||!document.getElementById('v-'+o.id))return;var row=ov.querySelector('.hero .row');if(!row||row.querySelector('.cont'))return;
+    var a=document.createElement('a');a.className='btn primary cont';a.href='#'+o.id;a.style.textDecoration='none';a.textContent='Continue: '+o.t;row.prepend(a);var st=row.querySelector('.btn.primary:not(.cont)');if(st)st.classList.remove('primary');};
+  save();addContinue();addEventListener('hashchange',save);
+  var bar=document.createElement('div');bar.id='rdbar';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
+  var upd=function(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0).toFixed(3)+')';};
+  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);addEventListener('hashchange',function(){setTimeout(upd,80);});upd();
+  var fs=document.querySelector('.fs-btn');if(fs&&!fs.getAttribute('aria-label'))fs.setAttribute('aria-label',fs.textContent.replace(/\s+/g,' ').trim());
+  document.addEventListener('click',function(e){if(rm.matches)return;var b=e.target.closest&&e.target.closest('#theme-btn,.themebtn');if(!b)return;var d=document.documentElement;d.classList.add('theme-fade');setTimeout(function(){d.classList.remove('theme-fade');},450);},true);})();
