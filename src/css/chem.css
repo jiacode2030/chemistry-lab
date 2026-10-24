@@ -332,6 +332,12 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
   .btn.primary:hover::after{transform:translateX(120%)}
 }
 @media (prefers-reduced-motion:reduce){a.mod:hover{transform:translateY(-3px)}.btn.primary::after{display:none}}
+#ptr{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s;
+  background:radial-gradient(circle,color-mix(in srgb,var(--m-acc,var(--accent,#5CB8FF)) 13%,transparent),transparent 66%);will-change:transform}
+#ptr.on.ov{opacity:1}
+.spark{position:fixed;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;pointer-events:none;z-index:40;background:var(--m-acc,var(--accent,#5CB8FF));box-shadow:0 0 8px var(--m-acc,var(--accent,#5CB8FF));animation:spark .75s ease-out forwards}
+@keyframes spark{from{opacity:.9;transform:translate(0,0) scale(1)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
+@media (prefers-reduced-motion:reduce){#ptr,.spark{display:none}}
 /* ---------------- Worked-example figures and "predict" drills (same markup as the Mechanics Lab) ---------------- */
 .fbdfig{margin:0;background:var(--sunk);border-radius:10px;padding:8px}
 .fbdfig svg{display:block;width:100%;max-width:260px;margin:0 auto;height:auto}
@@ -460,3 +466,10 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .theme-fade,.theme-fade *,.theme-fade *::before,.theme-fade *::after{transition:background-color .35s,color .35s,border-color .35s,fill .35s,stroke .35s!important}
 .btn.cont{max-width:100%;white-space:normal;text-align:left}
 @media (prefers-reduced-motion:reduce){#rdbar{transition:none}}
+/* ===== Delight pack (shared by all labs): the headline gradient follows the mouse, the main buttons lean toward it, the demo card tilts, clicks ring out, right answers burst, a lab lights up while you drag its controls ===== */
+.hero h1 .hl.gx{background-size:180% 100%!important;background-position:var(--gx,40%) 0!important;transition:background-position .25s ease-out}
+.ring{position:fixed;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px solid var(--m-acc,var(--accent,#5CB8FF));pointer-events:none;z-index:40;animation:ring .65s ease-out forwards}
+@keyframes ring{from{opacity:.8;transform:scale(.4)}to{opacity:0;transform:scale(5)}}
+.lab:has(input[type=range]:active),.lab:has(.seg button:active){box-shadow:0 0 0 3px color-mix(in srgb,var(--m-acc,var(--accent,#5CB8FF)) 30%,transparent),var(--shadow-1,none)}
+#v-overview .hero .strobe{transition:transform .25s ease-out}
+@media (prefers-reduced-motion:reduce){.ring{display:none}.hero h1 .hl.gx{transition:none}}
