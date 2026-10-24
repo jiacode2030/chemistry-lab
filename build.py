@@ -61,7 +61,7 @@ data_files = sorted((SRC / 'data').glob('*.js'))
 # data banks load right after the shared engine pieces, so modules can use them
 bank = '\n'.join(f'/* ===== data/{p.name} ===== */\n' + p.read_text(encoding='utf-8') for p in data_files)
 js_parts.insert(len(JS_ORDER), bank)  # data banks (periodic table, FRQs) load before the modules
-tail = "if(/[?&]debug/.test(location.search))window.__chem={PROBS,FRQS,GROUPS,MODS,METHODS,fmt,sci};\nif(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{redraw();navSync(true);stepSync(true);});\ncurrent='';route();\n"
+tail = "if(/[?&]debug/.test(location.search))window.__chem={PROBS,FRQS,GROUPS,MODS,METHODS,fmt,sci,parseNum,numPrec,ansOK};\nif(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{redraw();navSync(true);stepSync(true);});\ncurrent='';route();\n"
 js = "(function(){\n'use strict';\n" + '\n'.join(js_parts) + '\n' + tail + '})();\n'
 
 # syntax check with node before writing

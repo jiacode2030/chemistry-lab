@@ -78,13 +78,18 @@
       sol:`${s} has <b>${n}</b> significant figure${n===1?'':'s'}.`};}});
   const rnd=(sf)=>{let d=ri(10**(sf-1),10**sf-1);if(d%10===0)d+=1;return d/10**(sf-1)*10**ri(0,1);};
   const txt=(v,sf)=>sf===1?String(v):(()=>{const e=Math.floor(Math.log10(v));return v.toFixed(Math.max(0,sf-1-e));})();
-  PROBS.push({id:'sf-mult',topic:'sigfigs',title:'Multiplying with sig figs',gen(){const s1=ri(2,4),s2=ri(2,4);let a=+rnd(s1).toPrecision(s1),b=+rnd(s2).toPrecision(s2);const lim=Math.min(s1,s2),raw=a*b,ans=+raw.toPrecision(lim);
+  /* the digits dropped when x is rounded to n sig figs are exactly 5, 50, 500…: a tie, which textbooks round differently, so those are re-drawn */
+  const sigTie=(x,n)=>/^50*$/.test(x.toExponential(11).split('e')[0].replace('.','').slice(n));
+  PROBS.push({id:'sf-mult',topic:'sigfigs',title:'Multiplying with sig figs',gen(){let s1,s2,a,b,raw,lim;do{s1=ri(2,4);s2=ri(2,4);a=+rnd(s1).toPrecision(s1);b=+rnd(s2).toPrecision(s2);lim=Math.min(s1,s2);raw=a*b;}while(sigTie(raw,lim));const ans=+raw.toPrecision(lim),show=sigRoundTxt(raw,lim);
     const ta=a.toPrecision(s1),tb=b.toPrecision(s2);
-    return {q:`Multiply ${ta} × ${tb} and report the answer with the correct number of significant figures.`,ans,show:sigRoundTxt(raw,lim),unit:'',abs:.5*10**(Math.floor(Math.log10(Math.abs(ans)))-lim+1)*1.01,hint:`Count the significant figures in each number. The answer keeps the smaller count.`,
-      sol:`${ta} has ${s1} significant figures and ${tb} has ${s2}. The calculator gives ${+raw.toPrecision(8)}; keep ${lim}: <b>${sigRoundTxt(raw,lim)}</b>.`};}});
-  function sigRoundTxt(x,n){const s=x.toPrecision(n);return /e/.test(s)?sci(x,n-1):s;}
-  PROBS.push({id:'sf-add',topic:'sigfigs',title:'Adding with decimal places',gen(){const d1=ri(0,2),d2=ri(1,3),d3=ri(0,3);const a=(ri(100,990)/10**d1).toFixed(d1),b=(ri(1,99)/10**d2+ri(1,30)).toFixed(d2),c=(ri(1,90)/10**d3).toFixed(d3);
-    const lim=Math.min(d1,d2,d3),raw=+a+ +b+ +c,ans=+raw.toFixed(lim);
-    return {q:`Add ${a} + ${b} + ${c} and report the answer with the correct number of decimal places.`,ans,show:raw.toFixed(lim),unit:'',abs:.5*10**(-lim)*1.01,hint:'Count the decimal places in each number. The sum can have no more than the smallest count.',
-      sol:`The numbers have ${d1}, ${d2} and ${d3} decimal places. The sum is ${+raw.toFixed(6)}; keep ${lim}: <b>${raw.toFixed(lim)}</b>.`};}});
+    return {q:`Multiply ${ta} × ${tb} and report the answer with the correct number of significant figures.`,ans,sig:lim,show,unit:'',hint:`Count the significant figures in each number. The answer keeps the smaller count. Type it rounded, with exactly that many significant figures (write a trailing decimal point, like 450., if a final zero counts).`,
+      sol:`${ta} has ${s1} significant figures and ${tb} has ${s2}. The calculator gives ${+raw.toPrecision(8)}; keep ${lim}: <b>${show}</b>${show.endsWith('.')?' (the decimal point shows that the final zero is significant).':'.'}`};}});
+  /* 450 to 3 sig figs is written 450. so the final zero is clearly significant */
+  function sigRoundTxt(x,n){const s=x.toPrecision(n);if(/e/.test(s))return sci(x,n-1);return /^\d*0$/.test(s)&&!s.includes('.')?s+'.':s;}
+  PROBS.push({id:'sf-add',topic:'sigfigs',title:'Adding with decimal places',gen(){let d1,d2,d3,a,b,c,lim,S;do{d1=ri(0,2);d2=ri(1,3);d3=ri(0,3);a=(ri(100,990)/10**d1).toFixed(d1);b=(ri(1,99)/10**d2+ri(1,30)).toFixed(d2);c=(ri(1,90)/10**d3).toFixed(d3);lim=Math.min(d1,d2,d3);
+      /* exact sum in units of 0.001, so a tie (a dropped 5, 50 or 500) is caught and re-drawn */
+      S=[a,b,c].reduce((t,v)=>t+Math.round(+v*1000),0);}while(lim<3&&2*(S%10**(3-lim))===10**(3-lim));
+    const raw=S/1000,show=raw.toFixed(lim),ans=+show;
+    return {q:`Add ${a} + ${b} + ${c} and report the answer with the correct number of decimal places.`,ans,dp:lim,show,unit:'',hint:'Count the decimal places in each number. The sum can have no more than the smallest count. Type it rounded, with exactly that many decimal places.',
+      sol:`The numbers have ${d1}, ${d2} and ${d3} decimal places. The sum is ${raw}; keep ${lim}: <b>${show}</b>.`};}});
 })();
