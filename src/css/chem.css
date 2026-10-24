@@ -417,3 +417,7 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .cf .f-ba{fill:var(--cx)}.cf .f-so4{fill:var(--ca)}.cf .f-na{fill:var(--hot)}.cf .f-cl{fill:var(--cv)}
 .cf .f-ppt{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
 .cf .f-fillg{fill:color-mix(in srgb,var(--cv) 18%,transparent)}
+.cf .f-oh{fill:var(--ca);stroke:var(--ink);stroke-width:1}
+.cf .f-ring2{fill:none;stroke:var(--ce);stroke-width:6}
+/* universal-indicator colours for pH scales: the same in both themes */
+.cf .f-ph0{fill:#D7261E}.cf .f-ph1{fill:#F28C1E}.cf .f-ph2{fill:#E8C21D}.cf .f-ph3{fill:#4CAF50}.cf .f-ph4{fill:#1E9E8A}.cf .f-ph5{fill:#2F5BEA}.cf .f-ph6{fill:#6B3FBF}
