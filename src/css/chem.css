@@ -408,3 +408,11 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .cf .f-phbar{fill:var(--line)}
 /* visible spectrum: real colours, the same in both themes */
 .cf .f-sp0{fill:#7F3FBF}.cf .f-sp1{fill:#2F5BEA}.cf .f-sp2{fill:#22A9C9}.cf .f-sp3{fill:#2EAA4A}.cf .f-sp4{fill:#E8D21D}.cf .f-sp5{fill:#F28C1E}.cf .f-sp6{fill:#D7261E}
+.cf .f-cloud{fill:color-mix(in srgb,var(--ce) 26%,transparent);stroke:color-mix(in srgb,var(--ce) 60%,transparent);stroke-width:1}
+.cf .f-bond{stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.cf .f-melt{fill:color-mix(in srgb,var(--hot) 12%,var(--surface));stroke:var(--ink);stroke-width:1.4}
+.cf .f-bulbon{fill:var(--ce);stroke:var(--ink);stroke-width:1.2}
+.cf .f-paper{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.cf .f-dyey{fill:#E8C21D}.cf .f-dyer{fill:#D7263E}.cf .f-dyeb{fill:#2F5BEA}
+.cf .f-ba{fill:var(--cx)}.cf .f-so4{fill:var(--ca)}.cf .f-na{fill:var(--hot)}.cf .f-cl{fill:var(--cv)}
+.cf .f-ppt{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
