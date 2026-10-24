@@ -8,6 +8,12 @@ $$('.example').forEach(ex=>{const lis=$$('.exsteps li',ex),nx=$('[data-next]',ex
   nx.addEventListener('click',()=>{const h=lis.find(l=>l.hidden);if(h){lis.forEach(l=>{l.classList.remove('new');l.style.animationDelay='';});h.hidden=false;h.classList.add('new');}upd();});
   all.addEventListener('click',()=>{const allShown=lis.every(l=>!l.hidden);lis.forEach((l,i)=>{l.hidden=allShown;l.classList.remove('new');l.style.animationDelay=allShown?'':i*70+'ms';});upd();});upd();});
 
+/* "Predict" drills (fcase markup shared with the Mechanics Lab): the second picture shows the answer once it is chosen */
+$$('.sorter').forEach(so=>{const cases=$$('.fcase',so);if(!cases.length)return;let right=0;const sc=$('.fcscore',so),upd=()=>{if(sc)sc.textContent=`${right} of ${cases.length} right so far.`;};
+  cases.forEach(cs=>{const c=+cs.dataset.correct,bs=$$('.sopts button',cs),pics=$$('.fcpics > div',cs),why=$('.fcwhy',cs);let done=false;
+    bs.forEach((b,i)=>b.addEventListener('click',()=>{bs.forEach(x=>x.classList.remove('right','wrong'));b.classList.add(i===c?'right':'wrong');
+      if(i===c){if(pics[1]){pics[0].hidden=true;pics[1].hidden=false;}why.hidden=false;if(!done){done=true;right++;upd();}}else why.hidden=true;}));});upd();});
+
 /* ---------------- "How to read it" keys and Set-it-up buttons ---------------- */
 (function guides(){
   Object.entries(KEYS).forEach(([id,[todo,items]])=>{const cv=$('#'+id);if(!cv)return;const d=document.createElement('div');d.className='howto';
@@ -33,7 +39,7 @@ $$('.example').forEach(ex=>{const lis=$$('.exsteps li',ex),nx=$('[data-next]',ex
   order.forEach((id,i)=>{const sec=$('#v-'+id);if(!sec)return;const wrap=$('.wrap',sec),head=$('.head',sec);
     const g=GROUPS.find(g=>g.ids.includes(id));const eb=$('.eyebrow',head);if(eb){const t=document.createElement('span');t.textContent=g.w==='Optional'?'Math toolkit':g.w+' · '+g.name;eb.prepend(t);}
     if(TT[id]){const q=$('.quiz',sec);const tip=document.createElement('div');tip.className='ttip';tip.innerHTML=`<h3>Teaching tip</h3><p>${TT[id]}</p>`;(q||wrap.lastChild).before(tip);}
-    const parts=[['.intuit','The idea'],['.assume','What changed'],['.lab','Explore'],['.try','Try this'],['.example','Worked example'],['.oops','Mistakes'],['.prose','Explanation'],['.ttip','Tip'],['.quiz','Check yourself']];
+    const parts=[['.intuit','The idea'],['.assume','What changed'],['.lab','Explore'],['.try','Try this'],['.example','Worked example'],['.sorter','Drill'],['.oops','Mistakes'],['.prose','Explanation'],['.ttip','Tip'],['.quiz','Check yourself']];
     const found=parts.map(([sel,lab])=>[$(sel,sec),lab]).filter(x=>x[0]).sort((a,b)=>a[0].compareDocumentPosition(b[0])&4?-1:1);
     const bar=document.createElement('nav');bar.className='steps';bar.setAttribute('aria-label','Sections of this module');
     found.forEach(([el,lab],k)=>{el.id=el.id||`${id}-s${k}`;const a=document.createElement('a');a.href='#'+id;a.innerHTML=`<span class="sn">${k+1}</span>${lab}`;a.dataset.target=el.id;
