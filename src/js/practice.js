@@ -14,13 +14,13 @@ function probCard(p,o={}){
     <div class="row">${exam?'':'<button type="button" class="btn link" data-act="hint">Hint</button>'}<button type="button" class="btn link" data-act="sol"${exam?' hidden':''}>Show solution</button>${mode==='practice'?'<button type="button" class="btn link" data-act="new">New numbers</button>':''}<button type="button" class="btn link rp-link" data-report="${p.topic}" style="margin-left:auto">Report this problem</button></div>
     <div class="box" data-box="hint" hidden><p>${d.hint}</p></div><div class="box" data-box="sol" hidden><p>${d.sol}</p></div>`;
   const fb=$('.fb',el),inp=$('input',el);
-  const ansText=ch?ch[d.ans]:`${d.show||fmt(d.ans,3)}${d.unit?' '+d.unit:''}`;
+  const ansText=ch?ch[d.ans]:`${d.show||fmt(d.ans,3)}${d.unit?' '+d.unit:''}`,stop=/\.$/.test(ansText)?'':'.';
   function evaluate(){if(ch)return {blank:sel<0,ok:sel===d.ans};const x=parseNum(inp.value);if(!isFinite(x))return {blank:true,ok:false};
-    return {blank:false,ok:ansOK(x,d),flip:!ansOK(x,d)&&ansOK(-x,d)};}
+    const ok=ansOK(x,d,inp.value);return {blank:false,ok,flip:!ok&&ansOK(-x,d,inp.value),prec:!ok&&ansOK(x,d)};}
   function lock(){if(inp)inp.disabled=true;$$('.sopts button',el).forEach(b=>b.disabled=true);const s=$('button[type=submit]',el);if(s)s.disabled=true;}
-  el.grade=()=>{const r=evaluate();fb.className='fb '+(r.ok?'ok':'no');fb.textContent=r.ok?`Correct: ${ansText}.`:`${r.blank?'No answer.':'Not quite.'} The answer is ${ansText}.`;lock();$('[data-act=sol]',el).hidden=false;return r.ok;};
-  function right(){fb.className='fb ok';fb.textContent=`Correct: ${ansText}.`;lock();if(mode==='practice'){const s=store('chem-solved')||{};s[p.id]=1;store('chem-solved',s);el.classList.add('solved');$('.done',el).textContent='Solved';o.onSolved&&o.onSolved();}o.onRight&&o.onRight(el);}
-  function wrong(r){fb.className='fb no';fb.textContent=(r.flip?'Check your sign. ':'Not yet. Try the hint, or check your units and significant figures. ')+(mode==='practice'?'(Added to Review my mistakes.)':'');if(mode==='practice')reviewMiss(p.id);o.onWrong&&o.onWrong(el);}
+  el.grade=()=>{const r=evaluate();fb.className='fb '+(r.ok?'ok':'no');fb.textContent=r.ok?`Correct: ${ansText}${stop}`:`${r.blank?'No answer.':'Not quite.'} The answer is ${ansText}${stop}`;lock();$('[data-act=sol]',el).hidden=false;return r.ok;};
+  function right(){fb.className='fb ok';fb.textContent=`Correct: ${ansText}${stop}`;lock();if(mode==='practice'){const s=store('chem-solved')||{};s[p.id]=1;store('chem-solved',s);el.classList.add('solved');$('.done',el).textContent='Solved';o.onSolved&&o.onSolved();}o.onRight&&o.onRight(el);}
+  function wrong(r){fb.className='fb no';fb.textContent=(r.flip?'Check your sign. ':r.prec?`The value is right, but report it with ${d.sig!=null?`${d.sig} significant figure${d.sig===1?'':'s'}`:`${d.dp} decimal place${d.dp===1?'':'s'}`}. `:'Not yet. Try the hint, or check your units and significant figures. ')+(mode==='practice'?'(Added to Review my mistakes.)':'');if(mode==='practice')reviewMiss(p.id);o.onWrong&&o.onWrong(el);}
   if(ch){$$('.sopts button',el).forEach(b=>b.addEventListener('click',()=>{sel=+b.dataset.i;$$('.sopts button',el).forEach(x=>x.classList.toggle('picked',x===b));
       if(exam)return;const r=evaluate();b.classList.add(r.ok?'right':'wrong');if(r.ok)right();else{wrong(r);b.disabled=true;}}));}
   else $('form',el).addEventListener('submit',e=>{e.preventDefault();if(exam)return;const r=evaluate();if(r.blank){fb.className='fb no';fb.textContent='Enter a number (like 0.25, 1.8e-5 or 1.8 x 10^-5), without units.';return;}r.ok?right():wrong(r);});

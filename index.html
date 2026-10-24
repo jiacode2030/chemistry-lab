@@ -4210,12 +4210,21 @@ function setHTML(id,v){const el=$('#'+id);if(el)el.innerHTML=v;}
 /* the Coach line of the lab with this id (or the lab containing this element) */
 function coachSay(sel,text){const el=typeof sel==='string'?$(sel):sel;const lab=el&&el.closest('.lab');const c=lab&&$('.coach',lab);if(!c)return;c.lastChild.textContent=text;c.classList.add('flash');setTimeout(()=>c.classList.remove('flash'),500);}
 /* accept 1.8e-5, 1.8x10^-5, 1.8 × 10⁻⁵, 1,000, −3 */
-function parseNum(raw){let s=String(raw).trim();const sup={'⁻':'-','⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'};
+function numStr(raw){let s=String(raw).trim();const sup={'⁻':'-','⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'};
   s=s.replace(/[⁻⁰¹²³⁴⁵⁶⁷⁸⁹]/g,c=>sup[c]).replace(/[−–]/g,'-').replace(/,/g,'').replace(/\s+/g,'');
   s=s.replace(/^([-+]?[\d.]+)[×x*]10\^?\(?([-+]?\d+)\)?$/i,'$1e$2');
-  if(!/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s))return NaN;return parseFloat(s);}
-/* a problem's answer is right if it is within d.tol (relative, default 2%) or d.abs (absolute) */
-function ansOK(x,d){const t=d.abs!=null?d.abs:Math.max((d.tol??.02)*Math.abs(d.ans),d.floor||0);return Math.abs(x-d.ans)<=t;}
+  return /^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)?s:null;}
+function parseNum(raw){const s=numStr(raw);return s==null?NaN:parseFloat(s);}
+/* the precision a typed number shows: significant figures and decimal places. Trailing zeros with no decimal point are not significant
+   (the rule taught in the Sig figs module): 450 has 2, 450. has 3. */
+function numPrec(raw){const s=numStr(raw);if(s==null)return null;const [m,e]=s.replace(/^[-+]/,'').toLowerCase().split('e'),ex=+(e||0),dot=m.indexOf('.');
+  const dp=(dot<0?0:m.length-dot-1)-ex,dg=m.replace('.','').replace(/^0+/,'');if(!dg)return {sig:1,dp};
+  if(dot>=0)return {sig:dg.length,dp};const n=dg.replace(/0+$/,'').length;return {sig:n,dp};}
+/* a problem's answer is right if it is within d.tol (relative, default 2%) or d.abs (absolute).
+   With d.sig (significant figures) or d.dp (decimal places) the typed value must equal the rounded answer and show that precision. */
+function ansOK(x,d,raw){if(d.sig!=null||d.dp!=null)return Math.abs(x-d.ans)<=1e-9*Math.max(1,Math.abs(d.ans))&&precOK(d,raw);
+  const t=d.abs!=null?d.abs:Math.max((d.tol??.02)*Math.abs(d.ans),d.floor||0);return Math.abs(x-d.ans)<=t;}
+function precOK(d,raw){if(raw==null)return true;const p=numPrec(raw);if(!p)return false;return d.sig!=null?p.sig===d.sig:p.dp===d.dp;}
 
 /* ===== chemlib.js ===== */
 
@@ -4774,15 +4783,20 @@ METHODS.clues.push(
       sol:`${s} has <b>${n}</b> significant figure${n===1?'':'s'}.`};}});
   const rnd=(sf)=>{let d=ri(10**(sf-1),10**sf-1);if(d%10===0)d+=1;return d/10**(sf-1)*10**ri(0,1);};
   const txt=(v,sf)=>sf===1?String(v):(()=>{const e=Math.floor(Math.log10(v));return v.toFixed(Math.max(0,sf-1-e));})();
-  PROBS.push({id:'sf-mult',topic:'sigfigs',title:'Multiplying with sig figs',gen(){const s1=ri(2,4),s2=ri(2,4);let a=+rnd(s1).toPrecision(s1),b=+rnd(s2).toPrecision(s2);const lim=Math.min(s1,s2),raw=a*b,ans=+raw.toPrecision(lim);
+  /* the digits dropped when x is rounded to n sig figs are exactly 5, 50, 500…: a tie, which textbooks round differently, so those are re-drawn */
+  const sigTie=(x,n)=>/^50*$/.test(x.toExponential(11).split('e')[0].replace('.','').slice(n));
+  PROBS.push({id:'sf-mult',topic:'sigfigs',title:'Multiplying with sig figs',gen(){let s1,s2,a,b,raw,lim;do{s1=ri(2,4);s2=ri(2,4);a=+rnd(s1).toPrecision(s1);b=+rnd(s2).toPrecision(s2);lim=Math.min(s1,s2);raw=a*b;}while(sigTie(raw,lim));const ans=+raw.toPrecision(lim),show=sigRoundTxt(raw,lim);
     const ta=a.toPrecision(s1),tb=b.toPrecision(s2);
-    return {q:`Multiply ${ta} × ${tb} and report the answer with the correct number of significant figures.`,ans,show:sigRoundTxt(raw,lim),unit:'',abs:.5*10**(Math.floor(Math.log10(Math.abs(ans)))-lim+1)*1.01,hint:`Count the significant figures in each number. The answer keeps the smaller count.`,
-      sol:`${ta} has ${s1} significant figures and ${tb} has ${s2}. The calculator gives ${+raw.toPrecision(8)}; keep ${lim}: <b>${sigRoundTxt(raw,lim)}</b>.`};}});
-  function sigRoundTxt(x,n){const s=x.toPrecision(n);return /e/.test(s)?sci(x,n-1):s;}
-  PROBS.push({id:'sf-add',topic:'sigfigs',title:'Adding with decimal places',gen(){const d1=ri(0,2),d2=ri(1,3),d3=ri(0,3);const a=(ri(100,990)/10**d1).toFixed(d1),b=(ri(1,99)/10**d2+ri(1,30)).toFixed(d2),c=(ri(1,90)/10**d3).toFixed(d3);
-    const lim=Math.min(d1,d2,d3),raw=+a+ +b+ +c,ans=+raw.toFixed(lim);
-    return {q:`Add ${a} + ${b} + ${c} and report the answer with the correct number of decimal places.`,ans,show:raw.toFixed(lim),unit:'',abs:.5*10**(-lim)*1.01,hint:'Count the decimal places in each number. The sum can have no more than the smallest count.',
-      sol:`The numbers have ${d1}, ${d2} and ${d3} decimal places. The sum is ${+raw.toFixed(6)}; keep ${lim}: <b>${raw.toFixed(lim)}</b>.`};}});
+    return {q:`Multiply ${ta} × ${tb} and report the answer with the correct number of significant figures.`,ans,sig:lim,show,unit:'',hint:`Count the significant figures in each number. The answer keeps the smaller count. Type it rounded, with exactly that many significant figures (write a trailing decimal point, like 450., if a final zero counts).`,
+      sol:`${ta} has ${s1} significant figures and ${tb} has ${s2}. The calculator gives ${+raw.toPrecision(8)}; keep ${lim}: <b>${show}</b>${show.endsWith('.')?' (the decimal point shows that the final zero is significant).':'.'}`};}});
+  /* 450 to 3 sig figs is written 450. so the final zero is clearly significant */
+  function sigRoundTxt(x,n){const s=x.toPrecision(n);if(/e/.test(s))return sci(x,n-1);return /^\d*0$/.test(s)&&!s.includes('.')?s+'.':s;}
+  PROBS.push({id:'sf-add',topic:'sigfigs',title:'Adding with decimal places',gen(){let d1,d2,d3,a,b,c,lim,S;do{d1=ri(0,2);d2=ri(1,3);d3=ri(0,3);a=(ri(100,990)/10**d1).toFixed(d1);b=(ri(1,99)/10**d2+ri(1,30)).toFixed(d2);c=(ri(1,90)/10**d3).toFixed(d3);lim=Math.min(d1,d2,d3);
+      /* exact sum in units of 0.001, so a tie (a dropped 5, 50 or 500) is caught and re-drawn */
+      S=[a,b,c].reduce((t,v)=>t+Math.round(+v*1000),0);}while(lim<3&&2*(S%10**(3-lim))===10**(3-lim));
+    const raw=S/1000,show=raw.toFixed(lim),ans=+show;
+    return {q:`Add ${a} + ${b} + ${c} and report the answer with the correct number of decimal places.`,ans,dp:lim,show,unit:'',hint:'Count the decimal places in each number. The sum can have no more than the smallest count. Type it rounded, with exactly that many decimal places.',
+      sol:`The numbers have ${d1}, ${d2} and ${d3} decimal places. The sum is ${raw}; keep ${lim}: <b>${show}</b>.`};}});
 })();
 
 /* ===== modules/logs.js ===== */
@@ -6295,9 +6309,9 @@ const MM_=f=>molarMass(f).M;
   PROBS.push({id:'st-excess',topic:'stoich',title:'Excess reactant left over',gen(){const s=setup(),X=s.X,ex=1-s.limI,used=s.xi*X.c[ex]*(ex?MM_(X.r[1]):MM_(X.r[0])),have=ex?s.b:s.a,ans=have-used;
     return {q:`${eq(X)}. ${s.a.toFixed(1)} g of ${fsub(X.r[0])} reacts with ${s.b.toFixed(1)} g of ${fsub(X.r[1])}. How many grams of the excess reactant remain after the reaction is complete?`,ans,unit:'g',abs:Math.max(.05,Math.abs(have)*.02),hint:'Find the moles of excess reactant that the limiting reagent uses, convert to grams, and subtract from what you started with.',
       sol:`${fsub(X.r[s.limI])} is limiting. The reaction uses ${s.xi.toFixed(4)} × ${X.c[ex]} = ${(s.xi*X.c[ex]).toFixed(4)} mol of ${fsub(X.r[ex])}, which is ${used.toFixed(2)} g. Left: ${have.toFixed(1)} − ${used.toFixed(2)} = <b>${fmt(ans,2)} g</b>.`};}});
-  PROBS.push({id:'st-percent',topic:'stoich',title:'Percent yield',gen(){const s=setup(),X=s.X,Mp=MM_(X.p[0]),th=s.xi*X.c[X.r.length]*Mp,pct=ri(55,96),act=th*pct/100;
-    return {q:`${eq(X)}. From ${s.a.toFixed(1)} g of ${fsub(X.r[0])} and ${s.b.toFixed(1)} g of ${fsub(X.r[1])}, a student collects ${act.toFixed(2)} g of ${fsub(X.p[0])}. What is the percent yield?`,ans:pct,unit:'%',tol:.025,hint:'Percent yield = actual ÷ theoretical × 100. Find the theoretical yield from the limiting reagent.',
-      sol:`Theoretical yield = ${th.toFixed(2)} g (from the limiting reagent ${fsub(X.r[s.limI])}). Percent yield = ${act.toFixed(2)} / ${th.toFixed(2)} × 100 = <b>${pct}%</b>.`};}});
+  PROBS.push({id:'st-percent',topic:'stoich',title:'Percent yield',gen(){const s=setup(),X=s.X,Mp=MM_(X.p[0]),th=s.xi*X.c[X.r.length]*Mp,act=+(th*ri(55,96)/100).toFixed(2),pct=act/th*100;
+    return {q:`${eq(X)}. From ${s.a.toFixed(1)} g of ${fsub(X.r[0])} and ${s.b.toFixed(1)} g of ${fsub(X.r[1])}, a student collects ${fmt(act,2)} g of ${fsub(X.p[0])}. What is the percent yield?`,ans:pct,show:fmt(pct,1),unit:'%',tol:.025,hint:'Percent yield = actual ÷ theoretical × 100. Find the theoretical yield from the limiting reagent.',
+      sol:`Theoretical yield = ${th.toFixed(2)} g (from the limiting reagent ${fsub(X.r[s.limI])}). Percent yield = ${act.toFixed(2)} / ${th.toFixed(2)} × 100 = <b>${fmt(pct,1)}%</b>.`};}});
 })();
 
 /* ===== modules/precip.js ===== */
@@ -7512,8 +7526,8 @@ function ppFrac(pk,pH){const h=Math.pow(10,-pH),K=pk.map(p=>Math.pow(10,-p));con
     return {q:`Will an aqueous solution of ${s.n} be acidic, neutral or basic (at 25 °C)?`,choices:ch,ans:a,hint:'Identify the parent acid and base of each ion. Strong parents give bystander ions; weak parents give ions that react with water.',sol:`<b>${ch[a]}</b>. ${s.cat[0]} comes from ${s.cat[1]}; ${s.an[0]} comes from ${s.an[1]}.${s.both?' Ka(NH₄⁺) ≈ Kb(CH₃COO⁻), so the effects cancel.':''}`};}});
   PROBS.push({id:'salt-pH',topic:'salts',title:'pH of a salt solution',gen(){const s=pick(CAT),c=pick([.050,.10,.20,.50,.010]),r=shPH(s,c);
     return {q:`What is the pH of ${fmt(c,3)} M ${s.n}? (${s.cat[3]==='acid'?'K<sub>b</sub> of NH₃ = 1.8×10⁻⁵':'K<sub>a</sub> of '+s.an[1].split(' ')[0]+' = '+sci(s.an[2],1)}; K<sub>w</sub> = 1.0×10⁻¹⁴)`,ans:r.ph,unit:'',abs:.03,hint:`Find which ion reacts, get its ${r.type==='base'?'K_b = K_w/K_a':'K_a = K_w/K_b'}, then solve x²/(c − x) = K.`,sol:`${r.ion} reacts with water; K = ${sci(r.K,2)}; x = ${r.type==='base'?'[OH⁻]':'[H₃O⁺]'} = ${sci(wkSolve(r.K,c,r.type),2)} M; pH = <b>${fmt(r.ph,2)}</b>.`};}});
-  PROBS.push({id:'salt-ratio',topic:'salts',title:'Which form dominates?',gen(){const a=pick(PPA),pk=pick(a.pk),i=a.pk.indexOf(pk),d=pick([-1.5,-.8,.8,1.5]),ph=+(pk+d).toFixed(1),ch=[a.forms[i],a.forms[i+1]];
-    return {q:`${a.n.split(' (')[0]} has a pK<sub>a</sub> of ${fmt(pk,2)} for ${a.forms[i]} ⇌ ${a.forms[i+1]} + H⁺. In a solution of pH ${fmt(ph,1)}, which of these two forms is present in the larger amount?`,choices:ch,ans:d<0?0:1,hint:'Compare the pH with the pKa: below it the protonated (more H) form dominates; above it, the deprotonated form.',sol:`pH ${d<0?'<':'>'} pK<sub>a</sub>, so <b>${ch[d<0?0:1]}</b> dominates (ratio [${a.forms[i+1]}]/[${a.forms[i]}] = 10<sup>${fmt(d,1)}</sup> = ${fmt(Math.pow(10,d),2)}).`};}});
+  PROBS.push({id:'salt-ratio',topic:'salts',title:'Which form dominates?',gen(){const a=pick(PPA),pk=pick(a.pk),i=a.pk.indexOf(pk),ph=+(pk+pick([-1.5,-.8,.8,1.5])).toFixed(1),d=+(ph-pk).toFixed(2),ch=[a.forms[i],a.forms[i+1]];
+    return {q:`${a.n.split(' (')[0]} has a pK<sub>a</sub> of ${fmt(pk,2)} for ${a.forms[i]} ⇌ ${a.forms[i+1]} + H⁺. In a solution of pH ${fmt(ph,1)}, which of these two forms is present in the larger amount?`,choices:ch,ans:d<0?0:1,hint:'Compare the pH with the pKa: below it the protonated (more H) form dominates; above it, the deprotonated form.',sol:`pH ${d<0?'&lt;':'&gt;'} pK<sub>a</sub>, so <b>${ch[d<0?0:1]}</b> dominates (ratio [${a.forms[i+1]}]/[${a.forms[i]}] = 10<sup>pH − pK<sub>a</sub></sup> = 10<sup>${fmt(ph,1)} − ${fmt(pk,2)}</sup> = 10<sup>${fmt(d,2)}</sup> = ${(r=>r>=10?fmt(r,0):r>=1?fmt(r,1):fmt(r,1-Math.floor(Math.log10(r))))(Math.pow(10,d))}).`};}});
   PROBS.push({id:'salt-poly',topic:'salts',title:'Polyprotic acid facts',gen(){const Q=[['For a triprotic acid like H₃PO₄, which is true?',['Ka1 > Ka2 > Ka3','Ka1 = Ka2 = Ka3','Ka3 is the largest','All three protons come off equally easily'],0,'each successive proton comes off an ion that is already more negative, so it is held more tightly'],['Which species is amphiprotic?',['HCO₃⁻','CO₃²⁻','H₂CO₃','Cl⁻'],0,'HCO₃⁻ can donate a proton (to CO₃²⁻) or accept one (to H₂CO₃)'],['The pH of a solution of a diprotic acid with Ka1 ≫ Ka2 is determined mainly by…',['the first dissociation','the second dissociation','the average of the two','the conjugate base only'],0,'the first proton produces far more H₃O⁺ than the second'],['At the second half-equivalence point of a diprotic acid titration, pH equals…',['pKa2','pKa1','7','(pKa1 + pKa2)/2 only at the first equivalence point'],0,'at that point [HA⁻] = [A²⁻], so pH = pKa2']],[q,ch,a,why]=pick(Q);
     return {q,choices:ch,ans:a,hint:'Think about removing a proton from a species that is already negative.',sol:`<b>${ch[a]}</b>: ${why}.`};}});
 })();
@@ -7579,8 +7593,10 @@ function ttPH(an,Ca,Va,Cb,Vb){/* Va, Vb in mL; Ca analyte conc, Cb titrant conc 
     return {q:`What volume of ${fmt(Cb,3)} M ${k[2]} is needed to reach the equivalence point with ${fmt(Va,1)} mL of ${fmt(Ca,3)} M ${k[0]}?`,ans:V,unit:'mL',tol:.01,hint:'Moles of H⁺ supplied must equal moles of OH⁻ supplied. Watch for acids or bases that give 2 per formula unit.',sol:`n(H⁺) = ${fmt(Ca*Va,3)} mmol × ${k[1]} = ${fmt(Ca*Va*k[1],3)} mmol; V = ${fmt(Ca*Va*k[1],3)} / (${fmt(Cb,3)} × ${nb}) = <b>${fmt(V,2)} mL</b>.`};}});
   PROBS.push({id:'tit-conc',topic:'titration',title:'Unknown concentration from a titration',gen(){const Va=pick([10.0,20.0,25.0]),Cb=pick([.100,.0500,.1500]),Ve=pick([12.4,18.6,22.3,27.8,33.1]),Ca=Cb*Ve/Va;
     return {q:`A ${fmt(Va,1)} mL sample of HCl of unknown concentration requires ${fmt(Ve,1)} mL of ${fmt(Cb,4)} M NaOH to reach the endpoint. What is the concentration of the HCl?`,ans:Ca,unit:'M',tol:.01,hint:'n(base) = C × V at the endpoint. Acid and base react 1:1.',sol:`n(OH⁻) = ${fmt(Cb,4)} × ${fmt(Ve,1)} = ${fmt(Cb*Ve,3)} mmol = n(H⁺); C = ${fmt(Cb*Ve,3)}/${fmt(Va,1)} = <b>${fmt(Ca,4)} M</b>.`};}});
+  /* show every digit a volume or amount needs (31.25 mL, 3.125 mmol), so the numbers on screen give the graded answer */
+  const dec=(v,d)=>fmt(v,Math.abs(Math.round(v*10**d)-v*10**d)<1e-9?d:d+1);
   PROBS.push({id:'tit-strong',topic:'titration',title:'pH during a strong-strong titration',gen(){const Ca=pick([.100,.200]),Va=pick([25.0,50.0]),Cb=Ca,Ve=Va;let Vb;const pts=[.2,.5,.8,1.25,1.5];const f=pick(pts);Vb=Va*f;const nA=Ca*Va,nB=Cb*Vb,Vt=Va+Vb,ex=nA-nB,ph=ex>0?-Math.log10(ex/Vt):14+Math.log10(-ex/Vt);
-    return {q:`${fmt(Va,1)} mL of ${fmt(Ca,3)} M HCl is titrated with ${fmt(Cb,3)} M NaOH. What is the pH after ${fmt(Vb,1)} mL of NaOH has been added?`,ans:ph,unit:'',abs:.03,hint:'Find the moles of H⁺ and OH⁻; subtract; divide the leftover by the total volume; convert to pH.',sol:`n(H⁺) = ${fmt(nA,2)} mmol, n(OH⁻) = ${fmt(nB,2)} mmol. Excess ${ex>0?'H⁺':'OH⁻'} = ${fmt(Math.abs(ex),2)} mmol in ${fmt(Vt,1)} mL = ${sci(Math.abs(ex)/Vt,3)} M, so pH = <b>${fmt(ph,2)}</b>.`};}});
+    return {q:`${fmt(Va,1)} mL of ${fmt(Ca,3)} M HCl is titrated with ${fmt(Cb,3)} M NaOH. What is the pH after ${dec(Vb,1)} mL of NaOH has been added?`,ans:ph,unit:'',abs:.03,hint:'Find the moles of H⁺ and OH⁻; subtract; divide the leftover by the total volume; convert to pH.',sol:`n(H⁺) = ${dec(nA,2)} mmol, n(OH⁻) = ${dec(nB,2)} mmol. Excess ${ex>0?'H⁺':'OH⁻'} = ${dec(Math.abs(ex),2)} mmol in ${dec(Vt,1)} mL = ${sci(Math.abs(ex)/Vt,3)} M, so pH = <b>${fmt(ph,2)}</b>.`};}});
   PROBS.push({id:'tit-half',topic:'titration',title:'Half-equivalence point',gen(){const [n,K]=pick(AC);
     return {q:`A solution of ${n} (K<sub>a</sub> = ${sci(K,2)}) is titrated with NaOH. What is the pH at the half-equivalence point?`,ans:pKa(K),unit:'',abs:.03,hint:'At half-equivalence [HA] = [A⁻], so the log term in Henderson–Hasselbalch is zero.',sol:`pH = pK<sub>a</sub> = −log(${sci(K,2)}) = <b>${fmt(pKa(K),2)}</b>.`};}});
   PROBS.push({id:'tit-buffer',topic:'titration',title:'pH in the buffer region',gen(){const [n,K]=pick(AC),Ca=pick([.100,.200]),Va=pick([25.0,50.0]),f=pick([.2,.3,.4,.6,.7,.8]),Cb=Ca,Vb=Va*f,nHA=Ca*Va-Cb*Vb,nA=Cb*Vb,ph=pKa(K)+Math.log10(nA/nHA);
@@ -7645,13 +7661,15 @@ function bfWater(addMol,V){const c=Math.abs(addMol)/V;if(addMol===0)return 7;con
   const SALT={'CH₃COOH / CH₃COO⁻':['NaCH₃COO',82.03],'HF / F⁻':['NaF',41.99],'HClO / ClO⁻':['NaClO',74.44],'NH₄⁺ / NH₃':['NH₄Cl',53.49]};
   PROBS.push({id:'buf-HH',topic:'buffers',title:'pH of a buffer',gen(){const p=pick(BFP.slice(0,4)),ha=pick([.10,.20,.30,.50]),a=pick([.10,.15,.25,.40,.60]),ph=p.pKa+Math.log10(a/ha);
     return {q:`A buffer is made with ${fmt(ha,2)} M ${p.ha} and ${fmt(a,2)} M ${p.a} (K<sub>a</sub> of ${p.ha} = ${sci(p.Ka,2)}). What is its pH?`,ans:ph,unit:'',abs:.03,hint:'Henderson–Hasselbalch: pH = pKa + log([base]/[acid]).',sol:`pK<sub>a</sub> = ${fmt(p.pKa,2)}; pH = ${fmt(p.pKa,2)} + log(${fmt(a,2)}/${fmt(ha,2)}) = <b>${fmt(ph,2)}</b>.`};}});
-  PROBS.push({id:'buf-add',topic:'buffers',title:'pH after adding strong acid or base',gen(){const p=pick(BFP.slice(0,4)),V=pick([.500,1.00,.250]),ha=pick([.20,.30,.40]),a=pick([.20,.30,.40]),n=pick([.0050,.010,.020]),acid=Math.random()<.5,nHA=ha*V,nA=a*V;const nH2=acid?nHA+n:nHA-n,nA2=acid?nA-n:nA+n,ok=nH2>0&&nA2>0;
+  /* these problems state pKa to 2 decimals, so they compute with that same rounded value */
+  const asShown=b=>Object.assign({},b,{pKa:+b.pKa.toFixed(2)});
+  PROBS.push({id:'buf-add',topic:'buffers',title:'pH after adding strong acid or base',gen(){const p=asShown(pick(BFP.slice(0,4))),V=pick([.500,1.00,.250]),ha=pick([.20,.30,.40]),a=pick([.20,.30,.40]),n=pick([.0050,.010,.020]),acid=Math.random()<.5,nHA=ha*V,nA=a*V;const nH2=acid?nHA+n:nHA-n,nA2=acid?nA-n:nA+n,ok=nH2>0&&nA2>0;
     const ph=p.pKa+Math.log10(nA2/nH2);return ok?{q:`${fmt(V*1000,0)} mL of a buffer contains ${fmt(ha,2)} M ${p.ha} and ${fmt(a,2)} M ${p.a} (pK<sub>a</sub> = ${fmt(p.pKa,2)}). What is the pH after ${fmt(n,4)} mol of ${acid?'HCl':'NaOH'} is added? (Ignore the volume change.)`,ans:ph,unit:'',abs:.03,hint:`Strong ${acid?'acid':'base'} reacts completely with the ${acid?p.a:p.ha}: ${acid?'A⁻ → HA':'HA → A⁻'}. Update the moles, then use Henderson–Hasselbalch.`,sol:`Moles before: ${p.ha} ${fmt(nHA,4)}, ${p.a} ${fmt(nA,4)}. After: ${p.ha} ${fmt(nH2,4)}, ${p.a} ${fmt(nA2,4)}. pH = ${fmt(p.pKa,2)} + log(${fmt(nA2,4)}/${fmt(nH2,4)}) = <b>${fmt(ph,2)}</b>.`}:this.gen();}});
-  PROBS.push({id:'buf-ratio',topic:'buffers',title:'Ratio needed for a target pH',gen(){const p=pick(BFP.slice(0,4)),t=+(p.pKa+pick([-.8,-.5,-.3,.3,.5,.9])).toFixed(1),r=Math.pow(10,t-p.pKa);
+  PROBS.push({id:'buf-ratio',topic:'buffers',title:'Ratio needed for a target pH',gen(){const p=asShown(pick(BFP.slice(0,4))),t=+(p.pKa+pick([-.8,-.5,-.3,.3,.5,.9])).toFixed(1),r=Math.pow(10,t-p.pKa);
     return {q:`What ratio [${p.a}]/[${p.ha}] gives a buffer of pH ${fmt(t,1)}? (pK<sub>a</sub> of ${p.ha} = ${fmt(p.pKa,2)})`,ans:r,unit:'',tol:.03,hint:'Rearrange: [base]/[acid] = 10^(pH − pKa).',sol:`10<sup>${fmt(t,1)} − ${fmt(p.pKa,2)}</sup> = <b>${fmt(r,2)}</b>.`};}});
   PROBS.push({id:'buf-which',topic:'buffers',title:'Best buffer for a pH',gen(){const t=pick([3.4,4.5,5.2,7.2,7.6,9.0,9.5]),sorted=BFP.slice().sort((a,b)=>Math.abs(a.pKa-t)-Math.abs(b.pKa-t)),best=sorted[0],ch=BFP.map(b=>`${b.n} (pKa ${fmt(b.pKa,2)})`);const names=BFP.slice(0,4).concat([BFP[4]]);
     return {q:`Which conjugate pair is the best choice for preparing a buffer at pH ${fmt(t,1)}?`,choices:ch,ans:BFP.indexOf(best),hint:'Choose the pair whose pKa is closest to the target pH.',sol:`<b>${best.n}</b> has pK<sub>a</sub> ${fmt(best.pKa,2)}, the closest to ${fmt(t,1)}.`};}});
-  PROBS.push({id:'buf-prep',topic:'buffers',title:'Mass of salt to make a buffer',gen(){const k=pick(Object.keys(SALT)),p=BFP.find(b=>b.n===k),[sn,M]=SALT[k],V=pick([.250,.500,1.00]),c=pick([.20,.30,.50]),t=+(p.pKa+pick([-.3,.2,.4,.5])).toFixed(2),r=Math.pow(10,t-p.pKa);
+  PROBS.push({id:'buf-prep',topic:'buffers',title:'Mass of salt to make a buffer',gen(){const k=pick(Object.keys(SALT)),p=asShown(BFP.find(b=>b.n===k)),[sn,M]=SALT[k],V=pick([.250,.500,1.00]),c=pick([.20,.30,.50]),t=+(p.pKa+pick([-.3,.2,.4,.5])).toFixed(2),r=Math.pow(10,t-p.pKa);
     const base=k.startsWith('NH₄');const nHA=c*V,nA=nHA*r,m=nA*M;
     return base?{q:`How many grams of NH₄Cl (53.49 g/mol) must be added to ${fmt(V*1000,0)} mL of ${fmt(c,2)} M NH₃ to make a buffer of pH ${fmt(t,2)}? (pK<sub>a</sub> of NH₄⁺ = ${fmt(p.pKa,2)}; ignore volume change.)`,ans:(c*V*Math.pow(10,p.pKa-t))*53.49,unit:'g',tol:.03,hint:'For NH₃/NH₄⁺, [NH₄⁺]/[NH₃] = 10^(pKa − pH).',sol:`ratio [NH₄⁺]/[NH₃] = 10<sup>${fmt(p.pKa,2)} − ${fmt(t,2)}</sup> = ${fmt(Math.pow(10,p.pKa-t),3)}; n(NH₄⁺) = ${fmt(c*V*Math.pow(10,p.pKa-t),4)} mol; mass = <b>${fmt((c*V*Math.pow(10,p.pKa-t))*53.49,2)} g</b>.`}:{q:`How many grams of ${sn} (${M} g/mol) must be added to ${fmt(V*1000,0)} mL of ${fmt(c,2)} M ${p.ha} to make a buffer of pH ${fmt(t,2)}? (pK<sub>a</sub> = ${fmt(p.pKa,2)}; ignore volume change.)`,ans:m,unit:'g',tol:.03,hint:'[A⁻]/[HA] = 10^(pH − pKa). Then moles of A⁻ × molar mass.',sol:`ratio = 10<sup>${fmt(t,2)} − ${fmt(p.pKa,2)}</sup> = ${fmt(r,3)}; n(A⁻) = ${fmt(r,3)} × ${fmt(nHA,4)} = ${fmt(nA,4)} mol; mass = <b>${fmt(m,2)} g</b>.`};}});
   const BQ=[['CH₃COOH and NaCH₃COO',true],['NH₃ and NH₄Cl',true],['HF and NaF',true],['HCl and NaCl',false],['NaOH and NaNO₃',false],['HNO₃ and KNO₃',false],['NaCl and NaOH',false],['H₂CO₃ and NaHCO₃',true]];
@@ -8006,13 +8024,13 @@ function probCard(p,o={}){
     <div class="row">${exam?'':'<button type="button" class="btn link" data-act="hint">Hint</button>'}<button type="button" class="btn link" data-act="sol"${exam?' hidden':''}>Show solution</button>${mode==='practice'?'<button type="button" class="btn link" data-act="new">New numbers</button>':''}<button type="button" class="btn link rp-link" data-report="${p.topic}" style="margin-left:auto">Report this problem</button></div>
     <div class="box" data-box="hint" hidden><p>${d.hint}</p></div><div class="box" data-box="sol" hidden><p>${d.sol}</p></div>`;
   const fb=$('.fb',el),inp=$('input',el);
-  const ansText=ch?ch[d.ans]:`${d.show||fmt(d.ans,3)}${d.unit?' '+d.unit:''}`;
+  const ansText=ch?ch[d.ans]:`${d.show||fmt(d.ans,3)}${d.unit?' '+d.unit:''}`,stop=/\.$/.test(ansText)?'':'.';
   function evaluate(){if(ch)return {blank:sel<0,ok:sel===d.ans};const x=parseNum(inp.value);if(!isFinite(x))return {blank:true,ok:false};
-    return {blank:false,ok:ansOK(x,d),flip:!ansOK(x,d)&&ansOK(-x,d)};}
+    const ok=ansOK(x,d,inp.value);return {blank:false,ok,flip:!ok&&ansOK(-x,d,inp.value),prec:!ok&&ansOK(x,d)};}
   function lock(){if(inp)inp.disabled=true;$$('.sopts button',el).forEach(b=>b.disabled=true);const s=$('button[type=submit]',el);if(s)s.disabled=true;}
-  el.grade=()=>{const r=evaluate();fb.className='fb '+(r.ok?'ok':'no');fb.textContent=r.ok?`Correct: ${ansText}.`:`${r.blank?'No answer.':'Not quite.'} The answer is ${ansText}.`;lock();$('[data-act=sol]',el).hidden=false;return r.ok;};
-  function right(){fb.className='fb ok';fb.textContent=`Correct: ${ansText}.`;lock();if(mode==='practice'){const s=store('chem-solved')||{};s[p.id]=1;store('chem-solved',s);el.classList.add('solved');$('.done',el).textContent='Solved';o.onSolved&&o.onSolved();}o.onRight&&o.onRight(el);}
-  function wrong(r){fb.className='fb no';fb.textContent=(r.flip?'Check your sign. ':'Not yet. Try the hint, or check your units and significant figures. ')+(mode==='practice'?'(Added to Review my mistakes.)':'');if(mode==='practice')reviewMiss(p.id);o.onWrong&&o.onWrong(el);}
+  el.grade=()=>{const r=evaluate();fb.className='fb '+(r.ok?'ok':'no');fb.textContent=r.ok?`Correct: ${ansText}${stop}`:`${r.blank?'No answer.':'Not quite.'} The answer is ${ansText}${stop}`;lock();$('[data-act=sol]',el).hidden=false;return r.ok;};
+  function right(){fb.className='fb ok';fb.textContent=`Correct: ${ansText}${stop}`;lock();if(mode==='practice'){const s=store('chem-solved')||{};s[p.id]=1;store('chem-solved',s);el.classList.add('solved');$('.done',el).textContent='Solved';o.onSolved&&o.onSolved();}o.onRight&&o.onRight(el);}
+  function wrong(r){fb.className='fb no';fb.textContent=(r.flip?'Check your sign. ':r.prec?`The value is right, but report it with ${d.sig!=null?`${d.sig} significant figure${d.sig===1?'':'s'}`:`${d.dp} decimal place${d.dp===1?'':'s'}`}. `:'Not yet. Try the hint, or check your units and significant figures. ')+(mode==='practice'?'(Added to Review my mistakes.)':'');if(mode==='practice')reviewMiss(p.id);o.onWrong&&o.onWrong(el);}
   if(ch){$$('.sopts button',el).forEach(b=>b.addEventListener('click',()=>{sel=+b.dataset.i;$$('.sopts button',el).forEach(x=>x.classList.toggle('picked',x===b));
       if(exam)return;const r=evaluate();b.classList.add(r.ok?'right':'wrong');if(r.ok)right();else{wrong(r);b.disabled=true;}}));}
   else $('form',el).addEventListener('submit',e=>{e.preventDefault();if(exam)return;const r=evaluate();if(r.blank){fb.className='fb no';fb.textContent='Enter a number (like 0.25, 1.8e-5 or 1.8 x 10^-5), without units.';return;}r.ok?right():wrong(r);});
@@ -8454,7 +8472,7 @@ if('serviceWorker' in navigator&&(/\.github\.io$/.test(location.hostname)||locat
       c.style.setProperty('--mx',(px*100).toFixed(1)+'%');c.style.setProperty('--my',(py*100).toFixed(1)+'%');c.style.setProperty('--ry',((px-.5)*5).toFixed(2)+'deg');c.style.setProperty('--rx',((.5-py)*5).toFixed(2)+'deg');}},{passive:true});
   document.addEventListener('pointerout',function(e){var c=e.target.closest&&e.target.closest('a.mod');if(c&&!c.contains(e.relatedTarget)){c.style.removeProperty('--rx');c.style.removeProperty('--ry');}});})();
 
-if(/[?&]debug/.test(location.search))window.__chem={PROBS,FRQS,GROUPS,MODS,METHODS,fmt,sci};
+if(/[?&]debug/.test(location.search))window.__chem={PROBS,FRQS,GROUPS,MODS,METHODS,fmt,sci,parseNum,numPrec,ansOK};
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{redraw();navSync(true);stepSync(true);});
 current='';route();
 })();
