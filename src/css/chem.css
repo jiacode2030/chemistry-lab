@@ -322,3 +322,13 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .eq-block .net,.net{color:color-mix(in srgb,var(--good) 78%,var(--ink))}
 :root[data-theme="dark"] .try .small{color:#C9DDD1}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .try .small{color:#C9DDD1}}
+
+/* Pointer feel (shared with the Intulab landing page): a soft glow follows the mouse, module cards tilt toward it and light up. Mouse and trackpad only; off for reduced motion. */
+#ptr{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent,#5CB8FF) 12%,transparent),transparent 66%);will-change:transform}
+#ptr.on{opacity:1}
+@media (hover:hover) and (pointer:fine){
+  a.mod:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-3px);
+    background-image:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent,#5CB8FF) 15%,transparent),transparent 70%)}
+}
+@media (prefers-reduced-motion:reduce){#ptr{display:none}a.mod:hover{transform:translateY(-3px)}}
