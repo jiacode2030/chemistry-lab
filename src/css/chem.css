@@ -388,3 +388,23 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .cf .f-pbo{fill:color-mix(in srgb,var(--hot) 45%,#2A1A10);stroke:var(--ink);stroke-width:1.2}
 .cf .f-ld{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:1.5 3;stroke-linecap:round}
 .example .prob{display:block} /* was a flex column (shared with practice cards), which split <sub>, <i> and <br> into separate rows */
+.cf .f-plot{fill:none;stroke:var(--cx);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.cf .f-plot2{fill:none;stroke:var(--ca);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.cf .f-plotg{fill:none;stroke:var(--cv);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.cf .f-dash{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:3 3}
+.cf .f-fill{fill:color-mix(in srgb,var(--hot) 18%,transparent);stroke:none}
+.cf .f-fillx{fill:color-mix(in srgb,var(--cx) 14%,transparent);stroke:none}
+.cf .f-ring{fill:none;stroke:var(--ce);stroke-width:3}
+.cf .f-ice{fill:color-mix(in srgb,var(--cx) 16%,var(--surface));stroke:var(--cx);stroke-width:1.4}
+.cf .f-hbar{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
+.cf .f-catbar{fill:var(--cx)}
+.cf .f-probar{fill:var(--cv)}
+.cf .f-mut{fill:var(--muted)}
+.cf .f-inkfill{fill:var(--ink)}
+.cf .f-dashg{stroke:var(--cv);stroke-width:1.6;stroke-dasharray:4 3}
+.cf .f-lobep{fill:color-mix(in srgb,var(--cx) 28%,transparent);stroke:var(--cx);stroke-width:1.4}
+.cf .f-loben{fill:color-mix(in srgb,var(--ca) 28%,transparent);stroke:var(--ca);stroke-width:1.4}
+.cf .f-wave{fill:none;stroke:var(--ce);stroke-width:2}
+.cf .f-phbar{fill:var(--line)}
+/* visible spectrum: real colours, the same in both themes */
+.cf .f-sp0{fill:#7F3FBF}.cf .f-sp1{fill:#2F5BEA}.cf .f-sp2{fill:#22A9C9}.cf .f-sp3{fill:#2EAA4A}.cf .f-sp4{fill:#E8D21D}.cf .f-sp5{fill:#F28C1E}.cf .f-sp6{fill:#D7261E}
