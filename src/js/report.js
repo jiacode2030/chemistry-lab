@@ -60,3 +60,14 @@ if('serviceWorker' in navigator&&(/\.github\.io$/.test(location.hostname)||locat
   addEventListener('pointermove',function(e){if(e.pointerType!=='mouse')return;var c=e.target.closest&&e.target.closest('a.mod');if(c){var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
       c.style.setProperty('--mx',(px*100).toFixed(1)+'%');c.style.setProperty('--my',(py*100).toFixed(1)+'%');c.style.setProperty('--ry',((px-.5)*5).toFixed(2)+'deg');c.style.setProperty('--rx',((.5-py)*5).toFixed(2)+'deg');}},{passive:true});
   document.addEventListener('pointerout',function(e){var c=e.target.closest&&e.target.closest('a.mod');if(c&&!c.contains(e.relatedTarget)){c.style.removeProperty('--rx');c.style.removeProperty('--ry');}});})();
+/* Phone UI pass (same in every lab): the floating button shrinks to its icon while you scroll and the page keeps room for it; a revealed worked-example step lights up its part of the figure; quiz answers pulse or shake. Honors reduced motion. */
+(function phoneUI(){var rm=matchMedia('(prefers-reduced-motion: reduce)'),phone=matchMedia('(max-width: 900px)'),fs=document.querySelector('.fs-btn');
+  if(fs){var setH=function(){document.documentElement.style.setProperty('--fsb',Math.ceil(fs.getBoundingClientRect().height||52)+'px');};setH();addEventListener('resize',setH);
+    var t=0;addEventListener('scroll',function(){if(!phone.matches||rm.matches)return;fs.classList.add('fs-mini');clearTimeout(t);t=setTimeout(function(){fs.classList.remove('fs-mini');},700);},{passive:true});}
+  document.addEventListener('click',function(e){var nx=e.target.closest&&e.target.closest('[data-next]'),all=e.target.closest&&e.target.closest('[data-all]');if(!nx&&!all)return;var ex=(nx||all).closest('.example');if(!ex)return;
+    var shown=ex.querySelectorAll('.exsteps li:not([hidden])').length;
+    Array.prototype.forEach.call(ex.querySelectorAll('.stepfig'),function(f){Array.prototype.forEach.call(f.querySelectorAll('[data-s]'),function(el){el.classList.toggle('cur',!el.hidden&&+el.dataset.s===shown);});f.classList.toggle('stephl',!!nx&&!!f.querySelector('[data-s].cur'));});
+    Array.prototype.forEach.call(ex.querySelectorAll('.fbd'),function(f){f.classList.toggle('stephl',!!nx&&shown>1);});});
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.quiz .opts button');if(!b||rm.matches)return;b.classList.remove('pulse','shake');void b.offsetWidth;
+    if(b.classList.contains('right'))b.classList.add('pulse');
+    else if(b.classList.contains('wrong')){b.classList.add('shake');var fb=b.closest('.quiz').querySelector('.fb');if(fb){fb.classList.remove('fb-pop');void fb.offsetWidth;fb.classList.add('fb-pop');if(fb.getBoundingClientRect().bottom>innerHeight-80)fb.scrollIntoView({block:'center',behavior:'smooth'});}}});})();

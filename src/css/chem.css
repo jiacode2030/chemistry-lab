@@ -421,3 +421,24 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
 .cf .f-ring2{fill:none;stroke:var(--ce);stroke-width:6}
 /* universal-indicator colours for pH scales: the same in both themes */
 .cf .f-ph0{fill:#D7261E}.cf .f-ph1{fill:#F28C1E}.cf .f-ph2{fill:#E8C21D}.cf .f-ph3{fill:#4CAF50}.cf .f-ph4{fill:#1E9E8A}.cf .f-ph5{fill:#2F5BEA}.cf .f-ph6{fill:#6B3FBF}
+/* ===== Phone UI pass (shared by all labs): 44px slider targets, a floating button that never covers content, step highlight, quiz feedback ===== */
+@media (max-width:900px),(pointer:coarse){
+  input[type=range]{min-height:44px!important;height:44px;margin:0;box-sizing:border-box}
+}
+@media (max-width:900px){
+  main::after{content:"";display:block;height:calc(var(--fsb,52px) + 32px + env(safe-area-inset-bottom,0px))}
+  .fs-btn .fs-lbl{display:inline-block;max-width:12em;overflow:hidden;white-space:nowrap;vertical-align:middle;transition:max-width .25s,opacity .2s}
+  .fs-btn.fs-mini .fs-lbl{max-width:0;opacity:0}
+  .fs-btn.fs-mini{gap:0}
+}
+.stepfig [data-s]{transition:opacity .35s}
+.stepfig.stephl [data-s]:not(.cur){opacity:.4}
+.fbd svg g{transition:opacity .35s}
+.fbd.stephl svg g:not(.fbnew){opacity:.4}
+@keyframes qpulse{0%{transform:scale(1)}40%{transform:scale(1.04);box-shadow:0 0 0 6px color-mix(in srgb,var(--good) 28%,transparent)}100%{transform:scale(1);box-shadow:0 0 0 0 transparent}}
+@keyframes qshake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes fbpop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.quiz .opts button.pulse{animation:qpulse .45s ease-out}
+.quiz .opts button.shake{animation:qshake .4s ease-in-out}
+.quiz .fb.fb-pop{animation:fbpop .3s ease-out}
+@media (prefers-reduced-motion:reduce){.stepfig [data-s],.fbd svg g,.fs-btn .fs-lbl{transition:none}.quiz .opts button.pulse,.quiz .opts button.shake,.quiz .fb.fb-pop{animation:none}}
