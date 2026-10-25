@@ -332,8 +332,8 @@ h1{font-family:"STIX Two Text",Georgia,serif;font-weight:400;letter-spacing:-.01
   .btn.primary:hover::after{transform:translateX(120%)}
 }
 @media (prefers-reduced-motion:reduce){a.mod:hover{transform:translateY(-3px)}.btn.primary::after{display:none}}
-#ptr{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s;
-  background:radial-gradient(circle,color-mix(in srgb,var(--m-acc,var(--accent,#5CB8FF)) 13%,transparent),transparent 66%);will-change:transform}
+#ptr{position:fixed;left:0;top:0;width:260px;height:260px;margin:-130px 0 0 -130px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s;
+  background:radial-gradient(circle,color-mix(in srgb,var(--m-acc,var(--accent,#5CB8FF)) 10%,transparent),transparent 66%);will-change:transform}
 #ptr.on.ov{opacity:1}
 .spark{position:fixed;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;pointer-events:none;z-index:40;background:var(--m-acc,var(--accent,#5CB8FF));box-shadow:0 0 8px var(--m-acc,var(--accent,#5CB8FF));animation:spark .75s ease-out forwards}
 @keyframes spark{from{opacity:.9;transform:translate(0,0) scale(1)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
