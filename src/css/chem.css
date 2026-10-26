@@ -489,3 +489,7 @@ canvas.drag{touch-action:none}
   input[type=checkbox]{width:22px;height:22px}
   .tag,.coach b,.steps .sn,.readout span,.eqn small,.modnav a span,.fbdnotes span,.assume dt,th,.bcbadge{font-size:12px!important}
 }
+.ig-link svg{fill:#C13584}
+.ig-link:hover{border-color:#C13584;color:#C13584}
+:root[data-theme="dark"] .ig-link svg{fill:#F58EB8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ig-link svg{fill:#F58EB8}}
